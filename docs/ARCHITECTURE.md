@@ -1,0 +1,130 @@
+# Architecture
+
+A three-tier modular monolith, sized for one person on a home network.
+
+| Tier | Component | Responsibility |
+|---|---|---|
+| Presentation | `apps/web` (React + Vite) | Screens, localization (en/he, LTR/RTL), form validation, calls `/api` |
+| Application | `apps/api` (Hono on Node) | REST API, Zod validation, plant/activity/photo logic, catalog lookup |
+| Persistence | SQLite file, photo files, catalog JSON | User data (read-write) and species reference data (read-only) |
+
+`packages/shared` holds the Zod schemas and TypeScript types both apps use: the species file format,
+plant/activity input, and response DTOs. It's consumed as TypeScript source (no build step); Vite and
+`tsx` compile it on the fly.
+
+## Key decisions
+
+**Two containers, embedded database.** `web` runs the Vite dev server (port 5173, all interfaces);
+`api` runs Hono (port 3000 inside the Compose network, published on `127.0.0.1:3001` only). SQLite runs
+inside the API process; there's no database container.
+
+**Same-origin API through a proxy.** The browser only ever calls `/api/...` on the page's own origin;
+Vite proxies to `http://api:3000` by Compose service name. No CORS, and phones never need to resolve
+Docker hostnames.
+
+**Data on host bind mounts.** `./storage` (database, photos, backups) and `./species-catalog`
+(read-only) are host folders, so `docker compose down`, rebuilds and image upgrades never touch data.
+
+**Species catalog is JSON, not SQLite.** Species data is reference content maintained by editing and
+committing files. The API loads all files at startup, validates every one with the shared Zod schema,
+rejects duplicates and id/filename mismatches, and keeps an in-memory index. `plants.species_id` holds a
+catalog id; it isn't a foreign key, and the service layer checks it against the catalog on write. A plant
+whose species later disappears from the catalog still loads, and the UI says the guide is missing.
+
+**Bilingual responses, client-side language choice.** `GET /api/species/:id` returns both `en` and `he`
+content and the client renders the active language. Switching language never refetches, and the API stays
+free of locale logic. The species list is small enough to return both languages' names too.
+
+**Derived, not duplicated, care dates.** "Last watered" and "last repotted" are computed from the
+`activities` table with a correlated `max(performed_at)` in the list query, so they can't drift out of
+sync with the history.
+
+**Photos.** Uploads (multipart, size-limited by `MAX_UPLOAD_MB`) are decoded and re-encoded by `sharp`:
+EXIF rotation applied, longest edge ≤ 2048 px, JPEG quality 82, metadata stripped. Files are stored as
+`photos/<plantId>/<photoId>.jpg` using server-generated UUIDs. The storage layer re-validates every key
+against that pattern before touching the filesystem. HEIC is detected and rejected with a clear message.
+Ordering for consistency:
+- Upload writes the file first (atomically, via temp file + rename), then inserts the row. If the insert
+  fails, the file is removed.
+- Photo delete removes the row first, then the file. A leftover file is harmless and is logged.
+- Plant delete relies on `ON DELETE CASCADE` for activities and photo rows, then removes the plant's
+  photo folder.
+
+**Backups use SQLite's online backup API** (`better-sqlite3`'s `db.backup()`), so snapshots are
+consistent while the app is writing. Restore requires the API to be stopped, and first saves the current
+data as a `pre-restore-*` backup.
+
+**Hot reload in Docker on Windows.** Windows-host file changes don't produce inotify events in Linux
+containers, so both `tsx watch` (`CHOKIDAR_USEPOLLING`) and Vite (`server.watch.usePolling`) poll. Only
+source folders are bind-mounted, so the container's Linux `node_modules` (with native SQLite and sharp
+binaries) are never shadowed by the host's Windows ones.
+
+## Backend layout (`apps/api/src`)
+
+| Folder | Contents |
+|---|---|
+| `routes/` | Hono routers: `species`, `plants` (+ activities), `photos`. Parse input, call services, shape responses. |
+| `services/` | `plants` (species checks, create with initial history, cascade delete), `photos` (upload/cover/delete), `images` (sharp pipeline). |
+| `repositories/` | Drizzle queries per table; plant list query derives last watering/repotting and joins the cover photo. |
+| `db/` | Drizzle schema and `openDatabase()` (pragmas + migrations). |
+| `catalog/` | Catalog loader and in-memory index. |
+| `storage/` | Photo file store (safe paths, atomic writes) and backup/restore. |
+| `middleware/` | `ApiError`, Zod validation helper, JSON error handler. |
+| `scripts/` | `validate-catalog`, `backup`, `restore` CLIs. |
+
+`createApp(deps)` builds the whole app from injected dependencies (catalog, db, photos dir), which is what
+the integration tests use with an in-memory database.
+
+### Error format
+
+Every error response is JSON:
+
+```json
+{ "error": { "code": "validation_error", "message": "Invalid request: nickname: is required", "details": [{ "path": "nickname", "message": "is required" }] } }
+```
+
+Codes: `validation_error`, `invalid_json`, `invalid_form`, `unknown_species`, `not_found`,
+`unsupported_image_format` (415), `payload_too_large` (413), `internal_error` (500).
+
+### REST endpoints
+
+| Method & path | Purpose |
+|---|---|
+| `GET /api/health` | Liveness and catalog size |
+| `GET /api/species` | Catalog summaries (both languages' names) |
+| `GET /api/species/:id` | Full bilingual species entry |
+| `GET /api/plants?q=&location=&condition=` | List (newest first); `q` searches nickname, custom species, location, notes and catalog species names in both languages |
+| `GET /api/plants/locations` | Distinct locations for the filter |
+| `POST /api/plants` | Create; optional `initialActivities` for known past care |
+| `GET/PATCH/DELETE /api/plants/:id` | Read / partial update (null clears a field) / delete with cascade |
+| `GET/POST /api/plants/:id/activities` | Care history (newest first) / add (Watered Today = `watering` now) |
+| `DELETE /api/plants/:id/activities/:activityId` | Remove a history entry |
+| `GET/POST /api/plants/:id/photos` | List / upload (`multipart/form-data`, field `photo`, optional `isCover`) |
+| `PATCH /api/photos/:id` | `{ "isCover": true }` makes it the cover |
+| `DELETE /api/photos/:id` | Delete record and file |
+| `GET /api/photos/:id/file` | The JPEG (immutable cache headers) |
+
+## Frontend layout (`apps/web/src`)
+
+| Folder | Contents |
+|---|---|
+| `pages/` | Collection (Screen A), Plant details (Screen B), Add/Edit form, Species list/detail, Settings, 404 |
+| `components/` | App shell + bottom nav, language switch, plant card, care guide, timeline, photo gallery, species picker, dialogs, toast |
+| `api/` | Typed `fetch` wrapper and endpoint functions |
+| `hooks/` | `useAsync` (load/reload with race protection), `useSpeciesCatalog` (cached, localized names) |
+| `i18n/` | i18next setup, `en.json`, `he.json` |
+| `lib/` | Date/number formatting (Intl), error-message mapping |
+
+State is plain React state plus URL search params (collection filters), so Back restores them. No global
+store.
+
+**RTL.** The `<html>` `dir`/`lang` attributes follow the language. Layout uses logical utilities
+(`ps-`, `start-`, `text-end`, …) so one set of styles serves both directions. Directional icons flip
+with `rtl:` variants. User-entered and Latin text is isolated with `<bdi>` or `dir="auto"` so mixed
+Hebrew/English renders correctly.
+
+## Not in the MVP, but not blocked
+
+AI features would be a new API service module that reads plant records, activities and catalog data
+through the existing repositories. Authentication would be a Hono middleware in front of `/api`. Neither
+needs schema changes now, so none were made.
