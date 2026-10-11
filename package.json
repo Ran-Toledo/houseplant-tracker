@@ -1,0 +1,19 @@
+{
+  "name": "houseplant-tracker",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "packages/shared",
+    "apps/api",
+    "apps/web"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "test": "npm run test --workspaces --if-present",
+    "validate:catalog": "npm run validate:catalog -w apps/api",
+    "check": "npm run typecheck && npm run validate:catalog && npm test"
+  }
+}

@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/><meta name="color-scheme" content="light"/><title>My Plants — Houseplant Tracker</title>
+<!-- Self-contained, offline-ready UI mockup for project documentation. No backend, no AI calls, no external CSS or images. -->
+<style>
+:root { color-scheme: light; --forest:#234b35; --forest2:#356b4a; --ink:#253b2c; --muted:#7b897f; --panel:#fffdfa; --cream:#f8f8f1; --sage:#eaf0e6; --border:#e5ebe2; --accent:#e7f4e8; --shadow:0 18px 65px rgba(29,63,38,.12); }
+* {box-sizing:border-box}
+html {background:#edf1e8; scroll-behavior:smooth}
+body {margin:0; font-family:Inter,"Segoe UI","Arial","Noto Sans Hebrew",sans-serif; color:var(--ink); line-height:1.45; -webkit-font-smoothing:antialiased}
+button,input,a {font:inherit}
+button {cursor:pointer}
+a {color:inherit; text-decoration:none}
+.svg-defs {position:absolute; width:0; height:0; overflow:hidden}
+.icon {width:20px;height:20px;stroke:currentColor;stroke-width:1.75;fill:none;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+.icon.sm {width:15px;height:15px}.icon.lg {width:23px;height:23px}.icon.xl{width:27px;height:27px}
+:focus-visible {outline:3px solid #68b885;outline-offset:3px}
+.demo-stage {max-width:470px; margin:32px auto 46px; min-height:825px; background:var(--panel); box-shadow:var(--shadow); border:1px solid rgba(132,159,132,.25); border-radius:30px; overflow:hidden; position:relative}
+.content {padding:30px 25px 22px}
+.topbar {display:flex;align-items:center;justify-content:space-between; gap:15px;margin-bottom:29px}
+.brand {display:flex;align-items:center;gap:10px;min-width:0}
+.brand-mark {width:35px;height:35px;background:var(--forest);color:white;border-radius:12px;display:grid;place-items:center}
+.brand-text{font-weight:800;letter-spacing:-.03em;font-size:17px}
+.locale {display:flex;align-items:center;padding:3px;gap:3px;background:#f0f2ec;border-radius:999px;border:1px solid #e7ece3;flex-shrink:0}
+.locale button {border:0;background:transparent;color:#758378;font-size:12px;font-weight:800;border-radius:999px;padding:7px 11px;transition:.2s}
+.locale button.active {background:white;color:var(--forest);box-shadow:0 1px 5px rgba(27,65,35,.13)}
+.eyebrow{color:var(--forest2);text-transform:uppercase;font-size:10px;font-weight:850;letter-spacing:.16em;margin:0 0 7px}
+h1,h2,h3,p {margin:0} h1{font-size:37px;line-height:1.08;font-weight:840;letter-spacing:-.055em}h2{font-size:20px;line-height:1.25;letter-spacing:-.03em}h3{font-size:15px}
+.subtitle{margin-top:10px;color:var(--muted);font-size:13px}
+.header-row {display:flex;justify-content:space-between;align-items:center;gap:10px}
+.count-pill{padding:8px 11px;border:1px solid #dde8dc;background:#eaf4e7;color:var(--forest2);font-weight:800;border-radius:20px;font-size:11px;white-space:nowrap}
+.navbar{padding:11px 30px max(13px,env(safe-area-inset-bottom));background:#ffffffee;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-around;gap:12px;position:sticky;bottom:0;z-index:3;backdrop-filter:blur(12px)}
+.nav-link{color:#89978c;display:flex;flex-direction:column;align-items:center;gap:3px;min-width:60px;padding:3px 6px;border:0;background:transparent;font-size:10px;font-weight:800}
+.nav-link.active{color:var(--forest2)}.nav-link .icon{width:21px;height:21px}
+.nav-link.disabled{opacity:.65}
+.design-footnote{padding:16px 25px 19px; font-size:10px; line-height:1.55; color:#91a094; background:#f9faf6;border-top:1px dashed var(--border)}
+.toast{position:fixed;inset:auto 15px 25px;z-index:10;margin:auto;max-width:360px;text-align:center;padding:12px 17px;border-radius:12px;background:#214f38;color:white;font-size:13px;box-shadow:0 10px 35px #122a1c3c;opacity:0;pointer-events:none;transform:translateY(10px);transition:opacity .2s,transform .2s}.toast.visible{opacity:1;transform:translateY(0)}
+html[dir=rtl] .icon.dir-arrow{transform:rotate(180deg)}
+html[dir=rtl] h1, html[dir=rtl] h2 {letter-spacing:normal}
+html[dir=rtl] .eyebrow{letter-spacing:0}
+@media(max-width:600px){html{background:var(--panel)}.demo-stage{width:100%;max-width:none;margin:0;min-height:100dvh;box-shadow:none;border:0;border-radius:0}.content{padding:22px 19px 28px}.topbar{margin-bottom:25px}.design-footnote{padding-inline:19px}}
+
+.collection-head{margin-bottom:24px}
+.search-row{display:flex;align-items:center;gap:11px;background:#f5f7f2;border:1px solid var(--border);border-radius:14px;padding:13px 14px;color:#829387;margin:0 0 17px}
+.search-row input{outline:none;width:100%;border:0;background:transparent;color:var(--ink);font-size:13px;min-width:0}
+.search-row:focus-within{border-color:#83b998;background:#fff}
+.filter-strip{display:flex;gap:8px;overflow:auto;scrollbar-width:none;padding-bottom:3px;margin-bottom:24px}.filter-strip::-webkit-scrollbar{display:none}
+.chip{background:#fff;color:#657869;border:1px solid #e1e9e0;white-space:nowrap;padding:8px 13px;font-size:11px;font-weight:750;border-radius:999px}
+.chip.selected{background:var(--forest);color:#fff;border-color:var(--forest)}
+.section-head{display:flex;align-items:center;justify-content:space-between;margin:0 0 13px}.section-head h2{font-size:17px}.sort{display:flex;align-items:center;gap:4px;color:var(--muted);font-size:11px;font-weight:750}
+.plant-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
+.plant-card[hidden]{display:none}.plant-card{border:1px solid #e7eae0;border-radius:19px;overflow:hidden;background:white;min-width:0;box-shadow:0 3px 14px rgba(39,64,41,.045);transition:transform .16s,box-shadow .16s;display:block}
+.plant-card:hover{transform:translateY(-3px);box-shadow:0 10px 25px #25402c1b}
+.card-photo{aspect-ratio:1.06;position:relative;overflow:hidden}.card-photo svg{width:100%;height:100%;display:block}
+.status{position:absolute;top:10px;inset-inline-start:10px;font-size:9px;font-weight:800;display:flex;align-items:center;gap:5px;background:#fffefaed;border:1px solid #ffffffb5;padding:5px 8px;border-radius:100px;color:#326449;backdrop-filter:blur(8px)}.status .dot{width:6px;height:6px;border-radius:50%;background:#59a977}.status.neutral .dot{background:#bf9b55}.status.neutral{color:#8b7543}
+.card-meta{padding:13px 12px 14px}.card-title{font-weight:850;letter-spacing:-.025em;font-size:14px;margin-bottom:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.scientific{font-size:10px;font-style:italic;color:#92a094;margin-bottom:10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.card-location{display:flex;align-items:center;gap:4px;color:#718578;font-size:10px;margin-bottom:8px}.card-bottom{padding-top:9px;border-top:1px solid #edf0e9;display:flex;align-items:center;gap:5px;color:#4b745b;font-size:10px;font-weight:800}
+.add-card{min-height:253px;border-radius:19px;border:1.5px dashed #c7d6ca;background:#f5f9f3;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:11px;color:#356e4d}.add-card:hover{background:#edf5ea}.add-circle{width:46px;height:46px;border-radius:50%;background:#e1efdf;display:grid;place-items:center}.add-card strong{font-size:13px}.add-card small{font-size:10px;color:#88a08d}
+.empty-search{display:none;border:1px dashed #d3dfd3;border-radius:14px;color:#788b7c;padding:24px;text-align:center;margin-top:12px;font-size:12px}
+html[dir=rtl] .card-title{letter-spacing:0}
+@media(max-width:390px){.plant-grid{gap:10px}.content{padding-inline:16px}.card-meta{padding:11px 10px 12px}.add-card{min-height:225px}}
+</style></head><body>
+<svg class="svg-defs" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+ <symbol id="icon-leaf" viewBox="0 0 24 24"><path d="M20 4c-9-.2-15 3.7-15 11a5 5 0 0 0 5 5c7.3 0 11.2-6 10-16Z"/><path d="M5 20c1.7-5.7 5.8-9.9 11.8-12.5"/></symbol>
+ <symbol id="icon-search" viewBox="0 0 24 24"><circle cx="10.8" cy="10.8" r="7"/><path d="m16 16 5 5"/></symbol>
+ <symbol id="icon-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+ <symbol id="icon-droplet" viewBox="0 0 24 24"><path d="M12 2s-7 8.2-7 13a7 7 0 0 0 14 0C19 10.2 12 2 12 2Z"/></symbol>
+ <symbol id="icon-location" viewBox="0 0 24 24"><path d="M20 10c0 5.3-8 11.6-8 11.6S4 15.3 4 10a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></symbol>
+ <symbol id="icon-home" viewBox="0 0 24 24"><path d="m3 10 9-7 9 7v10H3V10Z"/><path d="M9 20v-7h6v7"/></symbol>
+ <symbol id="icon-book" viewBox="0 0 24 24"><path d="M12 5C9 3 5 3 2.5 4.1V19c3-1 6.8-.8 9.5 1.5 2.7-2.3 6.5-2.5 9.5-1.5V4.1C19 3 15 3 12 5Z"/><path d="M12 5v15.5"/></symbol>
+ <symbol id="icon-settings" viewBox="0 0 24 24"><path d="M4 7h16M4 17h16"/><circle cx="9" cy="7" r="2" fill="var(--panel)"/><circle cx="16" cy="17" r="2" fill="var(--panel)"/></symbol>
+ <symbol id="icon-chevron" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></symbol>
+ <symbol id="icon-back" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></symbol>
+ <symbol id="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/></symbol>
+ <symbol id="icon-thermometer" viewBox="0 0 24 24"><path d="M14 14.8V5a3 3 0 0 0-6 0v9.8a5 5 0 1 0 6 0Z"/><path d="M11 9v9"/></symbol>
+ <symbol id="icon-flower" viewBox="0 0 24 24"><path d="M12 12c-3-1-5-6-2-8 2-1.3 4 1 4 4 3-3 6-2 6 1 0 2.5-3 4-6 4 3 2 3 6 0 7-3 1-4-2-3.5-5-3 2-6 .5-6-2 0-3 3.2-4.1 7.5-1Z"/><path d="M12 12v10"/></symbol>
+ <symbol id="icon-check" viewBox="0 0 24 24"><path d="m5 12 4.5 4.5L19 7"/></symbol>
+ <symbol id="icon-edit" viewBox="0 0 24 24"><path d="M13 6 18 11M3 21l4.6-.8L20 7.8a2.7 2.7 0 0 0-3.8-3.8L3.8 16.4 3 21Z"/></symbol>
+ <symbol id="icon-calendar" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M7 3v4M17 3v4M3 10h18"/></symbol>
+ <symbol id="icon-sparkle" viewBox="0 0 24 24"><path d="m12 2 2.5 7.5L22 12l-7.5 2.5L12 22l-2.5-7.5L2 12l7.5-2.5L12 2Z"/></symbol>
+ <symbol id="icon-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 11v6M12 7h.01"/></symbol>
+</svg>
+<div class="demo-stage" id="app">
+  <main class="content">
+    <header class="topbar">
+      <div class="brand"><span class="brand-mark"><svg class="icon lg"  aria-hidden="true"><use href="#icon-leaf"/></svg></span><span class="brand-text">leaflog<span style="color:#82a78d">.</span></span></div>
+      <div class="locale" role="group" aria-label="Language"><button type="button" data-language="en" class="active" aria-pressed="true">EN</button><button type="button" data-language="he" aria-pressed="false">עברית</button></div>
+    </header>
+    <section class="collection-head">
+      <p class="eyebrow" data-i18n="eyebrow">YOUR LITTLE JUNGLE</p>
+      <div class="header-row"><h1 data-i18n="title">My Plants</h1><span class="count-pill" data-i18n="plantCount">3 plants</span></div>
+      <p class="subtitle" data-i18n="subtitle">A happier home, one leaf at a time.</p>
+    </section>
+    <label class="search-row" for="search"><svg class="icon "  aria-hidden="true"><use href="#icon-search"/></svg><input id="search" type="search" data-i18n-placeholder="search" data-i18n-aria="searchAria" placeholder="Search plants or species..." autocomplete="off"/></label>
+    <div class="filter-strip" aria-label="Plant filters"><button class="chip selected" type="button" data-filter="all" data-i18n="all">All plants</button><button class="chip" type="button" data-filter="healthy" data-i18n="healthyFilter">Healthy</button><button class="chip" type="button" data-filter="attention" data-i18n="attentionFilter">Needs attention</button></div>
+    <div class="section-head"><h2 data-i18n="collection">My collection</h2><div class="sort"><svg class="icon sm"  aria-hidden="true"><use href="#icon-calendar"/></svg><span data-i18n="sort">Recently added</span></div></div>
+    <section class="plant-grid" data-i18n-aria="plantGallery" aria-label="Plant collection">
+      <a href="screen-b-plant-details.html" class="plant-card" data-plant="monstera" data-condition="healthy" data-search="monstera monstera deliciosa living room סלון מונסטרה" aria-label="View Monstera details">
+        <div class="card-photo"><svg viewBox="0 0 580 420" role="img" aria-label="Illustration of a Monstera plant in a ceramic pot" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<linearGradient id="mon-wall" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#dbe8ce"/><stop offset="1" stop-color="#abcbb9"/></linearGradient>
+<linearGradient id="mon-leaf" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#43845c"/><stop offset=".55" stop-color="#296e51"/><stop offset="1" stop-color="#195a43"/></linearGradient>
+<linearGradient id="mon-pot" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fdf8e9"/><stop offset="1" stop-color="#d7d7bc"/></linearGradient>
+<g id="mon-leaf-shape"><path d="M0 12 C-47-2-84-45-63-87 C-42-130 9-132 40-92 C68-56 49-3 0 12Z" fill="url(#mon-leaf)"/><path d="M-2 8C-7-37-10-75 1-108 M-7-31l-35-33 M-5-44l34-37" stroke="#8ec095" stroke-width="2" stroke-linecap="round" opacity=".67" fill="none"/><ellipse cx="-31" cy="-65" rx="9" ry="17" transform="rotate(-35 -31 -65)" fill="#c7dfca"/><ellipse cx="22" cy="-69" rx="7" ry="14" transform="rotate(35 22 -69)" fill="#c7dfca"/><ellipse cx="-8" cy="-100" rx="5" ry="9" fill="#c7dfca"/></g>
+</defs>
+<rect width="580" height="420" fill="url(#mon-wall)"/>
+<path d="M80 420V105a210 210 0 0 1 420 0v315" fill="#edf2d9" opacity=".4"/>
+<circle cx="465" cy="85" r="56" fill="#f5eed1" opacity=".55"/>
+<path d="M0 345 H580 V420 H0Z" fill="#9cad8b" opacity=".25"/>
+<ellipse cx="300" cy="369" rx="130" ry="17" fill="#325e40" opacity=".16"/>
+<g stroke="#397550" stroke-width="8" stroke-linecap="round" fill="none">
+<path d="M290 308 C271 220 230 180 167 160"/><path d="M297 307C309 234 350 193 405 152"/><path d="M294 306 C277 205 279 161 285 106"/><path d="M298 307C315 239 345 228 357 205"/><path d="M291 305C270 249 216 244 194 230"/>
+</g>
+<use href="#mon-leaf-shape" transform="translate(177 170) rotate(-37) scale(1.08)"/>
+<use href="#mon-leaf-shape" transform="translate(407 164) rotate(48) scale(1.06)"/>
+<use href="#mon-leaf-shape" transform="translate(287 119) rotate(4) scale(1.0)"/>
+<use href="#mon-leaf-shape" transform="translate(362 207) rotate(39) scale(.75)"/>
+<use href="#mon-leaf-shape" transform="translate(207 236) rotate(-60) scale(.7)"/>
+<ellipse cx="294" cy="313" rx="84" ry="18" fill="#adac93"/>
+<path d="M215 311H373L352 380Q294 402 236 380Z" fill="url(#mon-pot)"/>
+<path d="M229 332h129l-7 45q-58 16-113 0Z" fill="#ebe8d5" opacity=".65"/>
+<rect x="209" y="300" width="168" height="24" rx="12" fill="#f9f6e5"/>
+<ellipse cx="293" cy="302" rx="77" ry="10" fill="#6b7450"/>
+<path d="M221 304h145" stroke="#f4efd9" stroke-width="3"/>
+</svg><span class="status"><span class="dot"></span><span data-i18n="healthy">Healthy</span></span></div>
+        <div class="card-meta"><div class="card-title" data-i18n="monstera">My Monstera</div><div class="scientific" dir="ltr">Monstera deliciosa</div><div class="card-location"><svg class="icon sm"  aria-hidden="true"><use href="#icon-location"/></svg><span data-i18n="living">Living room</span></div><div class="card-bottom"><svg class="icon sm"  aria-hidden="true"><use href="#icon-droplet"/></svg><span data-i18n="water3">Watered 3 days ago</span></div></div>
+      </a>
+      <div class="plant-card" data-plant="pothos" data-condition="attention" data-search="golden pothos epipremnum aureum bedroom פוטוס חדר שינה">
+        <div class="card-photo"><svg viewBox="0 0 580 420" role="img" aria-label="Illustration of a trailing Pothos plant" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="pot-wall" x2="1" y2="1"><stop stop-color="#e7e4c9"/><stop offset="1" stop-color="#c1d9bf"/></linearGradient><linearGradient id="pot-leaf" x2="1" y2="1"><stop stop-color="#b8cf69"/><stop offset="1" stop-color="#4d904c"/></linearGradient><g id="pot-leaf-shape"><path d="M0 0C-38-37-69-8-51 22C-30 49-5 60 0 65C5 60 30 49 51 22C69-8 38-37 0 0Z" fill="url(#pot-leaf)"/><path d="M0 4v52M0 27l-25-18M0 36l29-20" stroke="#e1e9a5" opacity=".58" stroke-width="3" fill="none"/></g></defs>
+<rect width="580" height="420" fill="url(#pot-wall)"/><circle cx="100" cy="90" r="90" fill="#fff5d4" opacity=".32"/><path d="M0 341h580v79H0" fill="#9cae8e" opacity=".2"/>
+<g fill="none" stroke="#5b9855" stroke-width="8" stroke-linecap="round"><path d="M286 298C215 214 165 165 116 188C51 219 88 282 49 322"/><path d="M290 298C355 213 407 174 456 192C515 216 479 300 531 339"/><path d="M289 294C279 218 264 176 232 141"/><path d="M289 294C327 214 353 162 361 105"/></g>
+<use href="#pot-leaf-shape" transform="translate(173 172) rotate(-55) scale(.95)"/><use href="#pot-leaf-shape" transform="translate(112 229) rotate(-100) scale(.77)"/><use href="#pot-leaf-shape" transform="translate(70 318) rotate(-30) scale(.73)"/><use href="#pot-leaf-shape" transform="translate(414 159) rotate(51) scale(.9)"/><use href="#pot-leaf-shape" transform="translate(479 241) rotate(95) scale(.83)"/><use href="#pot-leaf-shape" transform="translate(527 326) rotate(15) scale(.68)"/><use href="#pot-leaf-shape" transform="translate(231 158) rotate(-27) scale(.95)"/><use href="#pot-leaf-shape" transform="translate(364 128) rotate(28) scale(.94)"/><use href="#pot-leaf-shape" transform="translate(298 179) rotate(10) scale(.79)"/>
+<ellipse cx="290" cy="359" rx="110" ry="16" fill="#44705a" opacity=".13"/><path d="M214 281h150l-19 99q-53 18-111 0Z" fill="#eaece3"/><rect x="208" y="277" width="162" height="24" rx="9" fill="#fbfcf5"/><ellipse cx="288" cy="279" rx="70" ry="10" fill="#596d49"/><path d="M222 307h133" stroke="#d9dfd2" stroke-width="3"/></svg><span class="status neutral"><span class="dot"></span><span data-i18n="check">Check soil</span></span></div>
+        <div class="card-meta"><div class="card-title" data-i18n="pothos">Golden Pothos</div><div class="scientific" dir="ltr">Epipremnum aureum</div><div class="card-location"><svg class="icon sm"  aria-hidden="true"><use href="#icon-location"/></svg><span data-i18n="bedroom">Bedroom</span></div><div class="card-bottom"><svg class="icon sm"  aria-hidden="true"><use href="#icon-droplet"/></svg><span data-i18n="water7">Watered 7 days ago</span></div></div>
+      </div>
+      <div class="plant-card" data-plant="snake" data-condition="healthy" data-search="snake plant dracaena trifasciata office סנסיווריה חדר עבודה">
+        <div class="card-photo"><svg viewBox="0 0 580 420" role="img" aria-label="Illustration of a snake plant" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="sn-wall" x2="1" y2="1"><stop stop-color="#dce6da"/><stop offset="1" stop-color="#bacdc0"/></linearGradient><linearGradient id="sn-pot" x2="1" y2="1"><stop stop-color="#e4bfa6"/><stop offset="1" stop-color="#bf876f"/></linearGradient></defs><rect width="580" height="420" fill="url(#sn-wall)"/><path d="M0 337h580v83H0" fill="#a3b29b" opacity=".25"/><circle cx="455" cy="90" r="72" fill="#e6edce" opacity=".6"/><ellipse cx="290" cy="368" rx="108" ry="15" fill="#4d7659" opacity=".17"/>
+<g stroke-linejoin="round">
+<path d="M283 304C251 228 238 111 250 49C289 91 310 204 307 304Z" fill="#357653" stroke="#d2c57b" stroke-width="7"/>
+<path d="M288 307C303 235 333 118 382 84C386 177 339 266 308 311Z" fill="#295e4e" stroke="#cbbf6c" stroke-width="7"/>
+<path d="M285 309C254 238 215 178 173 159C178 244 238 308 264 315Z" fill="#447c58" stroke="#d3c779" stroke-width="7"/>
+<path d="M299 312C326 237 352 213 405 182C398 269 356 318 322 326Z" fill="#4b855c" stroke="#d3c779" stroke-width="7"/>
+<path d="M287 313C277 217 273 86 300 25C326 117 322 249 304 319Z" fill="#568c65" stroke="#e3cc77" stroke-width="7"/>
+</g>
+<g fill="none" stroke="#a2c293" stroke-width="6" opacity=".75"><path d="M295 295 295 75M265 285 256 133M316 289 366 122M247 298 198 197M334 305 390 218"/></g>
+<path d="M210 299H372L353 376Q286 400 228 376Z" fill="url(#sn-pot)"/><rect x="204" y="294" width="174" height="23" rx="9" fill="#ebc9b4"/><ellipse cx="291" cy="296" rx="79" ry="9" fill="#6a6b48"/><path d="M245 345h100" stroke="#d6a58c" stroke-width="3"/></svg><span class="status"><span class="dot"></span><span data-i18n="healthy">Healthy</span></span></div>
+        <div class="card-meta"><div class="card-title" data-i18n="snake">Snake Plant</div><div class="scientific" dir="ltr">Dracaena trifasciata</div><div class="card-location"><svg class="icon sm"  aria-hidden="true"><use href="#icon-location"/></svg><span data-i18n="office">Office</span></div><div class="card-bottom"><svg class="icon sm"  aria-hidden="true"><use href="#icon-droplet"/></svg><span data-i18n="water12">Watered 12 days ago</span></div></div>
+      </div>
+      <button class="add-card" type="button" data-demo-action><span class="add-circle"><svg class="icon xl"  aria-hidden="true"><use href="#icon-plus"/></svg></span><strong data-i18n="add">Add a plant</strong><small data-i18n="addHint">Grow your collection</small></button>
+    </section>
+    <div class="empty-search" id="empty-search" data-i18n="empty">No plants match your search.</div>
+  </main>
+  <nav class="navbar" aria-label="App navigation"><a class="nav-link active" href="screen-a-my-plants.html"><svg class="icon "  aria-hidden="true"><use href="#icon-home"/></svg><span data-i18n="home">My plants</span></a><button class="nav-link disabled" type="button" data-demo-action><svg class="icon "  aria-hidden="true"><use href="#icon-book"/></svg><span data-i18n="library">Species</span></button><button class="nav-link disabled" type="button" data-demo-action><svg class="icon "  aria-hidden="true"><use href="#icon-settings"/></svg><span data-i18n="settings">Settings</span></button></nav>
+  <footer class="design-footnote" data-i18n="note">SCREEN A — Visual design reference only. Sample plants and watering dates are illustrative. Data in the implemented app comes from SQLite; species details come from static bilingual JSON.</footer>
+</div><div class="toast" role="status" aria-live="polite"></div>
+<script>const TRANSLATIONS = {"en": {"pageTitle": "My Plants — Houseplant Tracker (Screen A)", "eyebrow": "YOUR LITTLE JUNGLE", "title": "My Plants", "subtitle": "A happier home, one leaf at a time.", "plantCount": "3 plants", "search": "Search plants or species...", "all": "All plants", "healthyFilter": "Healthy", "attentionFilter": "Needs attention", "collection": "My collection", "sort": "Recently added", "healthy": "Healthy", "check": "Check soil", "monstera": "My Monstera", "pothos": "Golden Pothos", "snake": "Snake Plant", "living": "Living room", "bedroom": "Bedroom", "office": "Office", "water3": "Watered 3 days ago", "water7": "Watered 7 days ago", "water12": "Watered 12 days ago", "add": "Add a plant", "addHint": "Grow your collection", "home": "My plants", "library": "Species", "settings": "Settings", "note": "SCREEN A — Visual design reference only. Sample plants and watering dates are illustrative. Data in the implemented app comes from SQLite; species details come from static bilingual JSON.", "demoOnly": "Design preview only — no data was changed.", "empty": "No plants match your search.", "switcher": "Switch language", "searchAria": "Search plants", "plantGallery": "Plant collection"}, "he": {"pageTitle": "הצמחים שלי — מעקב עציצים (מסך A)", "eyebrow": "הג׳ונגל הקטן שלי", "title": "הצמחים שלי", "subtitle": "בית ירוק ושמח, עלה אחד בכל פעם.", "plantCount": "3 צמחים", "search": "חיפוש צמח או מין...", "all": "כל הצמחים", "healthyFilter": "בריאים", "attentionFilter": "דורשים בדיקה", "collection": "האוסף שלי", "sort": "נוספו לאחרונה", "healthy": "בריא", "check": "לבדוק אדמה", "monstera": "המונסטרה שלי", "pothos": "פוטוס זהוב", "snake": "סנסיווריה", "living": "סלון", "bedroom": "חדר שינה", "office": "חדר עבודה", "water3": "הושקה לפני 3 ימים", "water7": "הושקה לפני 7 ימים", "water12": "הושקה לפני 12 ימים", "add": "הוספת צמח", "addHint": "להגדיל את האוסף", "home": "הצמחים שלי", "library": "מיני צמחים", "settings": "הגדרות", "note": "מסך A — הדמיית עיצוב בלבד. הצמחים ותאריכי ההשקיה הם נתוני דוגמה. באפליקציה האמיתית הנתונים יגיעו מ-SQLite, ומידע על המינים מקובצי JSON דו־לשוניים.", "demoOnly": "זוהי הדמיית עיצוב — לא בוצע שינוי בנתונים.", "empty": "לא נמצאו צמחים התואמים לחיפוש.", "switcher": "החלפת שפה", "searchAria": "חיפוש צמחים", "plantGallery": "אוסף צמחים"}};</script><script>
+(() => {
+  const dict = TRANSLATIONS;
+  const storageKey = 'houseplant-design-language';
+  let locale = 'en';
+  try { locale = localStorage.getItem(storageKey) === 'he' ? 'he' : 'en'; } catch (_) {}
+  function applyLang(lang) {
+    locale = lang;
+    document.documentElement.lang = lang;
+    document.documentElement.dir = lang === 'he' ? 'rtl' : 'ltr';
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const val = dict[lang][el.dataset.i18n];
+      if (val !== undefined) el.textContent = val;
+    });
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+      el.placeholder = dict[lang][el.dataset.i18nPlaceholder] || '';
+    });
+    document.querySelectorAll('[data-i18n-aria]').forEach(el => {
+      el.setAttribute('aria-label', dict[lang][el.dataset.i18nAria] || '');
+    });
+    document.querySelectorAll('[data-language]').forEach(el => {
+      const selected = el.dataset.language === lang;
+      el.classList.toggle('active', selected);
+      el.setAttribute('aria-pressed', String(selected));
+    });
+    document.title = dict[lang].pageTitle;
+    try { localStorage.setItem(storageKey, lang); } catch (_) {}
+    if(typeof window.screenSpecificUpdate === 'function') window.screenSpecificUpdate(lang);
+  }
+  window.getMockupLocale = () => locale;
+  window.mockupToast = () => {
+    const toast = document.querySelector('.toast');
+    if(!toast) return;
+    toast.textContent = dict[locale].demoOnly;
+    toast.classList.add('visible');
+    clearTimeout(window.__toastTimeout);
+    window.__toastTimeout = setTimeout(() => toast.classList.remove('visible'), 2700);
+  };
+  document.querySelectorAll('[data-language]').forEach(b => b.addEventListener('click', () => applyLang(b.dataset.language)));
+  document.querySelectorAll('[data-demo-action]').forEach(b => b.addEventListener('click', window.mockupToast));
+  applyLang(locale);
+})();
+</script>
+<script>
+(() => {
+  const input = document.querySelector('#search');
+  const filters = [...document.querySelectorAll('[data-filter]')];
+  const cards = [...document.querySelectorAll('[data-plant]')];
+  let active = 'all';
+  function update() {
+    const q = input.value.toLocaleLowerCase().trim(); let shown = 0;
+    for (const card of cards) {
+      const matchesText = card.dataset.search.toLocaleLowerCase().includes(q);
+      const matchesFilter = active === 'all' || card.dataset.condition === active;
+      card.hidden = !(matchesText && matchesFilter);
+      if (!card.hidden) shown++;
+    }
+    document.querySelector('#empty-search').style.display = shown ? 'none' : 'block';
+  }
+  input.addEventListener('input', update);
+  for (const button of filters) button.addEventListener('click', () => {
+    active = button.dataset.filter;
+    filters.forEach(b => b.classList.toggle('selected', b === button));
+    update();
+  });
+})();
+</script>
+</body></html>

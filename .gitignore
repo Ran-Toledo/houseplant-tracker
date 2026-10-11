@@ -1,0 +1,15 @@
+node_modules/
+dist/
+*.log
+.env
+.env.*
+!.env.example
+
+# Personal data: SQLite database, uploaded photos and backups. Never commit.
+/storage/
+/backups/
+
+.vite/
+coverage/
+.DS_Store
+Thumbs.db
