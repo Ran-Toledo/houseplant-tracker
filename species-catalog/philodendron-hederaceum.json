@@ -1,0 +1,208 @@
+{
+  "schemaVersion": 1,
+  "id": "philodendron-hederaceum",
+  "scientificName": "Philodendron hederaceum",
+  "family": "Araceae",
+  "temperatureCelsius": { "idealMin": 18, "idealMax": 29, "minimum": 13 },
+  "toxicity": { "cats": "toxic", "dogs": "toxic", "humans": "mildly-toxic" },
+  "image": {
+    "file": "philodendron-hederaceum.jpg",
+    "author": "KENPEI",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Philodendron_scandens_subsp_oxycardium2.jpg"
+  },
+  "localizations": {
+    "en": {
+      "commonName": "Heartleaf Philodendron",
+      "alternateNames": ["Sweetheart Plant", "Philodendron scandens", "Philodendron cordatum"],
+      "description": "A fast-growing, forgiving vine from Central and South America with soft, heart-shaped leaves. It trails beautifully from shelves and hanging pots or climbs a support, and copes well with lower light.",
+      "appearance": "Thin, flexible stems with glossy, heart-shaped leaves with pointed tips, usually plain green; cultivars such as 'Brasil' are striped with lime and yellow. New leaves may emerge bronze-tinted.",
+      "care": {
+        "light": {
+          "summary": "Medium, indirect light; tolerates low light",
+          "details": "Prefers medium, indirect light but tolerates low light and can survive long periods in very dim rooms.",
+          "directSun": "Avoid strong direct sun, which yellows and scorches the soft leaves.",
+          "lowLight": "Tolerates low light, but vines become sparse, with small leaves far apart.",
+          "warningSigns": ["Small leaves with long gaps between them", "Pale, yellowing leaves in harsh sun", "Variegated cultivars reverting to green"]
+        },
+        "watering": {
+          "summary": "Keep slightly moist; less in winter",
+          "details": "Keep the soil slightly moist during the growing season, letting the surface dry between waterings. Overly wet soil causes root rot.",
+          "howToCheck": "Water when the top 2–3 cm of soil are dry. Slightly droopy leaves also indicate it's time.",
+          "seasonal": "Water less in winter, when the plant grows slowly.",
+          "overwateringSigns": ["Yellow leaves, often several at once", "Soggy soil", "Black, soft stems at the soil line"],
+          "underwateringSigns": ["Limp, curled leaves", "Brown, dry leaf edges", "Very dry, compacted soil"]
+        },
+        "temperature": {
+          "summary": "18–29°C",
+          "details": "Grows best at average indoor temperatures.",
+          "extremes": "Keep above about 13°C and away from cold drafts and heaters."
+        },
+        "humidity": {
+          "summary": "Medium; tolerates dry air",
+          "details": "Prefers medium humidity but tolerates dry indoor air."
+        },
+        "soil": {
+          "summary": "Loose, well-draining potting mix",
+          "details": "Use a light, peat-free or standard houseplant mix with added drainage material.",
+          "drainage": "Good drainage is important; use a pot with drainage holes.",
+          "additives": ["Perlite", "Orchid bark"]
+        },
+        "fertilizing": {
+          "summary": "Monthly in the growing season",
+          "details": "Feed with a balanced liquid fertilizer at half strength during active growth.",
+          "seasonal": "Feed in spring and summer; pause in winter."
+        },
+        "repotting": {
+          "summary": "Every 1–2 years",
+          "details": "Repot in spring when roots fill the pot.",
+          "rootBoundSigns": ["Roots growing from drainage holes", "Soil drying out very quickly"],
+          "potSizing": "Move up one size."
+        },
+        "pruning": {
+          "summary": "Pinch and trim to keep it full",
+          "details": "Pinch or cut vines just above a leaf to encourage branching and a bushier plant. Remove yellow leaves."
+        },
+        "propagation": {
+          "summary": "Stem cuttings",
+          "methods": [
+            {
+              "name": "Stem cutting",
+              "instructions": "Cut a section of vine with two or three nodes, remove the lowest leaf, and root in water or moist mix in bright, indirect light. Roots usually appear within a few weeks."
+            }
+          ]
+        }
+      },
+      "healthyAppearance": "Glossy, heart-shaped leaves evenly spaced along green, flexible vines; steady new growth in spring and summer.",
+      "warningSigns": ["Several yellow leaves", "Brown leaf spots", "Leggy vines with tiny leaves", "Sticky residue or webbing"],
+      "commonProblems": [
+        {
+          "problem": "Yellowing leaves",
+          "possibleCauses": ["Overwatering", "Poor drainage", "Too much direct sun"],
+          "whatToDo": "Let the soil dry more between waterings, check drainage, and move out of harsh sun."
+        },
+        {
+          "problem": "Leggy growth",
+          "possibleCauses": ["Low light"],
+          "whatToDo": "Move to brighter, indirect light and trim long vines to encourage bushier growth."
+        },
+        {
+          "problem": "Aphids, spider mites, mealybugs or scale",
+          "possibleCauses": ["Dry air", "Pests carried in on other plants"],
+          "whatToDo": "Rinse or wipe the leaves and treat with insecticidal soap, repeating as directed."
+        }
+      ],
+      "safety": {
+        "toxicity": "Toxic to cats, dogs and horses. Insoluble calcium oxalate crystals cause mouth irritation, pain and swelling of the mouth, tongue and lips, heavy drooling, vomiting and difficulty swallowing. Mildly toxic to people (low severity); the sap can cause skin irritation.",
+        "handling": "Keep trailing stems out of reach of pets and children. Wear gloves when pruning if your skin is sensitive."
+      },
+      "additionalNotes": ["Often confused with pothos; philodendron leaves are thinner and softer, and new leaves emerge from a small sheath (cataphyll)."]
+    },
+    "he": {
+      "commonName": "פילודנדרון מטפס",
+      "alternateNames": ["פילודנדרון לבבי", "פילודנדרון סקנדנס"],
+      "description": "צמח מטפס סלחני וצומח מהר ממרכז ודרום אמריקה, עם עלים רכים בצורת לב. הוא נשפך יפה ממדפים ומעציצים תלויים או מטפס על תמיכה, ומסתדר היטב באור נמוך יחסית.",
+      "appearance": "גבעולים דקים וגמישים עם עלים מבריקים בצורת לב וקצה מחודד, בדרך כלל ירוקים אחידים; לזנים כמו 'Brasil' יש פסים בירוק ליים ובצהוב. עלים חדשים עשויים לצאת בגוון ברונזה.",
+      "care": {
+        "light": {
+          "summary": "אור עקיף בינוני; מסתדר באור נמוך",
+          "details": "מעדיף אור עקיף בינוני, אבל מסתדר באור נמוך ויכול לשרוד תקופות ארוכות בחדרים חשוכים מאוד.",
+          "directSun": "יש להימנע משמש ישירה חזקה, שגורמת לעלים הרכים להצהיב ולהיצרב.",
+          "lowLight": "מסתדר באור נמוך, אבל השלוחות נעשות דלילות, עם עלים קטנים ומרוחקים.",
+          "warningSigns": ["עלים קטנים עם רווחים ארוכים ביניהם", "עלים חיוורים ומצהיבים בשמש חזקה", "זנים מגוונים שחוזרים לירוק"]
+        },
+        "watering": {
+          "summary": "לשמור על לחות קלה; פחות בחורף",
+          "details": "בעונת הצמיחה שומרים על אדמה לחה קלות ונותנים לפני השטח להתייבש בין השקיות. אדמה רטובה מדי גורמת לריקבון שורשים.",
+          "howToCheck": "משקים כש־2–3 הסנטימטרים העליונים של האדמה יבשים. עלים מעט שמוטים הם גם סימן שהגיע הזמן.",
+          "seasonal": "בחורף, כשהצמיחה איטית, משקים פחות.",
+          "overwateringSigns": ["עלים צהובים, לרוב כמה בבת אחת", "אדמה ספוגה", "גבעולים שחורים ורכים בגובה האדמה"],
+          "underwateringSigns": ["עלים רפויים ומסולסלים", "שולי עלים חומים ויבשים", "אדמה יבשה מאוד ודחוסה"]
+        },
+        "temperature": {
+          "summary": "18–29°C",
+          "details": "גדל הכי טוב בטמפרטורה ביתית רגילה.",
+          "extremes": "יש לשמור עליו מעל כ־13°C ולהרחיק ממשבי רוח קרים ומתנורי חימום."
+        },
+        "humidity": {
+          "summary": "בינונית; מסתדר עם אוויר יבש",
+          "details": "מעדיף לחות בינונית אבל מסתדר עם אוויר ביתי יבש."
+        },
+        "soil": {
+          "summary": "תערובת שתילה קלה ומנקזת",
+          "details": "משתמשים בתערובת קלה לצמחי בית, בתוספת חומר משפר ניקוז.",
+          "drainage": "ניקוז טוב חשוב; משתמשים בעציץ עם חורי ניקוז.",
+          "additives": ["פרליט", "קליפות אורן (בארק)"]
+        },
+        "fertilizing": {
+          "summary": "פעם בחודש בעונת הצמיחה",
+          "details": "מדשנים בדשן נוזלי מאוזן בחצי ריכוז בזמן צמיחה פעילה.",
+          "seasonal": "מדשנים באביב ובקיץ; עוצרים בחורף."
+        },
+        "repotting": {
+          "summary": "כל שנה–שנתיים",
+          "details": "מעבירים לעציץ חדש באביב כשהשורשים ממלאים את העציץ.",
+          "rootBoundSigns": ["שורשים יוצאים מחורי הניקוז", "האדמה מתייבשת מהר מאוד"],
+          "potSizing": "עולים במידה אחת."
+        },
+        "pruning": {
+          "summary": "צובטים וגוזמים כדי לשמור על צמח מלא",
+          "details": "צובטים או חותכים שלוחות מעט מעל עלה כדי לעודד הסתעפות וצמח מלא יותר. מסירים עלים צהובים."
+        },
+        "propagation": {
+          "summary": "ייחורי גבעול",
+          "methods": [
+            {
+              "name": "ייחור גבעול",
+              "instructions": "חותכים קטע שלוחה עם שניים–שלושה מפרקים, מסירים את העלה התחתון ומשרישים במים או בתערובת לחה באור בהיר ועקיף. בדרך כלל השורשים מופיעים תוך כמה שבועות."
+            }
+          ]
+        }
+      },
+      "healthyAppearance": "עלים מבריקים בצורת לב במרווחים אחידים לאורך שלוחות ירוקות וגמישות; צמיחה חדשה קבועה באביב ובקיץ.",
+      "warningSigns": ["כמה עלים צהובים", "כתמים חומים על העלים", "שלוחות מתארכות עם עלים זעירים", "שאריות דביקות או קורים"],
+      "commonProblems": [
+        {
+          "problem": "עלים מצהיבים",
+          "possibleCauses": ["השקיית יתר", "ניקוז לקוי", "יותר מדי שמש ישירה"],
+          "whatToDo": "נותנים לאדמה להתייבש יותר בין השקיות, בודקים את הניקוז ומרחיקים משמש חזקה."
+        },
+        {
+          "problem": "צמיחה מתארכת",
+          "possibleCauses": ["אור נמוך"],
+          "whatToDo": "מעבירים לאור עקיף בהיר יותר וגוזמים שלוחות ארוכות כדי לעודד צמיחה מלאה."
+        },
+        {
+          "problem": "כנימות עלה, אקריות, כנימות קמחיות או כנימות מגן",
+          "possibleCauses": ["אוויר יבש", "מזיקים שהגיעו עם צמחים אחרים"],
+          "whatToDo": "שוטפים או מנגבים את העלים ומטפלים בסבון קוטל חרקים, וחוזרים על הטיפול לפי ההוראות."
+        }
+      ],
+      "safety": {
+        "toxicity": "רעיל לחתולים, לכלבים ולסוסים. גבישי סידן אוקסלט גורמים לגירוי בפה, לכאב ולנפיחות בפה, בלשון ובשפתיים, לריור חזק, להקאות ולקושי בבליעה. רעיל במידה קלה לבני אדם (חומרה נמוכה); השרף עלול לגרות את העור.",
+        "handling": "יש להרחיק את השלוחות מהישג ידם של חיות מחמד וילדים. אם העור רגיש, כדאי לגזום עם כפפות."
+      },
+      "additionalNotes": ["לעיתים קרובות מתבלבלים בינו לבין הפוטוס; עלי הפילודנדרון דקים ורכים יותר, ועלים חדשים יוצאים מתוך נדן קטן."]
+    }
+  },
+  "researchMetadata": {
+    "status": "draft",
+    "reviewedAt": null,
+    "method": "AI-assisted draft (Claude, 2026-10-11). Light, watering, humidity, propagation and toxicity statements were cross-checked against the sources listed. Not yet reviewed by a person.",
+    "sources": [
+      {
+        "title": "Philodendron hederaceum",
+        "url": "https://plants.ces.ncsu.edu/plants/philodendron-hederaceum/",
+        "publisher": "North Carolina Extension Gardener Plant Toolbox, NC State University",
+        "accessedAt": "2026-10-11"
+      },
+      {
+        "title": "Toxic and Non-toxic Plants: Heartleaf Philodendron",
+        "url": "https://www.aspca.org/pet-care/animal-poison-control/toxic-and-non-toxic-plants/heartleaf-philodendron",
+        "publisher": "ASPCA Animal Poison Control Center",
+        "accessedAt": "2026-10-11"
+      }
+    ]
+  }
+}

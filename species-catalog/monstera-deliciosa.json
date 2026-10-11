@@ -1,0 +1,220 @@
+{
+  "schemaVersion": 1,
+  "id": "monstera-deliciosa",
+  "scientificName": "Monstera deliciosa",
+  "family": "Araceae",
+  "temperatureCelsius": { "idealMin": 18, "idealMax": 29, "minimum": 12 },
+  "toxicity": { "cats": "toxic", "dogs": "toxic", "humans": "mildly-toxic" },
+  "image": {
+    "file": "monstera-deliciosa.jpg",
+    "author": "Smatu",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Monstera_deliciosa_DSC02605.jpg"
+  },
+  "localizations": {
+    "en": {
+      "commonName": "Monstera",
+      "alternateNames": ["Swiss Cheese Plant", "Split-leaf Philodendron", "Mexican Breadfruit", "Ceriman"],
+      "description": "A vigorous climbing aroid from the tropical forests of southern Mexico and Central America, grown for its large, glossy leaves that develop dramatic splits and holes as the plant matures.",
+      "appearance": "Thick stems with aerial roots and large, heart-shaped, leathery leaves. Young leaves are solid; mature leaves develop deep slits from the edge and rows of holes near the midrib. Indoors it can reach two metres or more and is often trained on a moss pole.",
+      "care": {
+        "light": {
+          "summary": "Bright, indirect light",
+          "details": "Grows best near a bright window where it receives plenty of light without hours of harsh direct sun. More light produces larger leaves with more splits; variegated forms need more light than plain green ones.",
+          "directSun": "Gentle morning sun is usually fine. Strong afternoon sun through glass can scorch the leaves.",
+          "lowLight": "Survives in medium light, but growth slows, stems stretch toward the window and new leaves stay small and unsplit.",
+          "warningSigns": [
+            "New leaves without splits or holes",
+            "Long, stretched stems leaning toward the light",
+            "Pale, bleached or brown scorched patches after direct sun"
+          ]
+        },
+        "watering": {
+          "summary": "When the top quarter of the soil is dry",
+          "details": "Water thoroughly until water runs from the drainage holes, then let the top quarter to one third of the soil dry before watering again. How often that happens depends on light, pot size, soil mix and season, so check the soil rather than following a fixed schedule.",
+          "howToCheck": "Push a finger or a wooden skewer into the soil. If the top few centimetres are dry, it is time to water. A light pot is another sign the mix has dried out.",
+          "seasonal": "Expect to water more often in spring and summer during active growth, and noticeably less in winter when growth slows.",
+          "overwateringSigns": ["Yellowing lower leaves", "Soil that stays wet for many days", "Dark, soft stems at the soil line", "Musty smell from the pot"],
+          "underwateringSigns": ["Drooping or curling leaves", "Crispy brown leaf edges", "Soil pulling away from the pot sides"]
+        },
+        "temperature": {
+          "summary": "18–29°C",
+          "details": "Comfortable at ordinary room temperatures. Growth slows in cool rooms.",
+          "extremes": "Keep away from cold drafts, open windows in winter and air-conditioning vents. Prolonged temperatures below about 12°C can damage leaves."
+        },
+        "humidity": {
+          "summary": "Medium to high",
+          "details": "Prefers humid air but adapts to typical homes. In very dry rooms, a humidifier or a tray of wet pebbles under the pot helps; new leaves may otherwise get stuck while unfurling or develop brown edges."
+        },
+        "soil": {
+          "summary": "Chunky, well-draining mix rich in organic matter",
+          "details": "Use an airy aroid mix that holds some moisture but never stays soggy.",
+          "drainage": "A pot with drainage holes is essential; do not leave the pot standing in water.",
+          "additives": ["Orchid bark", "Perlite", "Coco coir or peat-free compost"]
+        },
+        "fertilizing": {
+          "summary": "Monthly in the growing season",
+          "details": "Feed with a balanced liquid houseplant fertilizer at the label strength or weaker during active growth.",
+          "seasonal": "Feed in spring and summer; stop or greatly reduce feeding in autumn and winter."
+        },
+        "repotting": {
+          "summary": "Every 1–2 years in spring",
+          "details": "Young plants grow quickly and usually need a larger pot every year or two. Mature plants can be top-dressed with fresh mix instead.",
+          "rootBoundSigns": ["Roots growing out of the drainage holes", "Water running straight through the pot", "Roots circling the inside of the pot"],
+          "potSizing": "Move up only one size (a few centimetres wider). An oversized pot holds excess water around the roots."
+        },
+        "pruning": {
+          "summary": "Remove damaged leaves; trim to control size",
+          "details": "Cut off yellow or damaged leaves at the base of the stalk with clean shears. Long stems can be cut back just above a node in spring and the cuttings propagated. Provide a sturdy support such as a moss pole so heavy stems do not break, and wipe dust off the leaves regularly."
+        },
+        "propagation": {
+          "summary": "Stem cuttings or air layering",
+          "methods": [
+            {
+              "name": "Stem cutting",
+              "instructions": "Cut a section of stem with at least one node and, ideally, an aerial root. Root it in water or moist sphagnum moss in bright, indirect light, then pot it up once the new roots are several centimetres long."
+            },
+            {
+              "name": "Air layering",
+              "instructions": "Wrap moist sphagnum moss around a node with an aerial root while it is still attached, cover with plastic wrap, and cut below the moss once roots fill it."
+            }
+          ]
+        }
+      },
+      "healthyAppearance": "Firm, glossy, deep green leaves with clean edges; mature leaves show splits and holes; stems are sturdy and green; new leaves appear regularly in the growing season.",
+      "warningSigns": ["Several leaves yellowing at once", "Brown or black patches on leaves", "Drooping that does not recover after watering", "Sticky residue or fine webbing under leaves"],
+      "commonProblems": [
+        {
+          "problem": "Yellowing lower leaves",
+          "possibleCauses": ["Soil kept too wet", "Poor drainage", "Natural ageing of the oldest leaf"],
+          "whatToDo": "Check the soil moisture and drainage, let the mix dry further between waterings, and remove the yellow leaf. One old leaf yellowing occasionally is normal."
+        },
+        {
+          "problem": "Leaves without splits",
+          "possibleCauses": ["Not enough light", "Young plant"],
+          "whatToDo": "Move the plant to a brighter spot out of harsh afternoon sun. Splits appear as the plant matures."
+        },
+        {
+          "problem": "Pests such as scale, mealybugs or spider mites",
+          "possibleCauses": ["Dry air", "Pests brought in on other plants"],
+          "whatToDo": "Isolate the plant, wipe pests off with a damp cloth and treat with insecticidal soap, repeating as directed on the label."
+        }
+      ],
+      "safety": {
+        "toxicity": "Toxic to cats and dogs. All parts contain insoluble calcium oxalate crystals, which cause intense burning and irritation of the mouth, drooling, vomiting and difficulty swallowing if chewed. Mildly toxic to people; serious poisoning is unlikely unless large amounts are eaten.",
+        "handling": "The sap can irritate skin. Wear gloves when pruning, wash your hands afterwards and keep the plant away from pets that chew leaves."
+      },
+      "additionalNotes": ["Rarely flowers or fruits indoors.", "Aerial roots can be guided onto a moss pole or trimmed if they get in the way."]
+    },
+    "he": {
+      "commonName": "מונסטרה",
+      "alternateNames": ["מונסטרה דליסיוזה", "צמח הגבינה השווייצרית"],
+      "description": "צמח מטפס ונמרץ ממשפחת הלופיים, שמקורו ביערות הטרופיים של דרום מקסיקו ומרכז אמריקה. מגדלים אותו בזכות העלים הגדולים והמבריקים, שמפתחים חריצים וחורים מרשימים ככל שהצמח מתבגר.",
+      "appearance": "גבעולים עבים עם שורשי אוויר ועלים גדולים, עוריים, בצורת לב. העלים הצעירים שלמים, ואילו בעלים הבוגרים נפתחים חריצים עמוקים מהשוליים ושורות של חורים לאורך העורק המרכזי. בבית הוא יכול להגיע לגובה של שני מטרים ויותר, ולרוב מגדלים אותו על עמוד טחב.",
+      "care": {
+        "light": {
+          "summary": "אור בהיר ועקיף",
+          "details": "גדל הכי טוב ליד חלון מואר, במקום שמקבל הרבה אור בלי שעות של שמש ישירה וחזקה. ככל שיש יותר אור, העלים גדולים יותר ומחורצים יותר. זנים מגוונים צריכים יותר אור מזנים ירוקים.",
+          "directSun": "שמש בוקר רכה בדרך כלל בסדר. שמש חזקה של אחר הצהריים דרך זכוכית עלולה לשרוף את העלים.",
+          "lowLight": "שורד גם באור בינוני, אבל הצמיחה מאטה, הגבעולים מתארכים לכיוון החלון והעלים החדשים נשארים קטנים ובלי חריצים.",
+          "warningSigns": ["עלים חדשים בלי חריצים או חורים", "גבעולים ארוכים ומתוחים שנוטים לכיוון האור", "כתמים חיוורים או חומים שרופים אחרי חשיפה לשמש ישירה"]
+        },
+        "watering": {
+          "summary": "כשרבע העליון של האדמה יבש",
+          "details": "משקים היטב עד שהמים יוצאים מחורי הניקוז, ואז מחכים שרבע עד שליש עליון של האדמה יתייבש לפני ההשקיה הבאה. התדירות תלויה באור, בגודל העציץ, בתערובת ובעונה, ולכן כדאי לבדוק את האדמה ולא להשקות לפי לוח זמנים קבוע.",
+          "howToCheck": "מכניסים אצבע או שיפוד עץ לאדמה. אם כמה הסנטימטרים העליונים יבשים, הגיע הזמן להשקות. עציץ שנעשה קל הוא סימן נוסף לכך שהתערובת התייבשה.",
+          "seasonal": "באביב ובקיץ, בתקופת הצמיחה, משקים לעיתים קרובות יותר; בחורף, כשהצמיחה מאטה, משקים הרבה פחות.",
+          "overwateringSigns": ["עלים תחתונים מצהיבים", "אדמה שנשארת רטובה ימים רבים", "גבעולים כהים ורכים בגובה האדמה", "ריח עובש מהעציץ"],
+          "underwateringSigns": ["עלים צונחים או מסתלסלים", "שולי עלים חומים ופריכים", "אדמה שמתכווצת ומתרחקת מדפנות העציץ"]
+        },
+        "temperature": {
+          "summary": "18–29°C",
+          "details": "מרגיש בנוח בטמפרטורת חדר רגילה. בחדרים קרירים הצמיחה מאטה.",
+          "extremes": "יש להרחיק ממשבי רוח קרים, מחלונות פתוחים בחורף ומפתחי מזגן. שהייה ממושכת מתחת לכ־12°C עלולה לפגוע בעלים."
+        },
+        "humidity": {
+          "summary": "בינונית עד גבוהה",
+          "details": "מעדיף אוויר לח אבל מסתגל לרוב הבתים. בחדרים יבשים מאוד כדאי להיעזר במכשיר אדים או במגש עם חלוקים רטובים מתחת לעציץ; אחרת עלים חדשים עלולים להיתקע בזמן הפתיחה או לקבל שוליים חומים."
+        },
+        "soil": {
+          "summary": "תערובת גסה ומנקזת, עשירה בחומר אורגני",
+          "details": "מומלץ להשתמש בתערובת אוורירית לצמחים לופיים, ששומרת מעט לחות אבל אף פעם לא נשארת בוצית.",
+          "drainage": "עציץ עם חורי ניקוז הוא חובה; אין להשאיר את העציץ עומד במים.",
+          "additives": ["קליפות אורן (בארק)", "פרליט", "סיבי קוקוס או קומפוסט"]
+        },
+        "fertilizing": {
+          "summary": "פעם בחודש בעונת הצמיחה",
+          "details": "מדשנים בדשן נוזלי מאוזן לצמחי בית, בריכוז שעל התווית או חלש ממנו, בתקופת הצמיחה.",
+          "seasonal": "מדשנים באביב ובקיץ; בסתיו ובחורף מפסיקים או מפחיתים מאוד."
+        },
+        "repotting": {
+          "summary": "כל שנה–שנתיים, באביב",
+          "details": "צמחים צעירים גדלים מהר ובדרך כלל צריכים עציץ גדול יותר כל שנה או שנתיים. בצמחים בוגרים אפשר להסתפק בהחלפת השכבה העליונה של התערובת.",
+          "rootBoundSigns": ["שורשים יוצאים מחורי הניקוז", "המים עוברים דרך העציץ מהר מאוד", "שורשים מסתלסלים לאורך דופן העציץ"],
+          "potSizing": "עולים במידה אחת בלבד (כמה סנטימטרים בקוטר). עציץ גדול מדי מחזיק עודפי מים סביב השורשים."
+        },
+        "pruning": {
+          "summary": "מסירים עלים פגועים וגוזמים לשליטה בגודל",
+          "details": "חותכים עלים צהובים או פגועים בבסיס הפטוטרת במזמרה נקייה. באביב אפשר לקצר גבעולים ארוכים מעל מפרק ולהשתמש בייחורים לריבוי. כדאי לתת לצמח תמיכה יציבה, כמו עמוד טחב, כדי שגבעולים כבדים לא יישברו, ולנגב אבק מהעלים באופן קבוע."
+        },
+        "propagation": {
+          "summary": "ייחורי גבעול או הברכה אווירית",
+          "methods": [
+            {
+              "name": "ייחור גבעול",
+              "instructions": "חותכים קטע גבעול עם מפרק אחד לפחות, ורצוי גם שורש אוויר. משרישים במים או בטחב ספגנום לח באור בהיר ועקיף, ושותלים בעציץ כשהשורשים החדשים באורך של כמה סנטימטרים."
+            },
+            {
+              "name": "הברכה אווירית",
+              "instructions": "עוטפים מפרק עם שורש אוויר בטחב ספגנום לח כשהוא עדיין מחובר לצמח, מכסים בניילון נצמד, וחותכים מתחת לטחב כשהשורשים ממלאים אותו."
+            }
+          ]
+        }
+      },
+      "healthyAppearance": "עלים מוצקים, מבריקים וירוקים כהים עם שוליים נקיים; בעלים הבוגרים יש חריצים וחורים; הגבעולים יציבים וירוקים, ועלים חדשים מופיעים באופן קבוע בעונת הצמיחה.",
+      "warningSigns": ["כמה עלים מצהיבים בבת אחת", "כתמים חומים או שחורים על העלים", "צניחה שלא חולפת אחרי השקיה", "שאריות דביקות או קורים דקים בצד התחתון של העלים"],
+      "commonProblems": [
+        {
+          "problem": "עלים תחתונים מצהיבים",
+          "possibleCauses": ["אדמה רטובה מדי לאורך זמן", "ניקוז לקוי", "הזדקנות טבעית של העלה הוותיק ביותר"],
+          "whatToDo": "בודקים את לחות האדמה ואת הניקוז, נותנים לתערובת להתייבש יותר בין השקיות ומסירים את העלה הצהוב. עלה ותיק אחד שמצהיב מדי פעם הוא תופעה רגילה."
+        },
+        {
+          "problem": "עלים בלי חריצים",
+          "possibleCauses": ["מעט מדי אור", "צמח צעיר"],
+          "whatToDo": "מעבירים את הצמח למקום מואר יותר, מוגן משמש חזקה של אחר הצהריים. החריצים מופיעים ככל שהצמח מתבגר."
+        },
+        {
+          "problem": "מזיקים כמו כנימות מגן, כנימות קמחיות או אקריות",
+          "possibleCauses": ["אוויר יבש", "מזיקים שהגיעו עם צמחים אחרים"],
+          "whatToDo": "מבודדים את הצמח, מנגבים את המזיקים במטלית לחה ומטפלים בסבון קוטל חרקים, וחוזרים על הטיפול לפי ההוראות שעל התווית."
+        }
+      ],
+      "safety": {
+        "toxicity": "רעיל לחתולים ולכלבים. כל חלקי הצמח מכילים גבישי סידן אוקסלט, שגורמים לצריבה ולגירוי חזקים בפה, לריור, להקאות ולקושי בבליעה כשלועסים אותם. רעיל במידה קלה לבני אדם; הרעלה חמורה אינה סבירה אלא אם אוכלים כמות גדולה.",
+        "handling": "השרף עלול לגרות את העור. מומלץ לגזום עם כפפות, לשטוף ידיים אחר כך ולהרחיק את הצמח מחיות מחמד שנוטות ללעוס עלים."
+      },
+      "additionalNotes": ["בבית הוא כמעט אינו פורח או מניב פרי.", "אפשר לכוון את שורשי האוויר אל עמוד הטחב, או לגזום אותם אם הם מפריעים."]
+    }
+  },
+  "researchMetadata": {
+    "status": "draft",
+    "reviewedAt": null,
+    "method": "AI-assisted draft (Claude, 2026-10-11). Light, watering, temperature, propagation and toxicity statements were cross-checked against the sources listed. Not yet reviewed by a person.",
+    "sources": [
+      {
+        "title": "Monstera deliciosa",
+        "url": "https://plants.ces.ncsu.edu/plants/monstera-deliciosa/",
+        "publisher": "North Carolina Extension Gardener Plant Toolbox, NC State University",
+        "accessedAt": "2026-10-11"
+      },
+      {
+        "title": "Toxic and Non-toxic Plants: Cutleaf Philodendron",
+        "url": "https://www.aspca.org/pet-care/animal-poison-control/toxic-and-non-toxic-plants/cutleaf-philodendron",
+        "publisher": "ASPCA Animal Poison Control Center",
+        "accessedAt": "2026-10-11"
+      }
+    ]
+  }
+}

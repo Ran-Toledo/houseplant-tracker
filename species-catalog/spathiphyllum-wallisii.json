@@ -1,0 +1,208 @@
+{
+  "schemaVersion": 1,
+  "id": "spathiphyllum-wallisii",
+  "scientificName": "Spathiphyllum wallisii",
+  "family": "Araceae",
+  "temperatureCelsius": { "idealMin": 20, "idealMax": 29, "minimum": 10 },
+  "toxicity": { "cats": "toxic", "dogs": "toxic", "humans": "toxic" },
+  "image": {
+    "file": "spathiphyllum-wallisii.jpg",
+    "author": "W.carter",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Peace_lily_-_1_-_cropped.jpg"
+  },
+  "localizations": {
+    "en": {
+      "commonName": "Peace Lily",
+      "alternateNames": ["Spathiphyllum", "White Sails", "Spathe Flower"],
+      "description": "A shade-loving aroid from tropical American rainforests, grown for its dark, glossy leaves and white, sail-like flower spathes. Many peace lilies sold today are hybrids or cultivars; the care below applies to them too.",
+      "appearance": "Clumps of lance-shaped, glossy dark green leaves on long stalks. White spathes surround a cream flower spike and slowly turn green as they age.",
+      "care": {
+        "light": {
+          "summary": "Medium to low, indirect light",
+          "details": "Thrives in partial shade with medium, indirect light. It tolerates lower light, though it flowers less there.",
+          "directSun": "Keep out of direct sun, which scorches and yellows the leaves.",
+          "lowLight": "Tolerates fairly low light but flowers rarely and grows slowly.",
+          "warningSigns": ["Brown, scorched or yellowing leaves after sun exposure", "No flowers for a long time", "Leggy, stretched leaf stalks"]
+        },
+        "watering": {
+          "summary": "Keep evenly moist, never soggy",
+          "details": "Keep the soil moist but not waterlogged, letting the top of the mix dry slightly between waterings. Peace lilies wilt dramatically when thirsty and usually recover within hours of a good drink — but repeated wilting stresses the plant. Bottom watering works well.",
+          "howToCheck": "Touch the soil surface: water when the top couple of centimetres feel dry. Slight drooping of the leaves is an early signal.",
+          "seasonal": "Needs more frequent watering in warm, bright months; reduce in winter while still not letting it dry out completely.",
+          "overwateringSigns": ["Yellow leaves", "Soggy soil with a sour smell", "Brown, mushy roots", "Wilting despite wet soil"],
+          "underwateringSigns": ["Sudden, dramatic wilting", "Brown, crispy leaf tips and edges", "Yellowing lower leaves after repeated drying out"]
+        },
+        "temperature": {
+          "summary": "20–29°C",
+          "details": "Prefers warm rooms, ideally with no more than a few degrees' drop at night.",
+          "extremes": "Growth slows considerably below about 15°C. Long periods below about 5°C damage leaves, stems and roots. Keep away from cold drafts."
+        },
+        "humidity": {
+          "summary": "Medium to high",
+          "details": "Low humidity is a common cause of brown leaf tips. A pebble tray, grouping plants or a humidifier helps in dry rooms."
+        },
+        "soil": {
+          "summary": "Moisture-retentive, organic, slightly acidic mix",
+          "details": "Use a potting mix high in organic matter that holds moisture yet drains freely.",
+          "drainage": "Use a pot with drainage holes; standing water rots the roots.",
+          "additives": ["Perlite", "Orchid bark", "Coco coir"]
+        },
+        "fertilizing": {
+          "summary": "Light, diluted feeding",
+          "details": "Feed with a balanced fertilizer at about one quarter of the label strength. Excess fertilizer and salt build-up burn leaf tips and roots, so flush the soil with plain water every few months.",
+          "seasonal": "Feed in spring and summer only."
+        },
+        "repotting": {
+          "summary": "When crowded, in late winter or spring",
+          "details": "Peace lilies flower well when slightly pot-bound, so repot only when roots are clearly crowded or the plant dries out very fast.",
+          "rootBoundSigns": ["Wilting just a day or two after watering", "Roots circling the pot or emerging from drainage holes"],
+          "potSizing": "Move up one size. Very large clumps can be divided instead."
+        },
+        "pruning": {
+          "summary": "Remove spent flowers and old leaves",
+          "details": "Cut faded flower stalks and yellow leaves off at the base. Wipe leaves with a damp cloth to remove dust and to spot pests on the undersides."
+        },
+        "propagation": {
+          "summary": "Division",
+          "methods": [
+            {
+              "name": "Division",
+              "instructions": "When repotting, gently separate the clump into sections, each with several leaves and a healthy portion of roots, and pot them in fresh mix. Keep moist and out of direct sun while they settle."
+            }
+          ]
+        }
+      },
+      "healthyAppearance": "Upright, glossy, deep green leaves without brown tips; firm leaf stalks; white spathes in spring or summer on mature plants.",
+      "warningSigns": ["Brown leaf tips", "Frequent wilting", "Yellow leaves", "Cottony mealybugs where leaves meet the stems"],
+      "commonProblems": [
+        {
+          "problem": "Brown leaf tips",
+          "possibleCauses": ["Low humidity", "Underwatering", "Excess fertilizer or salt build-up", "Direct sun"],
+          "whatToDo": "Raise humidity, water more consistently, flush the soil with plain water and reduce feeding. Trim brown tips with clean scissors if desired."
+        },
+        {
+          "problem": "No flowers",
+          "possibleCauses": ["Too little light", "Young plant", "Pot too large"],
+          "whatToDo": "Move to a brighter spot without direct sun and avoid over-potting."
+        },
+        {
+          "problem": "Mealybugs",
+          "possibleCauses": ["Pests carried in on other plants"],
+          "whatToDo": "Remove with a cotton swab dipped in rubbing alcohol, wipe leaves regularly and treat with insecticidal soap if needed."
+        }
+      ],
+      "safety": {
+        "toxicity": "Toxic to cats and dogs. Insoluble calcium oxalate crystals cause mouth and lip irritation with burning, heavy drooling, vomiting and difficulty swallowing. Toxic to people as well (medium severity), mainly if leaves are eaten in quantity. Not a true lily, so it does not cause the kidney failure in cats associated with Lilium species.",
+        "handling": "Keep away from pets and children. Wash hands after handling."
+      },
+      "additionalNotes": ["Dramatic wilting makes it an easy plant to read: it tells you when it needs water."]
+    },
+    "he": {
+      "commonName": "ספטיפיליום",
+      "alternateNames": ["שושן השלום", "ספטיפילום"],
+      "description": "צמח לופי אוהב צל מיערות הגשם הטרופיים של אמריקה, שמגדלים בזכות העלים הכהים והמבריקים והמתחלים הלבנים דמויי המפרש. רבים מהספטיפיליומים שנמכרים היום הם הכלאות או זנים, וההנחיות כאן מתאימות גם להם.",
+      "appearance": "גושים של עלים מוארכים, מבריקים וירוקים כהים על פטוטרות ארוכות. מתחלים לבנים עוטפים שיבולת פרחים בצבע קרם, ומשנים בהדרגה את צבעם לירוק כשהם מזדקנים.",
+      "care": {
+        "light": {
+          "summary": "אור עקיף בינוני עד נמוך",
+          "details": "משגשג בצל חלקי עם אור עקיף בינוני. מסתדר גם באור נמוך יותר, אבל פורח שם פחות.",
+          "directSun": "יש להרחיק משמש ישירה, שצורבת את העלים וגורמת להם להצהיב.",
+          "lowLight": "מסתדר באור נמוך למדי, אבל פורח לעיתים רחוקות וצומח לאט.",
+          "warningSigns": ["עלים חומים, צרובים או מצהיבים אחרי חשיפה לשמש", "אין פריחה במשך זמן רב", "פטוטרות ארוכות ומתוחות"]
+        },
+        "watering": {
+          "summary": "לשמור על לחות אחידה, אף פעם לא בוץ",
+          "details": "שומרים על אדמה לחה אך לא ספוגה, ונותנים לחלק העליון של התערובת להתייבש מעט בין השקיות. כשהספטיפיליום צמא הוא צונח באופן דרמטי, ובדרך כלל מתאושש תוך שעות אחרי השקיה – אבל צניחות חוזרות מחלישות אותו. השקיה מלמטה עובדת היטב.",
+          "howToCheck": "נוגעים בפני האדמה: משקים כשהסנטימטרים העליונים מרגישים יבשים. צניחה קלה של העלים היא סימן מוקדם.",
+          "seasonal": "בחודשים חמים ומוארים צריך להשקות לעיתים קרובות יותר; בחורף מפחיתים, אבל עדיין לא נותנים לאדמה להתייבש לגמרי.",
+          "overwateringSigns": ["עלים צהובים", "אדמה ספוגה עם ריח חמוץ", "שורשים חומים ורכים", "נבילה למרות אדמה רטובה"],
+          "underwateringSigns": ["צניחה פתאומית ודרמטית", "קצוות ושולי עלים חומים ופריכים", "עלים תחתונים מצהיבים אחרי התייבשויות חוזרות"]
+        },
+        "temperature": {
+          "summary": "20–29°C",
+          "details": "מעדיף חדרים חמים, ורצוי שהטמפרטורה בלילה לא תרד ביותר מכמה מעלות.",
+          "extremes": "מתחת לכ־15°C הצמיחה מאטה מאוד. שהייה ממושכת מתחת לכ־5°C פוגעת בעלים, בגבעולים ובשורשים. יש להרחיק ממשבי רוח קרים."
+        },
+        "humidity": {
+          "summary": "בינונית עד גבוהה",
+          "details": "לחות נמוכה היא סיבה נפוצה לקצוות עלים חומים. מגש חלוקים, קיבוץ צמחים יחד או מכשיר אדים עוזרים בחדרים יבשים."
+        },
+        "soil": {
+          "summary": "תערובת אורגנית, שומרת לחות וחומצית מעט",
+          "details": "משתמשים בתערובת עשירה בחומר אורגני, ששומרת לחות אבל מנקזת בחופשיות.",
+          "drainage": "משתמשים בעציץ עם חורי ניקוז; מים עומדים גורמים לריקבון שורשים.",
+          "additives": ["פרליט", "קליפות אורן (בארק)", "סיבי קוקוס"]
+        },
+        "fertilizing": {
+          "summary": "דישון קל ומדולל",
+          "details": "מדשנים בדשן מאוזן בכרבע מהריכוז שעל התווית. עודף דשן והצטברות מלחים שורפים את קצות העלים והשורשים, ולכן כדאי לשטוף את האדמה במים נקיים כל כמה חודשים.",
+          "seasonal": "מדשנים רק באביב ובקיץ."
+        },
+        "repotting": {
+          "summary": "כשהעציץ צפוף, בסוף החורף או באביב",
+          "details": "הספטיפיליום פורח היטב כשהעציץ מעט צפוף, ולכן מעבירים רק כשהשורשים צפופים בבירור או כשהצמח מתייבש מהר מאוד.",
+          "rootBoundSigns": ["צניחה יום–יומיים בלבד אחרי השקיה", "שורשים מסתלסלים בעציץ או יוצאים מחורי הניקוז"],
+          "potSizing": "עולים במידה אחת. גושים גדולים מאוד אפשר לחלק במקום."
+        },
+        "pruning": {
+          "summary": "מסירים פרחים שנבלו ועלים ישנים",
+          "details": "חותכים גבעולי פריחה דהויים ועלים צהובים בבסיסם. מנגבים את העלים במטלית לחה כדי להסיר אבק ולאתר מזיקים בצד התחתון."
+        },
+        "propagation": {
+          "summary": "חלוקה",
+          "methods": [
+            {
+              "name": "חלוקה",
+              "instructions": "בזמן העברה לעציץ חדש מפרידים בעדינות את הגוש לחלקים, שבכל אחד כמה עלים וחלק בריא מהשורשים, ושותלים בתערובת טרייה. שומרים על לחות ומרחיקים משמש ישירה עד שהצמחים מתאקלמים."
+            }
+          ]
+        }
+      },
+      "healthyAppearance": "עלים זקופים, מבריקים וירוקים כהים בלי קצוות חומים; פטוטרות מוצקות; בצמחים בוגרים – מתחלים לבנים באביב או בקיץ.",
+      "warningSigns": ["קצוות עלים חומים", "צניחה תכופה", "עלים צהובים", "כנימות קמחיות צמריות במקום שבו העלים מתחברים לגבעולים"],
+      "commonProblems": [
+        {
+          "problem": "קצוות עלים חומים",
+          "possibleCauses": ["לחות נמוכה", "השקיה לא מספקת", "עודף דשן או הצטברות מלחים", "שמש ישירה"],
+          "whatToDo": "מעלים את הלחות, משקים באופן עקבי יותר, שוטפים את האדמה במים נקיים ומפחיתים דישון. אפשר לגזום את הקצוות החומים במספריים נקיים."
+        },
+        {
+          "problem": "אין פריחה",
+          "possibleCauses": ["מעט מדי אור", "צמח צעיר", "עציץ גדול מדי"],
+          "whatToDo": "מעבירים למקום מואר יותר בלי שמש ישירה ונמנעים מעציץ גדול מדי."
+        },
+        {
+          "problem": "כנימות קמחיות",
+          "possibleCauses": ["מזיקים שהגיעו עם צמחים אחרים"],
+          "whatToDo": "מסירים במקלון צמר גפן טבול באלכוהול, מנגבים את העלים באופן קבוע ומטפלים בסבון קוטל חרקים במידת הצורך."
+        }
+      ],
+      "safety": {
+        "toxicity": "רעיל לחתולים ולכלבים. גבישי סידן אוקסלט גורמים לגירוי ולצריבה בפה ובשפתיים, לריור חזק, להקאות ולקושי בבליעה. רעיל גם לבני אדם (חומרה בינונית), בעיקר אם אוכלים כמות גדולה של עלים. זה אינו שושן אמיתי, ולכן אינו גורם לאי־ספיקת הכליות בחתולים שמיוחסת לשושנים מהסוג Lilium.",
+        "handling": "יש להרחיק מחיות מחמד ומילדים. שוטפים ידיים אחרי טיפול בצמח."
+      },
+      "additionalNotes": ["הצניחה הדרמטית הופכת אותו לצמח שקל \"לקרוא\": הוא מראה בבירור מתי הוא צריך מים."]
+    }
+  },
+  "researchMetadata": {
+    "status": "draft",
+    "reviewedAt": null,
+    "method": "AI-assisted draft (Claude, 2026-10-11). Light, watering, temperature, fertilizing, propagation and toxicity statements were cross-checked against the sources listed, which cover the genus Spathiphyllum rather than S. wallisii specifically. Not yet reviewed by a person.",
+    "sources": [
+      {
+        "title": "Spathiphyllum",
+        "url": "https://plants.ces.ncsu.edu/plants/spathiphyllum/",
+        "publisher": "North Carolina Extension Gardener Plant Toolbox, NC State University",
+        "accessedAt": "2026-10-11"
+      },
+      {
+        "title": "Toxic and Non-toxic Plants: Peace Lily",
+        "url": "https://www.aspca.org/pet-care/animal-poison-control/toxic-and-non-toxic-plants/peace-lily",
+        "publisher": "ASPCA Animal Poison Control Center",
+        "accessedAt": "2026-10-11"
+      }
+    ]
+  }
+}

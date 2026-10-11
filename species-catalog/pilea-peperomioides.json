@@ -1,0 +1,210 @@
+{
+  "schemaVersion": 1,
+  "id": "pilea-peperomioides",
+  "scientificName": "Pilea peperomioides",
+  "family": "Urticaceae",
+  "temperatureCelsius": { "idealMin": 16, "idealMax": 24, "minimum": 10 },
+  "toxicity": { "cats": "non-toxic", "dogs": "non-toxic", "humans": "non-toxic" },
+  "image": {
+    "file": "pilea-peperomioides.jpg",
+    "author": "Husky",
+    "license": "CC0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Pilea_peperomioides_Chinese_money_plant.jpg"
+  },
+  "localizations": {
+    "en": {
+      "commonName": "Chinese Money Plant",
+      "alternateNames": ["Pilea", "Pancake Plant", "UFO Plant", "Missionary Plant"],
+      "description": "A compact plant from south-western China with round, coin-like leaves on long stalks. It produces many offsets from the base, which made it famous as a plant passed between friends.",
+      "appearance": "Round, flat, bright green leaves attached to their stalks near the centre (like an umbrella), arranged around an upright central stem. Small pups appear from the soil around the base.",
+      "care": {
+        "light": {
+          "summary": "Bright, indirect light",
+          "details": "Prefers bright, indirect light. Turn the pot every week or so, because the leaves lean strongly toward the light.",
+          "directSun": "A little gentle sun is tolerated; strong direct sun can scorch the thin leaves.",
+          "lowLight": "In low light it becomes leggy, with long stalks and widely spaced leaves.",
+          "warningSigns": ["Long, stretched leaf stalks", "Plant leaning heavily to one side", "Brown or pale scorched patches"]
+        },
+        "watering": {
+          "summary": "Water when the top half of the soil is dry",
+          "details": "Keep the potting mix moist but well drained: water thoroughly, then let the top part of the soil dry before watering again. Overwatering causes root rot.",
+          "howToCheck": "Check the soil with a finger; the leaves also droop slightly when the plant is thirsty.",
+          "seasonal": "Water less often in winter.",
+          "overwateringSigns": ["Yellowing lower leaves", "Leaves dropping", "Soft, dark stem base"],
+          "underwateringSigns": ["Droopy, soft leaves", "Leaves curling", "Crispy brown edges"]
+        },
+        "temperature": {
+          "summary": "16–24°C",
+          "details": "Comfortable at ordinary room temperatures.",
+          "extremes": "Avoid cold drafts and placing it next to heaters or radiators. Keep above about 10°C."
+        },
+        "humidity": {
+          "summary": "Average to moderately high",
+          "details": "Thrives in moderate to high humidity but tolerates average home humidity."
+        },
+        "soil": {
+          "summary": "Well-draining potting mix",
+          "details": "Use a peat-free or standard houseplant mix with extra drainage material.",
+          "drainage": "Drainage holes are essential.",
+          "additives": ["Perlite", "Coarse sand"]
+        },
+        "fertilizing": {
+          "summary": "Monthly in the growing season",
+          "details": "Feed with a balanced fertilizer at half strength during active growth.",
+          "seasonal": "Spring and summer only."
+        },
+        "repotting": {
+          "summary": "Every 1–2 years in spring",
+          "details": "Repot in spring when the pot fills with roots and pups; this is a good time to separate offsets.",
+          "rootBoundSigns": ["Pups crowding the pot edge", "Roots from drainage holes", "Soil drying very quickly"],
+          "potSizing": "Go up one size."
+        },
+        "pruning": {
+          "summary": "Remove old lower leaves",
+          "details": "Snap or cut off yellowing lower leaves. Leggy plants can be topped and the top rooted as a new plant."
+        },
+        "propagation": {
+          "summary": "Offsets (pups) or stem cuttings",
+          "methods": [
+            {
+              "name": "Offsets",
+              "instructions": "In spring or early summer, when a pup is a few centimetres tall, cut it from the parent below the soil with some roots attached, and pot it in moist mix. Pups without roots can be rooted in water."
+            },
+            {
+              "name": "Stem cutting",
+              "instructions": "Cut off the top of a leggy plant with a few leaves and root it in water or moist mix in bright, indirect light."
+            }
+          ]
+        }
+      },
+      "healthyAppearance": "Flat, round, evenly green leaves on firm stalks; compact shape; regular new leaves at the top and pups at the base.",
+      "warningSigns": ["Curling or doming leaves", "Brown or white spots on leaves", "Leaves dropping", "Fine webbing (spider mites)"],
+      "commonProblems": [
+        {
+          "problem": "Leaves dropping or yellowing",
+          "possibleCauses": ["Overwatering", "Natural loss of the oldest leaves"],
+          "whatToDo": "Let the soil dry more between waterings. Occasional loss of lower leaves is normal as the stem grows."
+        },
+        {
+          "problem": "Leaf spots",
+          "possibleCauses": ["Water left on the leaves", "Mineral deposits"],
+          "whatToDo": "Avoid wetting the foliage when watering."
+        },
+        {
+          "problem": "Spider mites, mealybugs, fungus gnats or scale",
+          "possibleCauses": ["Dry air", "Constantly wet soil (fungus gnats)", "Pests carried in on other plants"],
+          "whatToDo": "Treat pests with insecticidal soap, and let the soil surface dry to discourage fungus gnats."
+        }
+      ],
+      "safety": {
+        "toxicity": "NC State Extension describes it as safe for pets and children. No toxic compounds are known.",
+        "handling": "No special precautions. As with any plant, eating large amounts may still cause mild stomach upset in pets."
+      },
+      "additionalNotes": ["Rotating the pot regularly keeps growth balanced and upright."]
+    },
+    "he": {
+      "commonName": "פילאה",
+      "alternateNames": ["צמח הכסף הסיני", "צמח המטבעות", "פילאה פפרומיואידס"],
+      "description": "צמח קומפקטי מדרום־מערב סין, עם עלים עגולים דמויי מטבע על פטוטרות ארוכות. הוא מוציא נצרים רבים מהבסיס, ובזכות זה התפרסם כצמח שעובר מחבר לחבר.",
+      "appearance": "עלים עגולים, שטוחים וירוקים בהירים, שמחוברים לפטוטרת קרוב למרכזם (כמו מטרייה), סביב גבעול מרכזי זקוף. נצרים קטנים מופיעים מהאדמה סביב הבסיס.",
+      "care": {
+        "light": {
+          "summary": "אור בהיר ועקיף",
+          "details": "מעדיף אור בהיר ועקיף. כדאי לסובב את העציץ פעם בשבוע בערך, כי העלים נוטים בחוזקה לכיוון האור.",
+          "directSun": "מסתדר עם מעט שמש רכה; שמש ישירה חזקה עלולה לצרוב את העלים הדקים.",
+          "lowLight": "באור נמוך הוא מתארך, עם פטוטרות ארוכות ועלים מרוחקים.",
+          "warningSigns": ["פטוטרות ארוכות ומתוחות", "הצמח נוטה בחוזקה לצד אחד", "כתמים חומים או חיוורים צרובים"]
+        },
+        "watering": {
+          "summary": "משקים כשהחצי העליון של האדמה יבש",
+          "details": "שומרים על תערובת לחה אבל מנקזת היטב: משקים היטב ונותנים לחלק העליון של האדמה להתייבש לפני ההשקיה הבאה. השקיית יתר גורמת לריקבון שורשים.",
+          "howToCheck": "בודקים את האדמה באצבע; גם העלים צונחים מעט כשהצמח צמא.",
+          "seasonal": "בחורף משקים לעיתים רחוקות יותר.",
+          "overwateringSigns": ["עלים תחתונים מצהיבים", "נשירת עלים", "בסיס גבעול רך וכהה"],
+          "underwateringSigns": ["עלים רכים וצונחים", "עלים מסתלסלים", "שוליים חומים ופריכים"]
+        },
+        "temperature": {
+          "summary": "16–24°C",
+          "details": "מרגיש בנוח בטמפרטורת חדר רגילה.",
+          "extremes": "יש להימנע ממשבי רוח קרים ומהצבה ליד תנורים או רדיאטורים. לשמור מעל כ־10°C."
+        },
+        "humidity": {
+          "summary": "רגילה עד גבוהה למדי",
+          "details": "משגשג בלחות בינונית עד גבוהה, אבל מסתדר עם לחות ביתית רגילה."
+        },
+        "soil": {
+          "summary": "תערובת שתילה מנקזת",
+          "details": "משתמשים בתערובת רגילה לצמחי בית בתוספת חומר משפר ניקוז.",
+          "drainage": "חורי ניקוז הם חובה.",
+          "additives": ["פרליט", "חול גס"]
+        },
+        "fertilizing": {
+          "summary": "פעם בחודש בעונת הצמיחה",
+          "details": "מדשנים בדשן מאוזן בחצי ריכוז בזמן צמיחה פעילה.",
+          "seasonal": "רק באביב ובקיץ."
+        },
+        "repotting": {
+          "summary": "כל שנה–שנתיים, באביב",
+          "details": "מעבירים לעציץ חדש באביב כשהעציץ מתמלא בשורשים ובנצרים; זה גם זמן טוב להפריד נצרים.",
+          "rootBoundSigns": ["נצרים נדחקים לשפת העציץ", "שורשים יוצאים מחורי הניקוז", "האדמה מתייבשת מהר מאוד"],
+          "potSizing": "עולים במידה אחת."
+        },
+        "pruning": {
+          "summary": "מסירים עלים תחתונים ישנים",
+          "details": "שוברים או חותכים עלים תחתונים מצהיבים. בצמח מתארך אפשר לקטום את הראש ולהשריש אותו כצמח חדש."
+        },
+        "propagation": {
+          "summary": "נצרים או ייחורי גבעול",
+          "methods": [
+            {
+              "name": "נצרים",
+              "instructions": "באביב או בתחילת הקיץ, כשנצר מגיע לגובה של כמה סנטימטרים, חותכים אותו מצמח האם מתחת לאדמה יחד עם מעט שורשים, ושותלים בתערובת לחה. נצרים בלי שורשים אפשר להשריש במים."
+            },
+            {
+              "name": "ייחור גבעול",
+              "instructions": "קוטמים את הראש של צמח מתארך עם כמה עלים ומשרישים במים או בתערובת לחה באור בהיר ועקיף."
+            }
+          ]
+        }
+      },
+      "healthyAppearance": "עלים שטוחים, עגולים וירוקים באופן אחיד על פטוטרות מוצקות; צורה קומפקטית; עלים חדשים בראש הצמח ונצרים בבסיס באופן קבוע.",
+      "warningSigns": ["עלים מסתלסלים או מתקמרים", "כתמים חומים או לבנים על העלים", "נשירת עלים", "קורים דקים (אקריות)"],
+      "commonProblems": [
+        {
+          "problem": "עלים נושרים או מצהיבים",
+          "possibleCauses": ["השקיית יתר", "אובדן טבעי של העלים הוותיקים ביותר"],
+          "whatToDo": "נותנים לאדמה להתייבש יותר בין השקיות. אובדן מזדמן של עלים תחתונים הוא תופעה רגילה כשהגבעול גדל."
+        },
+        {
+          "problem": "כתמים על העלים",
+          "possibleCauses": ["מים שנשארו על העלים", "משקעי מינרלים"],
+          "whatToDo": "נמנעים מהרטבת העלווה בזמן ההשקיה."
+        },
+        {
+          "problem": "אקריות, כנימות קמחיות, זבובוני פטריות או כנימות מגן",
+          "possibleCauses": ["אוויר יבש", "אדמה רטובה כל הזמן (זבובוני פטריות)", "מזיקים שהגיעו עם צמחים אחרים"],
+          "whatToDo": "מטפלים במזיקים בסבון קוטל חרקים, ונותנים לפני האדמה להתייבש כדי להרחיק זבובוני פטריות."
+        }
+      ],
+      "safety": {
+        "toxicity": "שירות ההדרכה של NC State מתאר אותו כבטוח לחיות מחמד ולילדים. לא ידועים בו חומרים רעילים.",
+        "handling": "אין צורך באמצעי זהירות מיוחדים. כמו בכל צמח, אכילת כמות גדולה עדיין עלולה לגרום לקלקול קיבה קל אצל חיות מחמד."
+      },
+      "additionalNotes": ["סיבוב העציץ באופן קבוע שומר על צמיחה מאוזנת וזקופה."]
+    }
+  },
+  "researchMetadata": {
+    "status": "draft",
+    "reviewedAt": null,
+    "method": "AI-assisted draft (Claude, 2026-10-11). Light, watering, humidity, propagation, pest and toxicity statements were cross-checked against the source listed; no ASPCA entry for this species was found. Not yet reviewed by a person.",
+    "sources": [
+      {
+        "title": "Pilea peperomioides",
+        "url": "https://plants.ces.ncsu.edu/plants/pilea-peperomioides/",
+        "publisher": "North Carolina Extension Gardener Plant Toolbox, NC State University",
+        "accessedAt": "2026-10-11"
+      }
+    ]
+  }
+}

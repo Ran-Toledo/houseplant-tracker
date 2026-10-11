@@ -1,0 +1,212 @@
+{
+  "schemaVersion": 1,
+  "id": "tradescantia-zebrina",
+  "scientificName": "Tradescantia zebrina",
+  "family": "Commelinaceae",
+  "temperatureCelsius": { "idealMin": 18, "idealMax": 24, "minimum": 10 },
+  "toxicity": { "cats": "mildly-toxic", "dogs": "mildly-toxic", "humans": "mildly-toxic" },
+  "image": {
+    "file": "tradescantia-zebrina.jpg",
+    "author": "Flocci Nivis",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:20260317_Tradescantia_zebrina_01.jpg"
+  },
+  "localizations": {
+    "en": {
+      "commonName": "Inch Plant",
+      "alternateNames": ["Silver Inch Plant", "Wandering Dude", "Zebrina"],
+      "description": "A fast-growing trailing plant from Mexico and Central America with striking striped, iridescent leaves. It grows quickly, roots at every node and is one of the easiest plants to propagate.",
+      "appearance": "Fleshy, trailing stems with pointed oval leaves striped silver and green or purple on top, with deep purple undersides. Small pink-purple flowers may appear.",
+      "care": {
+        "light": {
+          "summary": "Bright, filtered light",
+          "details": "Grows best in bright, filtered light, which keeps the stripes and purple tones strong. A little direct sun intensifies colour.",
+          "directSun": "Short periods of gentle direct sun deepen the colour, but strong hot sun can wash it out or scorch the leaves.",
+          "lowLight": "In low light, stems stretch, lower leaves drop and colours fade.",
+          "warningSigns": ["Faded, greenish leaves", "Long bare stems with leaves only at the tips", "Crispy, bleached leaves in hot sun"]
+        },
+        "watering": {
+          "summary": "Water regularly; let the soil surface dry",
+          "details": "Water regularly but allow the top of the soil to dry out between waterings. The fleshy stems rot quickly in soggy soil.",
+          "howToCheck": "Water when the top 2–3 cm of soil feel dry.",
+          "seasonal": "Water less in winter.",
+          "overwateringSigns": ["Mushy, translucent stems at the base", "Yellowing leaves", "Soil that stays wet"],
+          "underwateringSigns": ["Limp stems", "Dry, papery leaves", "Lower leaves dropping"]
+        },
+        "temperature": {
+          "summary": "18–24°C",
+          "details": "Thrives at ordinary room temperatures.",
+          "extremes": "Keep above about 10°C indoors and avoid cold drafts."
+        },
+        "humidity": {
+          "summary": "Average to high",
+          "details": "Tolerates average home humidity; higher humidity is fine as long as air circulates."
+        },
+        "soil": {
+          "summary": "Well-draining general potting mix",
+          "details": "Use a standard houseplant mix with added drainage material.",
+          "drainage": "Drainage holes are essential.",
+          "additives": ["Perlite"]
+        },
+        "fertilizing": {
+          "summary": "Monthly in the growing season, diluted",
+          "details": "Feed with a balanced fertilizer at half strength. Overfeeding produces lush but less colourful growth.",
+          "seasonal": "Spring and summer only."
+        },
+        "repotting": {
+          "summary": "Yearly, or restart from cuttings",
+          "details": "Repot in spring when crowded. Because older plants become leggy, many growers simply restart the pot from fresh cuttings every year or two.",
+          "rootBoundSigns": ["Soil drying out very quickly", "Roots from drainage holes"],
+          "potSizing": "A wide, shallow pot or hanging basket suits its trailing habit."
+        },
+        "pruning": {
+          "summary": "Prune hard and often",
+          "details": "Prune hard each spring and pinch back leggy stems through the season to keep it dense. Pruned pieces make ready cuttings."
+        },
+        "propagation": {
+          "summary": "Stem cuttings root at the nodes",
+          "methods": [
+            {
+              "name": "Stem cutting",
+              "instructions": "Cut a 10 cm stem tip, remove the lowest leaves and place it in water or straight into moist mix. Roots form within days at the nodes. Push several cuttings back into the pot to fill bare spots."
+            }
+          ]
+        }
+      },
+      "healthyAppearance": "Dense, bushy trails of firm leaves with bright silver stripes and purple undersides; short gaps between leaves.",
+      "warningSigns": ["Faded colour", "Bare, leggy stems", "Mushy stem bases", "Fine webbing (spider mites)"],
+      "commonProblems": [
+        {
+          "problem": "Leggy, bare stems",
+          "possibleCauses": ["Too little light", "Natural ageing of stems"],
+          "whatToDo": "Move to brighter light, prune hard and replant the cuttings into the same pot."
+        },
+        {
+          "problem": "Stem or root rot",
+          "possibleCauses": ["Soggy soil", "Poor drainage"],
+          "whatToDo": "Take healthy cuttings, discard rotten stems and restart in fresh, well-draining mix."
+        },
+        {
+          "problem": "Spider mites, aphids, mealybugs, scale or whiteflies",
+          "possibleCauses": ["Dry, warm air", "Pests carried in on other plants"],
+          "whatToDo": "Rinse the plant, cut back heavily infested stems and treat with insecticidal soap."
+        },
+        {
+          "problem": "Leaf spot",
+          "possibleCauses": ["Crowded growth", "Wet foliage"],
+          "whatToDo": "Thin out stems, water the soil rather than the leaves and improve air circulation."
+        }
+      ],
+      "safety": {
+        "toxicity": "Low severity. Eating the leaves can cause mouth and stomach irritation in cats, dogs and people, and contact with the sap can cause skin redness and irritation. The specific toxic compound is unknown.",
+        "handling": "Wear gloves when pruning if you have sensitive skin, and keep trailing stems away from pets."
+      },
+      "additionalNotes": ["Can be grown outdoors as a ground cover or summer annual in warm climates."]
+    },
+    "he": {
+      "commonName": "טרדסקנטיה זברינה",
+      "alternateNames": ["טרדסקנטיה", "זברינה"],
+      "description": "צמח נשפך מהיר צמיחה ממקסיקו וממרכז אמריקה, עם עלים מפוספסים ונוצצים במיוחד. הוא גדל מהר, משריש בכל מפרק ונחשב לאחד הצמחים הקלים ביותר לריבוי.",
+      "appearance": "גבעולים בשרניים ונשפכים, עם עלים סגלגלים מחודדים מפוספסים בכסוף ובירוק או בסגול מלמעלה, וסגולים עמוקים מלמטה. לעיתים מופיעים פרחים קטנים בוורוד־סגול.",
+      "care": {
+        "light": {
+          "summary": "אור בהיר ומסונן",
+          "details": "גדל הכי טוב באור בהיר ומסונן, ששומר על הפסים והגוונים הסגולים חזקים. מעט שמש ישירה מעמיקה את הצבע.",
+          "directSun": "פרקי זמן קצרים של שמש ישירה רכה מעמיקים את הצבע, אבל שמש חמה וחזקה עלולה לדהות או לצרוב את העלים.",
+          "lowLight": "באור נמוך הגבעולים מתארכים, העלים התחתונים נושרים והצבעים דוהים.",
+          "warningSigns": ["עלים דהויים, נוטים לירוק", "גבעולים ארוכים וחשופים עם עלים רק בקצוות", "עלים פריכים ומולבנים בשמש חמה"]
+        },
+        "watering": {
+          "summary": "משקים בקביעות; נותנים לפני האדמה להתייבש",
+          "details": "משקים בקביעות אבל נותנים לחלק העליון של האדמה להתייבש בין השקיות. הגבעולים הבשרניים נרקבים מהר באדמה ספוגה.",
+          "howToCheck": "משקים כש־2–3 הסנטימטרים העליונים של האדמה מרגישים יבשים.",
+          "seasonal": "בחורף משקים פחות.",
+          "overwateringSigns": ["גבעולים רכים ושקופים בבסיס", "עלים מצהיבים", "אדמה שנשארת רטובה"],
+          "underwateringSigns": ["גבעולים רפויים", "עלים יבשים ודמויי נייר", "נשירת עלים תחתונים"]
+        },
+        "temperature": {
+          "summary": "18–24°C",
+          "details": "משגשג בטמפרטורת חדר רגילה.",
+          "extremes": "בבית יש לשמור עליו מעל כ־10°C ולהימנע ממשבי רוח קרים."
+        },
+        "humidity": {
+          "summary": "רגילה עד גבוהה",
+          "details": "מסתדר עם לחות ביתית רגילה; גם לחות גבוהה יותר בסדר, כל עוד יש זרימת אוויר."
+        },
+        "soil": {
+          "summary": "תערובת שתילה כללית ומנקזת",
+          "details": "משתמשים בתערובת רגילה לצמחי בית בתוספת חומר משפר ניקוז.",
+          "drainage": "חורי ניקוז הם חובה.",
+          "additives": ["פרליט"]
+        },
+        "fertilizing": {
+          "summary": "פעם בחודש בעונת הצמיחה, מדולל",
+          "details": "מדשנים בדשן מאוזן בחצי ריכוז. עודף דשן יוצר צמיחה שופעת אבל פחות צבעונית.",
+          "seasonal": "רק באביב ובקיץ."
+        },
+        "repotting": {
+          "summary": "פעם בשנה, או מתחילים מחדש מייחורים",
+          "details": "מעבירים לעציץ חדש באביב כשהוא צפוף. מכיוון שצמחים ותיקים מתארכים, מגדלים רבים פשוט מחדשים את העציץ מייחורים טריים כל שנה–שנתיים.",
+          "rootBoundSigns": ["האדמה מתייבשת מהר מאוד", "שורשים יוצאים מחורי הניקוז"],
+          "potSizing": "עציץ רחב ורדוד או סל תלוי מתאימים לצורת הגידול הנשפכת שלו."
+        },
+        "pruning": {
+          "summary": "גוזמים בחוזקה ולעיתים קרובות",
+          "details": "גוזמים בחוזקה בכל אביב וצובטים גבעולים מתארכים לאורך העונה כדי לשמור על צמח צפוף. החלקים הגזומים הם ייחורים מוכנים."
+        },
+        "propagation": {
+          "summary": "ייחורי גבעול משרישים במפרקים",
+          "methods": [
+            {
+              "name": "ייחור גבעול",
+              "instructions": "חותכים קצה גבעול באורך 10 ס״מ, מסירים את העלים התחתונים ומניחים במים או ישירות בתערובת לחה. השורשים נוצרים במפרקים תוך ימים. אפשר לתקוע כמה ייחורים בחזרה בעציץ כדי למלא מקומות חשופים."
+            }
+          ]
+        }
+      },
+      "healthyAppearance": "שלוחות צפופות ומלאות של עלים מוצקים עם פסים כסופים בוהקים וצד תחתון סגול; רווחים קצרים בין העלים.",
+      "warningSigns": ["צבע דהוי", "גבעולים חשופים ומתארכים", "בסיסי גבעולים רכים", "קורים דקים (אקריות)"],
+      "commonProblems": [
+        {
+          "problem": "גבעולים מתארכים וחשופים",
+          "possibleCauses": ["מעט מדי אור", "הזדקנות טבעית של הגבעולים"],
+          "whatToDo": "מעבירים לאור בהיר יותר, גוזמים בחוזקה ושותלים את הייחורים מחדש באותו עציץ."
+        },
+        {
+          "problem": "ריקבון גבעולים או שורשים",
+          "possibleCauses": ["אדמה ספוגה", "ניקוז לקוי"],
+          "whatToDo": "לוקחים ייחורים בריאים, משליכים את הגבעולים הרקובים ומתחילים מחדש בתערובת טרייה ומנקזת."
+        },
+        {
+          "problem": "אקריות, כנימות עלה, כנימות קמחיות, כנימות מגן או זבובונים לבנים",
+          "possibleCauses": ["אוויר חם ויבש", "מזיקים שהגיעו עם צמחים אחרים"],
+          "whatToDo": "שוטפים את הצמח, גוזמים גבעולים נגועים מאוד ומטפלים בסבון קוטל חרקים."
+        },
+        {
+          "problem": "כתמי עלים",
+          "possibleCauses": ["צמיחה צפופה", "עלווה רטובה"],
+          "whatToDo": "מדללים גבעולים, משקים את האדמה ולא את העלים ומשפרים את זרימת האוויר."
+        }
+      ],
+      "safety": {
+        "toxicity": "חומרה נמוכה. אכילת העלים עלולה לגרום לגירוי בפה ובקיבה אצל חתולים, כלבים ובני אדם, ומגע עם השרף עלול לגרום לאדמומיות ולגירוי בעור. החומר הרעיל הספציפי אינו ידוע.",
+        "handling": "אם העור רגיש, כדאי לגזום עם כפפות, ולהרחיק את השלוחות מחיות מחמד."
+      },
+      "additionalNotes": ["באקלים חם אפשר לגדל אותו בחוץ ככיסוי קרקע או כצמח קיצי."]
+    }
+  },
+  "researchMetadata": {
+    "status": "draft",
+    "reviewedAt": null,
+    "method": "AI-assisted draft (Claude, 2026-10-11). Light, watering, temperature, pruning, propagation, pest and toxicity statements were cross-checked against the source listed; no ASPCA entry for this species was found. Not yet reviewed by a person.",
+    "sources": [
+      {
+        "title": "Tradescantia zebrina",
+        "url": "https://plants.ces.ncsu.edu/plants/tradescantia-zebrina/",
+        "publisher": "North Carolina Extension Gardener Plant Toolbox, NC State University",
+        "accessedAt": "2026-10-11"
+      }
+    ]
+  }
+}

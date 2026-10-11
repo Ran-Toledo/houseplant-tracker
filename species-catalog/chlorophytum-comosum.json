@@ -1,0 +1,206 @@
+{
+  "schemaVersion": 1,
+  "id": "chlorophytum-comosum",
+  "scientificName": "Chlorophytum comosum",
+  "family": "Asparagaceae",
+  "temperatureCelsius": { "idealMin": 16, "idealMax": 27, "minimum": 7 },
+  "toxicity": { "cats": "non-toxic", "dogs": "non-toxic", "humans": "unknown" },
+  "image": {
+    "file": "chlorophytum-comosum.jpg",
+    "author": "Dtarazona (derivative work: Peter coxhead)",
+    "license": "Public domain",
+    "licenseUrl": null,
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Hierbabuena_0611_Revised.jpg"
+  },
+  "localizations": {
+    "en": {
+      "commonName": "Spider Plant",
+      "alternateNames": ["Ribbon Plant", "Spider Ivy", "Airplane Plant"],
+      "description": "A classic, easy-going houseplant from southern Africa. It forms fountains of arching, grass-like leaves and sends out long runners carrying baby plantlets, which makes it ideal for hanging baskets and for sharing with friends.",
+      "appearance": "Arching, narrow, strap-shaped leaves, plain green or striped with white or cream, growing from a central crown with thick, fleshy roots. Long stems carry small white flowers and plantlets.",
+      "care": {
+        "light": {
+          "summary": "Medium, indirect light",
+          "details": "Prefers medium, indirect light and tolerates fairly deep shade. Variegated forms keep their stripes best in brighter indirect light.",
+          "directSun": "Does not tolerate direct sun, which scorches and browns the leaves.",
+          "lowLight": "Tolerates deep shade, but growth slows, stripes may fade and fewer plantlets form.",
+          "warningSigns": ["Pale, washed-out or scorched leaves", "Brown patches after sun exposure", "Weak, floppy growth in very low light"]
+        },
+        "watering": {
+          "summary": "Keep lightly moist during growth",
+          "details": "Grows best when the soil is kept lightly moist in the growing season, but its fleshy roots store water, so it tolerates occasional drying out. Avoid soggy soil.",
+          "howToCheck": "Water when the top 2–3 cm of soil feel dry.",
+          "seasonal": "Water less in winter, letting the top of the soil dry a little more between waterings.",
+          "overwateringSigns": ["Yellowing leaves", "Soft, brown base of the crown", "Soil that stays wet"],
+          "underwateringSigns": ["Pale, limp leaves", "Brown, dry leaf tips", "Fleshy roots visibly shrivelled"]
+        },
+        "temperature": {
+          "summary": "16–27°C",
+          "details": "Comfortable at ordinary room temperatures.",
+          "extremes": "Keep above about 7°C and away from cold drafts."
+        },
+        "humidity": {
+          "summary": "Medium",
+          "details": "Average indoor humidity is fine. In very dry air, a humidifier or pebble tray reduces brown tips."
+        },
+        "soil": {
+          "summary": "General, well-draining potting mix",
+          "details": "A standard loam-based or peat-free houseplant mix works well.",
+          "drainage": "Use a pot with drainage holes.",
+          "additives": ["Perlite"]
+        },
+        "fertilizing": {
+          "summary": "Light feeding in the growing season",
+          "details": "Feed every month or two with a balanced fertilizer at half strength. Over-fertilizing reduces plantlet production and can cause brown tips.",
+          "seasonal": "Feed in spring and summer only."
+        },
+        "repotting": {
+          "summary": "When roots push the plant up out of the pot",
+          "details": "Its thick roots fill pots quickly; repot in spring when they crowd the container.",
+          "rootBoundSigns": ["Roots lifting the plant above the rim", "Thick white roots emerging from drainage holes", "Plastic pot deforming"],
+          "potSizing": "Go up one size. Slightly snug pots encourage plantlets."
+        },
+        "pruning": {
+          "summary": "Remove old leaves and unwanted runners",
+          "details": "Cut off yellow or brown leaves at the base, trim brown tips with clean scissors if you like, and remove runners if you don't want plantlets."
+        },
+        "propagation": {
+          "summary": "Plantlets or division",
+          "methods": [
+            {
+              "name": "Plantlets",
+              "instructions": "Pin a plantlet onto a small pot of moist mix while still attached to the runner, or place it in water. Once it roots (a week or two), cut the runner. Plantlets form most readily when days are short."
+            },
+            {
+              "name": "Division",
+              "instructions": "When repotting, pull or cut the clump into sections, each with leaves and roots, and pot them separately."
+            }
+          ]
+        }
+      },
+      "healthyAppearance": "A dense rosette of firm, arching leaves with crisp stripes (on variegated forms), green tips and thick white roots; mature plants send out runners with plantlets.",
+      "warningSigns": ["Many brown leaf tips", "Yellowing or collapsing centre", "Faded stripes"],
+      "commonProblems": [
+        {
+          "problem": "Brown leaf tips",
+          "possibleCauses": ["Fluoride or chlorine in tap water", "Salt build-up from fertilizer", "Dry air", "Uneven watering"],
+          "whatToDo": "Water with rainwater, filtered water or tap water left to stand, flush the soil occasionally, feed less and keep watering consistent. Trim the brown tips."
+        },
+        {
+          "problem": "No plantlets",
+          "possibleCauses": ["Young plant", "Too much fertilizer", "Very long days or bright artificial light at night"],
+          "whatToDo": "Be patient with young plants, feed less, and give the plant a few weeks of naturally short days."
+        }
+      ],
+      "safety": {
+        "toxicity": "Listed as non-toxic to cats and dogs by the ASPCA. Cats are often attracted to the leaves; eating a lot may still cause mild stomach upset. The sources reviewed do not cover effects on people, so human toxicity is marked as unknown.",
+        "handling": "No special handling precautions. Hang it out of reach if pets keep chewing it."
+      },
+      "additionalNotes": ["Sensitive to fluoride and chlorine in tap water, which cause leaf tip burn."]
+    },
+    "he": {
+      "commonName": "כלורופיטום",
+      "alternateNames": ["צמח העכביש"],
+      "description": "צמח בית קלאסי ונוח מדרום אפריקה. הוא יוצר מזרקה של עלים מקושתים דמויי עשב ושולח שלוחות ארוכות שעליהן צמחונים קטנים, ולכן הוא מושלם לעציצים תלויים ולחלוקה לחברים.",
+      "appearance": "עלים צרים ומקושתים דמויי רצועה, ירוקים אחידים או עם פסים לבנים או בצבע קרם, שצומחים ממרכז אחד עם שורשים עבים ובשרניים. על גבעולים ארוכים מופיעים פרחים לבנים קטנים וצמחונים.",
+      "care": {
+        "light": {
+          "summary": "אור עקיף בינוני",
+          "details": "מעדיף אור עקיף בינוני ומסתדר גם בצל עמוק למדי. זנים מגוונים שומרים על הפסים הכי טוב באור עקיף בהיר יותר.",
+          "directSun": "אינו סובל שמש ישירה, שצורבת את העלים ומשחימה אותם.",
+          "lowLight": "מסתדר בצל עמוק, אבל הצמיחה מאטה, הפסים עלולים לדהות ונוצרים פחות צמחונים.",
+          "warningSigns": ["עלים חיוורים, דהויים או צרובים", "כתמים חומים אחרי חשיפה לשמש", "צמיחה חלשה ושמוטה באור נמוך מאוד"]
+        },
+        "watering": {
+          "summary": "לשמור על לחות קלה בעונת הצמיחה",
+          "details": "גדל הכי טוב כשהאדמה לחה קלות בעונת הצמיחה, אבל השורשים הבשרניים אוגרים מים ולכן הוא מסתדר עם התייבשות מדי פעם. יש להימנע מאדמה ספוגה.",
+          "howToCheck": "משקים כש־2–3 הסנטימטרים העליונים של האדמה מרגישים יבשים.",
+          "seasonal": "בחורף משקים פחות ונותנים לחלק העליון של האדמה להתייבש מעט יותר בין השקיות.",
+          "overwateringSigns": ["עלים מצהיבים", "בסיס המרכז רך וחום", "אדמה שנשארת רטובה"],
+          "underwateringSigns": ["עלים חיוורים ורפויים", "קצוות עלים חומים ויבשים", "שורשים בשרניים מצומקים בבירור"]
+        },
+        "temperature": {
+          "summary": "16–27°C",
+          "details": "מרגיש בנוח בטמפרטורת חדר רגילה.",
+          "extremes": "יש לשמור עליו מעל כ־7°C ולהרחיק ממשבי רוח קרים."
+        },
+        "humidity": {
+          "summary": "בינונית",
+          "details": "לחות ביתית רגילה מספיקה. באוויר יבש מאוד, מכשיר אדים או מגש חלוקים מפחיתים קצוות חומים."
+        },
+        "soil": {
+          "summary": "תערובת שתילה כללית ומנקזת",
+          "details": "תערובת רגילה לצמחי בית מתאימה היטב.",
+          "drainage": "משתמשים בעציץ עם חורי ניקוז.",
+          "additives": ["פרליט"]
+        },
+        "fertilizing": {
+          "summary": "דישון קל בעונת הצמיחה",
+          "details": "מדשנים כל חודש–חודשיים בדשן מאוזן בחצי ריכוז. עודף דשן מפחית את יצירת הצמחונים ועלול לגרום לקצוות חומים.",
+          "seasonal": "מדשנים רק באביב ובקיץ."
+        },
+        "repotting": {
+          "summary": "כשהשורשים דוחפים את הצמח החוצה מהעציץ",
+          "details": "השורשים העבים ממלאים את העציץ מהר; מעבירים לעציץ חדש באביב כשהם צפופים.",
+          "rootBoundSigns": ["השורשים מרימים את הצמח מעל שפת העציץ", "שורשים לבנים ועבים יוצאים מחורי הניקוז", "עציץ פלסטיק מתעוות"],
+          "potSizing": "עולים במידה אחת. עציץ מעט צפוף מעודד יצירת צמחונים."
+        },
+        "pruning": {
+          "summary": "מסירים עלים ישנים ושלוחות לא רצויות",
+          "details": "חותכים עלים צהובים או חומים בבסיסם, אפשר לגזום קצוות חומים במספריים נקיים, ולהסיר שלוחות אם לא רוצים צמחונים."
+        },
+        "propagation": {
+          "summary": "צמחונים או חלוקה",
+          "methods": [
+            {
+              "name": "צמחונים",
+              "instructions": "מצמידים צמחון לעציץ קטן עם תערובת לחה כשהוא עדיין מחובר לשלוחה, או מניחים אותו במים. כשהוא משריש (שבוע–שבועיים), חותכים את השלוחה. צמחונים נוצרים בקלות רבה יותר כשהימים קצרים."
+            },
+            {
+              "name": "חלוקה",
+              "instructions": "בזמן העברה לעציץ חדש מפרידים את הגוש לחלקים, שבכל אחד עלים ושורשים, ושותלים כל חלק בנפרד."
+            }
+          ]
+        }
+      },
+      "healthyAppearance": "שושנת עלים צפופה של עלים מוצקים ומקושתים, עם פסים חדים (בזנים המגוונים), קצוות ירוקים ושורשים לבנים ועבים; צמחים בוגרים שולחים שלוחות עם צמחונים.",
+      "warningSigns": ["קצוות עלים חומים רבים", "מרכז הצמח מצהיב או קורס", "פסים דהויים"],
+      "commonProblems": [
+        {
+          "problem": "קצוות עלים חומים",
+          "possibleCauses": ["פלואוריד או כלור במי הברז", "הצטברות מלחים מדשן", "אוויר יבש", "השקיה לא אחידה"],
+          "whatToDo": "משקים במי גשם, במים מסוננים או במי ברז שעמדו, שוטפים את האדמה מדי פעם, מדשנים פחות ומשקים באופן עקבי. גוזמים את הקצוות החומים."
+        },
+        {
+          "problem": "אין צמחונים",
+          "possibleCauses": ["צמח צעיר", "עודף דשן", "ימים ארוכים מאוד או תאורה מלאכותית חזקה בלילה"],
+          "whatToDo": "מתאזרים בסבלנות עם צמחים צעירים, מדשנים פחות ונותנים לצמח כמה שבועות של ימים קצרים באופן טבעי."
+        }
+      ],
+      "safety": {
+        "toxicity": "לפי ה־ASPCA אינו רעיל לחתולים ולכלבים. חתולים נמשכים לא פעם לעלים, ואכילת כמות גדולה עדיין עלולה לגרום לקלקול קיבה קל. המקורות שנבדקו אינם מתייחסים להשפעות על בני אדם, ולכן הרעילות לבני אדם מסומנת כלא ידועה.",
+        "handling": "אין צורך באמצעי זהירות מיוחדים. אם חיות המחמד לועסות אותו שוב ושוב, כדאי לתלות אותו מחוץ להישג ידן."
+      },
+      "additionalNotes": ["רגיש לפלואוריד ולכלור במי הברז, שגורמים לשריפת קצות העלים."]
+    }
+  },
+  "researchMetadata": {
+    "status": "draft",
+    "reviewedAt": null,
+    "method": "AI-assisted draft (Claude, 2026-10-11). Light, watering, temperature, propagation and pet toxicity statements were cross-checked against the sources listed. Not yet reviewed by a person.",
+    "sources": [
+      {
+        "title": "Chlorophytum comosum",
+        "url": "https://plants.ces.ncsu.edu/plants/chlorophytum-comosum/",
+        "publisher": "North Carolina Extension Gardener Plant Toolbox, NC State University",
+        "accessedAt": "2026-10-11"
+      },
+      {
+        "title": "Toxic and Non-toxic Plants: Spider Plant",
+        "url": "https://www.aspca.org/pet-care/animal-poison-control/toxic-and-non-toxic-plants/spider-plant",
+        "publisher": "ASPCA Animal Poison Control Center",
+        "accessedAt": "2026-10-11"
+      }
+    ]
+  }
+}

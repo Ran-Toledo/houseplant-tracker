@@ -1,0 +1,216 @@
+{
+  "schemaVersion": 1,
+  "id": "syngonium-podophyllum",
+  "scientificName": "Syngonium podophyllum",
+  "family": "Araceae",
+  "temperatureCelsius": { "idealMin": 18, "idealMax": 29, "minimum": 13 },
+  "toxicity": { "cats": "toxic", "dogs": "toxic", "humans": "toxic" },
+  "image": {
+    "file": "syngonium-podophyllum.jpg",
+    "author": "Stephanie cheks",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Syngonium_podophyllum_(_Arrowhead_plant).jpg"
+  },
+  "localizations": {
+    "en": {
+      "commonName": "Arrowhead Plant",
+      "alternateNames": ["Arrowhead Vine", "Goosefoot Plant", "Nephthytis", "Trileaf Wonder"],
+      "description": "A fast-growing aroid from tropical Central and South America. Young plants form compact clumps of arrow-shaped leaves; as they mature they start to vine and their leaves divide into several lobes.",
+      "appearance": "Arrow-shaped leaves on long stalks, in green or in cultivars variegated with cream, pink or silver. Mature leaves become lobed (three to five segments) and stems lengthen into climbing vines.",
+      "care": {
+        "light": {
+          "summary": "Bright to medium, indirect light",
+          "details": "Grows well in bright to medium, indirect light. Pink and heavily variegated cultivars need brighter light to keep their colour.",
+          "directSun": "Avoid full sun, which tends to burn or bleach the foliage.",
+          "lowLight": "Tolerates lower light, but grows leggy and variegated forms fade.",
+          "warningSigns": ["Bleached or scorched leaves", "Leggy growth with long stalks", "Colour fading in variegated cultivars"]
+        },
+        "watering": {
+          "summary": "Keep lightly moist; let the surface dry",
+          "details": "Likes evenly moist soil, but not soggy: water when the top of the soil has started to dry.",
+          "howToCheck": "Water when the top 2–3 cm of soil are dry to the touch.",
+          "seasonal": "Water less in winter, when growth slows.",
+          "overwateringSigns": ["Yellow leaves", "Soft, dark stems at the base", "Soggy soil"],
+          "underwateringSigns": ["Drooping leaves", "Brown, crispy leaf edges"]
+        },
+        "temperature": {
+          "summary": "18–29°C",
+          "details": "Likes a warm spot.",
+          "extremes": "Keep above about 13°C and protect from cold drafts."
+        },
+        "humidity": {
+          "summary": "High is ideal; tolerates average",
+          "details": "High humidity is ideal, but it adapts to normal indoor air. Brown leaf edges in dry rooms can be reduced with a humidifier or pebble tray."
+        },
+        "soil": {
+          "summary": "Rich, well-draining mix that holds some moisture",
+          "details": "Use a peat-free or standard houseplant mix with added drainage material.",
+          "drainage": "Use a pot with drainage holes.",
+          "additives": ["Perlite", "Orchid bark"]
+        },
+        "fertilizing": {
+          "summary": "Monthly in the growing season",
+          "details": "Feed with a balanced liquid fertilizer at half strength during spring and summer.",
+          "seasonal": "Stop feeding in autumn and winter."
+        },
+        "repotting": {
+          "summary": "Every few years",
+          "details": "Repot every few years in spring; you can trim the roots to keep the plant a manageable size.",
+          "rootBoundSigns": ["Roots circling the pot", "Roots emerging from drainage holes", "Soil drying very fast"],
+          "potSizing": "Go up one size, or trim the roots and return it to the same pot."
+        },
+        "pruning": {
+          "summary": "Trim vines to keep it compact",
+          "details": "Cut off vining stems as they develop to keep a bushy, compact habit; otherwise the plant becomes vine-like with age and can be trained up a support."
+        },
+        "propagation": {
+          "summary": "Stem cuttings, division or layering",
+          "methods": [
+            {
+              "name": "Stem cutting",
+              "instructions": "Cut a stem section with at least one node and root it in water or moist mix in warm, bright, indirect light."
+            },
+            {
+              "name": "Division",
+              "instructions": "Separate a clump into sections with roots and leaves when repotting."
+            }
+          ]
+        }
+      },
+      "healthyAppearance": "Firm, arrow-shaped leaves with clean edges and clear colour patterns; steady new growth; compact habit when pruned.",
+      "warningSigns": ["Yellow or brown leaves", "Soft stems at the soil line", "Webbing or sticky residue under leaves"],
+      "commonProblems": [
+        {
+          "problem": "Yellowing leaves",
+          "possibleCauses": ["Overwatering", "Poor drainage"],
+          "whatToDo": "Let the soil surface dry before watering and make sure excess water drains away."
+        },
+        {
+          "problem": "Leaf spots or stem soft rot",
+          "possibleCauses": ["Bacterial infection", "Wet foliage and soggy soil"],
+          "whatToDo": "Remove affected leaves, water the soil rather than the leaves, and improve drainage and air flow."
+        },
+        {
+          "problem": "Aphids, mealybugs, spider mites or thrips",
+          "possibleCauses": ["Dry air", "Pests carried in on other plants"],
+          "whatToDo": "Isolate, wipe or rinse the leaves and treat with insecticidal soap, repeating as directed."
+        }
+      ],
+      "safety": {
+        "toxicity": "Toxic to cats, dogs and horses. Insoluble calcium oxalate crystals cause mouth irritation, pain and swelling of the mouth, tongue and lips, heavy drooling, vomiting and difficulty swallowing. Also toxic to people (medium severity), and the sap can cause skin irritation.",
+        "handling": "Wear gloves when pruning and wash hands afterwards. Keep out of reach of pets and children."
+      },
+      "additionalNotes": ["Leaf shape changes as the plant matures: juvenile arrowheads give way to lobed adult leaves."]
+    },
+    "he": {
+      "commonName": "סינגוניום",
+      "alternateNames": ["ראש חץ", "נפתיטיס"],
+      "description": "צמח לופי מהיר צמיחה מהאזורים הטרופיים של מרכז ודרום אמריקה. צמחים צעירים יוצרים גושים קומפקטיים של עלים בצורת ראש חץ; כשהם מתבגרים הם מתחילים לטפס והעלים מתחלקים לכמה אונות.",
+      "appearance": "עלים בצורת ראש חץ על פטוטרות ארוכות, ירוקים או בזנים מגוונים בקרם, בוורוד או בכסוף. העלים הבוגרים מתחלקים לאונות (שלוש עד חמש), והגבעולים מתארכים לשלוחות מטפסות.",
+      "care": {
+        "light": {
+          "summary": "אור עקיף בהיר עד בינוני",
+          "details": "גדל היטב באור עקיף בהיר עד בינוני. זנים ורודים ומגוונים מאוד צריכים אור בהיר יותר כדי לשמור על צבעם.",
+          "directSun": "יש להימנע משמש מלאה, שנוטה לשרוף או להלבין את העלים.",
+          "lowLight": "מסתדר באור נמוך יותר, אבל מתארך, והזנים המגוונים דוהים.",
+          "warningSigns": ["עלים מולבנים או צרובים", "צמיחה מתארכת עם פטוטרות ארוכות", "דהיית צבע בזנים מגוונים"]
+        },
+        "watering": {
+          "summary": "לחות קלה; לתת לפני השטח להתייבש",
+          "details": "אוהב אדמה לחה באופן אחיד, אבל לא ספוגה: משקים כשהחלק העליון של האדמה התחיל להתייבש.",
+          "howToCheck": "משקים כש־2–3 הסנטימטרים העליונים של האדמה יבשים למגע.",
+          "seasonal": "בחורף, כשהצמיחה מאטה, משקים פחות.",
+          "overwateringSigns": ["עלים צהובים", "גבעולים רכים וכהים בבסיס", "אדמה ספוגה"],
+          "underwateringSigns": ["עלים צונחים", "שולי עלים חומים ופריכים"]
+        },
+        "temperature": {
+          "summary": "18–29°C",
+          "details": "אוהב מקום חמים.",
+          "extremes": "יש לשמור עליו מעל כ־13°C ולהגן עליו ממשבי רוח קרים."
+        },
+        "humidity": {
+          "summary": "גבוהה – אידיאלית; מסתדר עם רגילה",
+          "details": "לחות גבוהה היא אידיאלית, אבל הוא מסתגל לאוויר ביתי רגיל. בחדרים יבשים אפשר להפחית שוליים חומים בעזרת מכשיר אדים או מגש חלוקים."
+        },
+        "soil": {
+          "summary": "תערובת עשירה ומנקזת ששומרת מעט לחות",
+          "details": "משתמשים בתערובת רגילה לצמחי בית בתוספת חומר משפר ניקוז.",
+          "drainage": "משתמשים בעציץ עם חורי ניקוז.",
+          "additives": ["פרליט", "קליפות אורן (בארק)"]
+        },
+        "fertilizing": {
+          "summary": "פעם בחודש בעונת הצמיחה",
+          "details": "מדשנים בדשן נוזלי מאוזן בחצי ריכוז באביב ובקיץ.",
+          "seasonal": "מפסיקים לדשן בסתיו ובחורף."
+        },
+        "repotting": {
+          "summary": "כל כמה שנים",
+          "details": "מעבירים לעציץ חדש כל כמה שנים באביב; אפשר לגזום את השורשים כדי לשמור על גודל נוח.",
+          "rootBoundSigns": ["שורשים מסתלסלים בעציץ", "שורשים יוצאים מחורי הניקוז", "האדמה מתייבשת מהר מאוד"],
+          "potSizing": "עולים במידה אחת, או גוזמים שורשים ומחזירים לאותו עציץ."
+        },
+        "pruning": {
+          "summary": "גוזמים שלוחות כדי לשמור על צמח קומפקטי",
+          "details": "חותכים גבעולים מטפסים כשהם מתחילים להתפתח כדי לשמור על צמח מלא וקומפקטי; אחרת הצמח הופך עם הזמן למטפס, ואפשר להדלות אותו על תמיכה."
+        },
+        "propagation": {
+          "summary": "ייחורי גבעול, חלוקה או הברכה",
+          "methods": [
+            {
+              "name": "ייחור גבעול",
+              "instructions": "חותכים קטע גבעול עם מפרק אחד לפחות ומשרישים במים או בתערובת לחה, במקום חם עם אור בהיר ועקיף."
+            },
+            {
+              "name": "חלוקה",
+              "instructions": "בזמן העברה לעציץ חדש מפרידים גוש לחלקים עם שורשים ועלים."
+            }
+          ]
+        }
+      },
+      "healthyAppearance": "עלים מוצקים בצורת ראש חץ עם שוליים נקיים ודוגמת צבע ברורה; צמיחה חדשה קבועה; מבנה קומפקטי כשגוזמים.",
+      "warningSigns": ["עלים צהובים או חומים", "גבעולים רכים בגובה האדמה", "קורים או שאריות דביקות מתחת לעלים"],
+      "commonProblems": [
+        {
+          "problem": "עלים מצהיבים",
+          "possibleCauses": ["השקיית יתר", "ניקוז לקוי"],
+          "whatToDo": "נותנים לפני האדמה להתייבש לפני ההשקיה ומוודאים שעודפי המים מתנקזים."
+        },
+        {
+          "problem": "כתמים על העלים או ריקבון רך בגבעול",
+          "possibleCauses": ["זיהום חיידקי", "עלים רטובים ואדמה ספוגה"],
+          "whatToDo": "מסירים עלים נגועים, משקים את האדמה ולא את העלים, ומשפרים ניקוז וזרימת אוויר."
+        },
+        {
+          "problem": "כנימות עלה, כנימות קמחיות, אקריות או תריפסים",
+          "possibleCauses": ["אוויר יבש", "מזיקים שהגיעו עם צמחים אחרים"],
+          "whatToDo": "מבודדים, מנגבים או שוטפים את העלים ומטפלים בסבון קוטל חרקים, וחוזרים על הטיפול לפי ההוראות."
+        }
+      ],
+      "safety": {
+        "toxicity": "רעיל לחתולים, לכלבים ולסוסים. גבישי סידן אוקסלט גורמים לגירוי בפה, לכאב ולנפיחות בפה, בלשון ובשפתיים, לריור חזק, להקאות ולקושי בבליעה. רעיל גם לבני אדם (חומרה בינונית), והשרף עלול לגרות את העור.",
+        "handling": "גוזמים עם כפפות ושוטפים ידיים אחר כך. יש להרחיק מהישג ידם של חיות מחמד וילדים."
+      },
+      "additionalNotes": ["צורת העלה משתנה עם ההתבגרות: ראשי החץ של הצמח הצעיר מתחלפים בעלים בוגרים מחולקים לאונות."]
+    }
+  },
+  "researchMetadata": {
+    "status": "draft",
+    "reviewedAt": null,
+    "method": "AI-assisted draft (Claude, 2026-10-11). Light, humidity, pruning, repotting, propagation, pest and toxicity statements were cross-checked against the sources listed; watering and temperature ranges are general guidance not stated numerically by these sources. Not yet reviewed by a person.",
+    "sources": [
+      {
+        "title": "Syngonium podophyllum",
+        "url": "https://plants.ces.ncsu.edu/plants/syngonium-podophyllum/",
+        "publisher": "North Carolina Extension Gardener Plant Toolbox, NC State University",
+        "accessedAt": "2026-10-11"
+      },
+      {
+        "title": "Toxic and Non-toxic Plants: Arrow-Head Vine",
+        "url": "https://www.aspca.org/pet-care/animal-poison-control/toxic-and-non-toxic-plants/arrow-head-vine",
+        "publisher": "ASPCA Animal Poison Control Center",
+        "accessedAt": "2026-10-11"
+      }
+    ]
+  }
+}

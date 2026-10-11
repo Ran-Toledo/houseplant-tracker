@@ -1,0 +1,216 @@
+{
+  "schemaVersion": 1,
+  "id": "epipremnum-aureum",
+  "scientificName": "Epipremnum aureum",
+  "family": "Araceae",
+  "temperatureCelsius": { "idealMin": 18, "idealMax": 29, "minimum": 12 },
+  "toxicity": { "cats": "toxic", "dogs": "toxic", "humans": "toxic" },
+  "image": {
+    "file": "epipremnum-aureum.jpg",
+    "author": "Mokkie",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Money_Plant_(Epipremnum_aureum)_4.jpg"
+  },
+  "localizations": {
+    "en": {
+      "commonName": "Golden Pothos",
+      "alternateNames": ["Pothos", "Devil's Ivy", "Money Plant", "Ivy Arum"],
+      "description": "One of the easiest and most forgiving trailing houseplants. Its heart-shaped leaves streaked with gold grow quickly on long vines that can trail from a shelf or climb a support.",
+      "appearance": "Waxy, heart-shaped green leaves marbled with yellow or cream on flexible vines. Indoors the leaves stay palm-sized; vines can grow several metres long if left untrimmed.",
+      "care": {
+        "light": {
+          "summary": "Bright, indirect light; tolerates low light",
+          "details": "Grows fastest and keeps its golden variegation best in bright, indirect light. It is famous for coping with dim rooms and can live for long periods in low light.",
+          "directSun": "A little gentle morning sun is fine; strong direct sun can bleach or scorch the leaves.",
+          "lowLight": "Tolerates low light well, but leaves become smaller, greener and more widely spaced along the vine.",
+          "warningSigns": ["Variegation fading to plain green", "Long bare stretches of vine between leaves", "Pale, washed-out or scorched patches"]
+        },
+        "watering": {
+          "summary": "Let the soil dry out between waterings",
+          "details": "Water thoroughly, then let the potting mix dry out before watering again. Pothos copes better with being slightly too dry than too wet; overwatering is the most common cause of trouble.",
+          "howToCheck": "Feel the soil: when the top half of the mix is dry, water. Slightly limp leaves are also a reliable signal that the plant is thirsty.",
+          "seasonal": "Water more often in warm, bright months and less in winter, when the soil takes longer to dry.",
+          "overwateringSigns": ["Yellow leaves, especially several at once", "Blackened leaf margins", "Mushy stems at the base", "Soil that stays wet for a week or more"],
+          "underwateringSigns": ["Limp, drooping leaves", "Brown, crispy leaf edges", "Very light pot and dry, shrunken soil"]
+        },
+        "temperature": {
+          "summary": "18–29°C",
+          "details": "Ordinary room temperatures suit it well.",
+          "extremes": "Protect from cold drafts and from sitting against cold window glass in winter. Prolonged cold below about 12°C can damage leaves."
+        },
+        "humidity": {
+          "summary": "Average household humidity",
+          "details": "Adapts to normal indoor humidity. In very dry air, a humidifier or a pebble tray can reduce brown leaf tips."
+        },
+        "soil": {
+          "summary": "Well-draining, general-purpose potting mix",
+          "details": "A standard indoor potting mix with some extra drainage material works well.",
+          "drainage": "Use a pot with drainage holes and empty saucers after watering.",
+          "additives": ["Perlite", "Orchid bark"]
+        },
+        "fertilizing": {
+          "summary": "Every 4–8 weeks in the growing season",
+          "details": "Use a balanced liquid houseplant fertilizer, diluted as directed or weaker.",
+          "seasonal": "Feed from spring to late summer; pause during winter when growth slows."
+        },
+        "repotting": {
+          "summary": "When roots fill the pot, usually every 1–2 years",
+          "details": "Pothos tolerates being somewhat snug in its pot. Repot in spring or summer when the roots have clearly filled the container.",
+          "rootBoundSigns": ["Roots poking from the drainage holes", "Soil drying out within a day or two", "Roots visible on the soil surface"],
+          "potSizing": "Choose a pot only slightly larger than the current one."
+        },
+        "pruning": {
+          "summary": "Trim vines to keep it bushy",
+          "details": "Cut leggy vines just above a leaf node to encourage branching and a fuller plant. Remove yellow or damaged leaves. Occasional yellowing and dropping of the oldest leaves is normal."
+        },
+        "propagation": {
+          "summary": "Stem cuttings root very easily",
+          "methods": [
+            {
+              "name": "Stem cutting in water",
+              "instructions": "Cut a length of vine with two or three nodes, remove the lowest leaf and place the nodes in water. Change the water weekly and pot up once roots are a few centimetres long."
+            },
+            {
+              "name": "Stem cutting in soil",
+              "instructions": "Insert node cuttings directly into moist potting mix, keep lightly moist and in bright, indirect light until new growth appears. Planting several cuttings together gives a fuller pot."
+            }
+          ]
+        }
+      },
+      "healthyAppearance": "Glossy, firm leaves with clear gold or cream marbling, evenly spaced along the vine; new leaves appear regularly and stems are green and firm.",
+      "warningSigns": ["Several yellow leaves at once", "Black or brown spreading spots", "Persistent wilting despite moist soil", "Cottony or sticky residue on stems"],
+      "commonProblems": [
+        {
+          "problem": "Yellow leaves",
+          "possibleCauses": ["Overwatering", "Poorly draining soil", "Natural shedding of old leaves"],
+          "whatToDo": "Let the soil dry more between waterings and check that the pot drains. An occasional old yellow leaf is normal."
+        },
+        {
+          "problem": "Loss of variegation",
+          "possibleCauses": ["Insufficient light"],
+          "whatToDo": "Move to a brighter spot with indirect light; new leaves should regain their colour."
+        },
+        {
+          "problem": "Mealybugs or scale",
+          "possibleCauses": ["Pests carried in on new plants"],
+          "whatToDo": "Wipe off pests with a cotton swab dipped in rubbing alcohol or treat with insecticidal soap, and isolate the plant until clear."
+        }
+      ],
+      "safety": {
+        "toxicity": "Toxic to cats and dogs. Insoluble calcium oxalate crystals cause mouth irritation and burning, heavy drooling, vomiting and difficulty swallowing. Also toxic to people (medium severity): chewing causes painful mouth and lip swelling, and the sap can cause skin irritation.",
+        "handling": "Keep trailing vines out of reach of pets and small children. Wear gloves when pruning if your skin is sensitive, and wash hands afterwards."
+      },
+      "additionalNotes": ["Can climb a moss pole, where leaves often grow larger.", "Does not flower indoors."]
+    },
+    "he": {
+      "commonName": "פוטוס זהוב",
+      "alternateNames": ["פוטוס", "אפיפרמנום"],
+      "description": "אחד מצמחי הבית הנשפכים הקלים והסלחניים ביותר. העלים בצורת לב, עם פסים זהובים, צומחים מהר על שלוחות ארוכות שאפשר להשאיר נשפכות ממדף או להדלות על תמיכה.",
+      "appearance": "עלים שעוותיים בצורת לב, ירוקים עם שיש צהוב או קרם, על שלוחות גמישות. בבית העלים נשארים בגודל כף יד, והשלוחות יכולות להגיע לאורך של כמה מטרים אם לא גוזמים אותן.",
+      "care": {
+        "light": {
+          "summary": "אור בהיר ועקיף; מסתדר גם באור נמוך",
+          "details": "צומח הכי מהר ושומר על הגיוון הזהוב באור בהיר ועקיף. הוא ידוע ביכולת להסתדר בחדרים חשוכים, ויכול לחיות זמן רב גם באור נמוך.",
+          "directSun": "מעט שמש בוקר רכה בסדר; שמש ישירה וחזקה עלולה להלבין או לשרוף את העלים.",
+          "lowLight": "מסתדר היטב באור נמוך, אבל העלים נעשים קטנים יותר, ירוקים יותר ומרוחקים יותר זה מזה לאורך השלוחה.",
+          "warningSigns": ["הגיוון דוהה לירוק אחיד", "קטעים ארוכים וחשופים בשלוחה בין העלים", "כתמים חיוורים, דהויים או שרופים"]
+        },
+        "watering": {
+          "summary": "לתת לאדמה להתייבש בין השקיות",
+          "details": "משקים היטב ונותנים לתערובת להתייבש לפני ההשקיה הבאה. הפוטוס מתמודד הרבה יותר טוב עם מעט יובש מאשר עם עודף מים; השקיית יתר היא הגורם הנפוץ ביותר לבעיות.",
+          "howToCheck": "ממששים את האדמה: כשהחצי העליון של התערובת יבש, משקים. עלים שנעשים מעט רפויים הם גם סימן אמין לכך שהצמח צמא.",
+          "seasonal": "בחודשים חמים ומוארים משקים לעיתים קרובות יותר, ובחורף פחות, כי האדמה מתייבשת לאט יותר.",
+          "overwateringSigns": ["עלים צהובים, במיוחד כמה בבת אחת", "שולי עלים שהשחירו", "גבעולים רכים בבסיס", "אדמה שנשארת רטובה שבוע ויותר"],
+          "underwateringSigns": ["עלים רפויים וצונחים", "שולי עלים חומים ופריכים", "עציץ קל מאוד ואדמה יבשה ומכווצת"]
+        },
+        "temperature": {
+          "summary": "18–29°C",
+          "details": "טמפרטורת חדר רגילה מתאימה לו היטב.",
+          "extremes": "יש להגן עליו ממשבי רוח קרים ולא להצמיד אותו לזכוכית קרה בחורף. קור ממושך מתחת לכ־12°C עלול לפגוע בעלים."
+        },
+        "humidity": {
+          "summary": "לחות ביתית רגילה",
+          "details": "מסתגל ללחות רגילה בבית. באוויר יבש מאוד, מכשיר אדים או מגש חלוקים יכולים להפחית קצוות עלים חומים."
+        },
+        "soil": {
+          "summary": "תערובת שתילה כללית ומנקזת",
+          "details": "תערובת רגילה לצמחי בית, בתוספת מעט חומר משפר ניקוז, מתאימה היטב.",
+          "drainage": "משתמשים בעציץ עם חורי ניקוז ומרוקנים את התחתית אחרי ההשקיה.",
+          "additives": ["פרליט", "קליפות אורן (בארק)"]
+        },
+        "fertilizing": {
+          "summary": "כל 4–8 שבועות בעונת הצמיחה",
+          "details": "מדשנים בדשן נוזלי מאוזן לצמחי בית, מדולל לפי ההוראות או חלש יותר.",
+          "seasonal": "מדשנים מהאביב ועד סוף הקיץ, ומפסיקים בחורף כשהצמיחה מאטה."
+        },
+        "repotting": {
+          "summary": "כשהשורשים ממלאים את העציץ, בדרך כלל כל שנה–שנתיים",
+          "details": "הפוטוס מסתדר גם כשהעציץ מעט צפוף. מעבירים לעציץ גדול יותר באביב או בקיץ, כשברור שהשורשים מילאו אותו.",
+          "rootBoundSigns": ["שורשים בולטים מחורי הניקוז", "האדמה מתייבשת תוך יום–יומיים", "שורשים נראים על פני האדמה"],
+          "potSizing": "בוחרים עציץ גדול רק במעט מהעציץ הנוכחי."
+        },
+        "pruning": {
+          "summary": "גוזמים שלוחות כדי לשמור על צמח מלא",
+          "details": "חותכים שלוחות ארוכות ודלילות מעט מעל מפרק כדי לעודד הסתעפות וצמח מלא יותר. מסירים עלים צהובים או פגועים. הצהבה ונשירה מדי פעם של העלים הוותיקים ביותר היא תופעה רגילה."
+        },
+        "propagation": {
+          "summary": "ייחורי גבעול משרישים בקלות רבה",
+          "methods": [
+            {
+              "name": "ייחור במים",
+              "instructions": "חותכים קטע שלוחה עם שניים–שלושה מפרקים, מסירים את העלה התחתון ומכניסים את המפרקים למים. מחליפים מים פעם בשבוע ושותלים כשהשורשים באורך של כמה סנטימטרים."
+            },
+            {
+              "name": "ייחור באדמה",
+              "instructions": "שותלים ייחורים עם מפרקים ישירות בתערובת לחה, שומרים על לחות קלה ומציבים באור בהיר ועקיף עד שמופיעה צמיחה חדשה. שתילת כמה ייחורים יחד יוצרת עציץ מלא יותר."
+            }
+          ]
+        }
+      },
+      "healthyAppearance": "עלים מבריקים ומוצקים עם שיש זהוב או קרם ברור, במרווחים אחידים לאורך השלוחה; עלים חדשים מופיעים באופן קבוע, והגבעולים ירוקים ומוצקים.",
+      "warningSigns": ["כמה עלים צהובים בבת אחת", "כתמים שחורים או חומים שמתפשטים", "נבילה מתמשכת למרות אדמה לחה", "שאריות צמריות או דביקות על הגבעולים"],
+      "commonProblems": [
+        {
+          "problem": "עלים מצהיבים",
+          "possibleCauses": ["השקיית יתר", "אדמה שאינה מנקזת היטב", "נשירה טבעית של עלים ותיקים"],
+          "whatToDo": "נותנים לאדמה להתייבש יותר בין השקיות ובודקים שהעציץ מנקז. עלה ותיק וצהוב מדי פעם הוא תופעה רגילה."
+        },
+        {
+          "problem": "אובדן הגיוון",
+          "possibleCauses": ["מעט מדי אור"],
+          "whatToDo": "מעבירים למקום מואר יותר עם אור עקיף; העלים החדשים אמורים לחזור לצבעם."
+        },
+        {
+          "problem": "כנימות קמחיות או כנימות מגן",
+          "possibleCauses": ["מזיקים שהגיעו עם צמחים חדשים"],
+          "whatToDo": "מסירים את המזיקים במקלון צמר גפן טבול באלכוהול או מטפלים בסבון קוטל חרקים, ומבודדים את הצמח עד שהבעיה נפתרת."
+        }
+      ],
+      "safety": {
+        "toxicity": "רעיל לחתולים ולכלבים. גבישי סידן אוקסלט גורמים לגירוי ולצריבה בפה, לריור חזק, להקאות ולקושי בבליעה. רעיל גם לבני אדם (חומרה בינונית): לעיסה גורמת לנפיחות כואבת בפה ובשפתיים, והשרף עלול לגרות את העור.",
+        "handling": "יש להרחיק את השלוחות הנשפכות מהישג ידם של חיות מחמד וילדים קטנים. אם העור רגיש, כדאי לגזום עם כפפות ולשטוף ידיים אחר כך."
+      },
+      "additionalNotes": ["אפשר להדלות אותו על עמוד טחב, ושם העלים נוטים לגדול יותר.", "אינו פורח בבית."]
+    }
+  },
+  "researchMetadata": {
+    "status": "draft",
+    "reviewedAt": null,
+    "method": "AI-assisted draft (Claude, 2026-10-11). Light, watering, propagation and toxicity statements were cross-checked against the sources listed; the temperature range is general guidance not stated by these sources. Not yet reviewed by a person.",
+    "sources": [
+      {
+        "title": "Epipremnum aureum",
+        "url": "https://plants.ces.ncsu.edu/plants/epipremnum-aureum/",
+        "publisher": "North Carolina Extension Gardener Plant Toolbox, NC State University",
+        "accessedAt": "2026-10-11"
+      },
+      {
+        "title": "Toxic and Non-toxic Plants: Golden Pothos",
+        "url": "https://www.aspca.org/pet-care/animal-poison-control/toxic-and-non-toxic-plants/golden-pothos",
+        "publisher": "ASPCA Animal Poison Control Center",
+        "accessedAt": "2026-10-11"
+      }
+    ]
+  }
+}

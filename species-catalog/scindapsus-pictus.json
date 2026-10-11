@@ -1,0 +1,208 @@
+{
+  "schemaVersion": 1,
+  "id": "scindapsus-pictus",
+  "scientificName": "Scindapsus pictus",
+  "family": "Araceae",
+  "temperatureCelsius": { "idealMin": 18, "idealMax": 29, "minimum": 15 },
+  "toxicity": { "cats": "toxic", "dogs": "toxic", "humans": "unknown" },
+  "image": {
+    "file": "scindapsus-pictus.jpg",
+    "author": "Kor!An (Корзун Андрей)",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Scindapsus_pictus_01.jpg"
+  },
+  "localizations": {
+    "en": {
+      "commonName": "Satin Pothos",
+      "alternateNames": ["Silver Pothos", "Silk Pothos", "Silver Philodendron"],
+      "description": "A slow-to-moderate growing vine from Southeast Asia with velvety, heart-shaped leaves splashed with silver. Despite its common name it is not a true pothos, though it is grown in much the same way.",
+      "appearance": "Matte, slightly thick, heart-shaped dark green leaves with silvery spots or patches, on trailing or climbing stems. Cultivars such as 'Argyraeus' and 'Exotica' differ in the amount of silver.",
+      "care": {
+        "light": {
+          "summary": "Bright, indirect light",
+          "details": "Does best in bright, indirect light, which also keeps the silver markings vivid. It tolerates medium light with slower growth.",
+          "directSun": "Does not tolerate direct sun, which scorches the leaves.",
+          "lowLight": "Survives medium to low light, but becomes leggy and the silver markings become less pronounced.",
+          "warningSigns": ["Scorched or faded patches", "Long bare stems between leaves", "Silver markings fading"]
+        },
+        "watering": {
+          "summary": "Water when the top third of the soil is dry",
+          "details": "Keep lightly moist in a well-drained mix, letting the top part of the soil dry between waterings. The leaves give clear signals: yellow leaves suggest overwatering, while curling leaves suggest the plant is thirsty.",
+          "howToCheck": "Check the top third of the soil with a finger, or watch for the leaves starting to curl inward.",
+          "seasonal": "Water less often in winter.",
+          "overwateringSigns": ["Yellowing leaves", "Soft, dark stems", "Soil that stays wet"],
+          "underwateringSigns": ["Leaves curling inward lengthwise", "Limp vines", "Crispy leaf edges"]
+        },
+        "temperature": {
+          "summary": "18–29°C",
+          "details": "Prefers warm room temperatures.",
+          "extremes": "Dislikes cool air. Keep above about 15°C and away from cold windows and drafts; it is not frost hardy."
+        },
+        "humidity": {
+          "summary": "Medium to high",
+          "details": "Appreciates moderate to high humidity; brown edges are more common in very dry rooms."
+        },
+        "soil": {
+          "summary": "Airy, well-draining mix rich in organic matter",
+          "details": "Use a light aroid or houseplant mix that drains well; soggy soil leads to root rot.",
+          "drainage": "Drainage holes are essential.",
+          "additives": ["Perlite", "Orchid bark", "Coco coir"]
+        },
+        "fertilizing": {
+          "summary": "Monthly in the growing season",
+          "details": "Feed with a balanced liquid fertilizer at half strength during spring and summer.",
+          "seasonal": "No feeding in winter."
+        },
+        "repotting": {
+          "summary": "Every 2 years or so",
+          "details": "It grows fairly slowly; repot in spring once roots fill the pot.",
+          "rootBoundSigns": ["Roots from drainage holes", "Soil drying out very fast"],
+          "potSizing": "Go up one size only."
+        },
+        "pruning": {
+          "summary": "Pinch stems to keep it tidy",
+          "details": "Pinch or trim long stems just above a node to encourage fuller growth. Train it up a stake or let it trail from a hanging pot."
+        },
+        "propagation": {
+          "summary": "Stem cuttings",
+          "methods": [
+            {
+              "name": "Stem cutting",
+              "instructions": "Cut a section of stem with at least one node and leaf, and root it in water or moist sphagnum moss or mix in warm, bright, indirect light. Rooting can be slower than with golden pothos."
+            }
+          ]
+        }
+      },
+      "healthyAppearance": "Firm, velvety leaves with crisp silver markings, lying flat rather than curled; stems green and firm.",
+      "warningSigns": ["Leaves curling inward", "Yellowing leaves", "Brown, dry edges", "Grey mould or spots on leaves"],
+      "commonProblems": [
+        {
+          "problem": "Curling leaves",
+          "possibleCauses": ["Underwatering", "Very dry air"],
+          "whatToDo": "Water thoroughly; leaves usually flatten within a day. Water a little sooner next time."
+        },
+        {
+          "problem": "Yellow leaves",
+          "possibleCauses": ["Overwatering", "Cold"],
+          "whatToDo": "Let the soil dry more and keep the plant warm."
+        },
+        {
+          "problem": "Scale, mites, mealybugs, thrips or fungal leaf spot",
+          "possibleCauses": ["Pests carried in on other plants", "Wet foliage in cool, still air"],
+          "whatToDo": "Isolate the plant, wipe leaves and treat pests with insecticidal soap; remove spotted leaves and avoid wetting foliage."
+        }
+      ],
+      "safety": {
+        "toxicity": "Listed as toxic to cats by the ASPCA and flagged as a problem plant for cats, dogs and horses by NC State Extension. Like other aroids it contains calcium oxalate crystals, so chewing typically causes mouth irritation, drooling and vomiting. The sources reviewed do not describe effects on people, so human toxicity is marked as unknown.",
+        "handling": "Keep out of reach of pets and children, and wash hands after pruning."
+      },
+      "additionalNotes": ["Not a true pothos (Epipremnum), but a close relative in the same family."]
+    },
+    "he": {
+      "commonName": "סינדפסוס",
+      "alternateNames": ["פוטוס כסוף", "פוטוס סאטן"],
+      "description": "צמח מטפס בעל קצב צמיחה איטי עד בינוני מדרום־מזרח אסיה, עם עלים קטיפתיים בצורת לב ועליהם כתמים כסופים. למרות שמו העממי, זה אינו פוטוס אמיתי, אבל מגדלים אותו בדרך דומה מאוד.",
+      "appearance": "עלים מט, מעט עבים, בצורת לב, ירוקים כהים עם נקודות או כתמים כסופים, על גבעולים נשפכים או מטפסים. זנים כמו 'Argyraeus' ו־'Exotica' נבדלים בכמות הכסוף.",
+      "care": {
+        "light": {
+          "summary": "אור בהיר ועקיף",
+          "details": "מצליח הכי טוב באור בהיר ועקיף, שגם שומר על הסימנים הכסופים חיים. מסתדר באור בינוני, עם צמיחה איטית יותר.",
+          "directSun": "אינו סובל שמש ישירה, שצורבת את העלים.",
+          "lowLight": "שורד באור בינוני עד נמוך, אבל מתארך והסימנים הכסופים נעשים פחות בולטים.",
+          "warningSigns": ["כתמים צרובים או דהויים", "גבעולים ארוכים וחשופים בין העלים", "הסימנים הכסופים דוהים"]
+        },
+        "watering": {
+          "summary": "משקים כששליש העליון של האדמה יבש",
+          "details": "שומרים על לחות קלה בתערובת מנקזת, ונותנים לחלק העליון של האדמה להתייבש בין השקיות. העלים נותנים סימנים ברורים: עלים צהובים מרמזים על השקיית יתר, ועלים מסתלסלים מרמזים שהצמח צמא.",
+          "howToCheck": "בודקים באצבע את השליש העליון של האדמה, או שמים לב כשהעלים מתחילים להסתלסל פנימה.",
+          "seasonal": "בחורף משקים לעיתים רחוקות יותר.",
+          "overwateringSigns": ["עלים מצהיבים", "גבעולים רכים וכהים", "אדמה שנשארת רטובה"],
+          "underwateringSigns": ["עלים מסתלסלים פנימה לאורכם", "שלוחות רפויות", "שולי עלים פריכים"]
+        },
+        "temperature": {
+          "summary": "18–29°C",
+          "details": "מעדיף טמפרטורת חדר חמימה.",
+          "extremes": "אינו אוהב אוויר קריר. יש לשמור עליו מעל כ־15°C, הרחק מחלונות קרים וממשבי רוח; אינו עמיד לכפור."
+        },
+        "humidity": {
+          "summary": "בינונית עד גבוהה",
+          "details": "מעריך לחות בינונית עד גבוהה; בחדרים יבשים מאוד שוליים חומים נפוצים יותר."
+        },
+        "soil": {
+          "summary": "תערובת אוורירית ומנקזת, עשירה בחומר אורגני",
+          "details": "משתמשים בתערובת קלה לצמחים לופיים או לצמחי בית שמנקזת היטב; אדמה ספוגה מובילה לריקבון שורשים.",
+          "drainage": "חורי ניקוז הם חובה.",
+          "additives": ["פרליט", "קליפות אורן (בארק)", "סיבי קוקוס"]
+        },
+        "fertilizing": {
+          "summary": "פעם בחודש בעונת הצמיחה",
+          "details": "מדשנים בדשן נוזלי מאוזן בחצי ריכוז באביב ובקיץ.",
+          "seasonal": "לא מדשנים בחורף."
+        },
+        "repotting": {
+          "summary": "בערך כל שנתיים",
+          "details": "הוא צומח לאט יחסית; מעבירים לעציץ חדש באביב כשהשורשים ממלאים את העציץ.",
+          "rootBoundSigns": ["שורשים יוצאים מחורי הניקוז", "האדמה מתייבשת מהר מאוד"],
+          "potSizing": "עולים במידה אחת בלבד."
+        },
+        "pruning": {
+          "summary": "צובטים גבעולים כדי לשמור על צמח מסודר",
+          "details": "צובטים או גוזמים גבעולים ארוכים מעט מעל מפרק כדי לעודד צמיחה מלאה יותר. אפשר להדלות אותו על מוט או לתת לו להישפך מעציץ תלוי."
+        },
+        "propagation": {
+          "summary": "ייחורי גבעול",
+          "methods": [
+            {
+              "name": "ייחור גבעול",
+              "instructions": "חותכים קטע גבעול עם מפרק ועלה אחד לפחות ומשרישים במים, בטחב ספגנום לח או בתערובת לחה, במקום חם עם אור בהיר ועקיף. ההשרשה עשויה להיות איטית יותר מאשר בפוטוס הזהוב."
+            }
+          ]
+        }
+      },
+      "healthyAppearance": "עלים מוצקים וקטיפתיים עם סימנים כסופים חדים, שטוחים ולא מסולסלים; גבעולים ירוקים ומוצקים.",
+      "warningSigns": ["עלים מסתלסלים פנימה", "עלים מצהיבים", "שוליים חומים ויבשים", "עובש אפור או כתמים על העלים"],
+      "commonProblems": [
+        {
+          "problem": "עלים מסתלסלים",
+          "possibleCauses": ["השקיה לא מספקת", "אוויר יבש מאוד"],
+          "whatToDo": "משקים היטב; בדרך כלל העלים מתיישרים תוך יום. בפעם הבאה משקים מעט מוקדם יותר."
+        },
+        {
+          "problem": "עלים צהובים",
+          "possibleCauses": ["השקיית יתר", "קור"],
+          "whatToDo": "נותנים לאדמה להתייבש יותר ושומרים על הצמח במקום חמים."
+        },
+        {
+          "problem": "כנימות מגן, אקריות, כנימות קמחיות, תריפסים או כתמי עלים פטרייתיים",
+          "possibleCauses": ["מזיקים שהגיעו עם צמחים אחרים", "עלים רטובים באוויר קריר ועומד"],
+          "whatToDo": "מבודדים את הצמח, מנגבים את העלים ומטפלים במזיקים בסבון קוטל חרקים; מסירים עלים מוכתמים ונמנעים מהרטבת העלווה."
+        }
+      ],
+      "safety": {
+        "toxicity": "מופיע ברשימת ה־ASPCA כרעיל לחתולים, ושירות ההדרכה של NC State מסמן אותו כצמח בעייתי לחתולים, לכלבים ולסוסים. כמו צמחים לופיים אחרים הוא מכיל גבישי סידן אוקסלט, ולכן לעיסה גורמת בדרך כלל לגירוי בפה, לריור ולהקאות. המקורות שנבדקו אינם מתארים השפעות על בני אדם, ולכן הרעילות לבני אדם מסומנת כלא ידועה.",
+        "handling": "יש להרחיק מהישג ידם של חיות מחמד וילדים ולשטוף ידיים אחרי גיזום."
+      },
+      "additionalNotes": ["אינו פוטוס אמיתי (Epipremnum), אלא קרוב משפחה מאותה משפחה בוטנית."]
+    }
+  },
+  "researchMetadata": {
+    "status": "draft",
+    "reviewedAt": null,
+    "method": "AI-assisted draft (Claude, 2026-10-11). Light, watering signals, temperature, propagation, pest and toxicity statements were cross-checked against the sources listed. Not yet reviewed by a person.",
+    "sources": [
+      {
+        "title": "Scindapsus pictus",
+        "url": "https://plants.ces.ncsu.edu/plants/scindapsus-pictus/",
+        "publisher": "North Carolina Extension Gardener Plant Toolbox, NC State University",
+        "accessedAt": "2026-10-11"
+      },
+      {
+        "title": "Toxic and Non-Toxic Plant List — Cats (entry: Satin Pothos)",
+        "url": "https://www.aspca.org/pet-care/animal-poison-control/cats-plant-list",
+        "publisher": "ASPCA Animal Poison Control Center",
+        "accessedAt": "2026-10-11"
+      }
+    ]
+  }
+}

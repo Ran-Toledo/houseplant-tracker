@@ -1,0 +1,216 @@
+{
+  "schemaVersion": 1,
+  "id": "dracaena-trifasciata",
+  "scientificName": "Dracaena trifasciata",
+  "family": "Asparagaceae",
+  "temperatureCelsius": { "idealMin": 18, "idealMax": 29, "minimum": 10 },
+  "toxicity": { "cats": "toxic", "dogs": "toxic", "humans": "mildly-toxic" },
+  "image": {
+    "file": "dracaena-trifasciata.jpg",
+    "author": "Mokkie",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Snake_Plant_(Sansevieria_trifasciata_%27Laurentii%27).jpg"
+  },
+  "localizations": {
+    "en": {
+      "commonName": "Snake Plant",
+      "alternateNames": ["Mother-in-law's Tongue", "Sansevieria", "Good Luck Plant", "Sansevieria trifasciata"],
+      "description": "A tough, upright succulent-like plant from West Africa with stiff, sword-shaped leaves. It stores water in its leaves and rhizomes, which makes it very tolerant of dry soil, low humidity and neglect. Formerly classified as Sansevieria trifasciata.",
+      "appearance": "Stiff, upright, strap-like leaves rising from underground rhizomes, banded with light and dark green; many cultivars have yellow edges. Leaves are thick and leathery.",
+      "care": {
+        "light": {
+          "summary": "Bright indirect light; tolerates very low light",
+          "details": "Grows best with good, bright light, including some direct sun, but tolerates very low light where few other plants survive. Growth in dim rooms is very slow.",
+          "directSun": "Handles a few hours of direct sun once adjusted to it. Move it into stronger sun gradually to avoid scorching.",
+          "lowLight": "Tolerates very low light, but grows very slowly and needs even less water there.",
+          "warningSigns": ["Leaves flopping or leaning instead of standing upright", "Pale, faded leaf colour", "Bleached or tan patches after sudden strong sun"]
+        },
+        "watering": {
+          "summary": "Only when the soil is completely dry",
+          "details": "Water thoroughly, then allow the soil to dry out completely before watering again. Overwatering is by far the most common way to kill this plant: the roots and rhizomes rot in wet soil.",
+          "howToCheck": "Push a skewer all the way to the bottom of the pot; water only if it comes out dry. The pot should feel noticeably light.",
+          "seasonal": "In spring through autumn let the soil dry between waterings. In winter, water very sparingly — often only once every one to two months, depending on light and warmth.",
+          "overwateringSigns": ["Soft, mushy leaves at the base", "Leaves yellowing and collapsing", "Foul smell from the soil", "Brown, soggy rhizomes"],
+          "underwateringSigns": ["Wrinkled, thin or curling leaves", "Dry, brown leaf tips (after a very long drought)"]
+        },
+        "temperature": {
+          "summary": "18–29°C",
+          "details": "Comfortable at room temperature and tolerates cool rooms around 10°C for short periods.",
+          "extremes": "Avoid frost and prolonged cold, especially combined with wet soil, which quickly causes rot."
+        },
+        "humidity": {
+          "summary": "Low to average",
+          "details": "Tolerates dry indoor air well; no extra humidity is needed."
+        },
+        "soil": {
+          "summary": "Fast-draining cactus or succulent mix",
+          "details": "Use a gritty, fast-draining mix that dries out quickly between waterings.",
+          "drainage": "Drainage holes are essential. Terracotta pots help the soil dry faster.",
+          "additives": ["Perlite or pumice", "Coarse sand or grit"]
+        },
+        "fertilizing": {
+          "summary": "Sparingly, a few times a year",
+          "details": "Feed lightly with a diluted cactus or houseplant fertilizer during the growing season. Too much fertilizer causes weak growth.",
+          "seasonal": "Feed only in spring and summer; never in winter."
+        },
+        "repotting": {
+          "summary": "Every 2–3 years, or when the pot cracks or bulges",
+          "details": "Snake plants like a snug pot and grow slowly. Repot in spring when rhizomes crowd the pot.",
+          "rootBoundSigns": ["Pot bulging, cracking or tipping over", "New shoots pressed against the pot edge", "Water running straight through"],
+          "potSizing": "Choose a heavy, wide pot only slightly larger than the root mass; tall plants tip over in light pots."
+        },
+        "pruning": {
+          "summary": "Remove damaged leaves at the base",
+          "details": "Cut damaged or rotten leaves off at soil level with a clean knife. Trimming a leaf tip stops that leaf growing; cut it back to the base instead if it looks untidy."
+        },
+        "propagation": {
+          "summary": "Division or leaf cuttings",
+          "methods": [
+            {
+              "name": "Division",
+              "instructions": "In spring, remove the plant from its pot, cut through the rhizome so each section has leaves and roots, let cuts dry for a day, and pot each section in dry succulent mix."
+            },
+            {
+              "name": "Leaf cuttings",
+              "instructions": "Cut a leaf into sections 5–10 cm long, keep track of which end was lower, let them callus for a few days and insert the lower end into barely moist gritty mix. Rooting takes weeks to months, and variegated edges are usually lost."
+            }
+          ]
+        }
+      },
+      "healthyAppearance": "Firm, stiff, upright leaves with crisp banding and clean edges; the base is firm and dry; new shoots appear from the soil now and then.",
+      "warningSigns": ["Soft or translucent leaf bases", "Leaves falling over", "Wrinkled leaves", "Mealybug cotton at the leaf base"],
+      "commonProblems": [
+        {
+          "problem": "Root and rhizome rot",
+          "possibleCauses": ["Watering too often", "Heavy, water-retentive soil", "Cold, wet conditions in winter"],
+          "whatToDo": "Unpot the plant, cut away all soft, brown tissue, let healthy sections dry and repot in fresh gritty mix. Water far less often afterwards."
+        },
+        {
+          "problem": "Floppy leaves",
+          "possibleCauses": ["Overwatering", "Very low light"],
+          "whatToDo": "Check the base for rot, let the soil dry fully and move the plant to a brighter location."
+        },
+        {
+          "problem": "Mealybugs or spider mites",
+          "possibleCauses": ["Pests carried in from other plants"],
+          "whatToDo": "Wipe the leaves and the base of the leaves, treat with insecticidal soap and isolate until clear."
+        }
+      ],
+      "safety": {
+        "toxicity": "Toxic to cats and dogs. The leaves contain saponins, which can cause nausea, vomiting and diarrhoea if chewed. Mildly toxic to people (low severity); the sap can irritate the skin.",
+        "handling": "Keep away from pets that chew plants. Wash hands after handling cut leaves."
+      },
+      "additionalNotes": ["One of the most drought-tolerant common houseplants; it is usually killed by kindness rather than neglect.", "May occasionally produce sprays of fragrant, pale flowers."]
+    },
+    "he": {
+      "commonName": "סנסיווריה",
+      "alternateNames": ["לשון חמות", "דרצנה טריפסיאטה", "סנסיווריה טריפסיאטה"],
+      "description": "צמח עמיד וזקוף, דמוי סוקולנט, ממערב אפריקה, עם עלים קשיחים בצורת חרב. הוא אוגר מים בעלים ובקני השורש, ולכן מתמודד היטב עם אדמה יבשה, לחות נמוכה והזנחה. בעבר סווג בשם Sansevieria trifasciata.",
+      "appearance": "עלים קשיחים, זקופים ודמויי רצועה שעולים מקני שורש תת־קרקעיים, עם פסים ירוקים בהירים וכהים; לזנים רבים שוליים צהובים. העלים עבים ועוריים.",
+      "care": {
+        "light": {
+          "summary": "אור בהיר ועקיף; מסתדר גם באור נמוך מאוד",
+          "details": "גדל הכי טוב באור בהיר וטוב, כולל מעט שמש ישירה, אבל מסתדר גם באור נמוך מאוד שבו מעט צמחים שורדים. בחדרים חשוכים הצמיחה איטית מאוד.",
+          "directSun": "מסתדר עם כמה שעות שמש ישירה אחרי שהתרגל אליה. כדי למנוע כוויות, מעבירים לשמש חזקה בהדרגה.",
+          "lowLight": "מסתדר באור נמוך מאוד, אבל צומח לאט מאוד וצריך שם עוד פחות מים.",
+          "warningSigns": ["עלים שנופלים או נוטים במקום לעמוד זקופים", "צבע עלים חיוור ודהוי", "כתמים לבנים או שזופים אחרי חשיפה פתאומית לשמש חזקה"]
+        },
+        "watering": {
+          "summary": "רק כשהאדמה יבשה לגמרי",
+          "details": "משקים היטב ונותנים לאדמה להתייבש לגמרי לפני ההשקיה הבאה. השקיית יתר היא ללא ספק הדרך הנפוצה ביותר להרוג את הצמח: השורשים וקני השורש נרקבים באדמה רטובה.",
+          "howToCheck": "מכניסים שיפוד עד תחתית העציץ ומשקים רק אם הוא יוצא יבש. העציץ אמור להרגיש קל באופן מורגש.",
+          "seasonal": "מהאביב ועד הסתיו נותנים לאדמה להתייבש בין השקיות. בחורף משקים במשורה – לעיתים רק פעם בחודש–חודשיים, לפי האור והחום.",
+          "overwateringSigns": ["עלים רכים ורכרוכיים בבסיס", "עלים מצהיבים וקורסים", "ריח רע מהאדמה", "קני שורש חומים וספוגי מים"],
+          "underwateringSigns": ["עלים מקומטים, דקים או מסתלסלים", "קצוות עלים יבשים וחומים (אחרי יובש ממושך מאוד)"]
+        },
+        "temperature": {
+          "summary": "18–29°C",
+          "details": "מרגיש בנוח בטמפרטורת חדר ומסתדר לפרקי זמן קצרים גם בחדרים קרירים של כ־10°C.",
+          "extremes": "יש להימנע מכפור ומקור ממושך, במיוחד בשילוב עם אדמה רטובה, שגורם לריקבון מהיר."
+        },
+        "humidity": {
+          "summary": "נמוכה עד רגילה",
+          "details": "מסתדר היטב עם אוויר ביתי יבש; אין צורך בתוספת לחות."
+        },
+        "soil": {
+          "summary": "תערובת מנקזת מהר לקקטוסים וסוקולנטים",
+          "details": "משתמשים בתערובת גרגירית שמנקזת מהר ומתייבשת במהירות בין השקיות.",
+          "drainage": "חורי ניקוז הם חובה. עציצי חרס עוזרים לאדמה להתייבש מהר יותר.",
+          "additives": ["פרליט או פומיס", "חול גס או חצץ"]
+        },
+        "fertilizing": {
+          "summary": "במשורה, כמה פעמים בשנה",
+          "details": "מדשנים קלות בדשן מדולל לקקטוסים או לצמחי בית בעונת הצמיחה. עודף דשן גורם לצמיחה חלשה.",
+          "seasonal": "מדשנים רק באביב ובקיץ; לעולם לא בחורף."
+        },
+        "repotting": {
+          "summary": "כל 2–3 שנים, או כשהעציץ נסדק או מתעוות",
+          "details": "הסנסיווריה אוהבת עציץ צפוף וגדלה לאט. מעבירים לעציץ חדש באביב, כשקני השורש ממלאים את העציץ.",
+          "rootBoundSigns": ["העציץ מתנפח, נסדק או מתהפך", "נצרים חדשים נלחצים אל שפת העציץ", "המים עוברים ישר דרך העציץ"],
+          "potSizing": "בוחרים עציץ כבד ורחב, גדול רק במעט מגוש השורשים; צמחים גבוהים מתהפכים בעציצים קלים."
+        },
+        "pruning": {
+          "summary": "מסירים עלים פגועים בבסיסם",
+          "details": "חותכים עלים פגועים או רקובים בגובה האדמה בסכין נקייה. קיצוץ קצה העלה עוצר את צמיחתו; אם העלה נראה לא מסודר, עדיף לחתוך אותו מהבסיס."
+        },
+        "propagation": {
+          "summary": "חלוקה או ייחורי עלים",
+          "methods": [
+            {
+              "name": "חלוקה",
+              "instructions": "באביב מוציאים את הצמח מהעציץ, חותכים את קנה השורש כך שבכל חלק יהיו עלים ושורשים, נותנים לחתכים להתייבש יום אחד, ושותלים כל חלק בתערובת סוקולנטים יבשה."
+            },
+            {
+              "name": "ייחורי עלים",
+              "instructions": "חותכים עלה לקטעים של 5–10 ס״מ, מקפידים לזכור איזה צד היה למטה, נותנים להם להגליד כמה ימים ותוקעים את הצד התחתון בתערובת גרגירית לחה בקושי. ההשרשה נמשכת שבועות עד חודשים, ובדרך כלל השוליים הצהובים לא נשמרים."
+            }
+          ]
+        }
+      },
+      "healthyAppearance": "עלים מוצקים, קשיחים וזקופים עם פסים חדים ושוליים נקיים; הבסיס מוצק ויבש, ומדי פעם מופיעים נצרים חדשים מהאדמה.",
+      "warningSigns": ["בסיסי עלים רכים או שקופים", "עלים שנופלים", "עלים מקומטים", "צמר לבן של כנימה קמחית בבסיס העלים"],
+      "commonProblems": [
+        {
+          "problem": "ריקבון שורשים וקני שורש",
+          "possibleCauses": ["השקיה תכופה מדי", "אדמה כבדה שמחזיקה מים", "תנאים קרים ורטובים בחורף"],
+          "whatToDo": "מוציאים את הצמח מהעציץ, חותכים את כל הרקמה הרכה והחומה, נותנים לחלקים הבריאים להתייבש ושותלים מחדש בתערובת גרגירית טרייה. בהמשך משקים בתדירות נמוכה בהרבה."
+        },
+        {
+          "problem": "עלים נופלים",
+          "possibleCauses": ["השקיית יתר", "אור נמוך מאוד"],
+          "whatToDo": "בודקים אם יש ריקבון בבסיס, נותנים לאדמה להתייבש לגמרי ומעבירים את הצמח למקום מואר יותר."
+        },
+        {
+          "problem": "כנימות קמחיות או אקריות",
+          "possibleCauses": ["מזיקים שהגיעו מצמחים אחרים"],
+          "whatToDo": "מנגבים את העלים ואת בסיסי העלים, מטפלים בסבון קוטל חרקים ומבודדים עד שהבעיה נפתרת."
+        }
+      ],
+      "safety": {
+        "toxicity": "רעיל לחתולים ולכלבים. העלים מכילים ספונינים, שעלולים לגרום לבחילה, להקאות ולשלשול כשלועסים אותם. רעיל במידה קלה לבני אדם (חומרה נמוכה); השרף עלול לגרות את העור.",
+        "handling": "יש להרחיק מחיות מחמד שלועסות צמחים. שוטפים ידיים אחרי טיפול בעלים חתוכים."
+      },
+      "additionalNotes": ["מצמחי הבית הנפוצים העמידים ביותר ליובש; בדרך כלל הוא מת מעודף טיפול ולא מהזנחה.", "לעיתים מוציא אשכולות של פרחים חיוורים וריחניים."]
+    }
+  },
+  "researchMetadata": {
+    "status": "draft",
+    "reviewedAt": null,
+    "method": "AI-assisted draft (Claude, 2026-10-11). Light, watering, temperature, propagation and toxicity statements were cross-checked against the sources listed. Not yet reviewed by a person.",
+    "sources": [
+      {
+        "title": "Dracaena trifasciata",
+        "url": "https://plants.ces.ncsu.edu/plants/dracaena-trifasciata/",
+        "publisher": "North Carolina Extension Gardener Plant Toolbox, NC State University",
+        "accessedAt": "2026-10-11"
+      },
+      {
+        "title": "Toxic and Non-toxic Plants: Mother-in-Law's Tongue",
+        "url": "https://www.aspca.org/pet-care/animal-poison-control/toxic-and-non-toxic-plants/mother-laws-tongue",
+        "publisher": "ASPCA Animal Poison Control Center",
+        "accessedAt": "2026-10-11"
+      }
+    ]
+  }
+}

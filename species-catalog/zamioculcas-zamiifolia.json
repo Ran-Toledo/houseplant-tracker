@@ -1,0 +1,210 @@
+{
+  "schemaVersion": 1,
+  "id": "zamioculcas-zamiifolia",
+  "scientificName": "Zamioculcas zamiifolia",
+  "family": "Araceae",
+  "temperatureCelsius": { "idealMin": 18, "idealMax": 29, "minimum": 12 },
+  "toxicity": { "cats": "toxic", "dogs": "toxic", "humans": "toxic" },
+  "image": {
+    "file": "zamioculcas-zamiifolia.jpg",
+    "author": "WeFt",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Zamioculcas_zamiifolia_1.jpg"
+  },
+  "localizations": {
+    "en": {
+      "commonName": "ZZ Plant",
+      "alternateNames": ["Zanzibar Gem", "Zamioculcas", "Zuzu Plant"],
+      "description": "A slow-growing, extremely tolerant aroid from eastern Africa. Thick underground rhizomes store water, so it handles dry soil, low light and irregular care better than most houseplants.",
+      "appearance": "Upright, arching stems carrying rows of glossy, dark green, oval leaflets, rising from potato-like rhizomes below the soil. The whole plant looks polished, almost artificial.",
+      "care": {
+        "light": {
+          "summary": "Bright indirect light; tolerates very low light",
+          "details": "Grows best in bright, indirect light but tolerates very low light, which makes it suited to offices and darker rooms. In low light it simply grows very slowly.",
+          "directSun": "Avoid direct sun: it can scald the leaflets, leaving yellow or brown patches.",
+          "lowLight": "Tolerates very low light; growth slows and new stems may lean toward the light. Water less often in dim spots.",
+          "warningSigns": ["Yellow or brown scorched patches after direct sun", "Long, weak stems leaning toward the window", "No new growth for many months in bright conditions"]
+        },
+        "watering": {
+          "summary": "Only when the soil is completely dry",
+          "details": "Water thoroughly, then let the soil dry out completely. The rhizomes store water, so overwatering, not drought, is the main risk.",
+          "howToCheck": "Check with a skewer that the soil is dry all the way down, or wait until the pot feels very light.",
+          "seasonal": "As a rough guide, roughly twice a month in summer and about once a month in winter, but only if the soil is completely dry — conditions in your home matter more than the calendar.",
+          "overwateringSigns": ["Yellowing leaflets and stems", "Soft, mushy stems at the base", "Rhizomes that feel soft", "Soil that stays damp"],
+          "underwateringSigns": ["Wrinkled or shrivelled leaflets", "Leaflets dropping after a very long drought"]
+        },
+        "temperature": {
+          "summary": "18–29°C",
+          "details": "Comfortable at normal room temperatures.",
+          "extremes": "Sensitive to cold: keep it above about 12°C and away from cold drafts. Plants kept outdoors in summer should come indoors before nights fall below about 15°C."
+        },
+        "humidity": {
+          "summary": "Average household humidity",
+          "details": "Tolerates the dry air of most homes; no special humidity is needed."
+        },
+        "soil": {
+          "summary": "Well-draining potting mix",
+          "details": "Use a free-draining houseplant mix, ideally mixed with succulent mix, so the soil never stays wet.",
+          "drainage": "Drainage holes are essential.",
+          "additives": ["Perlite or pumice", "Coarse grit"]
+        },
+        "fertilizing": {
+          "summary": "Once or twice a year",
+          "details": "A balanced liquid houseplant fertilizer applied once or twice during the growing season is enough for this slow grower.",
+          "seasonal": "Feed in spring or summer only."
+        },
+        "repotting": {
+          "summary": "Every 2–3 years",
+          "details": "Repot in spring when the rhizomes crowd the pot. Growth is slow, so frequent repotting isn't needed.",
+          "rootBoundSigns": ["Plastic pot bulging or splitting", "Rhizomes pushing up above the soil", "Water running straight through"],
+          "potSizing": "Go up only one size; excess soil stays wet."
+        },
+        "pruning": {
+          "summary": "Rarely needed",
+          "details": "Remove yellow or damaged stems at the base with clean shears. Occasional yellowing of an old stem is normal."
+        },
+        "propagation": {
+          "summary": "Division or leaf cuttings",
+          "methods": [
+            {
+              "name": "Division",
+              "instructions": "In spring, separate the rhizome clump into sections, each with stems and roots, and pot them in dry, well-draining mix. Wait a few days before watering."
+            },
+            {
+              "name": "Leaflet or stem cuttings",
+              "instructions": "Insert single leaflets or stem sections into barely moist mix (or water). A small rhizome forms first; visible new shoots can take several months."
+            }
+          ]
+        }
+      },
+      "healthyAppearance": "Glossy, firm, deep green leaflets on upright stems; firm stems and rhizomes; occasional new shoots, often pale green at first.",
+      "warningSigns": ["Several stems yellowing at once", "Soft or blackened stem bases", "Shrivelled leaflets"],
+      "commonProblems": [
+        {
+          "problem": "Yellowing stems and leaflets",
+          "possibleCauses": ["Overwatering", "Poor drainage", "Cold"],
+          "whatToDo": "Let the soil dry completely, check the rhizomes for softness and repot in fresh, dry mix if they are rotting."
+        },
+        {
+          "problem": "Scorched patches",
+          "possibleCauses": ["Direct sun"],
+          "whatToDo": "Move the plant out of direct sun. Damaged leaflets won't recover but new growth will be unaffected."
+        },
+        {
+          "problem": "Scale insects",
+          "possibleCauses": ["Pests carried in from other plants"],
+          "whatToDo": "Scrape off scale, wipe with a cloth dampened with insecticidal soap and repeat until no new insects appear."
+        }
+      ],
+      "safety": {
+        "toxicity": "Toxic to cats and dogs (medium severity). The leaves contain calcium oxalate; eating them can cause mouth irritation, vomiting and diarrhoea. Also toxic to people if leaves are eaten in quantity; it does not typically cause skin irritation.",
+        "handling": "Keep out of reach of pets and children and wash hands after handling cut stems."
+      },
+      "additionalNotes": ["Pale new shoots darken as they mature.", "Its tolerance makes it a good choice for rooms with little natural light."]
+    },
+    "he": {
+      "commonName": "זמיוקולקס",
+      "alternateNames": ["זמיה", "ZZ"],
+      "description": "צמח לופי איטי גדילה ועמיד במיוחד ממזרח אפריקה. קני שורש עבים מתחת לאדמה אוגרים מים, ולכן הוא מתמודד עם אדמה יבשה, אור נמוך וטיפול לא סדיר טוב יותר מרוב צמחי הבית.",
+      "appearance": "גבעולים זקופים ומקושתים, עם שורות של עלעלים סגלגלים, מבריקים וירוקים כהים, שעולים מקני שורש דמויי תפוח אדמה מתחת לאדמה. הצמח כולו נראה מבריק, כמעט מלאכותי.",
+      "care": {
+        "light": {
+          "summary": "אור בהיר ועקיף; מסתדר גם באור נמוך מאוד",
+          "details": "גדל הכי טוב באור בהיר ועקיף, אבל מסתדר גם באור נמוך מאוד, ולכן מתאים למשרדים ולחדרים חשוכים. באור נמוך הוא פשוט צומח לאט מאוד.",
+          "directSun": "יש להימנע משמש ישירה: היא עלולה לצרוב את העלעלים ולהשאיר כתמים צהובים או חומים.",
+          "lowLight": "מסתדר באור נמוך מאוד; הצמיחה מאטה וגבעולים חדשים עלולים לנטות לכיוון האור. במקומות חשוכים משקים לעיתים רחוקות יותר.",
+          "warningSigns": ["כתמים צהובים או חומים צרובים אחרי שמש ישירה", "גבעולים ארוכים וחלשים שנוטים לחלון", "אין צמיחה חדשה חודשים רבים למרות תנאים מוארים"]
+        },
+        "watering": {
+          "summary": "רק כשהאדמה יבשה לגמרי",
+          "details": "משקים היטב ונותנים לאדמה להתייבש לגמרי. קני השורש אוגרים מים, ולכן הסכנה העיקרית היא השקיית יתר ולא יובש.",
+          "howToCheck": "בודקים עם שיפוד שהאדמה יבשה עד למטה, או מחכים שהעציץ ירגיש קל מאוד.",
+          "seasonal": "כהערכה גסה, בערך פעמיים בחודש בקיץ ופעם בחודש בחורף, אבל רק אם האדמה יבשה לגמרי – התנאים בבית חשובים יותר מלוח השנה.",
+          "overwateringSigns": ["עלעלים וגבעולים מצהיבים", "גבעולים רכים ורכרוכיים בבסיס", "קני שורש רכים למגע", "אדמה שנשארת לחה"],
+          "underwateringSigns": ["עלעלים מקומטים או מצומקים", "עלעלים נושרים אחרי יובש ממושך מאוד"]
+        },
+        "temperature": {
+          "summary": "18–29°C",
+          "details": "מרגיש בנוח בטמפרטורת חדר רגילה.",
+          "extremes": "רגיש לקור: יש לשמור עליו מעל כ־12°C ולהרחיק ממשבי רוח קרים. צמח שמבלה את הקיץ בחוץ צריך לחזור פנימה לפני שהלילות יורדים מתחת לכ־15°C."
+        },
+        "humidity": {
+          "summary": "לחות ביתית רגילה",
+          "details": "מסתדר עם האוויר היבש של רוב הבתים; אין צורך בלחות מיוחדת."
+        },
+        "soil": {
+          "summary": "תערובת שתילה מנקזת",
+          "details": "משתמשים בתערובת מנקזת לצמחי בית, רצוי מעורבבת עם תערובת לסוקולנטים, כך שהאדמה לעולם לא תישאר רטובה.",
+          "drainage": "חורי ניקוז הם חובה.",
+          "additives": ["פרליט או פומיס", "חצץ גס"]
+        },
+        "fertilizing": {
+          "summary": "פעם–פעמיים בשנה",
+          "details": "לצמח האיטי הזה מספיק דשן נוזלי מאוזן לצמחי בית פעם או פעמיים בעונת הצמיחה.",
+          "seasonal": "מדשנים רק באביב או בקיץ."
+        },
+        "repotting": {
+          "summary": "כל 2–3 שנים",
+          "details": "מעבירים לעציץ חדש באביב, כשקני השורש ממלאים את העציץ. הצמיחה איטית ולכן אין צורך בהעברות תכופות.",
+          "rootBoundSigns": ["עציץ פלסטיק מתנפח או נסדק", "קני שורש בולטים מעל פני האדמה", "המים עוברים ישר דרך העציץ"],
+          "potSizing": "עולים במידה אחת בלבד; עודף אדמה נשאר רטוב."
+        },
+        "pruning": {
+          "summary": "כמעט אין צורך",
+          "details": "מסירים גבעולים צהובים או פגועים בבסיסם במזמרה נקייה. הצהבה של גבעול ותיק מדי פעם היא תופעה רגילה."
+        },
+        "propagation": {
+          "summary": "חלוקה או ייחורי עלים",
+          "methods": [
+            {
+              "name": "חלוקה",
+              "instructions": "באביב מפרידים את גוש קני השורש לחלקים, שבכל אחד מהם גבעולים ושורשים, ושותלים בתערובת יבשה ומנקזת. מחכים כמה ימים לפני ההשקיה הראשונה."
+            },
+            {
+              "name": "ייחורי עלעלים או גבעולים",
+              "instructions": "תוקעים עלעלים בודדים או קטעי גבעול בתערובת לחה בקושי (או במים). קודם נוצר קנה שורש קטן; נצרים חדשים נראים לעין רק אחרי כמה חודשים."
+            }
+          ]
+        }
+      },
+      "healthyAppearance": "עלעלים מבריקים, מוצקים וירוקים כהים על גבעולים זקופים; גבעולים וקני שורש מוצקים; מדי פעם נצרים חדשים, שבהתחלה לרוב ירוקים בהירים.",
+      "warningSigns": ["כמה גבעולים מצהיבים בבת אחת", "בסיסי גבעולים רכים או שחורים", "עלעלים מצומקים"],
+      "commonProblems": [
+        {
+          "problem": "גבעולים ועלעלים מצהיבים",
+          "possibleCauses": ["השקיית יתר", "ניקוז לקוי", "קור"],
+          "whatToDo": "נותנים לאדמה להתייבש לגמרי, בודקים אם קני השורש רכים, ואם הם נרקבים שותלים מחדש בתערובת טרייה ויבשה."
+        },
+        {
+          "problem": "כתמים צרובים",
+          "possibleCauses": ["שמש ישירה"],
+          "whatToDo": "מוציאים את הצמח מהשמש הישירה. עלעלים פגועים לא יחלימו, אבל הצמיחה החדשה לא תיפגע."
+        },
+        {
+          "problem": "כנימות מגן",
+          "possibleCauses": ["מזיקים שהגיעו מצמחים אחרים"],
+          "whatToDo": "מגרדים את הכנימות, מנגבים במטלית לחה בסבון קוטל חרקים וחוזרים על כך עד שלא מופיעות כנימות חדשות."
+        }
+      ],
+      "safety": {
+        "toxicity": "רעיל לחתולים ולכלבים (חומרה בינונית). העלים מכילים סידן אוקסלט; אכילתם עלולה לגרום לגירוי בפה, להקאות ולשלשול. רעיל גם לבני אדם אם אוכלים כמות גדולה של עלים; בדרך כלל אינו גורם לגירוי בעור.",
+        "handling": "יש להרחיק מהישג ידם של חיות מחמד וילדים ולשטוף ידיים אחרי טיפול בגבעולים חתוכים."
+      },
+      "additionalNotes": ["נצרים חדשים בהירים מכהים כשהם מתבגרים.", "העמידות שלו הופכת אותו לבחירה טובה לחדרים עם מעט אור טבעי."]
+    }
+  },
+  "researchMetadata": {
+    "status": "draft",
+    "reviewedAt": null,
+    "method": "AI-assisted draft (Claude, 2026-10-11). Light, watering, temperature, propagation and toxicity statements were cross-checked against the source listed; no ASPCA entry was found for this species. Not yet reviewed by a person.",
+    "sources": [
+      {
+        "title": "Zamioculcas zamiifolia",
+        "url": "https://plants.ces.ncsu.edu/plants/zamioculcas-zamiifolia/",
+        "publisher": "North Carolina Extension Gardener Plant Toolbox, NC State University",
+        "accessedAt": "2026-10-11"
+      }
+    ]
+  }
+}
