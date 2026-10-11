@@ -29,13 +29,13 @@ Wi-Fi. It is built for one person; there are no accounts. It makes **no AI or ot
 
 ```
  iPhone / PC browser
-        │  http://<pc>:5173
+        │
         ▼
- ┌──────────── web (Vite dev server, :5173) ─────────────┐
+ ┌──────────── web (Vite dev server) ─────────────────────┐
  │ React app; proxies /api/* ──────────────┐              │
  └─────────────────────────────────────────┼──────────────┘
-                                           ▼  http://api:3000 (Compose network)
- ┌──────────── api (Hono, :3000) ─────────────────────────┐
+                                           ▼  (Compose network)
+ ┌──────────── api (Hono) ────────────────────────────────┐
  │ routes → services → repositories → SQLite (embedded)   │
  │ catalog loader (in-memory, read-only)                  │
  └───────┬───────────────────────────┬────────────────────┘
@@ -82,7 +82,8 @@ From the repository folder:
 docker compose up --build
 ```
 
-Open <http://localhost:5173>. Add `-d` to run in the background, and view logs with
+Open `http://localhost:<WEB_PORT>` (the port is set in `.env`; see `.env.example`). Add `-d` to run in
+the background, and view logs with
 `docker compose logs -f`. The first build takes a few minutes, mostly compiling the SQLite driver.
 
 ```bash
@@ -101,9 +102,8 @@ During development, edits under `apps/*/src`, `packages/shared/src`, `apps/web/p
 scratch and never touches `./storage`. To start over with an empty collection, first make a backup (below),
 stop the app, then move the `storage` folder somewhere else — do not delete it unless you are sure.
 
-Configuration (optional): copy `.env.example` to `.env` to change the web port (`WEB_PORT`, default 5173),
-the localhost-only API port (`API_PORT`, default 3001) or the upload limit (`MAX_UPLOAD_MB`, default 15).
-No secrets are needed.
+Configuration (optional): copy `.env.example` to `.env` to change the web port (`WEB_PORT`), the
+localhost-only API port (`API_PORT`) or the upload limit (`MAX_UPLOAD_MB`). No secrets are needed.
 
 ## How data is stored
 
@@ -114,41 +114,6 @@ No secrets are needed.
 - **Species information** comes only from `species-catalog/*.json`, which the API reads at startup and
   never writes. Nothing about species is stored in SQLite.
 - `storage/` is Git-ignored. `species-catalog/` is Git-tracked.
-
-## Using it on your iPhone
-
-1. Make sure the PC and the iPhone are on the **same Wi-Fi network**.
-2. Find the PC's address: run `ipconfig` and look for the **IPv4 Address** under *Wireless LAN adapter
-   Wi-Fi* (e.g. `192.168.1.122`). Ignore VMware, WSL and Tailscale adapters.
-3. In Safari on the iPhone, open `http://<that-address>:5173`. (`http://<pc-name>.local:5173` also
-   works if your network supports it; other host names are refused by the dev server as a
-   DNS-rebinding protection.)
-4. **Add to Home Screen:** tap the Share button → *Add to Home Screen*. The app gets its own icon and opens
-   without Safari's toolbars.
-
-If the page doesn't load from the phone:
-
-- **Windows Firewall.** Docker Desktop normally adds an inbound rule ("Docker Desktop Backend"). If your
-  Wi-Fi is set to the *Public* network profile and the phone still can't connect, either switch the Wi-Fi
-  network to *Private* (Settings → Network & internet → Wi-Fi → your network → Network profile type), or
-  add a rule for port 5173 only, from an **administrator** PowerShell:
-
-  ```powershell
-  New-NetFirewallRule -DisplayName "Houseplant Tracker web (5173)" -Direction Inbound -Protocol TCP -LocalPort 5173 -Action Allow -Profile Private
-  ```
-
-- Some routers isolate wireless clients ("AP/client isolation", common on guest networks) — use the main
-  network.
-- Check the app works on the PC first at `http://localhost:5173`.
-
-**HTTPS and iOS limitations:** the app is served over plain HTTP on your local network. That is enough
-for everything it does: Add to Home Screen, standalone display, and taking or choosing photos through the
-file picker all work over HTTP. Service workers and offline mode require HTTPS, so the app needs the PC
-to be on. The app does not use them.
-
-**Photos from iPhone:** when you pick or take a photo in Safari, iOS normally converts it to JPEG
-automatically. If a raw HEIC file ever reaches the server, it is rejected with a clear message rather
-than silently failing.
 
 ## Languages
 
@@ -234,7 +199,7 @@ Wi-Fi who knows the address can view and change your plants.
 - All input is validated with Zod; SQL goes through Drizzle's parameterized queries.
 - Uploads are size-limited, decoded and re-encoded server-side, and stored under server-generated names;
   photo paths are never derived from request input.
-- Do not expose port 5173 to the internet (no port forwarding). Hosting it publicly would need
+- Do not expose the web port to the internet (no port forwarding). Hosting it publicly would need
   authentication and HTTPS first.
 - No secrets are required or stored in the repository.
 

@@ -23,7 +23,7 @@ Verified: `docker compose up --build` starts both services. `/api/health` answer
 proxy, and the app answers on the Wi-Fi address. Source edits reload without rebuilds. Data in
 `./storage` survives `down`/`up` and `--build`. Host port 3000 was already taken on this PC, so the
 API's host port defaults to 3001.
-[~] Access from a real iPhone must be confirmed on the device (see README).
+[~] Access from a real iPhone must be confirmed on the device.
 
 ## Stage 2 — Species catalog schema and loader
 
