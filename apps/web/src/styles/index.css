@@ -1,0 +1,71 @@
+@import 'tailwindcss';
+
+/* Design tokens from docs/design/ (screen-a / screen-b mockups). */
+@theme {
+  --font-sans: Inter, 'Segoe UI', 'Noto Sans Hebrew', Arial, system-ui, sans-serif;
+
+  --color-forest: #234b35;
+  --color-forest-2: #356b4a;
+  --color-ink: #253b2c;
+  --color-muted: #7b897f;
+  --color-subtle: #92a094;
+  --color-panel: #fffdfa;
+  --color-page: #edf1e8;
+  --color-cream: #f8f8f1;
+  --color-sage: #eaf0e6;
+  --color-line: #e5ebe2;
+  --color-line-soft: #edf0e9;
+  --color-mint: #e7f4e8;
+  --color-leaf: #59a977;
+  --color-ochre: #bf9b55;
+  --color-ochre-ink: #8b7543;
+  --color-clay: #c4644f;
+  --color-clay-ink: #9a4636;
+  --color-focus: #68b885;
+
+  --shadow-stage: 0 18px 65px rgba(29, 63, 38, 0.12);
+  --shadow-card: 0 3px 14px rgba(39, 64, 41, 0.045);
+  --shadow-card-hover: 0 10px 25px #25402c1b;
+}
+
+@layer base {
+  html {
+    background: var(--color-page);
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+  }
+  body {
+    color: var(--color-ink);
+    line-height: 1.45;
+    -webkit-font-smoothing: antialiased;
+  }
+  :focus-visible {
+    outline: 3px solid var(--color-focus);
+    outline-offset: 3px;
+  }
+  /* Hebrew reads better without the tight negative tracking used for Latin headings. */
+  [dir='rtl'] h1,
+  [dir='rtl'] h2,
+  [dir='rtl'] .tracking-tight {
+    letter-spacing: normal;
+  }
+  button {
+    cursor: pointer;
+  }
+  /* iOS zooms into inputs smaller than 16px; keep form text at 16px on phones. */
+  input,
+  select,
+  textarea {
+    font-size: max(16px, 1em);
+  }
+  dialog::backdrop {
+    background: rgb(20 40 28 / 0.4);
+  }
+}
+
+@utility scrollbar-none {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
