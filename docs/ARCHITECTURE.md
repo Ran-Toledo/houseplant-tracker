@@ -14,13 +14,14 @@ plant/activity input, and response DTOs. It's consumed as TypeScript source (no 
 
 ## Key decisions
 
-**Two containers, embedded database.** `web` runs the Vite dev server (port 5173, all interfaces);
-`api` runs Hono (port 3000 inside the Compose network, published on `127.0.0.1:3001` only). SQLite runs
-inside the API process; there's no database container.
+**Two containers, embedded database.** `web` runs the Vite dev server, published on all interfaces;
+`api` runs Hono on the Compose network and is published on `127.0.0.1` only. Host ports are set in
+`.env` (`WEB_PORT`, `API_PORT`; see `.env.example`). SQLite runs inside the API process; there's no
+database container.
 
 **Same-origin API through a proxy.** The browser only ever calls `/api/...` on the page's own origin;
-Vite proxies to `http://api:3000` by Compose service name. No CORS, and phones never need to resolve
-Docker hostnames.
+Vite proxies to the `api` service by its Compose service name. No CORS, and phones never need to
+resolve Docker hostnames.
 
 **Data on host bind mounts.** `./storage` (database, photos, backups) and `./species-catalog`
 (read-only) are host folders, so `docker compose down`, rebuilds and image upgrades never touch data.

@@ -13,16 +13,15 @@ browser at phone size, in English and Hebrew.
 - [x] Node.js + TypeScript + Hono backend, `GET /api/health`
 - [x] Shared strict TypeScript config (`tsconfig.base.json`)
 - [x] Dockerfiles (repo-root build context, cached `npm ci`, non-root `node` user)
-- [x] `compose.yaml`: `web` (5173, all interfaces) and `api` (3000 in-container, host `127.0.0.1:3001`)
+- [x] `compose.yaml`: `web` (all interfaces) and `api` (localhost only); host ports configurable in `.env`
 - [x] Bind mounts: `./storage` (rw), `./species-catalog` (ro), source dirs for hot reload
-- [x] Vite proxies `/api` to `http://api:3000` over the Compose network
+- [x] Vite proxies `/api` to the `api` service over the Compose network
 - [x] Hot reload for API (`tsx watch`) and web (Vite HMR), using polling because Windows host file events don't reach Linux containers
 - [x] `.env.example`, `.gitignore`, `.dockerignore`
 
 Verified: `docker compose up --build` starts both services. `/api/health` answers directly and through the
 proxy, and the app answers on the Wi-Fi address. Source edits reload without rebuilds. Data in
-`./storage` survives `down`/`up` and `--build`. Host port 3000 was already taken on this PC, so the
-API's host port defaults to 3001.
+`./storage` survives `down`/`up` and `--build`.
 [~] Access from a real iPhone must be confirmed on the device.
 
 ## Stage 2 — Species catalog schema and loader
@@ -77,6 +76,11 @@ API's host port defaults to 3001.
 - [x] Security review: localhost-only API port, host allow-list for the dev server, JSON and upload size limits, safe photo paths, parameterized SQL, no secrets
 - [x] README, `docs/ARCHITECTURE.md`, `docs/DATA_MODEL.md`, `docs/SPECIES_CATALOG.md`
 - [~] iPhone Safari / Home Screen behavior needs confirming on a real device
+
+## Changes after the MVP
+
+- [x] App renamed to "Houseplant Tracker" (Hebrew UI: "מעקב עציצים"); language switch moved to Settings only; larger bottom-tab labels
+- [x] Species photos from Wikimedia Commons (`species-catalog/images/`) with author/license attribution in the JSON and the UI; loader checks the files exist; plants without their own photo show their species photo
 
 ## Known follow-ups
 
