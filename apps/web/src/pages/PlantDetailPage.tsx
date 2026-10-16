@@ -168,7 +168,7 @@ export function PlantDetailPage() {
             </span>
           )}
         </div>
-        <h1 id="plant-name" className="text-[30px] leading-[1.08] font-extrabold tracking-[-.055em]">
+        <h1 id="plant-name" className="text-[30px] leading-[1.08] font-extrabold tracking-[-.02em]">
           <bdi>{p.nickname}</bdi>
         </h1>
         {(commonName || speciesData) && (

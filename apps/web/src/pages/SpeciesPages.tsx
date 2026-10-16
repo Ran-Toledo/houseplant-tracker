@@ -32,7 +32,7 @@ export function SpeciesListPage() {
     <>
       <section className="mb-6">
         <div className="flex items-center justify-between gap-2.5">
-          <h1 className="text-[37px] leading-[1.08] font-extrabold tracking-[-.055em]">{t('species.title')}</h1>
+          <h1 className="text-[37px] leading-[1.08] font-extrabold tracking-[-.02em]">{t('species.title')}</h1>
           {catalog.species.length > 0 && (
             <span className="rounded-[20px] border border-[#dde8dc] bg-[#eaf4e7] px-[11px] py-2 text-[11px] font-extrabold whitespace-nowrap text-forest-2">
               {t('species.count', { count: catalog.species.length })}
@@ -136,7 +136,7 @@ export function SpeciesDetailPage() {
           </figcaption>
         </figure>
       )}
-      <h1 className="text-[30px] leading-[1.08] font-extrabold tracking-[-.055em]">{loc.commonName}</h1>
+      <h1 className="text-[30px] leading-[1.08] font-extrabold tracking-[-.02em]">{loc.commonName}</h1>
       <p className="mt-1 text-[13px] text-[#8a9b8c]">
         <i dir="ltr">{s.scientificName}</i> · <span dir="ltr">{s.family}</span>
       </p>

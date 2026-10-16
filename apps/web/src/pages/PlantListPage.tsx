@@ -62,7 +62,7 @@ export function PlantListPage() {
           {t('collection.eyebrow')}
         </p>
         <div className="flex items-center justify-between gap-2.5">
-          <h1 className="text-[37px] leading-[1.08] font-extrabold tracking-[-.055em]">{t('collection.title')}</h1>
+          <h1 className="text-[37px] leading-[1.08] font-extrabold tracking-[-.02em]">{t('collection.title')}</h1>
           {total.data && (
             <span className="rounded-[20px] border border-[#dde8dc] bg-[#eaf4e7] px-[11px] py-2 text-[11px] font-extrabold whitespace-nowrap text-forest-2">
               {t('collection.count', { count })}

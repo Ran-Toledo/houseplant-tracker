@@ -8,7 +8,7 @@ export function SettingsPage() {
   const catalog = useSpeciesCatalog();
   return (
     <>
-      <h1 className="mb-6 text-[37px] leading-[1.08] font-extrabold tracking-[-.055em]">{t('settings.title')}</h1>
+      <h1 className="mb-6 text-[37px] leading-[1.08] font-extrabold tracking-[-.02em]">{t('settings.title')}</h1>
 
       <section className="mb-7 rounded-2xl border border-line bg-white p-4">
         <div className="mb-3 flex items-center justify-between gap-3">

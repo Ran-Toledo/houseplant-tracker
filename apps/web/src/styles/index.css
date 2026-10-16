@@ -2,7 +2,7 @@
 
 /* Design tokens from docs/design/ (screen-a / screen-b mockups). */
 @theme {
-  --font-sans: Inter, 'Segoe UI', 'Noto Sans Hebrew', Arial, system-ui, sans-serif;
+  --font-sans: 'Assistant Variable', 'Segoe UI', Arial, system-ui, sans-serif;
 
   --color-forest: #234b35;
   --color-forest-2: #356b4a;

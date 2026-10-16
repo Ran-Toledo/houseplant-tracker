@@ -270,7 +270,7 @@ function PlantForm({ plant }: { plant: Plant | null }) {
           {plant ? <span dir="auto">{plant.nickname}</span> : t('details.back')}
         </Link>
       </div>
-      <h1 className="mb-6 text-[30px] leading-[1.08] font-extrabold tracking-[-.055em]">
+      <h1 className="mb-6 text-[30px] leading-[1.08] font-extrabold tracking-[-.02em]">
         {plant ? t('form.editTitle') : t('form.addTitle')}
       </h1>
 
