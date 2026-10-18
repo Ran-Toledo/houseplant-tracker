@@ -103,6 +103,8 @@ export interface Photo {
   plantId: string;
   /** URL path serving the image file. */
   url: string;
+  /** URL path serving a small preview (longest edge 512 px), for cards and tiles. */
+  thumbnailUrl: string;
   isCover: boolean;
   capturedAt: string | null;
   createdAt: string;

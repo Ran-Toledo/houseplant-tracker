@@ -74,6 +74,9 @@ entered when adding a plant become ordinary activity rows.
 A plant's first photo becomes its cover. When the cover is deleted, the newest remaining photo becomes
 the cover.
 
+Each photo has a thumbnail next to it, `<plantId>/<photoId>.thumb.jpg`. Its path is derived from
+`storage_key`, so it has no column of its own, and a missing thumbnail is regenerated on request.
+
 ## Species JSON
 
 One file per species, `species-catalog/<id>.json`; the file name must equal `id`. The authoritative

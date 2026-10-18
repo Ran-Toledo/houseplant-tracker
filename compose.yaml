@@ -1,10 +1,14 @@
 name: houseplant-tracker
 
+# Release setup: bundled API on plain Node, production frontend served by nginx.
+# For hot reload while developing, add the dev override:
+#   docker compose -f compose.yaml -f compose.dev.yaml up --build
 services:
   api:
     build:
       context: .
       dockerfile: apps/api/Dockerfile
+      target: release
     init: true
     restart: unless-stopped
     environment:
@@ -12,17 +16,11 @@ services:
       STORAGE_DIR: /app/storage
       CATALOG_DIR: /app/species-catalog
       MAX_UPLOAD_MB: ${MAX_UPLOAD_MB:-15}
-      # Windows host file changes don't emit inotify events inside the container.
-      CHOKIDAR_USEPOLLING: "true"
     volumes:
       # Persistent user data: SQLite database + uploaded photos.
       - ./storage:/app/storage
       # Version-controlled species reference data, read-only.
       - ./species-catalog:/app/species-catalog:ro
-      # Source code, for hot reload.
-      - ./apps/api/src:/app/apps/api/src
-      - ./apps/api/drizzle:/app/apps/api/drizzle:ro
-      - ./packages/shared/src:/app/packages/shared/src:ro
     ports:
       # Published on localhost only; LAN devices go through the web proxy.
       - "127.0.0.1:${API_PORT:-3001}:3000"
@@ -37,16 +35,9 @@ services:
     build:
       context: .
       dockerfile: apps/web/Dockerfile
+      target: release
     init: true
     restart: unless-stopped
-    environment:
-      API_PROXY_TARGET: http://api:3000
-      VITE_USE_POLLING: "true"
-    volumes:
-      - ./apps/web/src:/app/apps/web/src
-      - ./apps/web/public:/app/apps/web/public
-      - ./apps/web/index.html:/app/apps/web/index.html:ro
-      - ./packages/shared/src:/app/packages/shared/src:ro
     ports:
       # All interfaces, so phones on the local network can reach it.
       - "${WEB_PORT:-5173}:5173"

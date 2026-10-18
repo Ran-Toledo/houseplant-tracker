@@ -7,7 +7,8 @@ import * as schema from './schema';
 
 export type Db = BetterSQLite3Database<typeof schema> & { $client: Database.Database };
 
-const migrationsFolder = path.resolve(import.meta.dirname, '../../drizzle');
+// The bundled release build lives elsewhere in the tree, so it sets MIGRATIONS_DIR.
+const migrationsFolder = process.env.MIGRATIONS_DIR || path.resolve(import.meta.dirname, '../../drizzle');
 
 /**
  * Opens (or creates) the SQLite database and applies pending migrations.

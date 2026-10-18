@@ -81,6 +81,8 @@ proxy, and the app answers on the Wi-Fi address. Source edits reload without reb
 
 - [x] App renamed to "Houseplant Tracker" (Hebrew UI: "מעקב עציצים"); language switch moved to Settings only; larger bottom-tab labels
 - [x] Species photos from Wikimedia Commons (`species-catalog/images/`) with author/license attribution in the JSON and the UI; loader checks the files exist; plants without their own photo show their species photo
+- [x] Photo thumbnails (512 px `.thumb.jpg`) for cards and gallery tiles; generated on upload, regenerated on demand if missing, skipped by backups
+- [x] `compose.yaml` runs release builds (nginx serving the built frontend, esbuild-bundled API on plain Node); hot reload moved to the `compose.dev.yaml` override
 
 ## Known follow-ups
 

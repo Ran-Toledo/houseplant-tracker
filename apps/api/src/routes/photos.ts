@@ -50,17 +50,23 @@ export function plantPhotoRoutes(service: PhotoService, maxUploadBytes: number) 
     );
 }
 
+const jpegHeaders = {
+  'Content-Type': 'image/jpeg',
+  // Photo ids are never reused, so the file at this URL never changes.
+  'Cache-Control': 'private, max-age=31536000, immutable',
+  'X-Content-Type-Options': 'nosniff',
+};
+
 /** Individual photo operations, mounted under `/api/photos`. */
 export function photoRoutes(service: PhotoService) {
   return new Hono()
     .get('/:id/file', async (c) => {
       const data = await service.readFile(c.req.param('id'));
-      return c.body(new Uint8Array(data), 200, {
-        'Content-Type': 'image/jpeg',
-        // Photo ids are never reused, so the file at this URL never changes.
-        'Cache-Control': 'private, max-age=31536000, immutable',
-        'X-Content-Type-Options': 'nosniff',
-      });
+      return c.body(new Uint8Array(data), 200, jpegHeaders);
+    })
+    .get('/:id/thumb', async (c) => {
+      const data = await service.readThumbnail(c.req.param('id'));
+      return c.body(new Uint8Array(data), 200, jpegHeaders);
     })
     .patch('/:id', jsonBodyLimit, async (c) => {
       validate(coverSchema, await readJson(c));

@@ -4,6 +4,9 @@ import { ApiError } from '../middleware/errors';
 /** Longest edge of stored photos, in pixels. Plenty for phone and desktop screens. */
 const MAX_EDGE = 2048;
 const JPEG_QUALITY = 82;
+/** Longest edge of thumbnails, used for cards and gallery tiles. */
+const THUMB_EDGE = 512;
+const THUMB_QUALITY = 78;
 
 /** ISO-BMFF brands used by HEIC/HEIF photos (the iPhone camera's default format). */
 const HEIC_BRANDS = new Set(['heic', 'heix', 'hevc', 'hevx', 'heim', 'heis', 'hevm', 'hevs']);
@@ -37,4 +40,12 @@ export async function processImage(data: Buffer): Promise<Buffer> {
       'The file is not a supported image. Use JPEG, PNG, WebP, GIF or AVIF.',
     );
   }
+}
+
+/** Makes a small JPEG preview of an already processed photo. */
+export function makeThumbnail(processed: Buffer): Promise<Buffer> {
+  return sharp(processed)
+    .resize({ width: THUMB_EDGE, height: THUMB_EDGE, fit: 'inside', withoutEnlargement: true })
+    .jpeg({ quality: THUMB_QUALITY, mozjpeg: true })
+    .toBuffer();
 }

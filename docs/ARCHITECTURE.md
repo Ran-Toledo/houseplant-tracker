@@ -9,19 +9,33 @@ A three-tier modular monolith, sized for one person on a home network.
 | Persistence | SQLite file, photo files, catalog JSON | User data (read-write) and species reference data (read-only) |
 
 `packages/shared` holds the Zod schemas and TypeScript types both apps use: the species file format,
-plant/activity input, and response DTOs. It's consumed as TypeScript source (no build step); Vite and
-`tsx` compile it on the fly.
+plant/activity input, and response DTOs. It's consumed as TypeScript source (no build step of its own);
+it's bundled into the release builds of both apps, and compiled on the fly by Vite and `tsx` in development.
 
 ## Key decisions
 
-**Two containers, embedded database.** `web` runs the Vite dev server, published on all interfaces;
-`api` runs Hono on the Compose network and is published on `127.0.0.1` only. Host ports are set in
-`.env` (`WEB_PORT`, `API_PORT`; see `.env.example`). SQLite runs inside the API process; there's no
-database container.
+**Two containers, embedded database.** `web` serves the frontend, published on all interfaces; `api`
+runs Hono on the Compose network and is published on `127.0.0.1` only. Host ports are set in `.env`
+(`WEB_PORT`, `API_PORT`; see `.env.example`). SQLite runs inside the API process; there's no database
+container.
+
+**Release builds by default, dev servers on request.** Each Dockerfile has a `release` and a `dev` target.
+`compose.yaml` uses `release`:
+- `web` is the production build served by nginx (`apps/web/nginx.conf`): hashed assets cached as
+  immutable, `index.html` revalidated, SPA fallback, gzip.
+- `api` is bundled by esbuild (`apps/api/build.mjs`) and runs on plain Node with production
+  dependencies only. Only the native `better-sqlite3` and `sharp` stay external. The build writes
+  `dist/package.json` with the same `backup` / `restore` / `validate:catalog` script names, so the
+  documented `npm run` commands work in both setups.
+
+`compose.dev.yaml` switches both services to `dev` (Vite dev server, `tsx watch`) and mounts the source.
+The release setup uses much less memory (about 45 MB for the API and 8 MB for nginx, versus about
+120 MB and 140 MB in development). It also uses no CPU at idle, because nothing polls for file changes.
 
 **Same-origin API through a proxy.** The browser only ever calls `/api/...` on the page's own origin;
-Vite proxies to the `api` service by its Compose service name. No CORS, and phones never need to
-resolve Docker hostnames.
+nginx (or Vite, in development) proxies to the `api` service by its Compose service name. No CORS, and
+phones never need to resolve Docker hostnames. Both only answer for `localhost`, IP addresses and
+`*.local` names, which protects the API against DNS-rebinding attacks.
 
 **Data on host bind mounts.** `./storage` (database, photos, backups) and `./species-catalog`
 (read-only) are host folders, so `docker compose down`, rebuilds and image upgrades never touch data.
@@ -44,10 +58,15 @@ sync with the history.
 EXIF rotation applied, longest edge ≤ 2048 px, JPEG quality 82, metadata stripped. Files are stored as
 `photos/<plantId>/<photoId>.jpg` using server-generated UUIDs. The storage layer re-validates every key
 against that pattern before touching the filesystem. HEIC is detected and rejected with a clear message.
+Each photo also gets a thumbnail, `<photoId>.thumb.jpg` (longest edge ≤ 512 px). Cards and gallery tiles
+use it, so the phone decodes about 0.8 MB per tile instead of about 12 MB for the full photo. The
+plant-page hero and the photo viewer still use the full photo. Thumbnails are derived files: they have no
+database column, backups skip them, and a missing one is regenerated on its first request (this covers
+photos uploaded before thumbnails existed and restored backups).
 Ordering for consistency:
-- Upload writes the file first (atomically, via temp file + rename), then inserts the row. If the insert
-  fails, the file is removed.
-- Photo delete removes the row first, then the file. A leftover file is harmless and is logged.
+- Upload writes the files first (atomically, via temp file + rename), then inserts the row. If the insert
+  fails, the files are removed.
+- Photo delete removes the row first, then the files. A leftover file is harmless and is logged.
 - Plant delete relies on `ON DELETE CASCADE` for activities and photo rows, then removes the plant's
   photo folder.
 
@@ -55,8 +74,9 @@ Ordering for consistency:
 consistent while the app is writing. Restore requires the API to be stopped, and first saves the current
 data as a `pre-restore-*` backup.
 
-**Hot reload in Docker on Windows.** Windows-host file changes don't produce inotify events in Linux
-containers, so both `tsx watch` (`CHOKIDAR_USEPOLLING`) and Vite (`server.watch.usePolling`) poll. Only
+**Hot reload in Docker on Windows** (dev override only). Windows-host file changes don't produce inotify
+events in Linux containers, so both `tsx watch` (`CHOKIDAR_USEPOLLING`) and Vite
+(`server.watch.usePolling`) poll, together about a quarter of a CPU core even when idle. Only
 source folders are bind-mounted, so the container's Linux `node_modules` (with native SQLite and sharp
 binaries) are never shadowed by the host's Windows ones.
 
@@ -102,8 +122,9 @@ Codes: `validation_error`, `invalid_json`, `invalid_form`, `unknown_species`, `n
 | `DELETE /api/plants/:id/activities/:activityId` | Remove a history entry |
 | `GET/POST /api/plants/:id/photos` | List / upload (`multipart/form-data`, field `photo`, optional `isCover`) |
 | `PATCH /api/photos/:id` | `{ "isCover": true }` makes it the cover |
-| `DELETE /api/photos/:id` | Delete record and file |
+| `DELETE /api/photos/:id` | Delete record and files |
 | `GET /api/photos/:id/file` | The JPEG (immutable cache headers) |
+| `GET /api/photos/:id/thumb` | 512 px thumbnail, generated if missing (immutable cache headers) |
 
 ## Frontend layout (`apps/web/src`)
 

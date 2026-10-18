@@ -31,8 +31,8 @@ Wi-Fi. It is built for one person; there are no accounts. It makes **no AI or ot
  iPhone / PC browser
         │
         ▼
- ┌──────────── web (Vite dev server) ─────────────────────┐
- │ React app; proxies /api/* ──────────────┐              │
+ ┌──────────── web (nginx) ───────────────────────────────┐
+ │ built React app; proxies /api/* ────────┐              │
  └─────────────────────────────────────────┼──────────────┘
                                            ▼  (Compose network)
  ┌──────────── api (Hono) ────────────────────────────────┐
@@ -42,7 +42,7 @@ Wi-Fi. It is built for one person; there are no accounts. It makes **no AI or ot
          ▼                           ▼
  ./storage/  (read-write)     ./species-catalog/  (read-only)
    plants.sqlite                 <species-id>.json
-   photos/<plant>/<photo>.jpg
+   photos/<plant>/<photo>.jpg (+ .thumb.jpg)
    backups/<name>/
 ```
 
@@ -63,7 +63,8 @@ species-catalog/   one bilingual JSON file per species (Git-tracked, mounted rea
 storage/           your data: SQLite database, photos, backups (Git-ignored, created on first run)
 scripts/           repo utilities (icon generation)
 docs/              architecture, data model, catalog workflow, plan, design mockups
-compose.yaml       the two Docker services
+compose.yaml       the two Docker services (release builds)
+compose.dev.yaml   override for development with hot reload
 ```
 
 ## Prerequisites (Windows 11)
@@ -93,11 +94,22 @@ docker compose down
 stops and removes the containers. **Your data is not affected**: it lives in `./storage` on your PC, not
 inside the containers. Rebuilding (`docker compose up --build`) is safe for the same reason.
 
-During development, edits under `apps/*/src`, `packages/shared/src`, `apps/web/public` and
-`apps/web/index.html` reload automatically. Changes to `package.json`, Dockerfiles, `vite.config.ts` or
-`compose.yaml` need `docker compose up --build`.
+This runs the **release** builds: a bundled API on plain Node and the production frontend served by
+nginx. Code changes take effect after `docker compose up --build`.
 
-**Resetting the development environment without losing data:** `docker compose down`, then
+**Developing with hot reload:** add the dev override, which runs `tsx watch` and the Vite dev server with
+the source folders mounted:
+
+```bash
+docker compose -f compose.yaml -f compose.dev.yaml up --build
+```
+
+Edits under `apps/*/src`, `packages/shared/src`, `apps/web/public` and `apps/web/index.html` then reload
+automatically. Changes to `package.json`, Dockerfiles, `vite.config.ts` or the compose files still need
+`--build`. File watching polls (see [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)), which costs some CPU
+even when idle, so switch back to the release setup when you're done.
+
+**Resetting the environment without losing data:** `docker compose down`, then
 `docker compose build --no-cache`, then `docker compose up`. This rebuilds images and dependencies from
 scratch and never touches `./storage`. To start over with an empty collection, first make a backup (below),
 stop the app, then move the `storage` folder somewhere else — do not delete it unless you are sure.
@@ -207,7 +219,6 @@ Wi-Fi who knows the address can view and change your plants.
 
 - Runs only while the PC is on; no offline mode.
 - No authentication, single user.
-- The web container runs the Vite **development** server (hot reload) rather than a production build.
 - Species catalog changes need an API restart; there's no in-app species editor (by design).
 - HEIC uploads are rejected (iOS usually converts to JPEG automatically).
 - No reminders or notifications.

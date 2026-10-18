@@ -1,11 +1,12 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import Database from 'better-sqlite3';
+import { isThumbnailFile } from './photo-store';
 
 /*
  * Backup layout: <storageDir>/backups/<name>/
  *   plants.sqlite   consistent snapshot made with SQLite's online backup API
- *   photos/         copy of the photo files
+ *   photos/         copy of the photo files (not thumbnails, which are regenerated on demand)
  *   backup.json     summary (time, record counts)
  */
 
@@ -68,7 +69,9 @@ export async function createBackup(storageDir: string, name = new Date().toISOSt
   }
 
   const photosSource = path.join(storageDir, 'photos');
-  if (await exists(photosSource)) await fs.cp(photosSource, path.join(dir, 'photos'), { recursive: true });
+  if (await exists(photosSource)) {
+    await fs.cp(photosSource, path.join(dir, 'photos'), { recursive: true, filter: (src) => !isThumbnailFile(src) });
+  }
 
   const info = inspect(path.join(dir, DB_FILE));
   const missingPhotoFiles: string[] = [];

@@ -54,7 +54,8 @@ function PlantIllustration() {
 
 /**
  * A plant's cover photo; otherwise its species' catalog photo; otherwise the
- * illustrated placeholder. Fills its container.
+ * illustrated placeholder. Fills its container. Uses the photo's thumbnail
+ * unless `full` is set (for large hero images).
  */
 export function PlantImage({
   photo,
@@ -62,15 +63,17 @@ export function PlantImage({
   speciesImage,
   speciesName,
   eager,
+  full,
 }: {
   photo: Photo | null;
   name: string;
   speciesImage?: string | null;
   speciesName?: string;
   eager?: boolean;
+  full?: boolean;
 }) {
   const { t } = useTranslation();
-  const src = photo?.url ?? speciesImage;
+  const src = (photo && (full ? photo.url : photo.thumbnailUrl)) ?? speciesImage;
   if (!src) return <PlantIllustration />;
   return (
     <img

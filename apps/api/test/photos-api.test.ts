@@ -33,8 +33,13 @@ describe('photos API', () => {
     const res = await upload(new Blob([new Uint8Array(await png())], { type: 'image/png' }));
     expect(res.status).toBe(201);
     const photo = res.body.photo;
-    expect(photo).toMatchObject({ plantId, isCover: true, url: `/api/photos/${photo.id}/file` });
-    expect(photoFiles()).toEqual([`${photo.id}.jpg`]);
+    expect(photo).toMatchObject({
+      plantId,
+      isCover: true,
+      url: `/api/photos/${photo.id}/file`,
+      thumbnailUrl: `/api/photos/${photo.id}/thumb`,
+    });
+    expect(photoFiles().sort()).toEqual([`${photo.id}.jpg`, `${photo.id}.thumb.jpg`]);
 
     const file = await t.app.request(photo.url);
     expect(file.status).toBe(200);
@@ -54,6 +59,31 @@ describe('photos API', () => {
     expect(meta.height).toBe(1024);
   });
 
+  it('serves a small thumbnail, regenerating it when the file is missing', async () => {
+    const photo = (await upload(new Blob([new Uint8Array(await png(3000, 1500))]))).body.photo;
+    const thumbSize = async () => {
+      const res = await t.app.request(photo.thumbnailUrl);
+      expect(res.status).toBe(200);
+      expect(res.headers.get('content-type')).toBe('image/jpeg');
+      const meta = await sharp(Buffer.from(await res.arrayBuffer())).metadata();
+      return [meta.width, meta.height];
+    };
+    expect(await thumbSize()).toEqual([512, 256]);
+
+    // Photos uploaded before thumbnails existed (or restored from a backup) have none on disk.
+    const thumbFile = path.join(t.photosDir, plantId, `${photo.id}.thumb.jpg`);
+    fs.rmSync(thumbFile);
+    expect(await thumbSize()).toEqual([512, 256]);
+    expect(fs.existsSync(thumbFile)).toBe(true);
+  });
+
+  it('does not enlarge thumbnails of small photos', async () => {
+    const photo = (await upload(new Blob([new Uint8Array(await png())]))).body.photo;
+    const res = await t.app.request(photo.thumbnailUrl);
+    const meta = await sharp(Buffer.from(await res.arrayBuffer())).metadata();
+    expect([meta.width, meta.height]).toEqual([64, 48]);
+  });
+
   it('keeps one cover per plant and promotes another photo when the cover is deleted', async () => {
     const first = (await upload(new Blob([new Uint8Array(await png())]))).body.photo;
     const second = (await upload(new Blob([new Uint8Array(await png())]))).body.photo;
@@ -69,8 +99,11 @@ describe('photos API', () => {
     list = (await t.json('GET', `/api/plants/${plantId}/photos`)).body.photos;
     expect(list).toHaveLength(2);
     expect(list.filter((p: { isCover: boolean }) => p.isCover)).toHaveLength(1);
-    expect(photoFiles().sort()).toEqual([`${second.id}.jpg`, `${third.id}.jpg`].sort());
+    expect(photoFiles().sort()).toEqual(
+      [second, third].flatMap((p) => [`${p.id}.jpg`, `${p.id}.thumb.jpg`]).sort(),
+    );
     expect((await t.app.request(first.url)).status).toBe(404);
+    expect((await t.app.request(first.thumbnailUrl)).status).toBe(404);
   });
 
   it('rejects non-images, HEIC files and missing files with clear errors', async () => {
@@ -109,7 +142,7 @@ describe('photos API', () => {
   it('deleting a plant removes its photo records and files', async () => {
     await upload(new Blob([new Uint8Array(await png())]));
     await upload(new Blob([new Uint8Array(await png())]));
-    expect(photoFiles()).toHaveLength(2);
+    expect(photoFiles()).toHaveLength(4);
 
     expect((await t.json('DELETE', `/api/plants/${plantId}`)).status).toBe(204);
     expect(fs.existsSync(path.join(t.photosDir, plantId))).toBe(false);

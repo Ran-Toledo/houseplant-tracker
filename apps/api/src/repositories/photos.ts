@@ -8,6 +8,7 @@ export function toPhotoDto(row: PhotoRow): Photo {
     id: row.id,
     plantId: row.plantId,
     url: `/api/photos/${row.id}/file`,
+    thumbnailUrl: `/api/photos/${row.id}/thumb`,
     isCover: row.isCover,
     capturedAt: row.capturedAt,
     createdAt: row.createdAt,

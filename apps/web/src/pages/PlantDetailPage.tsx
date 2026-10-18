@@ -156,6 +156,7 @@ export function PlantDetailPage() {
             speciesImage={speciesData ? speciesImageUrl(speciesData) : null}
             speciesName={commonName ?? undefined}
             eager
+            full
           />
           {p.condition !== 'unknown' && (
             <span className="absolute start-3.5 bottom-[13px] flex items-center gap-1.5 rounded-full bg-[#fffefaee] px-[11px] py-[7px] text-[11px] font-extrabold text-forest-2 shadow-[0_4px_16px_#173a2112]">

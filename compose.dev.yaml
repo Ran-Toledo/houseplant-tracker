@@ -1,0 +1,26 @@
+# Development override: hot reload for both services.
+#   docker compose -f compose.yaml -f compose.dev.yaml up --build
+services:
+  api:
+    build:
+      target: dev
+    environment:
+      # Windows host file changes don't emit inotify events inside the container.
+      CHOKIDAR_USEPOLLING: "true"
+    volumes:
+      # Source code, for hot reload.
+      - ./apps/api/src:/app/apps/api/src
+      - ./apps/api/drizzle:/app/apps/api/drizzle:ro
+      - ./packages/shared/src:/app/packages/shared/src:ro
+
+  web:
+    build:
+      target: dev
+    environment:
+      API_PROXY_TARGET: http://api:3000
+      VITE_USE_POLLING: "true"
+    volumes:
+      - ./apps/web/src:/app/apps/web/src
+      - ./apps/web/public:/app/apps/web/public
+      - ./apps/web/index.html:/app/apps/web/index.html:ro
+      - ./packages/shared/src:/app/packages/shared/src:ro

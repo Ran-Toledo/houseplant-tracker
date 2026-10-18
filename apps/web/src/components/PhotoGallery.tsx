@@ -139,7 +139,7 @@ export function PhotoGallery({
             aria-label={t('photos.open')}
             className="relative aspect-square overflow-hidden rounded-xl bg-sage"
           >
-            <img src={photo.url} alt="" loading="lazy" decoding="async" className="size-full object-cover" />
+            <img src={photo.thumbnailUrl} alt="" loading="lazy" decoding="async" className="size-full object-cover" />
             {photo.isCover && (
               <span className="absolute start-1.5 top-1.5 flex items-center gap-1 rounded-full bg-[#fffefaee] px-1.5 py-0.5 text-[9px] font-extrabold text-forest-2">
                 <Icon name="star" className="size-3" />
