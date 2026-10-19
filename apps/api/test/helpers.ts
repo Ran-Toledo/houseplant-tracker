@@ -2,6 +2,7 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { afterEach } from 'vitest';
+import type { AiProvider } from '../src/ai/provider';
 import { createApp } from '../src/app';
 import { createCatalog } from '../src/catalog/loader';
 import { openDatabase } from '../src/db/client';
@@ -29,7 +30,7 @@ export function writeJson(dir: string, file: string, value: unknown) {
  * catalog. Create it inside each test (or `beforeEach`), since the temp
  * directory is removed after every test.
  */
-export function createTestApp(options: { maxUploadBytes?: number } = {}) {
+export function createTestApp(options: { maxUploadBytes?: number; aiProvider?: AiProvider } = {}) {
   const db = openDatabase(':memory:');
   const photosDir = tempDir('houseplant-photos-');
   const app = createApp({
@@ -37,6 +38,7 @@ export function createTestApp(options: { maxUploadBytes?: number } = {}) {
     db,
     photosDir,
     maxUploadBytes: options.maxUploadBytes ?? 5 * 1024 * 1024,
+    aiProvider: options.aiProvider ?? null,
     quiet: true,
   });
 

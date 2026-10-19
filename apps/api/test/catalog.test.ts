@@ -113,8 +113,33 @@ describe('species catalog loader', () => {
     expect((await expectProblems(dir)).join('\n')).toMatch(/image\.file/);
   });
 
-  it('validates the real species catalog', async () => {
+  it('accepts a valid careProfile and rejects inconsistent ones', async () => {
+    const careProfile = {
+      light: { preferred: 'bright-indirect', tolerates: ['medium'] },
+      watering: { dryBeforeWatering: 'top-layer', checkEveryDays: { growing: [5, 8], dormant: [8, 14] } },
+      growingMonths: [3, 4, 5, 6, 7, 8, 9],
+      fertilizeEveryDays: { growing: 30 },
+      humidity: 'medium',
+    };
+    const good = tempDir();
+    writeJson(good, 'profiled.json', { ...makeSpecies('profiled'), careProfile });
+    expect((await loadCatalog(good)).get('profiled')?.careProfile?.watering.checkEveryDays.growing).toEqual([5, 8]);
+
+    const bad = tempDir();
+    const reversed = { ...careProfile, watering: { ...careProfile.watering, checkEveryDays: { growing: [9, 4], dormant: [8, 14] } } };
+    writeJson(bad, 'reversed.json', { ...makeSpecies('reversed'), careProfile: reversed });
+    writeJson(bad, 'month-13.json', { ...makeSpecies('month-13'), careProfile: { ...careProfile, growingMonths: [13] } });
+    writeJson(bad, 'bright.json', { ...makeSpecies('bright'), careProfile: { ...careProfile, light: { preferred: 'blinding', tolerates: [] } } });
+    const problems = (await expectProblems(bad)).join('\n');
+    expect(problems).toMatch(/reversed\.json: careProfile\.watering\.checkEveryDays\.growing/);
+    expect(problems).toMatch(/month-13\.json: careProfile\.growingMonths\.0/);
+    expect(problems).toMatch(/bright\.json: careProfile\.light\.preferred/);
+  });
+
+  it('validates the real species catalog, and every entry has a careProfile', async () => {
     const catalog = await loadCatalog(path.resolve(import.meta.dirname, '../../../species-catalog'));
     expect(catalog.size).toBeGreaterThan(0);
+    const missing = catalog.list().filter((s) => !catalog.get(s.id)?.careProfile);
+    expect(missing.map((s) => s.id)).toEqual([]);
   });
 });

@@ -14,6 +14,11 @@ try {
   if (drafts.length > 0) {
     console.log(`  ${drafts.length} marked as draft (not yet reviewed): ${drafts.map((s) => s.id).join(', ')}`);
   }
+  // Reminders and the assistant's care signals need it; the schema keeps it optional for older files.
+  const noProfile = catalog.list().filter((s) => !catalog.get(s.id)?.careProfile);
+  if (noProfile.length > 0) {
+    console.log(`  ⚠ ${noProfile.length} without a careProfile: ${noProfile.map((s) => s.id).join(', ')}`);
+  }
 } catch (err) {
   if (!(err instanceof CatalogValidationError)) throw err;
   console.error(`✘ ${err.problems.length} problem(s) found:`);

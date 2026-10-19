@@ -49,16 +49,18 @@ app-wide settings that the server needs:
 |---|---|---|
 | `timezone` | `"Asia/Jerusalem"` | Reminder due dates, notification time, seasons |
 | `hemisphere` | `"north"` | Season-aware rules (growing vs. dormant months) |
-| `ai.enabled` | `true` | Owner switch, on top of the API key being configured |
-| `ai.monthlyRequestLimit` | `300` | Cost guard |
-| `notifications.time` | `"08:30"` | Daily reminder time |
-| `notifications.quietUntil` | `"2026-11-02"` | Vacation pause |
+| `aiEnabled` | `true` | Owner switch, on top of the API key being configured |
+| `aiMonthlyRequestLimit` | `300` | Cost guard |
+| `notificationTime` | `"08:30"` | Daily reminder time |
+| `notificationsPausedUntil` | `"2026-11-02"` | Vacation pause |
 
 The UI language stays client-side. The server receives `lang` on requests that produce text.
 
 ### AI provider module (`apps/api/src/ai/`)
 
-- `AiProvider` interface with `identifySpecies`, `assessHealth` and `chat`.
+- `AiProvider` interface that only transports requests: `generateStructured` now, plus a streaming chat
+  method in the assistant phase. The prompts and context for identification, health checks and the
+  assistant live in their feature services.
 - `openai-provider.ts` implements it with the official `openai` SDK and the **Responses API**:
   - image input (base64 data URL);
   - **structured output** with a JSON Schema generated from the shared Zod schema
@@ -82,7 +84,7 @@ The UI language stays client-side. The server receives `lang` on requests that p
 ### `GET /api/config`
 
 Returns what the client needs to show or hide features:
-`{ ai: { enabled, remainingThisMonth }, push: { available, vapidPublicKey }, timezone }`.
+`{ ai: { configured, enabled, available, model, usedThisMonth, monthlyLimit }, push: { available, vapidPublicKey }, timezone }`.
 
 ### Structured care data in the species catalog
 
@@ -424,7 +426,7 @@ messages
 - Server side:
   - `web-push` with VAPID keys from `.env`;
   - a **scheduler inside the API process**: a one-minute interval checks the clock against
-    `notifications.time` in `settings.timezone`, groups everything due into **one daily
+    `notificationTime` in the `timezone` setting, groups everything due into **one daily
     notification** ("3 plants to check today: Monty, ציפורה, …"), and records it in `notifications`
     so restarts never send duplicates;
   - expired subscriptions (HTTP 404/410 from the push service) are deleted.

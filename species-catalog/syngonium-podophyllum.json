@@ -5,6 +5,13 @@
   "family": "Araceae",
   "temperatureCelsius": { "idealMin": 18, "idealMax": 29, "minimum": 13 },
   "toxicity": { "cats": "toxic", "dogs": "toxic", "humans": "toxic" },
+  "careProfile": {
+    "light": { "preferred": "bright-indirect", "tolerates": ["medium"] },
+    "watering": { "dryBeforeWatering": "top-layer", "checkEveryDays": { "growing": [5, 8], "dormant": [8, 14] } },
+    "growingMonths": [3, 4, 5, 6, 7, 8, 9],
+    "fertilizeEveryDays": { "growing": 30 },
+    "humidity": "high"
+  },
   "image": {
     "file": "syngonium-podophyllum.jpg",
     "author": "Stephanie cheks",
@@ -197,7 +204,7 @@
   "researchMetadata": {
     "status": "reviewed",
     "reviewedAt": "2026-10-19",
-    "method": "AI-assisted draft (Claude, 2026-10-11). Light, humidity, pruning, repotting, propagation, pest and toxicity statements were cross-checked against the sources listed; watering and temperature ranges are general guidance not stated numerically by these sources. Reviewed and approved by the owner on 2026-10-19.",
+    "method": "AI-assisted draft (Claude, 2026-10-11). Light, humidity, pruning, repotting, propagation, pest and toxicity statements were cross-checked against the sources listed; watering and temperature ranges are general guidance not stated numerically by these sources. Reviewed and approved by the owner on 2026-10-19. The careProfile block was added on 2026-10-19 with AI assistance, derived from this entry's reviewed text; its checkEveryDays ranges are starting estimates for reminders (which adapt to the owner's actual watering), not sourced values. careProfile is pending owner review.",
     "sources": [
       {
         "title": "Syngonium podophyllum",

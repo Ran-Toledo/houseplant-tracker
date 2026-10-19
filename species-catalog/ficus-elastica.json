@@ -5,6 +5,13 @@
   "family": "Moraceae",
   "temperatureCelsius": { "idealMin": 16, "idealMax": 29, "minimum": 13 },
   "toxicity": { "cats": "mildly-toxic", "dogs": "mildly-toxic", "humans": "unknown" },
+  "careProfile": {
+    "light": { "preferred": "bright-indirect", "tolerates": ["medium"] },
+    "watering": { "dryBeforeWatering": "top-layer", "checkEveryDays": { "growing": [7, 10], "dormant": [10, 18] } },
+    "growingMonths": [3, 4, 5, 6, 7, 8, 9],
+    "fertilizeEveryDays": { "growing": 30 },
+    "humidity": "medium"
+  },
   "image": {
     "file": "ficus-elastica.jpg",
     "author": "B.navez",
@@ -187,7 +194,7 @@
   "researchMetadata": {
     "status": "reviewed",
     "reviewedAt": "2026-10-19",
-    "method": "AI-assisted draft (Claude, 2026-10-11). Light, watering, temperature, pruning and propagation statements were cross-checked against the NC State source. No ASPCA entry for Ficus elastica was found; pet toxicity is based on NC State's 'problem plant' tags and the ASPCA entry for the related Ficus benjamina. Reviewed and approved by the owner on 2026-10-19.",
+    "method": "AI-assisted draft (Claude, 2026-10-11). Light, watering, temperature, pruning and propagation statements were cross-checked against the NC State source. No ASPCA entry for Ficus elastica was found; pet toxicity is based on NC State's 'problem plant' tags and the ASPCA entry for the related Ficus benjamina. Reviewed and approved by the owner on 2026-10-19. The careProfile block was added on 2026-10-19 with AI assistance, derived from this entry's reviewed text; its checkEveryDays ranges are starting estimates for reminders (which adapt to the owner's actual watering), not sourced values. careProfile is pending owner review.",
     "sources": [
       {
         "title": "Ficus elastica",

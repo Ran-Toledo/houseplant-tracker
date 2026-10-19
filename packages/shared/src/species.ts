@@ -103,6 +103,40 @@ const temperatureSchema = z
     message: 'expected minimum <= idealMin <= idealMax',
   });
 
+/** Same values as a plant's `lightExposure`. Defined here to keep this module free of imports. */
+const CARE_LIGHT_LEVELS = ['direct', 'bright-indirect', 'medium', 'low'] as const;
+export const DRY_BEFORE_WATERING = ['top-layer', 'half', 'mostly'] as const;
+export const HUMIDITY_LEVELS = ['low', 'medium', 'high'] as const;
+
+/** `[min, max]` days, min ≤ max. */
+const dayRange = z
+  .tuple([z.number().int().positive(), z.number().int().positive()])
+  .refine(([min, max]) => min <= max, { message: 'expected [min, max] with min <= max' });
+
+/**
+ * Machine-readable care values used by reminders and the assistant's care
+ * signals. The localized text stays the source of advice; these numbers are
+ * starting estimates (for example, when to *check* the soil), not schedules.
+ */
+export const careProfileSchema = z.strictObject({
+  light: z.strictObject({
+    preferred: z.enum(CARE_LIGHT_LEVELS),
+    tolerates: z.array(z.enum(CARE_LIGHT_LEVELS)),
+  }),
+  watering: z.strictObject({
+    /** How much of the soil should dry before watering again. */
+    dryBeforeWatering: z.enum(DRY_BEFORE_WATERING),
+    /** Typical days between soil checks that lead to watering, by season. */
+    checkEveryDays: z.strictObject({ growing: dayRange, dormant: dayRange }),
+  }),
+  /** Months of active growth (1–12) in the northern hemisphere; shifted by six for the southern. */
+  growingMonths: z.array(z.number().int().min(1).max(12)).min(1).max(12),
+  /** Days between feeds in the growing season; none in the dormant season. */
+  fertilizeEveryDays: z.strictObject({ growing: z.number().int().positive() }),
+  humidity: z.enum(HUMIDITY_LEVELS),
+});
+export type CareProfile = z.infer<typeof careProfileSchema>;
+
 export const speciesSchema = z
   .strictObject({
     schemaVersion: z.literal(SPECIES_SCHEMA_VERSION),
@@ -111,6 +145,8 @@ export const speciesSchema = z
     family: text,
     temperatureCelsius: temperatureSchema,
     toxicity: z.strictObject({ cats: toxicityLevel, dogs: toxicityLevel, humans: toxicityLevel }),
+    /** Structured care values; optional so older files stay valid, but every catalog entry has one. */
+    careProfile: careProfileSchema.optional(),
     /** Representative photo in `species-catalog/images/`, with attribution for its license. */
     image: z
       .strictObject({

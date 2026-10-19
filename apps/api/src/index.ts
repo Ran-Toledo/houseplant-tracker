@@ -1,5 +1,6 @@
 import path from 'node:path';
 import { serve } from '@hono/node-server';
+import { createOpenAiProvider } from './ai/openai-provider';
 import { createApp } from './app';
 import { CatalogValidationError, loadCatalog, type SpeciesCatalog } from './catalog/loader';
 import { loadConfig } from './config';
@@ -25,11 +26,17 @@ const dbFile = path.join(config.storageDir, 'plants.sqlite');
 const db = openDatabase(dbFile);
 console.log(`[api] database ready: ${dbFile}`);
 
+const aiProvider = config.openai.apiKey
+  ? createOpenAiProvider({ apiKey: config.openai.apiKey, model: config.openai.model, timeoutMs: config.openai.timeoutMs })
+  : null;
+console.log(aiProvider ? `[api] AI features: OpenAI ${aiProvider.model}` : '[api] AI features: off (OPENAI_API_KEY not set)');
+
 const app = createApp({
   catalog,
   db,
   photosDir: path.join(config.storageDir, 'photos'),
   maxUploadBytes: config.maxUploadBytes,
+  aiProvider,
 });
 
 const server = serve({ fetch: app.fetch, port: config.port, hostname: '0.0.0.0' }, (info) => {

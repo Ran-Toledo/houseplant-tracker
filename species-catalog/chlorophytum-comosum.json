@@ -5,6 +5,13 @@
   "family": "Asparagaceae",
   "temperatureCelsius": { "idealMin": 16, "idealMax": 27, "minimum": 7 },
   "toxicity": { "cats": "non-toxic", "dogs": "non-toxic", "humans": "unknown" },
+  "careProfile": {
+    "light": { "preferred": "medium", "tolerates": ["low", "bright-indirect"] },
+    "watering": { "dryBeforeWatering": "top-layer", "checkEveryDays": { "growing": [5, 8], "dormant": [8, 14] } },
+    "growingMonths": [3, 4, 5, 6, 7, 8, 9],
+    "fertilizeEveryDays": { "growing": 30 },
+    "humidity": "medium"
+  },
   "image": {
     "file": "chlorophytum-comosum.jpg",
     "author": "Dtarazona (derivative work: Peter coxhead)",
@@ -187,7 +194,7 @@
   "researchMetadata": {
     "status": "reviewed",
     "reviewedAt": "2026-10-19",
-    "method": "AI-assisted draft (Claude, 2026-10-11). Light, watering, temperature, propagation and pet toxicity statements were cross-checked against the sources listed. Reviewed and approved by the owner on 2026-10-19.",
+    "method": "AI-assisted draft (Claude, 2026-10-11). Light, watering, temperature, propagation and pet toxicity statements were cross-checked against the sources listed. Reviewed and approved by the owner on 2026-10-19. The careProfile block was added on 2026-10-19 with AI assistance, derived from this entry's reviewed text; its checkEveryDays ranges are starting estimates for reminders (which adapt to the owner's actual watering), not sourced values. careProfile is pending owner review.",
     "sources": [
       {
         "title": "Chlorophytum comosum",

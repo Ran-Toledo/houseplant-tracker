@@ -1,0 +1,117 @@
+import { randomUUID } from 'node:crypto';
+import type { AppConfig } from '@houseplant/shared';
+import type { z } from 'zod';
+import type { AI_REQUEST_KINDS, AI_REQUEST_STATUSES } from '../db/schema';
+import { startOfLocalMonth } from '../lib/zoned-time';
+import { ApiError } from '../middleware/errors';
+import type { AiRequestRepository } from '../repositories/ai-requests';
+import type { SettingsService } from '../services/settings';
+import { AiProviderError, type AiProvider, type AiUsage, type StructuredRequest } from './provider';
+
+type Kind = (typeof AI_REQUEST_KINDS)[number];
+type Status = (typeof AI_REQUEST_STATUSES)[number];
+
+interface Deps {
+  /** Null when no API key is configured. */
+  provider: AiProvider | null;
+  settings: SettingsService;
+  requests: AiRequestRepository;
+  now?: () => Date;
+}
+
+export interface RequestContext {
+  kind: Kind;
+  plantId?: string | null;
+  photoId?: string | null;
+}
+
+/**
+ * The single entry point for model calls. It enforces the owner's switch and
+ * the monthly limit, validates the answer against the request's schema, and
+ * logs every call (whatever the outcome) in `ai_requests`.
+ */
+export function createAiService({ provider, settings, requests, now = () => new Date() }: Deps) {
+  function usedThisMonth(timezone: string): number {
+    return requests.countSince(startOfLocalMonth(now(), timezone).toISOString());
+  }
+
+  function status(): AppConfig['ai'] {
+    const s = settings.get();
+    const used = usedThisMonth(s.timezone);
+    return {
+      configured: provider !== null,
+      enabled: s.aiEnabled,
+      available: provider !== null && s.aiEnabled && used < s.aiMonthlyRequestLimit,
+      model: provider?.model ?? null,
+      usedThisMonth: used,
+      monthlyLimit: s.aiMonthlyRequestLimit,
+    };
+  }
+
+  function assertAvailable(): AiProvider {
+    if (!provider) throw new ApiError(503, 'ai_not_configured', 'AI features are not set up: no OpenAI API key is configured');
+    const s = settings.get();
+    if (!s.aiEnabled) throw new ApiError(503, 'ai_disabled', 'AI features are turned off in Settings');
+    if (usedThisMonth(s.timezone) >= s.aiMonthlyRequestLimit) {
+      throw new ApiError(429, 'ai_limit_reached', `The monthly limit of ${s.aiMonthlyRequestLimit} AI requests has been reached`);
+    }
+    return provider;
+  }
+
+  return {
+    status,
+
+    /** Sends a structured request and returns the validated answer, or throws an `ApiError`. */
+    async generate<S extends z.ZodType>(context: RequestContext, request: StructuredRequest<S>): Promise<z.output<S>> {
+      const active = assertAvailable();
+      const started = now().getTime();
+      const log = (status: Status, usage: AiUsage | null, extra: { errorCode?: string; result?: unknown } = {}) =>
+        requests.insert({
+          id: randomUUID(),
+          kind: context.kind,
+          plantId: context.plantId ?? null,
+          photoId: context.photoId ?? null,
+          model: active.model,
+          status,
+          inputTokens: usage?.inputTokens ?? null,
+          outputTokens: usage?.outputTokens ?? null,
+          latencyMs: now().getTime() - started,
+          errorCode: extra.errorCode ?? null,
+          resultJson: extra.result === undefined ? null : JSON.stringify(extra.result),
+          createdAt: new Date(started).toISOString(),
+        });
+
+      let reply;
+      try {
+        reply = await active.generateStructured(request);
+      } catch (err) {
+        if (!(err instanceof AiProviderError)) throw err;
+        log(err.code === 'timeout' ? 'timeout' : 'error', null, { errorCode: err.code });
+        console.error(`[api] AI ${context.kind} request failed: ${err.message}`);
+        if (err.code === 'timeout') throw new ApiError(504, 'ai_timeout', 'The AI service took too long to answer. Try again.');
+        throw new ApiError(502, 'ai_error', 'The AI service could not be reached. Try again later.');
+      }
+
+      if (reply.kind === 'refusal') {
+        log('refused', reply.usage, { errorCode: 'refusal' });
+        throw new ApiError(422, 'ai_refused', 'The AI service declined to answer this request.');
+      }
+
+      let parsed: unknown;
+      try {
+        parsed = JSON.parse(reply.text);
+      } catch {
+        parsed = undefined;
+      }
+      const result = request.schema.safeParse(parsed);
+      if (!result.success) {
+        log('invalid-output', reply.usage, { errorCode: 'schema' });
+        throw new ApiError(502, 'ai_invalid_output', 'The AI service returned an answer that could not be used. Try again.');
+      }
+      log('ok', reply.usage, { result: result.data });
+      return result.data;
+    },
+  };
+}
+
+export type AiService = ReturnType<typeof createAiService>;

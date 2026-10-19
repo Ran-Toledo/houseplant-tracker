@@ -18,7 +18,12 @@ export interface AppConfig {
   catalogDir: string;
   /** Maximum accepted upload size, in bytes. */
   maxUploadBytes: number;
+  /** OpenAI settings; `apiKey` is null when AI features aren't set up. */
+  openai: { apiKey: string | null; model: string; timeoutMs: number };
 }
+
+/** Default model for AI features; override with OPENAI_MODEL. */
+const DEFAULT_OPENAI_MODEL = 'gpt-5.4-mini';
 
 /** Repository root, used for sensible defaults when running outside Docker. */
 const repoRoot = path.resolve(import.meta.dirname, '../../..');
@@ -29,5 +34,10 @@ export function loadConfig(): AppConfig {
     storageDir: path.resolve(process.env.STORAGE_DIR || path.join(repoRoot, 'storage')),
     catalogDir: path.resolve(process.env.CATALOG_DIR || path.join(repoRoot, 'species-catalog')),
     maxUploadBytes: intFromEnv('MAX_UPLOAD_MB', 15) * 1024 * 1024,
+    openai: {
+      apiKey: process.env.OPENAI_API_KEY?.trim() || null,
+      model: process.env.OPENAI_MODEL?.trim() || DEFAULT_OPENAI_MODEL,
+      timeoutMs: intFromEnv('AI_TIMEOUT_MS', 60_000),
+    },
   };
 }

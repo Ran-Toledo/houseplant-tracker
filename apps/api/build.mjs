@@ -3,7 +3,7 @@
 import fs from 'node:fs/promises';
 import { build } from 'esbuild';
 
-const scripts = { backup: 'backup', restore: 'restore', 'validate:catalog': 'validate-catalog' };
+const scripts = { backup: 'backup', restore: 'restore', 'validate:catalog': 'validate-catalog', 'ai:check': 'ai-check' };
 
 await fs.rm('dist', { recursive: true, force: true });
 await build({

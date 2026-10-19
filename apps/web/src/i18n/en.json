@@ -284,7 +284,24 @@
     "language": "Language",
     "languageHint": "Your choice is remembered on this device.",
     "about": "About",
-    "aboutBody": "Your plants, photos and care history are stored on your own computer, in the app's storage folder. Species care guides come from the version-controlled catalog. No AI services are used.",
-    "catalog": "Species in catalog"
+    "aboutBody": "Your plants, photos and care history are stored on your own computer, in the app's storage folder. Species care guides come from the version-controlled catalog.",
+    "catalog": "Species in catalog",
+    "ai": {
+      "title": "AI features",
+      "status": {
+        "ready": "On",
+        "off": "Off",
+        "notConfigured": "Not set up",
+        "limitReached": "Monthly limit reached"
+      },
+      "usage": "Requests this month",
+      "usageValue": "{{used}} of {{limit}}",
+      "model": "Model",
+      "notConfiguredHint": "To use AI features, add an OpenAI API key to the .env file next to compose.yaml, then restart the app.",
+      "privacy": "AI features only run when you use one. Then the photo, the plant's details and its recent care history are sent to OpenAI for analysis. Nothing else leaves your computer, and the requests aren't saved in your OpenAI account.",
+      "turnOn": "Turn AI features on",
+      "turnOff": "Turn AI features off",
+      "loadFailed": "Couldn't load the AI status."
+    }
   }
 }

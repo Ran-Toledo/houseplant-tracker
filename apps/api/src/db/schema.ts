@@ -79,6 +79,38 @@ export const photos = sqliteTable(
   ],
 );
 
+/** App-wide settings, one row per key; `value` is JSON. Missing keys fall back to defaults. */
+export const settings = sqliteTable('settings', {
+  key: text('key').primaryKey(),
+  value: text('value').notNull(),
+  updatedAt: text('updated_at').notNull(),
+});
+
+export const AI_REQUEST_KINDS = ['identify', 'health', 'chat', 'check'] as const;
+export const AI_REQUEST_STATUSES = ['ok', 'invalid-output', 'refused', 'error', 'timeout'] as const;
+
+/** One row per model call, for usage stats, the monthly limit and debugging. */
+export const aiRequests = sqliteTable(
+  'ai_requests',
+  {
+    id: text('id').primaryKey(),
+    kind: text('kind', { enum: AI_REQUEST_KINDS }).notNull(),
+    plantId: text('plant_id').references(() => plants.id, { onDelete: 'set null' }),
+    photoId: text('photo_id').references(() => photos.id, { onDelete: 'set null' }),
+    model: text('model').notNull(),
+    status: text('status', { enum: AI_REQUEST_STATUSES }).notNull(),
+    inputTokens: integer('input_tokens'),
+    outputTokens: integer('output_tokens'),
+    latencyMs: integer('latency_ms'),
+    errorCode: text('error_code'),
+    /** The validated output, as JSON (only for status `ok`). */
+    resultJson: text('result_json'),
+    ...timestamps,
+  },
+  (t) => [index('ai_requests_created_idx').on(t.createdAt), index('ai_requests_plant_idx').on(t.plantId)],
+);
+
 export type PlantRow = typeof plants.$inferSelect;
 export type ActivityRow = typeof activities.$inferSelect;
 export type PhotoRow = typeof photos.$inferSelect;
+export type AiRequestRow = typeof aiRequests.$inferSelect;

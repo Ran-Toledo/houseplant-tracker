@@ -84,6 +84,32 @@ proxy, and the app answers on the Wi-Fi address. Source edits reload without reb
 - [x] Photo thumbnails (512 px `.thumb.jpg`) for cards and gallery tiles; generated on upload, regenerated on demand if missing, skipped by backups
 - [x] `compose.yaml` runs release builds (nginx serving the built frontend, esbuild-bundled API on plain Node); hot reload moved to the `compose.dev.yaml` override
 
+## Next stage (after v0.1.0)
+
+Design: [NEXT_STAGE_DESIGN.md](NEXT_STAGE_DESIGN.md) (approved 2026-10-19).
+
+### Phase 0 — Shared groundwork
+- [x] `settings` table, `GET/PATCH /api/settings`, defaults (Asia/Jerusalem, north, 08:30, AI on, 300 requests/month)
+- [x] `ai_requests` table; AI service with owner switch, monthly limit (in the local time zone), Zod-validated structured output and a log of every call
+- [x] OpenAI provider (Responses API, `store: false`, default `gpt-5.4-mini`) and a fake provider for tests
+- [x] `GET /api/config`; Settings → AI features (status, usage, on/off, privacy note)
+- [x] `OPENAI_API_KEY` from the root `.env`, passed to the api container only; nginx `proxy_read_timeout 120s`
+- [x] `npm run ai:check` live check (run once against the real API: OK)
+- [x] Species `careProfile` block; all 14 entries filled in (pending owner review); validator warns when missing
+- [x] Tests: settings and config API, AI service outcomes and limits, time-zone maths, careProfile validation
+
+### Phase 1 — Watering reminders (in-app)
+- [ ] `care_schedules`; due dates derived from the activity log; care-signals module; "Needs care" strip, due badges, schedule control
+
+### Phase 2 — AI identification and health analysis
+- [ ] Identify from photo in the plant form; health checks with history; `health_checks` table
+
+### Phase 3 — Read-only assistant
+- [ ] Mockups first; `conversations`/`messages`; read-only tools; SSE streaming; Assistant tab
+
+### Phase 4 — Push notifications
+- [ ] `tailscale serve` HTTPS address, `.ts.net` host allow-list, service worker, VAPID, daily digest
+
 ## Known follow-ups
 
 - `drizzle-kit` (dev-only) pulls a deprecated esbuild with a moderate advisory about its dev server, which

@@ -5,6 +5,13 @@
   "family": "Moraceae",
   "temperatureCelsius": { "idealMin": 16, "idealMax": 29, "minimum": 13 },
   "toxicity": { "cats": "mildly-toxic", "dogs": "mildly-toxic", "humans": "unknown" },
+  "careProfile": {
+    "light": { "preferred": "bright-indirect", "tolerates": ["medium"] },
+    "watering": { "dryBeforeWatering": "top-layer", "checkEveryDays": { "growing": [7, 10], "dormant": [10, 18] } },
+    "growingMonths": [3, 4, 5, 6, 7, 8, 9],
+    "fertilizeEveryDays": { "growing": 30 },
+    "humidity": "medium"
+  },
   "image": {
     "file": "ficus-elastica-variegata.jpg",
     "author": "Linveggie",
@@ -197,7 +204,7 @@
   "researchMetadata": {
     "status": "reviewed",
     "reviewedAt": "2026-10-19",
-    "method": "AI-assisted draft (Claude, 2026-10-19), based on the ficus-elastica entry (drafted 2026-10-11), whose care, pest and toxicity statements were cross-checked against the sources below; NC State notes that variegated cultivars keep their colour best in good light. Not from those sources (general guidance): that variegated forms need more light and grow more slowly than the green form, that the cream parts scorch first, reverting green shoots, and that seedlings don't keep the variegation. Reviewed and approved by the owner on 2026-10-19.",
+    "method": "AI-assisted draft (Claude, 2026-10-19), based on the ficus-elastica entry (drafted 2026-10-11), whose care, pest and toxicity statements were cross-checked against the sources below; NC State notes that variegated cultivars keep their colour best in good light. Not from those sources (general guidance): that variegated forms need more light and grow more slowly than the green form, that the cream parts scorch first, reverting green shoots, and that seedlings don't keep the variegation. Reviewed and approved by the owner on 2026-10-19. The careProfile block was added on 2026-10-19 with AI assistance, derived from this entry's reviewed text; its checkEveryDays ranges are starting estimates for reminders (which adapt to the owner's actual watering), not sourced values. careProfile is pending owner review.",
     "sources": [
       {
         "title": "Ficus elastica",

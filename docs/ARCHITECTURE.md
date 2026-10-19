@@ -84,17 +84,33 @@ binaries) are never shadowed by the host's Windows ones.
 
 | Folder | Contents |
 |---|---|
-| `routes/` | Hono routers: `species`, `plants` (+ activities), `photos`. Parse input, call services, shape responses. |
-| `services/` | `plants` (species checks, create with initial history, cascade delete), `photos` (upload/cover/delete), `images` (sharp pipeline). |
+| `routes/` | Hono routers: `species`, `plants` (+ activities), `photos`, `settings` (+ `/api/config`). Parse input, call services, shape responses. |
+| `services/` | `plants` (species checks, create with initial history, cascade delete), `photos` (upload/cover/delete), `images` (sharp pipeline), `settings` (defaults over stored values). |
 | `repositories/` | Drizzle queries per table; plant list query derives last watering/repotting and joins the cover photo. |
+| `ai/` | AI provider interface, the OpenAI implementation and a fake for tests; `service` (owner switch, monthly limit, answer validation, request log); `images` (1024 px JPEG for the model). |
+| `lib/` | `zoned-time`: calendar maths in the owner's time zone (the container clock is UTC). |
 | `db/` | Drizzle schema and `openDatabase()` (pragmas + migrations). |
 | `catalog/` | Catalog loader and in-memory index. |
 | `storage/` | Photo file store (safe paths, atomic writes) and backup/restore. |
 | `middleware/` | `ApiError`, Zod validation helper, JSON error handler. |
-| `scripts/` | `validate-catalog`, `backup`, `restore` CLIs. |
+| `scripts/` | `validate-catalog`, `backup`, `restore`, `ai-check` CLIs. |
 
-`createApp(deps)` builds the whole app from injected dependencies (catalog, db, photos dir), which is what
-the integration tests use with an in-memory database.
+`createApp(deps)` builds the whole app from injected dependencies (catalog, db, photos dir, AI provider),
+which is what the integration tests use with an in-memory database and the fake AI provider.
+
+### AI requests
+
+All model calls go through `ai/service.ts`:
+1. It checks the key is configured, AI is switched on in Settings, and the monthly limit isn't reached.
+2. It sends the request through the provider. OpenAI's Responses API is used with structured output
+   from a Zod schema, and `store: false`.
+3. It validates the answer against the same Zod schema.
+4. It logs the call in `ai_requests`, whatever the outcome.
+
+Only the api container receives `OPENAI_API_KEY`, and the browser never sees it.
+`docker compose exec api npm run ai:check` sends one tiny request to confirm the key and model work.
+Feature modules (identification, health checks, the assistant) build their prompts on top of this; see
+[NEXT_STAGE_DESIGN.md](NEXT_STAGE_DESIGN.md).
 
 ### Error format
 
@@ -106,6 +122,13 @@ Every error response is JSON:
 
 Codes: `validation_error`, `invalid_json`, `invalid_form`, `unknown_species`, `not_found`,
 `unsupported_image_format` (415), `payload_too_large` (413), `internal_error` (500).
+
+AI codes:
+- `ai_not_configured`, `ai_disabled` (503);
+- `ai_limit_reached` (429);
+- `ai_refused` (422);
+- `ai_timeout` (504);
+- `ai_error`, `ai_invalid_output` (502).
 
 ### REST endpoints
 
@@ -125,6 +148,8 @@ Codes: `validation_error`, `invalid_json`, `invalid_form`, `unknown_species`, `n
 | `DELETE /api/photos/:id` | Delete record and files |
 | `GET /api/photos/:id/file` | The JPEG (immutable cache headers) |
 | `GET /api/photos/:id/thumb` | 512 px thumbnail, generated if missing (immutable cache headers) |
+| `GET/PATCH /api/settings` | App-wide settings (time zone, hemisphere, AI switch and monthly limit, reminder time); PATCH takes any subset |
+| `GET /api/config` | What the client may show: AI status and monthly usage, push availability, time zone |
 
 ## Frontend layout (`apps/web/src`)
 
@@ -145,8 +170,9 @@ store.
 with `rtl:` variants. User-entered and Latin text is isolated with `<bdi>` or `dir="auto"` so mixed
 Hebrew/English renders correctly.
 
-## Not in the MVP, but not blocked
+## Next stage
 
-AI features would be a new API service module that reads plant records, activities and catalog data
-through the existing repositories. Authentication would be a Hono middleware in front of `/api`. Neither
-needs schema changes now, so none were made.
+The design for AI identification and health checks, the read-only assistant and reminders is in
+[NEXT_STAGE_DESIGN.md](NEXT_STAGE_DESIGN.md). Its shared groundwork is built: settings, `GET /api/config`,
+the AI module and the species `careProfile`. Authentication would later be a Hono middleware in front of
+`/api`.

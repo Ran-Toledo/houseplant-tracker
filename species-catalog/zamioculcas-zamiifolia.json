@@ -5,6 +5,13 @@
   "family": "Araceae",
   "temperatureCelsius": { "idealMin": 18, "idealMax": 29, "minimum": 12 },
   "toxicity": { "cats": "toxic", "dogs": "toxic", "humans": "toxic" },
+  "careProfile": {
+    "light": { "preferred": "bright-indirect", "tolerates": ["medium", "low"] },
+    "watering": { "dryBeforeWatering": "mostly", "checkEveryDays": { "growing": [14, 21], "dormant": [25, 35] } },
+    "growingMonths": [3, 4, 5, 6, 7, 8, 9],
+    "fertilizeEveryDays": { "growing": 180 },
+    "humidity": "medium"
+  },
   "image": {
     "file": "zamioculcas-zamiifolia.jpg",
     "author": "WeFt",
@@ -197,7 +204,7 @@
   "researchMetadata": {
     "status": "reviewed",
     "reviewedAt": "2026-10-19",
-    "method": "AI-assisted draft (Claude, 2026-10-11). Light, watering, temperature, propagation and toxicity statements were cross-checked against the source listed; no ASPCA entry was found for this species. Reviewed and approved by the owner on 2026-10-19.",
+    "method": "AI-assisted draft (Claude, 2026-10-11). Light, watering, temperature, propagation and toxicity statements were cross-checked against the source listed; no ASPCA entry was found for this species. Reviewed and approved by the owner on 2026-10-19. The careProfile block was added on 2026-10-19 with AI assistance, derived from this entry's reviewed text; its checkEveryDays ranges are starting estimates for reminders (which adapt to the owner's actual watering), not sourced values. careProfile is pending owner review.",
     "sources": [
       {
         "title": "Zamioculcas zamiifolia",

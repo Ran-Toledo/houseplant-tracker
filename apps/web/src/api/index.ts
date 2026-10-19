@@ -1,6 +1,9 @@
 import type {
   Activity,
   ActivityInput,
+  AppConfig,
+  AppSettings,
+  AppSettingsUpdate,
   Condition,
   Photo,
   Plant,
@@ -55,4 +58,9 @@ export const api = {
 
   listSpecies: () => request<{ species: SpeciesSummary[] }>('/species').then((r) => r.species),
   getSpecies: (id: string) => request<{ species: Species }>(`/species/${id}`).then((r) => r.species),
+
+  getConfig: () => request<{ config: AppConfig }>('/config').then((r) => r.config),
+  getSettings: () => request<{ settings: AppSettings }>('/settings').then((r) => r.settings),
+  updateSettings: (changes: AppSettingsUpdate) =>
+    request<{ settings: AppSettings }>('/settings', json('PATCH', changes)).then((r) => r.settings),
 };

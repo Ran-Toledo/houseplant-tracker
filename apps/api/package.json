@@ -10,6 +10,7 @@
     "typecheck": "tsc -p tsconfig.json",
     "test": "vitest run",
     "validate:catalog": "tsx src/scripts/validate-catalog.ts",
+    "ai:check": "tsx src/scripts/ai-check.ts",
     "db:generate": "drizzle-kit generate",
     "backup": "tsx src/scripts/backup.ts",
     "restore": "tsx src/scripts/restore.ts"
@@ -19,6 +20,7 @@
     "better-sqlite3": "^13.0.3",
     "drizzle-orm": "^0.45.4",
     "hono": "^4.13.13",
+    "openai": "^7.39.0",
     "sharp": "^0.35.5",
     "zod": "^4.6.5"
   },

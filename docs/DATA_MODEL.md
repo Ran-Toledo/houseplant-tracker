@@ -77,6 +77,43 @@ the cover.
 Each photo has a thumbnail next to it, `<plantId>/<photoId>.thumb.jpg`. Its path is derived from
 `storage_key`, so it has no column of its own, and a missing thumbnail is regenerated on request.
 
+### `settings` — app-wide settings
+
+| Column | Type | Notes |
+|---|---|---|
+| `key` | TEXT PK | A field of `appSettingsSchema` in `packages/shared/src/settings.ts` |
+| `value` | TEXT NOT NULL | JSON |
+| `updated_at` | TEXT NOT NULL | |
+
+Only changed settings are stored. Missing keys, and stored values that no longer validate, fall back to
+`DEFAULT_SETTINGS`:
+
+| Setting | Default |
+|---|---|
+| `timezone` | `Asia/Jerusalem` |
+| `hemisphere` | `north` |
+| `aiEnabled` | `true` |
+| `aiMonthlyRequestLimit` | `300` |
+| `notificationTime` | `08:30` |
+| `notificationsPausedUntil` | `null` |
+
+### `ai_requests` — one row per model call
+
+| Column | Type | Notes |
+|---|---|---|
+| `id` | TEXT PK | |
+| `kind` | TEXT NOT NULL | `identify` / `health` / `chat` / `check` |
+| `plant_id` | TEXT NULL | FK → `plants.id`, `ON DELETE SET NULL` |
+| `photo_id` | TEXT NULL | FK → `photos.id`, `ON DELETE SET NULL` |
+| `model` | TEXT NOT NULL | |
+| `status` | TEXT NOT NULL | `ok` / `invalid-output` / `refused` / `error` / `timeout` |
+| `input_tokens`, `output_tokens`, `latency_ms` | INTEGER NULL | |
+| `error_code` | TEXT NULL | |
+| `result_json` | TEXT NULL | The validated answer (status `ok` only) |
+| `created_at` | TEXT NOT NULL | Indexed; the monthly limit counts rows since local month start |
+
+Every call counts toward the monthly limit, whatever its outcome, because every call costs money.
+
 ## Species JSON
 
 One file per species, `species-catalog/<id>.json`; the file name must equal `id`. The authoritative
@@ -92,6 +129,14 @@ or misspelled fields are errors.
   "temperatureCelsius": { "idealMin": 18, "idealMax": 29, "minimum": 12 },
   "toxicity": { "cats": "toxic", "dogs": "toxic", "humans": "mildly-toxic" },
                                             // non-toxic | mildly-toxic | toxic | unknown
+  "careProfile": {                          // optional in the schema; every catalog entry has one
+    "light": { "preferred": "bright-indirect", "tolerates": ["medium"] },  // plant light values
+    "watering": { "dryBeforeWatering": "top-layer",                       // top-layer | half | mostly
+                  "checkEveryDays": { "growing": [7, 10], "dormant": [10, 16] } },  // [min, max] days
+    "growingMonths": [3, 4, 5, 6, 7, 8, 9], // northern hemisphere
+    "fertilizeEveryDays": { "growing": 30 },
+    "humidity": "medium"                    // low | medium | high
+  },
   "image": {                                // optional; file must exist in species-catalog/images/
     "file": "monstera-deliciosa.jpg",
     "author": "Smatu",
@@ -112,8 +157,14 @@ or misspelled fields are errors.
 }
 ```
 
-Language-independent values (ids, temperatures, toxicity classes, research status) live at the top
-level. All prose lives in each localization:
+Language-independent values (ids, temperatures, toxicity classes, the care profile, research status)
+live at the top level.
+
+`careProfile` holds machine-readable values for reminders and the assistant's care signals. The
+localized text stays the source of advice. `checkEveryDays` is a starting estimate for when to *check*
+the soil, not a watering schedule.
+
+All prose lives in each localization:
 
 | Field | Content |
 |---|---|

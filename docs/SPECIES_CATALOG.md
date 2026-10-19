@@ -1,7 +1,8 @@
 # Species catalog workflow
 
-The catalog (`species-catalog/*.json`) is reference content maintained in Git. The app never edits it and
-never calls an AI model to read or translate it.
+The catalog (`species-catalog/*.json`) is reference content maintained in Git by people. The app never
+edits it. AI features may send catalog text to the model as **context** for an answer, but never write
+to the catalog or translate it.
 
 ## Adding a species
 
@@ -15,15 +16,19 @@ never calls an AI model to read or translate it.
 3. **Write both languages.** Hebrew should read naturally, not as a word-for-word translation. Use the
    common Hebrew nursery name as `commonName` and put other names in `alternateNames`.
 4. **Research honestly** (below), and fill in `researchMetadata`.
-5. **Add a photo (optional):** put a JPEG, PNG or WebP named `<id>.jpg` (etc.) in
+5. **Add the `careProfile`:** light, how dry the soil should get, humidity and feeding interval, taken
+   from the entry's own text. `checkEveryDays` (`[min, max]` days between soil checks, per season) is a
+   starting estimate for reminders, which then adapt to the owner's actual watering. Say in `method`
+   that it isn't a sourced value. The validator warns about entries without a `careProfile`.
+6. **Add a photo (optional):** put a JPEG, PNG or WebP named `<id>.jpg` (etc.) in
    `species-catalog/images/`, around 1200 px on the longest side and under ~250 KB, with metadata
    stripped. Add the `image` block with the author, license and source page. Use only images you're
    allowed to use: your own photos, or freely licensed ones such as Wikimedia Commons (CC BY, CC BY-SA,
    CC0, public domain). The app shows the credit next to the photo, as those licenses require.
-6. **Validate:** `npm run validate:catalog` (or `docker compose exec api npm run validate:catalog`).
-7. **Load it:** `docker compose restart api`. The species appears in the Species tab and the species
+7. **Validate:** `npm run validate:catalog` (or `docker compose exec api npm run validate:catalog`).
+8. **Load it:** `docker compose restart api`. The species appears in the Species tab and the species
    picker.
-8. **Commit** the file (and image).
+9. **Commit** the file (and image).
 
 To fix or update an entry, edit it, validate it, and restart the API. Don't change `id`. Renaming a common
 name is fine.
@@ -64,6 +69,10 @@ name is fine.
 The first 12 entries were drafted with AI assistance on 2026-10-11, and the last two on 2026-10-19. Their
 light, watering, temperature, propagation and toxicity statements were cross-checked against the listed
 pages, and the owner reviewed and approved all 14 on 2026-10-19. Notes on specific entries:
+
+- Every entry got a `careProfile` on 2026-10-19, after that review. It's AI-assisted and derived from each
+  entry's text, with `checkEveryDays` as starting estimates. It's **pending owner review**, as each
+  file's `method` says.
 
 - Some temperature ranges are general guidance where a source gave none; each file's `method` says which.
 - No ASPCA entry was found for ZZ plant, *Tradescantia zebrina*, *Pilea peperomioides*,

@@ -115,7 +115,8 @@ scratch and never touches `./storage`. To start over with an empty collection, f
 stop the app, then move the `storage` folder somewhere else — do not delete it unless you are sure.
 
 Configuration (optional): copy `.env.example` to `.env` to change the web port (`WEB_PORT`), the
-localhost-only API port (`API_PORT`) or the upload limit (`MAX_UPLOAD_MB`). No secrets are needed.
+localhost-only API port (`API_PORT`) or the upload limit (`MAX_UPLOAD_MB`). The only secret is the
+optional OpenAI key (see [AI features](#ai-features)).
 
 ## How data is stored
 
@@ -133,6 +134,28 @@ Use the **EN / עברית** switch on the *Settings* tab. The choice is saved in
 the browser. On first visit the app follows the browser's language and falls back to English. Hebrew
 switches the whole layout to right-to-left. Your own text (nicknames, notes, locations) is never
 translated. Species guides come in both languages from the catalog files.
+
+## AI features
+
+AI features use the OpenAI API and are optional: without a key the app works as before. The groundwork
+is in place (settings, usage tracking, the AI service); identification, health checks and the assistant
+are being built on it (see [docs/NEXT_STAGE_DESIGN.md](docs/NEXT_STAGE_DESIGN.md)).
+
+To turn AI features on:
+1. Add your key to `.env` next to `compose.yaml` (`OPENAI_API_KEY=…`). Don't put it in `apps/api/`.
+   Optionally set `OPENAI_MODEL`; the default is `gpt-5.4-mini`, and the model must accept images.
+2. Run `docker compose up -d` to recreate the api container with the key.
+3. Check that the key and model work. This sends one tiny request:
+
+   ```bash
+   docker compose exec api npm run ai:check
+   ```
+
+*Settings → AI features* shows the status and this month's usage, and has an on/off switch. Requests are
+capped at 300 a month by default (`aiMonthlyRequestLimit`, changeable through `PATCH /api/settings`).
+Only the api container gets the key; the web container and the browser never do. A request sends only
+what that feature needs (for example the photo and the plant's details) and is made with `store: false`,
+so it isn't saved in your OpenAI account.
 
 ## Species catalog
 
@@ -212,7 +235,8 @@ Wi-Fi who knows the address can view and change your plants.
   photo paths are never derived from request input.
 - Do not expose the web port to the internet (no port forwarding). Hosting it publicly would need
   authentication and HTTPS first.
-- No secrets are required or stored in the repository.
+- The only secret, the optional `OPENAI_API_KEY`, lives in `.env`, which Git and Docker both ignore. It
+  is passed to the api container only.
 
 ## Known MVP limitations
 
@@ -222,8 +246,12 @@ Wi-Fi who knows the address can view and change your plants.
 - HEIC uploads are rejected (iOS usually converts to JPEG automatically).
 - No reminders or notifications.
 
-## Roadmap (not in the MVP)
+## Roadmap
 
-AI plant identification and health analysis from photos, personalized care recommendations, propagation
-tracking, plant suggestions, a context-aware assistant, watering reminders and notifications, seasonal and
-weather-aware advice, growth comparisons, supply inventory, and cloud hosting with authentication.
+**In progress** (design in [docs/NEXT_STAGE_DESIGN.md](docs/NEXT_STAGE_DESIGN.md)):
+- AI plant identification and health analysis from photos;
+- a read-only, context-aware assistant, which also gives personalized care advice;
+- watering reminders, with notifications to the iPhone over Tailscale HTTPS.
+
+**Later:** propagation tracking, growth comparisons, supply inventory, and cloud hosting with
+authentication.

@@ -91,3 +91,49 @@ describe('add plant form', () => {
     expect(await screen.findByText('Enter a number greater than 0')).toBeTruthy();
   });
 });
+
+describe('settings: AI features', () => {
+  const config = (ai: Record<string, unknown>) => ({
+    config: {
+      ai: { configured: true, enabled: true, available: true, model: 'gpt-test', usedThisMonth: 12, monthlyLimit: 300, ...ai },
+      push: { available: false, vapidPublicKey: null },
+      timezone: 'Asia/Jerusalem',
+    },
+  });
+
+  it('shows status and usage, and turns AI off', async () => {
+    let enabled = true;
+    const patches: unknown[] = [];
+    mockApi({
+      'GET /api/species': () => ({ species }),
+      'GET /api/config': () => config({ enabled, available: enabled }),
+      'PATCH /api/settings': (_url, init) => {
+        patches.push(JSON.parse(String(init.body)));
+        enabled = false;
+        return { settings: {} };
+      },
+    });
+    renderAt('/settings');
+
+    expect(await screen.findByText('12 of 300')).toBeTruthy();
+    expect(screen.getByText('gpt-test')).toBeTruthy();
+    expect(screen.getByText('On')).toBeTruthy();
+
+    fireEvent.click(screen.getByRole('button', { name: 'Turn AI features off' }));
+    expect(await screen.findByText('Off')).toBeTruthy();
+    expect(patches).toEqual([{ aiEnabled: false }]);
+    expect(screen.getByRole('button', { name: 'Turn AI features on' })).toBeTruthy();
+  });
+
+  it('explains how to set up AI when no key is configured', async () => {
+    mockApi({
+      'GET /api/species': () => ({ species }),
+      'GET /api/config': () => config({ configured: false, available: false, model: null, usedThisMonth: 0 }),
+    });
+    renderAt('/settings');
+
+    expect(await screen.findByText('Not set up')).toBeTruthy();
+    expect(screen.getByText(/add an OpenAI API key/)).toBeTruthy();
+    expect(screen.queryByRole('button', { name: /Turn AI features/ })).toBeNull();
+  });
+});

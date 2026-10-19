@@ -1,4 +1,5 @@
 import { useTranslation } from 'react-i18next';
+import { AiSettings } from '../components/AiSettings';
 import { SectionHeading } from '../components/CareGuide';
 import { LanguageSwitcher } from '../components/LanguageSwitcher';
 import { useSpeciesCatalog } from '../hooks/useSpecies';
@@ -17,6 +18,8 @@ export function SettingsPage() {
         </div>
         <p className="text-xs text-muted">{t('settings.languageHint')}</p>
       </section>
+
+      <AiSettings />
 
       <section className="rounded-2xl border border-line bg-white p-4">
         <div className="mb-3">
