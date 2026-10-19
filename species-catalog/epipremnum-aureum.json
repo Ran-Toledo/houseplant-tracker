@@ -7,10 +7,10 @@
   "toxicity": { "cats": "toxic", "dogs": "toxic", "humans": "toxic" },
   "image": {
     "file": "epipremnum-aureum.jpg",
-    "author": "Mokkie",
-    "license": "CC BY-SA 3.0",
-    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
-    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Money_Plant_(Epipremnum_aureum)_4.jpg"
+    "author": "Bhuvanaalla",
+    "license": "CC0 1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Beautiful_money_plant.jpg"
   },
   "localizations": {
     "en": {

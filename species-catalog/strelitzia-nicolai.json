@@ -1,0 +1,222 @@
+{
+  "schemaVersion": 1,
+  "id": "strelitzia-nicolai",
+  "scientificName": "Strelitzia nicolai",
+  "family": "Strelitziaceae",
+  "temperatureCelsius": { "idealMin": 18, "idealMax": 29, "minimum": 10 },
+  "toxicity": { "cats": "toxic", "dogs": "toxic", "humans": "mildly-toxic" },
+  "image": {
+    "file": "strelitzia-nicolai.jpg",
+    "author": "Forest & Kim Starr",
+    "license": "CC BY 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Starr_070906-8969_Strelitzia_nicolai.jpg"
+  },
+  "localizations": {
+    "en": {
+      "commonName": "White Bird of Paradise",
+      "alternateNames": ["Giant Bird of Paradise", "Bird of Paradise", "Wild Banana", "Natal Wild Banana"],
+      "description": "A large tropical evergreen from southern Africa, related to the orange-flowered bird of paradise. Its huge, banana-like leaves on long stalks make it one of the most striking indoor foliage plants, bringing a bold tropical look to a bright room.",
+      "appearance": "Grey-green, glossy, paddle-shaped leaves up to about two metres long, held on long, thick stalks that fan out from clumping, woody grey stems marked with old leaf scars. Mature plants can produce white and blue flowers from a purplish-black, beak-like bract, but indoors they rarely flower. In the wild it grows into a tree-like clump many metres tall.",
+      "care": {
+        "light": {
+          "summary": "Bright, indirect light",
+          "details": "Grows best in bright, indirect light near a large window. It tolerates partial shade with a few hours of direct sun a day.",
+          "directSun": "A few hours of gentle direct sun, such as morning sun, is fine. Introduce stronger sun gradually so the leaves don't scorch.",
+          "lowLight": "Survives in lower light but grows slowly, with weak, leaning leaf stalks and fewer new leaves.",
+          "warningSigns": ["Leaf stalks leaning or flopping towards the window", "Very slow growth with few new leaves", "Pale or scorched patches after a sudden move into strong sun"]
+        },
+        "watering": {
+          "summary": "Water when the top layer of soil is dry",
+          "details": "Water thoroughly when the top layer of soil feels dry, and let the excess drain away. Established plants are fairly drought-tolerant, so it's safer to wait a little than to keep the soil constantly wet.",
+          "howToCheck": "Push a finger into the soil; water when the top 3–5 cm are dry. In a large pot, check deeper before watering again.",
+          "seasonal": "Water less often in autumn and winter, when growth slows and the soil takes longer to dry.",
+          "overwateringSigns": ["Yellowing lower leaves", "Soil that stays wet for days", "Soft, dark base of the stems", "Mushy roots"],
+          "underwateringSigns": ["Leaves curling lengthwise", "Brown, crisp leaf edges", "Drooping leaf stalks in dry soil"]
+        },
+        "temperature": {
+          "summary": "18–29°C",
+          "details": "Prefers warm room temperatures between about 18 and 29°C. Avoid cold drafts and sudden temperature changes.",
+          "extremes": "It doesn't tolerate temperatures below about 10°C. Keep it away from cold windows and doors in winter, and bring it inside before cool nights if it spends the summer outdoors."
+        },
+        "humidity": {
+          "summary": "High",
+          "details": "Prefers high humidity. In dry indoor air, stand the pot on a tray of wet pebbles or use a humidifier. Very dry air makes brown leaf edges and spider mites more likely."
+        },
+        "soil": {
+          "summary": "Moist, well-draining loamy mix",
+          "details": "Use a rich, well-draining potting mix based on loam and sand, slightly acidic to neutral, that holds some moisture without staying soggy.",
+          "drainage": "Use a pot with drainage holes, and never leave it standing in water.",
+          "additives": ["Perlite", "Bark", "Coarse sand"]
+        },
+        "fertilizing": {
+          "summary": "Monthly in spring and summer",
+          "details": "Feed once a month with a balanced liquid fertilizer while the plant is actively growing.",
+          "seasonal": "Feed in spring and summer; stop in autumn and winter."
+        },
+        "repotting": {
+          "summary": "Every 2–3 years, in spring",
+          "details": "Repot in spring when roots fill the pot. Its root system is strong and vigorous, and a large plant becomes very heavy, so for big specimens refresh the top layer of soil instead of repotting.",
+          "rootBoundSigns": ["Thick roots pushing out of the drainage holes or lifting the plant", "Pot bulging or cracking", "Soil drying out very quickly"],
+          "potSizing": "Choose a heavy, stable pot only one size larger; the tall leaves make the plant top-heavy."
+        },
+        "pruning": {
+          "summary": "Remove torn and dead leaves",
+          "details": "Leaves split along their veins as they age or when knocked or exposed to wind. This is normal and doesn't harm the plant, but you can cut badly ripped, yellowed or dead leaves off at the base with clean, sharp tools. Wipe dust off the large leaves with a damp cloth. Wear gloves, because the plant can irritate skin."
+        },
+        "propagation": {
+          "summary": "Division or seed",
+          "methods": [
+            {
+              "name": "Division",
+              "instructions": "In spring, take the plant out of its pot and separate a side shoot or section of the clump with its own stem and roots, cutting through with a clean knife if needed. Pot it in fresh mix, water it in, and keep it in bright, indirect light while it settles."
+            },
+            {
+              "name": "Seed",
+              "instructions": "Sow fresh seeds in moist, well-draining mix and keep them warm until they sprout. Seedlings grow slowly and take many years to reach flowering size."
+            }
+          ]
+        }
+      },
+      "healthyAppearance": "Upright, grey-green, glossy leaves on strong stalks, with a new leaf unrolling from the centre every few weeks in the growing season. Some splitting of older leaves along the veins is normal.",
+      "warningSigns": ["Yellowing leaves", "Brown, crisp leaf edges", "Leaves curling lengthwise", "Sticky residue, white fluffy spots or fine webbing on leaves"],
+      "commonProblems": [
+        {
+          "problem": "Split or torn leaves",
+          "possibleCauses": ["Normal ageing of the leaves", "Wind, drafts or the leaves being knocked"],
+          "whatToDo": "Nothing is needed; splitting is natural for this plant. Keep it out of strong drafts and busy walkways, and cut off leaves that become badly torn."
+        },
+        {
+          "problem": "Brown leaf edges",
+          "possibleCauses": ["Dry air", "Soil drying out completely", "Cold drafts"],
+          "whatToDo": "Raise the humidity with a pebble tray or humidifier, water when the top layer of soil is dry, and keep the plant away from cold drafts."
+        },
+        {
+          "problem": "Pests: scale, spider mites, aphids or mealybugs",
+          "possibleCauses": ["Dry air", "Pests carried in on other plants"],
+          "whatToDo": "Wipe the leaves, including the undersides and the bases of the leaf stalks, and treat with insecticidal soap or horticultural oil, repeating as directed."
+        }
+      ],
+      "safety": {
+        "toxicity": "NC State Extension lists it as poisonous to people (low severity) and a problem for cats, dogs and horses. Eating the fruits or seeds may cause stomach cramps, nausea, vomiting and diarrhoea in people. In pets, eating any part of the plant can cause nausea, vomiting and drowsiness. Contact with the plant can also irritate skin. No ASPCA entry for this species was found; the ASPCA lists the closely related Strelitzia reginae as toxic to cats, dogs and horses.",
+        "handling": "Wear gloves when pruning, dividing or repotting, and keep the plant out of reach of small children and pets that chew plants."
+      },
+      "additionalNotes": [
+        "The orange-flowered bird of paradise (Strelitzia reginae) is a related, smaller species that needs more direct sun and flowers more readily indoors.",
+        "Flowering usually starts only when plants are 5–6 years old, and indoor plants rarely flower; it is grown mainly for its leaves."
+      ]
+    },
+    "he": {
+      "commonName": "ציפור גן עדן",
+      "alternateNames": ["ציפור גן עדן לבנה", "סטרליציה ניקולאי", "סטרליציה", "בננת בר"],
+      "description": "צמח טרופי גדול וירוק־עד מדרום אפריקה, קרוב של ציפור גן העדן בעלת הפרחים הכתומים. העלים הענקיים שלו, שדומים לעלי בננה ויושבים על פטוטרות ארוכות, הופכים אותו לאחד מצמחי העלווה המרשימים ביותר לבית, ומכניסים מראה טרופי נועז לחדר מואר.",
+      "appearance": "עלים אפורים־ירקרקים ומבריקים בצורת משוט, באורך של עד כשני מטרים, על פטוטרות ארוכות ועבות שיוצאות במניפה מגבעולים אפורים ומעוצים, עם צלקות של עלים ישנים. צמחים בוגרים יכולים להוציא פרחים לבנים־כחולים מתוך חפה סגולה־שחורה דמוית מקור, אבל בבית הם פורחים לעתים רחוקות. בטבע הוא גדל לגוש דמוי עץ בגובה של מטרים רבים.",
+      "care": {
+        "light": {
+          "summary": "אור בהיר ועקיף",
+          "details": "גדל הכי טוב באור בהיר ועקיף, ליד חלון גדול. מסתדר בצל חלקי עם כמה שעות של שמש ישירה ביום.",
+          "directSun": "כמה שעות של שמש ישירה ועדינה, כמו שמש בוקר, מתאימות לו. מרגילים אותו לשמש חזקה יותר בהדרגה, כדי שהעלים לא ייצרבו.",
+          "lowLight": "שורד באור נמוך יותר, אבל צומח לאט, הפטוטרות נחלשות ונוטות, ויוצאים פחות עלים חדשים.",
+          "warningSigns": ["פטוטרות שנוטות או נופלות לכיוון החלון", "צמיחה איטית מאוד עם מעט עלים חדשים", "כתמים חיוורים או צרובים אחרי מעבר פתאומי לשמש חזקה"]
+        },
+        "watering": {
+          "summary": "משקים כשהשכבה העליונה של האדמה יבשה",
+          "details": "משקים היטב כשהשכבה העליונה של האדמה מרגישה יבשה, ונותנים לעודפי המים להתנקז. צמח מבוסס עמיד למדי ליובש, לכן עדיף לחכות קצת מאשר להשאיר את האדמה רטובה כל הזמן.",
+          "howToCheck": "תוחבים אצבע לאדמה; משקים כש־3–5 הסנטימטרים העליונים יבשים. בעציץ גדול בודקים לעומק רב יותר לפני ההשקיה הבאה.",
+          "seasonal": "משקים לעתים רחוקות יותר בסתיו ובחורף, כשהצמיחה מאטה והאדמה מתייבשת לאט יותר.",
+          "overwateringSigns": ["עלים תחתונים מצהיבים", "אדמה שנשארת רטובה ימים", "בסיס גבעולים רך וכהה", "שורשים רכים ורקובים"],
+          "underwateringSigns": ["עלים שמתגלגלים לאורכם", "שולי עלים חומים ופריכים", "פטוטרות צונחות באדמה יבשה"]
+        },
+        "temperature": {
+          "summary": "18–29°C",
+          "details": "מעדיף טמפרטורת חדר חמימה, בין כ־18 ל־29°C. כדאי להרחיק אותו ממשבי רוח קרים ומשינויי טמפרטורה פתאומיים.",
+          "extremes": "לא סובל טמפרטורות מתחת לכ־10°C. בחורף מרחיקים אותו מחלונות ומדלתות קרים, ואם הוא מבלה את הקיץ בחוץ, מכניסים אותו פנימה לפני לילות קרירים."
+        },
+        "humidity": {
+          "summary": "גבוהה",
+          "details": "מעדיף לחות גבוהה. באוויר ביתי יבש מעמידים את העציץ על מגש עם חלוקים רטובים או משתמשים במכשיר אדים. אוויר יבש מאוד מגביר את הסיכוי לשוליים חומים בעלים ולאקריות."
+        },
+        "soil": {
+          "summary": "תערובת עשירה ומנקזת, שנשארת מעט לחה",
+          "details": "משתמשים בתערובת שתילה עשירה ומנקזת על בסיס אדמה וחול, חומצית מעט עד ניטרלית, ששומרת על מעט לחות בלי להישאר רוויה.",
+          "drainage": "משתמשים בעציץ עם חורי ניקוז, ולא משאירים אותו עומד במים.",
+          "additives": ["פרליט", "קליפות עץ (בארק)", "חול גס"]
+        },
+        "fertilizing": {
+          "summary": "פעם בחודש באביב ובקיץ",
+          "details": "מדשנים פעם בחודש בדשן נוזלי מאוזן, כשהצמח בצמיחה פעילה.",
+          "seasonal": "מדשנים באביב ובקיץ; מפסיקים בסתיו ובחורף."
+        },
+        "repotting": {
+          "summary": "כל 2–3 שנים, באביב",
+          "details": "מעבירים עציץ באביב כשהשורשים ממלאים אותו. מערכת השורשים שלו חזקה ונמרצת, וצמח גדול נעשה כבד מאוד, לכן בצמחים גדולים מחליפים את השכבה העליונה של האדמה במקום להעביר עציץ.",
+          "rootBoundSigns": ["שורשים עבים שבוקעים מחורי הניקוז או מרימים את הצמח", "עציץ שמתנפח או נסדק", "אדמה שמתייבשת מהר מאוד"],
+          "potSizing": "בוחרים עציץ כבד ויציב, גדול במידה אחת בלבד; העלים הגבוהים הופכים את הצמח לכבד מלמעלה."
+        },
+        "pruning": {
+          "summary": "מסירים עלים קרועים ומתים",
+          "details": "העלים נסדקים לאורך העורקים כשהם מתבגרים, או כשהם נחבטים או חשופים לרוח. זו תופעה רגילה שלא מזיקה לצמח, אבל אפשר לגזום בבסיס, בכלי נקי וחד, עלים שנקרעו מאוד, הצהיבו או מתו. מנגבים אבק מהעלים הגדולים במטלית לחה. כדאי לעבוד עם כפפות, כי הצמח עלול לגרות את העור."
+        },
+        "propagation": {
+          "summary": "חלוקה או זרעים",
+          "methods": [
+            {
+              "name": "חלוקה",
+              "instructions": "באביב מוציאים את הצמח מהעציץ ומפרידים חוטר צדדי או חלק מהגוש, עם גבעול ושורשים משלו, ואם צריך חותכים בסכין נקייה. שותלים בתערובת טרייה, משקים, ומשאירים באור בהיר ועקיף עד שהוא מתבסס."
+            },
+            {
+              "name": "זרעים",
+              "instructions": "זורעים זרעים טריים בתערובת לחה ומנקזת ושומרים עליהם חמים עד הנביטה. השתילים צומחים לאט, ועוברות שנים רבות עד שהם מגיעים לגודל פריחה."
+            }
+          ]
+        }
+      },
+      "healthyAppearance": "עלים אפורים־ירקרקים, זקופים ומבריקים על פטוטרות חזקות, ועלה חדש שנפתח מהמרכז כל כמה שבועות בעונת הצמיחה. סדקים לאורך העורקים בעלים הישנים הם תופעה רגילה.",
+      "warningSigns": ["עלים מצהיבים", "שולי עלים חומים ופריכים", "עלים שמתגלגלים לאורכם", "שאריות דביקות, כתמים לבנים צמריריים או קורים דקים על העלים"],
+      "commonProblems": [
+        {
+          "problem": "עלים סדוקים או קרועים",
+          "possibleCauses": ["הזדקנות טבעית של העלים", "רוח, משבי אוויר או עלים שנחבטים"],
+          "whatToDo": "אין צורך לעשות דבר; הסדקים טבעיים לצמח הזה. מרחיקים אותו ממשבי רוח חזקים וממעברים עמוסים, וגוזמים עלים שנקרעו מאוד."
+        },
+        {
+          "problem": "שוליים חומים בעלים",
+          "possibleCauses": ["אוויר יבש", "אדמה שמתייבשת לגמרי", "משבי רוח קרים"],
+          "whatToDo": "מעלים את הלחות בעזרת מגש חלוקים או מכשיר אדים, משקים כשהשכבה העליונה של האדמה יבשה, ומרחיקים את הצמח ממשבי רוח קרים."
+        },
+        {
+          "problem": "מזיקים: כנימות מגן, אקריות, כנימות עלה או כנימות קמחיות",
+          "possibleCauses": ["אוויר יבש", "מזיקים שהגיעו עם צמחים אחרים"],
+          "whatToDo": "מנגבים את העלים, כולל הצד התחתון ובסיס הפטוטרות, ומטפלים בסבון קוטל חרקים או בשמן גננות, וחוזרים על הטיפול לפי ההוראות."
+        }
+      ],
+      "safety": {
+        "toxicity": "שירות ההדרכה של אוניברסיטת צפון קרוליינה (NC State Extension) מסווג אותו כרעיל לבני אדם (בדרגת חומרה נמוכה) וכבעייתי לחתולים, לכלבים ולסוסים. אכילת הפירות או הזרעים עלולה לגרום אצל בני אדם להתכווצויות בבטן, לבחילה, להקאות ולשלשול. אצל חיות מחמד, אכילת כל חלק של הצמח עלולה לגרום לבחילה, להקאות ולישנוניות. מגע בצמח עלול גם לגרות את העור. לא נמצא ערך של ה־ASPCA למין הזה; ה־ASPCA מסווג את המין הקרוב Strelitzia reginae כרעיל לחתולים, לכלבים ולסוסים.",
+        "handling": "עובדים עם כפפות בגיזום, בחלוקה ובהעברת עציץ, ומרחיקים את הצמח מילדים קטנים ומחיות מחמד שלועסות צמחים."
+      },
+      "additionalNotes": [
+        "ציפור גן העדן בעלת הפרחים הכתומים (Strelitzia reginae) היא מין קרוב וקטן יותר, שצריך יותר שמש ישירה ופורח בבית בקלות רבה יותר.",
+        "הפריחה מתחילה בדרך כלל רק בגיל 5–6 שנים, וצמחים בבית פורחים לעתים רחוקות; מגדלים אותו בעיקר בשביל העלים."
+      ]
+    }
+  },
+  "researchMetadata": {
+    "status": "draft",
+    "reviewedAt": null,
+    "method": "AI-assisted draft (Claude, 2026-10-19). Light, watering, temperature range and minimum, humidity, soil, fertilizing, leaf tearing, pests, propagation by division and seed, flowering age and toxicity were cross-checked against the NC State page below. No ASPCA entry for Strelitzia nicolai was found; the ASPCA entry for the related Strelitzia reginae is cited for comparison. Not from those sources (general guidance): reduced winter watering, repotting frequency and pot sizing, the step-by-step division and seed instructions, and that indoor plants rarely flower. Not yet reviewed by a person.",
+    "sources": [
+      {
+        "title": "Strelitzia nicolai",
+        "url": "https://plants.ces.ncsu.edu/plants/strelitzia-nicolai/",
+        "publisher": "North Carolina Extension Gardener Plant Toolbox, NC State University",
+        "accessedAt": "2026-10-19"
+      },
+      {
+        "title": "Toxic and Non-toxic Plants: Bird of Paradise Flower (Strelitzia reginae)",
+        "url": "https://www.aspca.org/pet-care/animal-poison-control/toxic-and-non-toxic-plants/bird-paradise-flower",
+        "publisher": "ASPCA Animal Poison Control Center",
+        "accessedAt": "2026-10-19"
+      }
+    ]
+  }
+}

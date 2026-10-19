@@ -1,0 +1,216 @@
+{
+  "schemaVersion": 1,
+  "id": "ficus-elastica-variegata",
+  "scientificName": "Ficus elastica 'Variegata'",
+  "family": "Moraceae",
+  "temperatureCelsius": { "idealMin": 16, "idealMax": 29, "minimum": 13 },
+  "toxicity": { "cats": "mildly-toxic", "dogs": "mildly-toxic", "humans": "unknown" },
+  "image": {
+    "file": "ficus-elastica-variegata.jpg",
+    "author": "Linveggie",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Ficus_elastica_Variegata.jpeg"
+  },
+  "localizations": {
+    "en": {
+      "commonName": "Variegated Rubber Plant",
+      "alternateNames": ["Ficus elastica 'Tineke'", "Variegated Rubber Tree", "Variegated Rubber Fig"],
+      "description": "The variegated forms of the rubber plant, such as 'Tineke', have the same thick, glossy leaves as the green plant, splashed and edged with cream, pale green and often pink. They need the same care as the green rubber plant, with a little more light and a little more patience.",
+      "appearance": "Large, oval, leathery leaves marbled in green, grey-green and cream, often with a pink midrib and pink-tinged new leaves, which emerge from a red or pink sheath. The pattern differs from leaf to leaf. Cut stems ooze milky white sap.",
+      "care": {
+        "light": {
+          "summary": "Bright, indirect light",
+          "details": "Grows best in bright, indirect light. The cream parts of the leaves have little chlorophyll, so variegated plants need more light than the green form to grow well and keep their pattern; in dim spots new leaves come out greener and smaller.",
+          "directSun": "Some gentle morning sun is welcome; protect it from strong afternoon sun, which scorches the pale parts of the leaves first.",
+          "lowLight": "Tolerates lower light but becomes leggy, with smaller leaves spaced further apart, and may drop lower leaves.",
+          "warningSigns": ["New leaves coming out greener, with less cream", "Leggy growth with large gaps between leaves", "Lower leaves dropping", "Brown, papery patches on the cream parts after strong sun"]
+        },
+        "watering": {
+          "summary": "Water when the top few centimetres are dry",
+          "details": "Water regularly but avoid overwatering: water thoroughly, then let the top few centimetres of soil dry before the next watering. Wet, cold soil is a common cause of leaf drop.",
+          "howToCheck": "Check the soil with a finger; water when the top 3–5 cm are dry.",
+          "seasonal": "Reduce watering from autumn to late winter while growth is slow.",
+          "overwateringSigns": ["Yellowing leaves that drop", "Soil that stays damp for a long time", "Dark, soft roots"],
+          "underwateringSigns": ["Drooping or curling leaves", "Leaves turning brown and crisp at the edges", "Lower leaves dropping in dry soil"]
+        },
+        "temperature": {
+          "summary": "16–29°C",
+          "details": "Prefers steady room temperatures and dislikes sudden changes.",
+          "extremes": "Keep above about 13°C. Cold drafts, temperature drops and being moved around frequently can all cause sudden leaf drop."
+        },
+        "humidity": {
+          "summary": "Medium",
+          "details": "Average indoor humidity is usually sufficient; it tolerates fairly dry air."
+        },
+        "soil": {
+          "summary": "Soil-based, well-draining potting mix",
+          "details": "Use a sturdy, soil-based houseplant mix that drains well. Heavier mix also helps keep a tall plant stable.",
+          "drainage": "Use a pot with drainage holes and don't let it stand in water.",
+          "additives": ["Perlite", "Bark"]
+        },
+        "fertilizing": {
+          "summary": "Monthly in the growing season",
+          "details": "Feed with a balanced liquid fertilizer at half to full label strength while the plant is actively growing.",
+          "seasonal": "Feed in spring and summer; stop in autumn and winter."
+        },
+        "repotting": {
+          "summary": "Every 1–2 years while young",
+          "details": "Repot young plants in spring when roots fill the pot. For large plants, refresh the top layer of soil instead of repotting.",
+          "rootBoundSigns": ["Roots growing from drainage holes", "Soil drying very quickly", "Top-heavy plant tipping over"],
+          "potSizing": "Choose a pot one size larger, and a heavy one for tall plants."
+        },
+        "pruning": {
+          "summary": "Prune to shape in spring",
+          "details": "Cut back the main stem or branches just above a leaf or node to encourage branching and a bushier shape; leave it unpruned for a tall, tree-like form. The milky sap drips from cuts, so protect floors and dab cuts with a damp cloth. Wipe dust off the large leaves with a damp cloth. Occasional yellowing and drop of the lowest leaves is normal."
+        },
+        "propagation": {
+          "summary": "Air layering or stem cuttings",
+          "methods": [
+            {
+              "name": "Air layering",
+              "instructions": "Make a shallow cut in the stem below a leaf, wrap it in moist sphagnum moss covered with plastic, and keep the moss moist. Once roots show through the moss, cut below them and pot the new plant."
+            },
+            {
+              "name": "Stem cutting",
+              "instructions": "Take a cutting with a few leaves in spring or summer, let the sap stop flowing, and root it in water or moist mix in warm, bright, indirect light."
+            }
+          ]
+        }
+      },
+      "healthyAppearance": "Thick, glossy leaves held firmly on the stem, with a clear cream-and-green pattern; a new leaf unfurls from its pink or red sheath every few weeks in the growing season.",
+      "warningSigns": ["Sudden leaf drop", "Yellowing leaves", "Brown patches on the cream parts of the leaves", "Pattern fading on new leaves", "Sticky residue or fine webbing on leaves"],
+      "commonProblems": [
+        {
+          "problem": "Sudden leaf drop",
+          "possibleCauses": ["Overwatering", "Cold drafts or a sudden temperature drop", "Moving the plant to a new spot"],
+          "whatToDo": "Keep the plant in a stable, bright, draft-free spot and water only when the top soil is dry. It usually recovers once conditions are steady."
+        },
+        {
+          "problem": "New leaves losing their variegation",
+          "possibleCauses": ["Not enough light", "An all-green shoot taking over"],
+          "whatToDo": "Move the plant to a brighter spot with bright, indirect light. If a branch produces only plain green leaves, cut it back to a variegated leaf so the green growth doesn't take over."
+        },
+        {
+          "problem": "Pests: mealybugs, scale, spider mites or thrips",
+          "possibleCauses": ["Dry air", "Pests carried in on other plants"],
+          "whatToDo": "Wipe the leaves, especially undersides, and treat with insecticidal soap or horticultural oil, repeating as directed."
+        }
+      ],
+      "safety": {
+        "toxicity": "NC State Extension flags it as a problem plant for cats and dogs. The milky sap can irritate the mouth and skin and may cause stomach upset if chewed. The related weeping fig (Ficus benjamina) is listed as toxic to cats and dogs by the ASPCA. No source reviewed gave specific information about effects on people, so it is classified as unknown.",
+        "handling": "Wear gloves when pruning and avoid getting sap on skin, in eyes or on floors. Keep away from pets that chew plants."
+      },
+      "additionalNotes": ["Grows a little more slowly than the green rubber plant, because the cream parts of the leaves photosynthesise less.", "Cuttings and air layers keep the parent's variegation; seed-grown plants don't."]
+    },
+    "he": {
+      "commonName": "פיקוס גומי מגוון",
+      "alternateNames": ["פיקוס 'טינקה'", "פיקוס אלסטיקה מגוון", "עץ גומי מגוון"],
+      "description": "הזנים המגוונים של פיקוס הגומי, כמו 'Tineke', הם בעלי אותם עלים עבים ומבריקים כמו הצמח הירוק, עם כתמים ושוליים בקרם, בירוק בהיר ולעתים קרובות בוורוד. הם דורשים אותו טיפול כמו פיקוס הגומי הירוק, עם קצת יותר אור וקצת יותר סבלנות.",
+      "appearance": "עלים גדולים, סגלגלים ועוריים, משויישים בירוק, באפור־ירקרק ובקרם, לעתים קרובות עם עורק מרכזי ורוד ועלים חדשים בגוון ורוד, שיוצאים מתוך נדן אדום או ורוד. הדוגמה שונה מעלה לעלה. מגבעולים חתוכים נוטף שרף לבן חלבי.",
+      "care": {
+        "light": {
+          "summary": "אור בהיר ועקיף",
+          "details": "גדל הכי טוב באור בהיר ועקיף. בחלקים הקרמיים של העלים יש מעט כלורופיל, ולכן צמחים מגוונים צריכים יותר אור מהצמח הירוק כדי לצמוח היטב ולשמור על הדוגמה; במקום חשוך העלים החדשים יוצאים ירוקים וקטנים יותר.",
+          "directSun": "מעט שמש בוקר עדינה רצויה; כדאי להגן עליו משמש חזקה של אחר הצהריים, שצורבת קודם כול את החלקים הבהירים של העלים.",
+          "lowLight": "מסתדר באור נמוך יותר, אבל מתארך, העלים קטנים ומרוחקים יותר, ועלים תחתונים עלולים לנשור.",
+          "warningSigns": ["עלים חדשים שיוצאים ירוקים יותר, עם פחות קרם", "צמיחה מתארכת עם רווחים גדולים בין העלים", "נשירת עלים תחתונים", "כתמים חומים ודקים כנייר על החלקים הקרמיים אחרי שמש חזקה"]
+        },
+        "watering": {
+          "summary": "משקים כשהסנטימטרים העליונים יבשים",
+          "details": "משקים בקביעות אבל בלי להגזים: משקים היטב ונותנים לכמה הסנטימטרים העליונים של האדמה להתייבש לפני ההשקיה הבאה. אדמה רטובה וקרה היא סיבה נפוצה לנשירת עלים.",
+          "howToCheck": "בודקים את האדמה באצבע; משקים כש־3–5 הסנטימטרים העליונים יבשים.",
+          "seasonal": "מפחיתים השקיה מהסתיו ועד סוף החורף, כשהצמיחה איטית.",
+          "overwateringSigns": ["עלים מצהיבים ונושרים", "אדמה שנשארת לחה זמן רב", "שורשים כהים ורכים"],
+          "underwateringSigns": ["עלים צונחים או מסתלסלים", "שולי עלים שמשחימים ומתייבשים", "נשירת עלים תחתונים באדמה יבשה"]
+        },
+        "temperature": {
+          "summary": "16–29°C",
+          "details": "מעדיף טמפרטורת חדר יציבה ולא אוהב שינויים פתאומיים.",
+          "extremes": "יש לשמור עליו מעל כ־13°C. משבי רוח קרים, ירידות טמפרטורה והזזות תכופות עלולים לגרום לנשירת עלים פתאומית."
+        },
+        "humidity": {
+          "summary": "בינונית",
+          "details": "לחות ביתית רגילה בדרך כלל מספיקה; הוא מסתדר עם אוויר יבש למדי."
+        },
+        "soil": {
+          "summary": "תערובת שתילה על בסיס אדמה, מנקזת",
+          "details": "משתמשים בתערובת יציבה לצמחי בית על בסיס אדמה, שמנקזת היטב. תערובת כבדה יותר גם עוזרת לצמח גבוה לעמוד יציב.",
+          "drainage": "משתמשים בעציץ עם חורי ניקוז ולא משאירים אותו עומד במים.",
+          "additives": ["פרליט", "קליפות עץ (בארק)"]
+        },
+        "fertilizing": {
+          "summary": "פעם בחודש בעונת הצמיחה",
+          "details": "מדשנים בדשן נוזלי מאוזן, בחצי עד מלוא הריכוז שעל התווית, כשהצמח בצמיחה פעילה.",
+          "seasonal": "מדשנים באביב ובקיץ; מפסיקים בסתיו ובחורף."
+        },
+        "repotting": {
+          "summary": "כל שנה–שנתיים כשהוא צעיר",
+          "details": "צמחים צעירים מעבירים באביב כשהשורשים ממלאים את העציץ. בצמחים גדולים מחליפים את השכבה העליונה של האדמה במקום העברה.",
+          "rootBoundSigns": ["שורשים יוצאים מחורי הניקוז", "האדמה מתייבשת מהר מאוד", "צמח כבד מלמעלה שמתהפך"],
+          "potSizing": "בוחרים עציץ גדול במידה אחת, ולצמחים גבוהים – עציץ כבד."
+        },
+        "pruning": {
+          "summary": "גוזמים לעיצוב באביב",
+          "details": "מקצרים את הגזע הראשי או את הענפים מעל עלה או מפרק כדי לעודד הסתעפות וצורה מלאה יותר; בלי גיזום הוא יגדל גבוה כמו עץ. מהחתכים נוטף שרף חלבי, לכן כדאי להגן על הרצפה ולספוג את החתכים במטלית לחה. מנגבים אבק מהעלים הגדולים במטלית לחה. הצהבה ונשירה מדי פעם של העלים התחתונים ביותר היא תופעה רגילה."
+        },
+        "propagation": {
+          "summary": "הברכה אווירית או ייחורי גבעול",
+          "methods": [
+            {
+              "name": "הברכה אווירית",
+              "instructions": "עושים חתך רדוד בגבעול מתחת לעלה, עוטפים בטחב ספגנום לח ומכסים בניילון, ושומרים על הטחב לח. כשהשורשים נראים דרך הטחב, חותכים מתחתם ושותלים את הצמח החדש."
+            },
+            {
+              "name": "ייחור גבעול",
+              "instructions": "באביב או בקיץ לוקחים ייחור עם כמה עלים, מחכים שהשרף יפסיק לנטוף, ומשרישים במים או בתערובת לחה, במקום חם עם אור בהיר ועקיף."
+            }
+          ]
+        }
+      },
+      "healthyAppearance": "עלים עבים ומבריקים שמחוברים היטב לגבעול, עם דוגמה ברורה של קרם וירוק; בעונת הצמיחה נפתח עלה חדש מתוך הנדן הוורוד או האדום כל כמה שבועות.",
+      "warningSigns": ["נשירת עלים פתאומית", "עלים מצהיבים", "כתמים חומים על החלקים הקרמיים של העלים", "דוגמה שדוהה בעלים החדשים", "שאריות דביקות או קורים דקים על העלים"],
+      "commonProblems": [
+        {
+          "problem": "נשירת עלים פתאומית",
+          "possibleCauses": ["השקיית יתר", "משבי רוח קרים או ירידת טמפרטורה פתאומית", "העברת הצמח למקום חדש"],
+          "whatToDo": "שומרים את הצמח במקום יציב, מואר ומוגן מרוח, ומשקים רק כשהאדמה העליונה יבשה. בדרך כלל הוא מתאושש כשהתנאים מתייצבים."
+        },
+        {
+          "problem": "עלים חדשים מאבדים את הגיוון",
+          "possibleCauses": ["לא מספיק אור", "ענף ירוק לגמרי שמשתלט"],
+          "whatToDo": "מעבירים את הצמח למקום מואר יותר, עם אור בהיר ועקיף. אם ענף מוציא רק עלים ירוקים, מקצרים אותו עד עלה מגוון, כדי שהצמיחה הירוקה לא תשתלט."
+        },
+        {
+          "problem": "מזיקים: כנימות קמחיות, כנימות מגן, אקריות או תריפסים",
+          "possibleCauses": ["אוויר יבש", "מזיקים שהגיעו עם צמחים אחרים"],
+          "whatToDo": "מנגבים את העלים, במיוחד מלמטה, ומטפלים בסבון קוטל חרקים או בשמן גננות, וחוזרים על הטיפול לפי ההוראות."
+        }
+      ],
+      "safety": {
+        "toxicity": "שירות ההדרכה של אוניברסיטת צפון קרוליינה (NC State Extension) מסמן אותו כצמח בעייתי לחתולים ולכלבים. השרף החלבי עלול לגרות את הפה והעור ולגרום לקלקול קיבה בלעיסה. הפיקוס הבוכה הקרוב (Ficus benjamina) מופיע ברשימת ה־ASPCA כרעיל לחתולים ולכלבים. אף מקור שנבדק לא סיפק מידע ספציפי על השפעות על בני אדם, ולכן הסיווג לגביהם הוא \"לא ידוע\".",
+        "handling": "גוזמים עם כפפות ונמנעים ממגע של השרף בעור, בעיניים או ברצפה. יש להרחיק מחיות מחמד שלועסות צמחים."
+      },
+      "additionalNotes": ["צומח מעט לאט יותר מפיקוס הגומי הירוק, כי החלקים הקרמיים של העלים מבצעים פחות פוטוסינתזה.", "ייחורים והברכות אוויריות שומרים על הגיוון של צמח האם; צמחים מזרעים לא."]
+    }
+  },
+  "researchMetadata": {
+    "status": "draft",
+    "reviewedAt": null,
+    "method": "AI-assisted draft (Claude, 2026-10-19), based on the ficus-elastica entry (drafted 2026-10-11), whose care, pest and toxicity statements were cross-checked against the sources below; NC State notes that variegated cultivars keep their colour best in good light. Not from those sources (general guidance): that variegated forms need more light and grow more slowly than the green form, that the cream parts scorch first, reverting green shoots, and that seedlings don't keep the variegation. Not yet reviewed by a person.",
+    "sources": [
+      {
+        "title": "Ficus elastica",
+        "url": "https://plants.ces.ncsu.edu/plants/ficus-elastica/",
+        "publisher": "North Carolina Extension Gardener Plant Toolbox, NC State University",
+        "accessedAt": "2026-10-11"
+      },
+      {
+        "title": "Toxic and Non-toxic Plants: Indian Rubber Plant (Ficus benjamina)",
+        "url": "https://www.aspca.org/pet-care/animal-poison-control/toxic-and-non-toxic-plants/indian-rubber-plant",
+        "publisher": "ASPCA Animal Poison Control Center",
+        "accessedAt": "2026-10-11"
+      }
+    ]
+  }
+}

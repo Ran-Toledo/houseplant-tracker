@@ -6,7 +6,9 @@ never calls an AI model to read or translate it.
 ## Adding a species
 
 1. **Choose the id**: the scientific name in lowercase kebab-case, e.g. `hoya-carnosa`. Ids are permanent
-   (plants store them), so use the currently accepted scientific name.
+   (plants store them), so use the currently accepted scientific name. A cultivar that needs its own guide
+   or photo gets the species id plus the cultivar, e.g. `ficus-elastica-variegata`. Otherwise, list the
+   cultivar in the species' `alternateNames` or `additionalNotes`.
 2. **Copy an existing file** to `species-catalog/<id>.json` and replace every value. The format is
    described in [DATA_MODEL.md](DATA_MODEL.md#species-json); the Zod schema in
    `packages/shared/src/species.ts` is authoritative.
@@ -56,27 +58,32 @@ name is fine.
 | `scindapsus-pictus` | Satin Pothos | סינדפסוס | NC State, ASPCA cat list |
 | `tradescantia-zebrina` | Inch Plant | טרדסקנטיה זברינה | NC State |
 | `pilea-peperomioides` | Chinese Money Plant | פילאה | NC State |
+| `strelitzia-nicolai` | White Bird of Paradise | ציפור גן עדן | NC State; ASPCA entry for related *S. reginae* |
+| `ficus-elastica-variegata` | Variegated Rubber Plant | פיקוס גומי מגוון | Same as `ficus-elastica` |
 
-All entries were drafted with AI assistance on 2026-10-11, and their light, watering, temperature,
-propagation and toxicity statements were cross-checked against the listed pages. Notes on specific
-entries:
+The first 12 entries were drafted with AI assistance on 2026-10-11, and the last two on 2026-10-19. Their
+light, watering, temperature, propagation and toxicity statements were cross-checked against the listed
+pages. Notes on specific entries:
 
 - Some temperature ranges are general guidance where a source gave none; each file's `method` says which.
-- No ASPCA entry was found for ZZ plant, *Tradescantia zebrina*, *Pilea peperomioides* or
-  *Ficus elastica*.
-- Human toxicity is `unknown` for spider plant, satin pothos and rubber plant, because the sources checked
-  don't address people.
+- No ASPCA entry was found for ZZ plant, *Tradescantia zebrina*, *Pilea peperomioides*,
+  *Ficus elastica* or *Strelitzia nicolai*.
+- Human toxicity is `unknown` for spider plant, satin pothos and both rubber plant entries, because the
+  sources checked don't address people.
+- `ficus-elastica-variegata` reuses the rubber plant's checked care content. Its variegation-specific
+  advice (more light, slower growth, reverting green shoots) is general guidance, as its `method` says.
 
 ## Photo credits
 
-All species photos come from Wikimedia Commons (downloaded 2026-10-11, resized to at most 1200 px,
-metadata stripped). Each file's author, license and source page are in its JSON `image` block and
+All species photos come from Wikimedia Commons (resized to at most 1200 px, metadata stripped). Most
+were downloaded on 2026-10-11; the white bird of paradise, variegated rubber plant and golden pothos
+photos on 2026-10-19. Each file's author, license and source page are in its JSON `image` block and
 shown in the app.
 
 | Species | Author | License |
 |---|---|---|
 | Monstera | Smatu | CC BY-SA 4.0 |
-| Golden Pothos | Mokkie | CC BY-SA 3.0 |
+| Golden Pothos | Bhuvanaalla | CC0 |
 | Snake Plant | Mokkie | CC BY-SA 3.0 |
 | ZZ Plant | WeFt | CC BY-SA 3.0 |
 | Peace Lily | W.carter | CC BY-SA 4.0 |
@@ -87,3 +94,5 @@ shown in the app.
 | Satin Pothos | Kor!An (Корзун Андрей) | CC BY-SA 3.0 |
 | Inch Plant | Flocci Nivis | CC BY 4.0 |
 | Chinese Money Plant | Husky | CC0 |
+| White Bird of Paradise | Forest & Kim Starr | CC BY 3.0 |
+| Variegated Rubber Plant | Linveggie | CC BY-SA 3.0 |
