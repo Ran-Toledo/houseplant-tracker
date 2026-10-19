@@ -11,7 +11,9 @@ import { PhotoGallery } from '../components/PhotoGallery';
 import { PlantImage } from '../components/PlantImage';
 import { ErrorState, LoadingState } from '../components/StatusViews';
 import { useToast } from '../components/Toast';
+import { WateringReminder } from '../components/WateringReminder';
 import { useAsync } from '../hooks/useAsync';
+import { notifyCareChanged } from '../lib/care';
 import { errorMessage, isNotFound } from '../lib/errors';
 import { formatDate, formatNumber, formatRelativeDay } from '../lib/format';
 import { NotFoundPage } from './NotFoundPage';
@@ -39,6 +41,7 @@ function WateringCard({ plant, onWatered }: { plant: Plant; onWatered: () => voi
     try {
       await api.addActivity(plant.id, { activityType: 'watering', performedAt: new Date().toISOString() });
       toast(t('watering.recorded'));
+      notifyCareChanged();
       onWatered();
     } catch (err) {
       toast(errorMessage(t, err));
@@ -74,6 +77,7 @@ function WateringCard({ plant, onWatered }: { plant: Plant; onWatered: () => voi
         <Icon name="check" className="size-[15px]" />
         {busy ? t('common.saving') : t('watering.wateredToday')}
       </button>
+      <WateringReminder plantId={plant.id} due={plant.wateringDue} onChanged={onWatered} />
     </section>
   );
 }

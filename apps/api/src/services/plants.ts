@@ -5,8 +5,9 @@ import type { SpeciesCatalog } from '../catalog/loader';
 import type { Db } from '../db/client';
 import { ApiError, notFound } from '../middleware/errors';
 import type { ActivityRepository } from '../repositories/activities';
-import type { PlantChanges, PlantRepository } from '../repositories/plants';
+import type { PlantChanges, PlantRecord, PlantRepository } from '../repositories/plants';
 import type { PhotoStore } from '../storage/photo-store';
+import type { CareService } from './care';
 import type { ActivityRow } from '../db/schema';
 
 type CreateInput = z.output<typeof plantCreateSchema>;
@@ -20,9 +21,13 @@ interface Deps {
   activities: ActivityRepository;
   catalog: SpeciesCatalog;
   photoStore: PhotoStore;
+  care: CareService;
 }
 
-export function createPlantService({ db, plants, activities, catalog, photoStore }: Deps) {
+export function createPlantService({ db, plants, activities, catalog, photoStore, care }: Deps) {
+  /** Adds computed fields to a stored plant. */
+  const withDue = (plant: PlantRecord): Plant => care.withWateringDue([plant])[0]!;
+
   function assertKnownSpecies(speciesId: string | null | undefined) {
     if (speciesId && !catalog.has(speciesId)) {
       throw new ApiError(400, 'unknown_species', `Species "${speciesId}" is not in the catalog`, [
@@ -57,7 +62,12 @@ export function createPlantService({ db, plants, activities, catalog, photoStore
 
   return {
     list(query: ListQuery): Plant[] {
-      return plants.list({ ...query, speciesIds: query.q ? speciesMatching(query.q) : undefined });
+      return care.withWateringDue(plants.list({ ...query, speciesIds: query.q ? speciesMatching(query.q) : undefined }));
+    },
+
+    /** All plants as stored, without computed fields. */
+    records(): PlantRecord[] {
+      return plants.list();
     },
 
     locations(): string[] {
@@ -67,7 +77,7 @@ export function createPlantService({ db, plants, activities, catalog, photoStore
     get(id: string): Plant {
       const plant = plants.get(id);
       if (!plant) throw notFound('Plant');
-      return plant;
+      return withDue(plant);
     },
 
     create(input: CreateInput): Plant {
@@ -97,7 +107,7 @@ export function createPlantService({ db, plants, activities, catalog, photoStore
         );
         activities.insert(activityRows(id, initialActivities, now));
       });
-      return plants.get(id)!;
+      return withDue(plants.get(id)!);
     },
 
     update(id: string, input: UpdateInput): Plant {
@@ -105,7 +115,7 @@ export function createPlantService({ db, plants, activities, catalog, photoStore
       // Drop keys that were omitted; explicit nulls clear the field.
       const changes = Object.fromEntries(Object.entries(input).filter(([, v]) => v !== undefined)) as PlantChanges;
       if (!plants.update(id, changes, new Date().toISOString())) throw notFound('Plant');
-      return plants.get(id)!;
+      return withDue(plants.get(id)!);
     },
 
     /** Deletes the plant, its activities and photo records (via FK cascade), then its photo files. */
@@ -128,6 +138,7 @@ export function createPlantService({ db, plants, activities, catalog, photoStore
       if (!plants.exists(plantId)) throw notFound('Plant');
       const [row] = activityRows(plantId, [input], new Date().toISOString());
       activities.insert([row!]);
+      care.activityLogged(plantId, input.activityType);
       return row!;
     },
 

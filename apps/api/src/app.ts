@@ -8,13 +8,16 @@ import type { Db } from './db/client';
 import { handleError, handleNotFound } from './middleware/errors';
 import { createActivityRepository } from './repositories/activities';
 import { createAiRequestRepository } from './repositories/ai-requests';
+import { createCareScheduleRepository } from './repositories/care-schedules';
 import { createPhotoRepository } from './repositories/photos';
 import { createPlantRepository } from './repositories/plants';
 import { createSettingsRepository } from './repositories/settings';
+import { dueRoutes, plantScheduleRoutes, scheduleRoutes } from './routes/care';
 import { photoRoutes, plantPhotoRoutes } from './routes/photos';
 import { plantRoutes } from './routes/plants';
 import { configRoutes, settingsRoutes } from './routes/settings';
 import { speciesRoutes } from './routes/species';
+import { createCareService } from './services/care';
 import { createPhotoService } from './services/photos';
 import { createPlantService } from './services/plants';
 import { createSettingsService } from './services/settings';
@@ -30,6 +33,8 @@ export interface AppDeps {
   aiProvider?: AiProvider | null;
   /** Disable request logging (tests). */
   quiet?: boolean;
+  /** Clock for due dates and usage counts (tests). */
+  now?: () => Date;
 }
 
 export function createApp(deps: AppDeps) {
@@ -38,13 +43,27 @@ export function createApp(deps: AppDeps) {
   const photos = createPhotoRepository(deps.db);
   const photoStore = createPhotoStore(path.resolve(deps.photosDir));
 
-  const plantService = createPlantService({ db: deps.db, plants, activities, catalog: deps.catalog, photoStore });
-  const photoService = createPhotoService({ plants, photos, photoStore });
   const settingsService = createSettingsService(createSettingsRepository(deps.db));
+  const careService = createCareService({
+    schedules: createCareScheduleRepository(deps.db),
+    catalog: deps.catalog,
+    settings: settingsService,
+    now: deps.now,
+  });
+  const plantService = createPlantService({
+    db: deps.db,
+    plants,
+    activities,
+    catalog: deps.catalog,
+    photoStore,
+    care: careService,
+  });
+  const photoService = createPhotoService({ plants, photos, photoStore });
   const aiService = createAiService({
     provider: deps.aiProvider ?? null,
     settings: settingsService,
     requests: createAiRequestRepository(deps.db),
+    now: deps.now,
   });
 
   const app = new Hono();
@@ -55,8 +74,11 @@ export function createApp(deps: AppDeps) {
   );
   app.route('/api/species', speciesRoutes(deps.catalog));
   app.route('/api/plants', plantPhotoRoutes(photoService, deps.maxUploadBytes));
+  app.route('/api/plants', plantScheduleRoutes(careService, plantService));
   app.route('/api/plants', plantRoutes(plantService));
   app.route('/api/photos', photoRoutes(photoService));
+  app.route('/api/schedules', scheduleRoutes(careService, plantService));
+  app.route('/api/due', dueRoutes(careService, plantService));
   app.route('/api/settings', settingsRoutes(settingsService));
   app.route('/api/config', configRoutes({ settings: settingsService, ai: aiService }));
 

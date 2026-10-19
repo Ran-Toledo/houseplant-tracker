@@ -4,7 +4,7 @@ import path from 'node:path';
 import { afterEach } from 'vitest';
 import type { AiProvider } from '../src/ai/provider';
 import { createApp } from '../src/app';
-import { createCatalog } from '../src/catalog/loader';
+import { createCatalog, type SpeciesCatalog } from '../src/catalog/loader';
 import { openDatabase } from '../src/db/client';
 import { makeSpecies } from './fixtures/species';
 
@@ -30,15 +30,16 @@ export function writeJson(dir: string, file: string, value: unknown) {
  * catalog. Create it inside each test (or `beforeEach`), since the temp
  * directory is removed after every test.
  */
-export function createTestApp(options: { maxUploadBytes?: number; aiProvider?: AiProvider } = {}) {
+export function createTestApp(options: { maxUploadBytes?: number; aiProvider?: AiProvider; now?: () => Date; catalog?: SpeciesCatalog } = {}) {
   const db = openDatabase(':memory:');
   const photosDir = tempDir('houseplant-photos-');
   const app = createApp({
-    catalog: createCatalog([makeSpecies('test-plant', 'Test Plant')]),
+    catalog: options.catalog ?? createCatalog([makeSpecies('test-plant', 'Test Plant')]),
     db,
     photosDir,
     maxUploadBytes: options.maxUploadBytes ?? 5 * 1024 * 1024,
     aiProvider: options.aiProvider ?? null,
+    now: options.now,
     quiet: true,
   });
 

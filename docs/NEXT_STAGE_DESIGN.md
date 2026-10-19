@@ -391,7 +391,15 @@ messages
     bounded by the species' `checkEveryDays` range for the current season, and nudged by the latest
     health check (for example, overwatering lengthens it). With fewer than 3 waterings it uses the
     species range.
-- **Due dates are derived, never stored:** `next_due = last activity of that type (or schedule
+- **Built in phase 1** (2026-10-19), with two refinements:
+- The adaptive interval stays within *half the species' minimum to twice its maximum*, not the bare
+  range. A sunny spot can genuinely need checks twice as often, and a single long gap can't stretch the
+  median much.
+- Logging a watering clears any snooze, so an early watering never leaves a stale postponed reminder.
+
+The care-signals module (section 2) moved to phase 3, because only the assistant reads it.
+
+**Due dates are derived, never stored:** `next_due = last activity of that type (or schedule
   start) + interval`. This follows the MVP's "derived, not duplicated" rule. Logging "Watered today"
   automatically clears the reminder.
 - **Snooze** (1 day / 3 days) sets `snoozed_until`. A vacation pause in Settings silences everything.

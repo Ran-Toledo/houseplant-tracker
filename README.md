@@ -135,6 +135,20 @@ the browser. On first visit the app follows the browser's language and falls bac
 switches the whole layout to right-to-left. Your own text (nicknames, notes, locations) is never
 translated. Species guides come in both languages from the catalog files.
 
+## Watering reminders
+
+Each plant can have a watering reminder. New plants get one by default; for others, turn it on in the
+plant page's watering card. A reminder means **check the soil**, not "water now":
+- **Automatic** starts from the species guide's range for the season. After three logged waterings, it
+  follows how often you actually water that plant.
+- **Every few days** uses a fixed number of days you choose.
+
+Plants that are due show up in a *Needs care* strip on My plants, with a one-tap *Watered* button.
+Their cards get a *Check soil* badge, and the My plants tab shows how many are due. Logging a watering
+answers the reminder. You can also snooze it until tomorrow or for three days. Dates use the time zone
+from Settings (default Asia/Jerusalem). For now reminders appear in the app; notifications to the
+phone come in a later phase.
+
 ## AI features
 
 AI features use the OpenAI API and are optional: without a key the app works as before. The groundwork
@@ -244,7 +258,7 @@ Wi-Fi who knows the address can view and change your plants.
 - No authentication, single user.
 - Species catalog changes need an API restart; there's no in-app species editor (by design).
 - HEIC uploads are rejected (iOS usually converts to JPEG automatically).
-- No reminders or notifications.
+- Reminders appear in the app only; there are no notifications to the phone yet.
 
 ## Roadmap
 

@@ -15,6 +15,13 @@
       "when": 1792405105451,
       "tag": "0001_settings_and_ai_requests",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1792406437073,
+      "tag": "0002_care_schedules",
+      "breakpoints": true
     }
   ]
 }

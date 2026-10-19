@@ -99,7 +99,11 @@ Design: [NEXT_STAGE_DESIGN.md](NEXT_STAGE_DESIGN.md) (approved 2026-10-19).
 - [x] Tests: settings and config API, AI service outcomes and limits, time-zone maths, careProfile validation
 
 ### Phase 1 — Watering reminders (in-app)
-- [ ] `care_schedules`; due dates derived from the activity log; care-signals module; "Needs care" strip, due badges, schedule control
+- [x] `care_schedules` table; `GET/PUT /api/plants/:id/schedules`, `POST /api/schedules/:id/snooze`, `GET /api/due`; plants carry `wateringDue`
+- [x] Due dates derived from the activity log in the owner's time zone; adaptive interval (species range by season → median of the plant's own intervals after 3 waterings); snooze cleared by watering
+- [x] "Needs care" strip with one-tap Watered; "Check soil" card badge (Screen A mockup); due count on the My plants tab; reminder control and snooze in the plant page's watering card; "Remind me" toggle (on by default) for new plants
+- [x] Tests: interval and due maths, schedules/snooze/due API (fixed clock, time-zone edge), reminder UI
+- The care-signals module moved to phase 3: only the assistant reads it, so it's built with the assistant
 
 ### Phase 2 — AI identification and health analysis
 - [ ] Identify from photo in the plant form; health checks with history; `health_checks` table

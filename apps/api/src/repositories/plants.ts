@@ -4,6 +4,9 @@ import type { Db } from '../db/client';
 import { activities, photos, plants, type PhotoRow, type PlantRow } from '../db/schema';
 import { toPhotoDto } from './photos';
 
+/** A plant as stored, before computed fields (like the next watering check) are added. */
+export type PlantRecord = Omit<Plant, 'wateringDue'>;
+
 export type NewPlant = Omit<PlantRow, 'id' | 'createdAt' | 'updatedAt'>;
 export type PlantChanges = Partial<NewPlant>;
 
@@ -31,7 +34,7 @@ function toPlantDto(row: {
   lastWateredAt: string | null;
   lastRepottedAt: string | null;
   cover: PhotoRow | null;
-}): Plant {
+}): PlantRecord {
   return {
     ...row.plant,
     lastWateredAt: row.lastWateredAt,
@@ -53,7 +56,7 @@ export function createPlantRepository(db: Db) {
       .leftJoin(photos, and(eq(photos.plantId, plants.id), eq(photos.isCover, true)));
 
   return {
-    list(filter: PlantFilter = {}): Plant[] {
+    list(filter: PlantFilter = {}): PlantRecord[] {
       const conditions: SQL[] = [];
       if (filter.q) {
         const textMatches = [
@@ -75,7 +78,7 @@ export function createPlantRepository(db: Db) {
         .map(toPlantDto);
     },
 
-    get(id: string): Plant | undefined {
+    get(id: string): PlantRecord | undefined {
       const row = baseQuery().where(eq(plants.id, id)).get();
       return row ? toPlantDto(row) : undefined;
     },

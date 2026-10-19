@@ -84,10 +84,11 @@ binaries) are never shadowed by the host's Windows ones.
 
 | Folder | Contents |
 |---|---|
-| `routes/` | Hono routers: `species`, `plants` (+ activities), `photos`, `settings` (+ `/api/config`). Parse input, call services, shape responses. |
-| `services/` | `plants` (species checks, create with initial history, cascade delete), `photos` (upload/cover/delete), `images` (sharp pipeline), `settings` (defaults over stored values). |
+| `routes/` | Hono routers: `species`, `plants` (+ activities), `photos`, `care` (schedules, snooze, due list), `settings` (+ `/api/config`). Parse input, call services, shape responses. |
+| `services/` | `plants` (species checks, create with initial history, cascade delete), `photos` (upload/cover/delete), `images` (sharp pipeline), `settings` (defaults over stored values), `care` (schedules and due dates, added to plants as `wateringDue`). |
 | `repositories/` | Drizzle queries per table; plant list query derives last watering/repotting and joins the cover photo. |
 | `ai/` | AI provider interface, the OpenAI implementation and a fake for tests; `service` (owner switch, monthly limit, answer validation, request log); `images` (1024 px JPEG for the model). |
+| `care/` | `watering`: pure reminder maths (season, adaptive interval, due status). |
 | `lib/` | `zoned-time`: calendar maths in the owner's time zone (the container clock is UTC). |
 | `db/` | Drizzle schema and `openDatabase()` (pragmas + migrations). |
 | `catalog/` | Catalog loader and in-memory index. |
@@ -148,6 +149,10 @@ AI codes:
 | `DELETE /api/photos/:id` | Delete record and files |
 | `GET /api/photos/:id/file` | The JPEG (immutable cache headers) |
 | `GET /api/photos/:id/thumb` | 512 px thumbnail, generated if missing (immutable cache headers) |
+| `GET /api/plants/:id/schedules` | The plant's care schedules, each with its current due info |
+| `PUT /api/plants/:id/schedules/watering` | `{ enabled, mode: "adaptive" or "fixed", intervalDays? }`: create or change the watering reminder |
+| `POST /api/schedules/:id/snooze` | `{ days }` (1–14): postpone the current reminder; logging watering clears it |
+| `GET /api/due?days=` | Plants whose next check is overdue or within `days` (default 0), most urgent first |
 | `GET/PATCH /api/settings` | App-wide settings (time zone, hemisphere, AI switch and monthly limit, reminder time); PATCH takes any subset |
 | `GET /api/config` | What the client may show: AI status and monthly usage, push availability, time zone |
 
@@ -156,11 +161,11 @@ AI codes:
 | Folder | Contents |
 |---|---|
 | `pages/` | Collection (Screen A), Plant details (Screen B), Add/Edit form, Species list/detail, Settings, 404 |
-| `components/` | App shell + bottom nav, language switch, plant card, care guide, timeline, photo gallery, species picker, dialogs, toast |
+| `components/` | App shell + bottom nav (with the due-now badge), "Needs care" strip, watering reminder control, language switch, plant card, care guide, timeline, photo gallery, species picker, dialogs, toast |
 | `api/` | Typed `fetch` wrapper and endpoint functions |
 | `hooks/` | `useAsync` (load/reload with race protection), `useSpeciesCatalog` (cached, localized names) |
 | `i18n/` | i18next setup, `en.json`, `he.json` |
-| `lib/` | Date/number formatting (Intl), error-message mapping |
+| `lib/` | Date/number formatting (Intl), error-message mapping, due-status text and a "care changed" event |
 
 State is plain React state plus URL search params (collection filters), so Back restores them. No global
 store.

@@ -5,6 +5,8 @@ import {
   CONDITIONS,
   LIGHT_EXPOSURES,
   POT_MATERIALS,
+  SCHEDULE_MODES,
+  SCHEDULED_ACTIVITY_TYPES,
   WINDOW_ORIENTATIONS,
 } from '@houseplant/shared';
 
@@ -110,7 +112,32 @@ export const aiRequests = sqliteTable(
   (t) => [index('ai_requests_created_idx').on(t.createdAt), index('ai_requests_plant_idx').on(t.plantId)],
 );
 
+/**
+ * How often to check a plant (watering for now). Due dates are derived from the
+ * activity log, never stored; `snoozed_until` only postpones the current reminder.
+ */
+export const careSchedules = sqliteTable(
+  'care_schedules',
+  {
+    id: text('id').primaryKey(),
+    plantId: text('plant_id')
+      .notNull()
+      .references(() => plants.id, { onDelete: 'cascade' }),
+    activityType: text('activity_type', { enum: SCHEDULED_ACTIVITY_TYPES }).notNull(),
+    mode: text('mode', { enum: SCHEDULE_MODES }).notNull(),
+    /** Required for `fixed`; null for `adaptive`. */
+    intervalDays: integer('interval_days'),
+    enabled: integer('enabled', { mode: 'boolean' }).notNull().default(true),
+    /** Local date (`YYYY-MM-DD`); the reminder isn't due before it. Cleared when the activity is logged. */
+    snoozedUntil: text('snoozed_until'),
+    ...timestamps,
+    updatedAt: text('updated_at').notNull(),
+  },
+  (t) => [uniqueIndex('care_schedules_plant_type_idx').on(t.plantId, t.activityType)],
+);
+
 export type PlantRow = typeof plants.$inferSelect;
 export type ActivityRow = typeof activities.$inferSelect;
 export type PhotoRow = typeof photos.$inferSelect;
 export type AiRequestRow = typeof aiRequests.$inferSelect;
+export type CareScheduleRow = typeof careSchedules.$inferSelect;

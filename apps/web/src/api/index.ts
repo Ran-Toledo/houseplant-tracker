@@ -4,6 +4,9 @@ import type {
   AppConfig,
   AppSettings,
   AppSettingsUpdate,
+  CareSchedule,
+  CareScheduleInput,
+  DueItem,
   Condition,
   Photo,
   Plant,
@@ -58,6 +61,14 @@ export const api = {
 
   listSpecies: () => request<{ species: SpeciesSummary[] }>('/species').then((r) => r.species),
   getSpecies: (id: string) => request<{ species: Species }>(`/species/${id}`).then((r) => r.species),
+
+  getSchedules: (plantId: string) =>
+    request<{ schedules: CareSchedule[] }>(`/plants/${plantId}/schedules`).then((r) => r.schedules),
+  setWateringSchedule: (plantId: string, input: CareScheduleInput) =>
+    request<{ schedule: CareSchedule }>(`/plants/${plantId}/schedules/watering`, json('PUT', input)).then((r) => r.schedule),
+  snoozeSchedule: (scheduleId: string, days: number) =>
+    request<{ schedule: CareSchedule }>(`/schedules/${scheduleId}/snooze`, json('POST', { days })).then((r) => r.schedule),
+  listDue: (days = 0) => request<{ items: DueItem[] }>(`/due?days=${days}`).then((r) => r.items),
 
   getConfig: () => request<{ config: AppConfig }>('/config').then((r) => r.config),
   getSettings: () => request<{ settings: AppSettings }>('/settings').then((r) => r.settings),

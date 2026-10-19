@@ -36,6 +36,7 @@ export function makePlant(overrides: Partial<Plant> = {}): Plant {
     lastWateredAt: null,
     lastRepottedAt: null,
     coverPhoto: null,
+    wateringDue: null,
     ...overrides,
   };
 }

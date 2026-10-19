@@ -77,6 +77,31 @@ the cover.
 Each photo has a thumbnail next to it, `<plantId>/<photoId>.thumb.jpg`. Its path is derived from
 `storage_key`, so it has no column of its own, and a missing thumbnail is regenerated on request.
 
+### `care_schedules` — reminders
+
+| Column | Type | Notes |
+|---|---|---|
+| `id` | TEXT PK | |
+| `plant_id` | TEXT NOT NULL | FK → `plants.id`, `ON DELETE CASCADE` |
+| `activity_type` | TEXT NOT NULL | `watering` for now; unique per plant |
+| `mode` | TEXT NOT NULL | `adaptive` / `fixed` |
+| `interval_days` | INTEGER NULL | Required for `fixed` (1–90); null for `adaptive` |
+| `enabled` | INTEGER NOT NULL | Off keeps the row (and its mode) for turning back on |
+| `snoozed_until` | TEXT NULL | Local date; the reminder isn't due before it. Cleared when watering is logged |
+| `created_at`, `updated_at` | TEXT NOT NULL | |
+
+Due dates are **derived, never stored**. The due date is the last watering's local date (or the
+schedule's creation date if there's none) plus the interval, postponed to `snoozed_until` if that's
+later. The interval depends on the mode:
+- `fixed`: `interval_days`.
+- `adaptive`, with at least 3 logged waterings: the median of the plant's recent intervals (up to 5),
+  kept within half the species' minimum and twice its maximum for the season.
+- `adaptive`, otherwise: the short end of the species' `careProfile.watering.checkEveryDays` range for
+  the season, or 7–10 / 10–14 days for plants without a catalog profile.
+
+Seasons come from the species' `growingMonths`, the `hemisphere` setting and the current month in the
+`timezone` setting. The logic lives in `apps/api/src/care/watering.ts`.
+
 ### `settings` — app-wide settings
 
 | Column | Type | Notes |

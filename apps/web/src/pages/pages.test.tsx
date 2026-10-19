@@ -137,3 +137,117 @@ describe('settings: AI features', () => {
     expect(screen.queryByRole('button', { name: /Turn AI features/ })).toBeNull();
   });
 });
+
+describe('watering reminders', () => {
+  const PLANT_ID = '11111111-1111-4111-8111-111111111111';
+  const overdue = {
+    dueOn: '2026-10-17',
+    daysUntil: -2,
+    status: 'overdue' as const,
+    intervalDays: 8,
+    basis: 'history' as const,
+    basedOnWaterings: 5,
+    snoozedUntil: null,
+  };
+  const dueItem = {
+    plantId: PLANT_ID,
+    nickname: 'My Monstera',
+    speciesId: 'monstera-deliciosa',
+    customSpeciesName: null,
+    location: 'Living room',
+    coverPhoto: null,
+    scheduleId: 'schedule-1',
+    activityType: 'watering' as const,
+    due: overdue,
+  };
+  const schedule = {
+    id: 'schedule-1',
+    plantId: PLANT_ID,
+    activityType: 'watering',
+    mode: 'adaptive',
+    intervalDays: null,
+    enabled: true,
+    snoozedUntil: null,
+    createdAt: '2026-10-01T10:00:00.000Z',
+    updatedAt: '2026-10-01T10:00:00.000Z',
+    due: overdue,
+  };
+
+  it('lists plants that need care, badges them, and records watering from the strip', async () => {
+    let watered = false;
+    const fetchSpy = mockApi({
+      'GET /api/plants': () => ({ plants: [makePlant({ wateringDue: watered ? null : overdue })] }),
+      'GET /api/plants/locations': () => ({ locations: [] }),
+      'GET /api/species': () => ({ species }),
+      'GET /api/due': () => ({ items: watered ? [] : [dueItem] }),
+      [`POST /api/plants/${PLANT_ID}/activities`]: () => {
+        watered = true;
+        return { activity: { id: 'a1' } };
+      },
+    });
+    renderAt('/');
+
+    expect(await screen.findByRole('heading', { name: /Needs care/ })).toBeTruthy();
+    expect(screen.getByText('Soil check overdue by 2 days')).toBeTruthy();
+    expect(await screen.findByText('Check soil')).toBeTruthy(); // card badge, as in the Screen A mockup
+    expect(await screen.findByText('1 plant needs care')).toBeTruthy(); // tab badge, for screen readers
+
+    fireEvent.click(screen.getByRole('button', { name: 'Watered My Monstera' }));
+    await waitFor(() => expect(screen.queryByRole('heading', { name: /Needs care/ })).toBeNull());
+    const post = fetchSpy.mock.calls.find(([, init]) => init?.method === 'POST')!;
+    expect(JSON.parse(String(post[1]!.body))).toMatchObject({ activityType: 'watering' });
+    await waitFor(() => expect(screen.queryByText('Check soil')).toBeNull());
+  });
+
+  it('shows the next check on the plant page and switches to a fixed interval', async () => {
+    const puts: unknown[] = [];
+    mockApi({
+      [`GET /api/plants/${PLANT_ID}`]: () => ({ plant: makePlant({ wateringDue: overdue }) }),
+      [`GET /api/plants/${PLANT_ID}/activities`]: () => ({ activities: [] }),
+      [`GET /api/plants/${PLANT_ID}/photos`]: () => ({ photos: [] }),
+      [`GET /api/plants/${PLANT_ID}/schedules`]: () => ({ schedules: [schedule] }),
+      [`PUT /api/plants/${PLANT_ID}/schedules/watering`]: (_url, init) => {
+        puts.push(JSON.parse(String(init.body)));
+        return { schedule: { ...schedule, mode: 'fixed', intervalDays: 7 } };
+      },
+      'GET /api/species': () => ({ species }),
+      'GET /api/due': () => ({ items: [dueItem] }),
+    });
+    renderAt(`/plants/${PLANT_ID}`);
+
+    expect(await screen.findByText('Soil check overdue by 2 days')).toBeTruthy();
+    expect(screen.getByText('Based on your last 5 waterings')).toBeTruthy();
+    const select = await screen.findByLabelText('Reminder');
+    await waitFor(() => expect((select as HTMLSelectElement).value).toBe('adaptive'));
+    expect(screen.getByRole('button', { name: 'tomorrow' })).toBeTruthy(); // snooze, shown while due
+
+    fireEvent.change(select, { target: { value: 'fixed' } });
+    await waitFor(() => expect(puts).toEqual([{ enabled: true, mode: 'fixed', intervalDays: 7 }]));
+  });
+
+  it('turns on an automatic reminder for a new plant unless unticked', async () => {
+    const created = makePlant({ id: '33333333-3333-4333-8333-333333333333', nickname: 'Ivy' });
+    const run = async (untick: boolean) => {
+      const fetchSpy = mockApi({
+        'GET /api/species': () => ({ species }),
+        'POST /api/plants': () => ({ plant: created }),
+        [`PUT /api/plants/${created.id}/schedules/watering`]: () => ({ schedule }),
+        [`GET /api/plants/${created.id}`]: () => ({ plant: created }),
+      });
+      const view = renderAt('/plants/new');
+      fireEvent.change(await screen.findByLabelText(/Nickname/), { target: { value: 'Ivy' } });
+      const toggle = screen.getByRole('checkbox', { name: /Remind me to check the soil/ });
+      expect((toggle as HTMLInputElement).checked).toBe(true);
+      if (untick) fireEvent.click(toggle);
+      fireEvent.click(screen.getByRole('button', { name: 'Save' }));
+      await waitFor(() => expect(fetchSpy.mock.calls.some(([, init]) => init?.method === 'POST')).toBe(true));
+      await waitFor(() => expect(screen.queryByRole('button', { name: 'Save' })).toBeNull());
+      const puts = fetchSpy.mock.calls.filter(([, init]) => init?.method === 'PUT').map(([, init]) => JSON.parse(String(init!.body)));
+      view.unmount();
+      fetchSpy.mockRestore();
+      return puts;
+    };
+    expect(await run(false)).toEqual([{ enabled: true, mode: 'adaptive' }]);
+    expect(await run(true)).toEqual([]);
+  });
+});

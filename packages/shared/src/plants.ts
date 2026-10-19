@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import type { DueInfo } from './care';
 import { speciesIdSchema } from './species';
 
 /**
@@ -141,6 +142,8 @@ export interface Plant {
   /** Derived from the latest `repotting` activity. */
   lastRepottedAt: string | null;
   coverPhoto: Photo | null;
+  /** Next watering check, when the plant has a watering reminder turned on. */
+  wateringDue: DueInfo | null;
 }
 
 /** Error body returned by every failing API request. */

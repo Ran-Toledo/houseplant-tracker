@@ -1,6 +1,7 @@
 import { Link } from 'react-router';
 import { useTranslation } from 'react-i18next';
 import type { Plant } from '@houseplant/shared';
+import { dueText, isDueNow } from '../lib/care';
 import { formatRelativeDay } from '../lib/format';
 import { ConditionBadge } from './ConditionBadge';
 import { Icon } from './Icon';
@@ -30,6 +31,21 @@ export function PlantCard({ plant, speciesName, scientificName, speciesImage }: 
         <PlantImage photo={plant.coverPhoto} name={plant.nickname} speciesImage={speciesImage} speciesName={speciesName} />
         {plant.condition !== 'unknown' && (
           <ConditionBadge condition={plant.condition} className="absolute start-2.5 top-2.5" />
+        )}
+        {isDueNow(plant.wateringDue) && (
+          // "Check soil" status pill from the Screen A mockup.
+          <span
+            title={dueText(t, i18n.language, plant.wateringDue)}
+            className={`absolute end-2.5 top-2.5 flex items-center gap-[5px] rounded-full border border-white/70 bg-[#fffefaed] px-2 py-[5px] text-[9px] font-extrabold backdrop-blur-sm ${
+              plant.wateringDue.status === 'overdue' ? 'text-clay-ink' : 'text-ochre-ink'
+            }`}
+          >
+            <span
+              className={`size-1.5 rounded-full ${plant.wateringDue.status === 'overdue' ? 'bg-clay' : 'bg-ochre'}`}
+              aria-hidden="true"
+            />
+            {t('reminders.checkSoil')}
+          </span>
         )}
       </div>
       <div className="px-3 pt-[13px] pb-3.5 max-[390px]:px-2.5">

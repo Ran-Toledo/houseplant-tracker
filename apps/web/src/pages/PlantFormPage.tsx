@@ -184,6 +184,8 @@ function PlantForm({ plant }: { plant: Plant | null }) {
   const [formError, setFormError] = useState<string>();
   const [saving, setSaving] = useState(false);
   const [photo, setPhoto] = useState<File | null>(null);
+  /** New plants get an adaptive watering reminder unless this is unticked. */
+  const [remind, setRemind] = useState(true);
   const [photoPreview, setPhotoPreview] = useState<string>();
 
   useEffect(() => {
@@ -236,6 +238,13 @@ function PlantForm({ plant }: { plant: Plant | null }) {
           initialActivities.push({ activityType: 'repotting', performedAt: dateInputToTimestamp(values.lastRepottedOn) });
         saved = await api.createPlant({ ...payload, initialActivities });
         toast(t('form.created'));
+        if (remind) {
+          try {
+            await api.setWateringSchedule(saved.id, { enabled: true, mode: 'adaptive' });
+          } catch {
+            toast(t('reminders.createFailed'));
+          }
+        }
         if (photo) {
           try {
             await api.uploadPhoto(saved.id, photo, { isCover: true });
@@ -435,6 +444,18 @@ function PlantForm({ plant }: { plant: Plant | null }) {
               <input {...inputProps('lastRepottedOn')} type="date" max={today} />
             </Field>
           </div>
+          <label className="mt-4 flex items-start gap-2.5 text-sm">
+            <input
+              type="checkbox"
+              checked={remind}
+              onChange={(e) => setRemind(e.target.checked)}
+              className="mt-0.5 size-[18px] accent-forest-2"
+            />
+            <span>
+              <span className="font-extrabold">{t('reminders.formToggle')}</span>
+              <span className="block text-xs text-muted">{t('reminders.formHint')}</span>
+            </span>
+          </label>
         </FormSection>
       )}
 

@@ -49,3 +49,22 @@ export function startOfLocalMonth(instant: Date, timeZone: string): Date {
   const { year, month } = localParts(instant, timeZone);
   return zonedToUtc({ year, month, day: 1 }, timeZone);
 }
+
+/** The local calendar date (`YYYY-MM-DD`) of `instant` in `timeZone`. */
+export function localDate(instant: Date, timeZone: string): string {
+  const { year, month, day } = localParts(instant, timeZone);
+  return `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+}
+
+const DAY_MS = 86_400_000;
+const dateToUtcMs = (date: string) => Date.parse(`${date}T00:00:00Z`);
+
+/** Calendar arithmetic on `YYYY-MM-DD` dates (no time zone involved). */
+export function addDays(date: string, days: number): string {
+  return new Date(dateToUtcMs(date) + days * DAY_MS).toISOString().slice(0, 10);
+}
+
+/** Whole days from `from` to `to` (negative if `to` is earlier). */
+export function daysBetween(from: string, to: string): number {
+  return Math.round((dateToUtcMs(to) - dateToUtcMs(from)) / DAY_MS);
+}
