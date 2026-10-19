@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next';
 import type { Condition } from '@houseplant/shared';
 import { api } from '../api';
 import { Icon } from '../components/Icon';
-import { NeedsCareStrip } from '../components/NeedsCareStrip';
 import { AddPlantCard, PlantCard } from '../components/PlantCard';
 import { EmptyState, ErrorState, LoadingState } from '../components/StatusViews';
 import { useAsync } from '../hooks/useAsync';
@@ -72,13 +71,6 @@ export function PlantListPage() {
         </div>
         <p className="mt-2.5 text-[13px] text-muted">{t('collection.subtitle')}</p>
       </section>
-
-      <NeedsCareStrip
-        onWatered={() => {
-          plants.reload();
-          total.reload();
-        }}
-      />
 
       {!collectionEmpty && (
         <>

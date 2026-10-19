@@ -173,7 +173,7 @@ describe('watering reminders', () => {
     due: overdue,
   };
 
-  it('lists plants that need care, badges them, and records watering from the strip', async () => {
+  it('shows a bell with the due count on My plants that opens the Notifications page', async () => {
     let watered = false;
     const fetchSpy = mockApi({
       'GET /api/plants': () => ({ plants: [makePlant({ wateringDue: watered ? null : overdue })] }),
@@ -187,16 +187,25 @@ describe('watering reminders', () => {
     });
     renderAt('/');
 
+    // My plants keeps the card badge, but the list itself moved to the Notifications page.
+    expect(await screen.findByText('Check soil')).toBeTruthy();
+    expect(screen.queryByRole('heading', { name: /Needs care/ })).toBeNull();
+    const bell = await screen.findByRole('link', { name: 'Notifications, 1 plant needs care' });
+    fireEvent.click(bell);
+
+    expect(await screen.findByRole('heading', { name: 'Notifications', level: 1 })).toBeTruthy();
     expect(await screen.findByRole('heading', { name: /Needs care/ })).toBeTruthy();
     expect(screen.getByText('Soil check overdue by 2 days')).toBeTruthy();
-    expect(await screen.findByText('Check soil')).toBeTruthy(); // card badge, as in the Screen A mockup
-    expect(await screen.findByText('1 plant needs care')).toBeTruthy(); // tab badge, for screen readers
+    expect(screen.getByRole('link', { name: 'My Plants' })).toBeTruthy(); // back arrow
+    expect(screen.queryByRole('link', { name: /^Notifications/ })).toBeNull(); // the bell is only on My plants
 
     fireEvent.click(screen.getByRole('button', { name: 'Watered My Monstera' }));
-    await waitFor(() => expect(screen.queryByRole('heading', { name: /Needs care/ })).toBeNull());
+    expect(await screen.findByText(/You're all caught up/)).toBeTruthy();
     const post = fetchSpy.mock.calls.find(([, init]) => init?.method === 'POST')!;
     expect(JSON.parse(String(post[1]!.body))).toMatchObject({ activityType: 'watering' });
-    await waitFor(() => expect(screen.queryByText('Check soil')).toBeNull());
+
+    fireEvent.click(screen.getByRole('link', { name: 'My Plants' }));
+    expect(await screen.findByRole('link', { name: 'Notifications' })).toBeTruthy(); // no count once watered
   });
 
   it('shows the next check on the plant page and switches to a fixed interval', async () => {

@@ -11,8 +11,11 @@ import { Icon } from './Icon';
 import { PlantImage } from './PlantImage';
 import { useToast } from './Toast';
 
-/** Top of My plants: plants whose soil check is overdue, today or tomorrow, with a one-tap "Watered". */
-export function NeedsCareStrip({ onWatered }: { onWatered: () => void }) {
+/**
+ * "Needs care" notification: plants whose soil check is overdue, due today or tomorrow, with a one-tap
+ * "Watered". Shown on the Notifications page.
+ */
+export function NeedsCareStrip({ onWatered, showEmpty = false }: { onWatered?: () => void; showEmpty?: boolean }) {
   const { t, i18n } = useTranslation();
   const toast = useToast();
   const catalog = useSpeciesCatalog();
@@ -27,7 +30,7 @@ export function NeedsCareStrip({ onWatered }: { onWatered: () => void }) {
       await api.addActivity(item.plantId, { activityType: 'watering', performedAt: new Date().toISOString() });
       toast(t('watering.recorded'));
       notifyCareChanged();
-      onWatered();
+      onWatered?.();
     } catch (err) {
       toast(errorMessage(t, err));
     } finally {
@@ -36,7 +39,15 @@ export function NeedsCareStrip({ onWatered }: { onWatered: () => void }) {
   }
 
   const items = due.data ?? [];
-  if (items.length === 0) return null;
+  if (items.length === 0) {
+    if (!showEmpty || due.loading) return null;
+    return (
+      <p className="rounded-[19px] border border-line bg-white p-5 text-center text-sm text-muted">
+        <Icon name="check" className="mx-auto mb-2 size-6 text-forest-2" />
+        {t('notifications.empty')}
+      </p>
+    );
+  }
 
   return (
     <section aria-labelledby="needs-care" className="mb-6 rounded-[19px] border border-[#ecdcbf] bg-[#fdf8ee] p-3.5">

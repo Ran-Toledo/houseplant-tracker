@@ -143,8 +143,9 @@ plant page's watering card. A reminder means **check the soil**, not "water now"
   follows how often you actually water that plant.
 - **Every few days** uses a fixed number of days you choose.
 
-Plants that are due show up in a *Needs care* strip on My plants, with a one-tap *Watered* button.
-Their cards get a *Check soil* badge, and the My plants tab shows how many are due. Logging a watering
+The bell at the top of My plants shows how many plants are due. It opens the *Notifications* page, where
+the *Needs care* list has a one-tap *Watered* button for each plant. Due plants' cards also get a
+*Check soil* badge. Logging a watering
 answers the reminder. You can also snooze it until tomorrow or for three days. Dates use the time zone
 from Settings (default Asia/Jerusalem). For now reminders appear in the app; notifications to the
 phone come in a later phase.

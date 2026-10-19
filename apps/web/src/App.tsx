@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes, useLocation } from 'react-router';
 import { AppShell } from './components/AppShell';
 import { ToastProvider } from './components/Toast';
 import { NotFoundPage } from './pages/NotFoundPage';
+import { NotificationsPage } from './pages/NotificationsPage';
 import { PlantDetailPage } from './pages/PlantDetailPage';
 import { PlantFormPage } from './pages/PlantFormPage';
 import { PlantListPage } from './pages/PlantListPage';
@@ -29,6 +30,7 @@ export function AppRoutes() {
         <Route path="species" element={<SpeciesListPage />} />
         <Route path="species/:id" element={<SpeciesDetailPage />} />
         <Route path="settings" element={<SettingsPage />} />
+        <Route path="notifications" element={<NotificationsPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Route>
     </Routes>

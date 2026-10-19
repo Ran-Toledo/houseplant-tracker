@@ -160,8 +160,8 @@ AI codes:
 
 | Folder | Contents |
 |---|---|
-| `pages/` | Collection (Screen A), Plant details (Screen B), Add/Edit form, Species list/detail, Settings, 404 |
-| `components/` | App shell + bottom nav (with the due-now badge), "Needs care" strip, watering reminder control, language switch, plant card, care guide, timeline, photo gallery, species picker, dialogs, toast |
+| `pages/` | Collection (Screen A), Plant details (Screen B), Add/Edit form, Species list/detail, Notifications, Settings, 404 |
+| `components/` | App shell + bottom nav and the notifications bell (with the due-now count, on My plants), "Needs care" list, watering reminder control, language switch, plant card, care guide, timeline, photo gallery, species picker, dialogs, toast |
 | `api/` | Typed `fetch` wrapper and endpoint functions |
 | `hooks/` | `useAsync` (load/reload with race protection), `useSpeciesCatalog` (cached, localized names) |
 | `i18n/` | i18next setup, `en.json`, `he.json` |

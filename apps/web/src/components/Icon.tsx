@@ -43,6 +43,12 @@ const paths = {
   ),
   chevron: <path d="m9 18 6-6-6-6" />,
   back: <path d="m15 18-6-6 6-6" />,
+  bell: (
+    <>
+      <path d="M6 9a6 6 0 0 1 12 0c0 6 2.5 7.5 2.5 7.5h-17S6 15 6 9Z" />
+      <path d="M10.3 20a1.9 1.9 0 0 0 3.4 0" />
+    </>
+  ),
   sun: (
     <>
       <circle cx="12" cy="12" r="4" />

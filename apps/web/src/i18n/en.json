@@ -279,6 +279,10 @@
     "placeholderAlt": "Illustration of a potted plant (no photo yet)",
     "speciesAlt": "Typical {{name}} plant"
   },
+  "notifications": {
+    "title": "Notifications",
+    "empty": "You're all caught up: no plant needs care right now."
+  },
   "reminders": {
     "needsCare": "Needs care",
     "checkSoil": "Check soil",

@@ -281,6 +281,10 @@
     "placeholderAlt": "איור של צמח בעציץ (אין עדיין תמונה)",
     "speciesAlt": "{{name}} – צמח לדוגמה"
   },
+  "notifications": {
+    "title": "התראות",
+    "empty": "הכול מעודכן: אין כרגע צמחים שדורשים טיפול."
+  },
   "reminders": {
     "needsCare": "דורשים טיפול",
     "checkSoil": "לבדוק אדמה",
