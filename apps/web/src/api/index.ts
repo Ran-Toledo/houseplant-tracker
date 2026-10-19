@@ -8,6 +8,8 @@ import type {
   CareScheduleInput,
   DueItem,
   Condition,
+  HealthCheck,
+  IdentifyResult,
   Photo,
   Plant,
   PlantCreateInput,
@@ -69,6 +71,22 @@ export const api = {
   snoozeSchedule: (scheduleId: string, days: number) =>
     request<{ schedule: CareSchedule }>(`/schedules/${scheduleId}/snooze`, json('POST', { days })).then((r) => r.schedule),
   listDue: (days = 0) => request<{ items: DueItem[] }>(`/due?days=${days}`).then((r) => r.items),
+
+  identifyUpload: (file: File) => {
+    const form = new FormData();
+    form.set('photo', file);
+    return request<IdentifyResult>('/ai/identify', { method: 'POST', body: form });
+  },
+  identifyPhoto: (photoId: string) => request<IdentifyResult>('/ai/identify', json('POST', { photoId })),
+  listHealthChecks: (plantId: string) =>
+    request<{ healthChecks: HealthCheck[] }>(`/plants/${plantId}/health-checks`).then((r) => r.healthChecks),
+  createHealthCheck: (plantId: string, photoId: string) =>
+    request<{ healthCheck: HealthCheck }>(`/plants/${plantId}/health-checks`, json('POST', { photoId })).then(
+      (r) => r.healthCheck,
+    ),
+  applyHealthCheck: (checkId: string) =>
+    request<{ healthCheck: HealthCheck; plant: Plant }>(`/health-checks/${checkId}/apply`, { method: 'POST' }),
+  deleteHealthCheck: (checkId: string) => request<void>(`/health-checks/${checkId}`, { method: 'DELETE' }),
 
   getConfig: () => request<{ config: AppConfig }>('/config').then((r) => r.config),
   getSettings: () => request<{ settings: AppSettings }>('/settings').then((r) => r.settings),

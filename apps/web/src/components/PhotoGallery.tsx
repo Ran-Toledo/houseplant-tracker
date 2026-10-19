@@ -14,12 +14,14 @@ function PhotoViewer({
   onClose,
   onSetCover,
   onDelete,
+  onCheckHealth,
 }: {
   photo: Photo;
   name: string;
   onClose: () => void;
   onSetCover: () => void;
   onDelete: () => void;
+  onCheckHealth?: () => void;
 }) {
   const { t } = useTranslation();
   const ref = useRef<HTMLDialogElement>(null);
@@ -36,7 +38,17 @@ function PhotoViewer({
     >
       <img src={photo.url} alt={t('photos.alt', { name })} className="max-h-[75dvh] w-full bg-[#1d2a21] object-contain" />
       <div className="flex flex-wrap items-center justify-between gap-2 p-3">
-        <div className="flex gap-2">
+        <div className="flex flex-wrap gap-2">
+          {onCheckHealth && (
+            <button
+              type="button"
+              onClick={onCheckHealth}
+              className="flex min-h-11 items-center gap-1.5 rounded-xl border border-[#d7e6d6] bg-[#f2f8ef] px-3 text-sm font-bold text-forest-2 hover:bg-[#e8f2e4]"
+            >
+              <Icon name="sparkle" className="size-4" />
+              {t('ai.health.check')}
+            </button>
+          )}
           {!photo.isCover && (
             <button
               type="button"
@@ -74,11 +86,14 @@ export function PhotoGallery({
   plantName,
   photos,
   onChanged,
+  onCheckHealth,
 }: {
   plantId: string;
   plantName: string;
   photos: Photo[];
   onChanged: () => void;
+  /** Offers "Check health" in the viewer (only when AI features are available). */
+  onCheckHealth?: (photo: Photo) => void;
 }) {
   const { t } = useTranslation();
   const toast = useToast();
@@ -177,6 +192,13 @@ export function PhotoGallery({
           onClose={() => setViewing(null)}
           onSetCover={() => void setCover(viewing)}
           onDelete={() => setPendingDelete(viewing)}
+          onCheckHealth={
+            onCheckHealth &&
+            (() => {
+              setViewing(null);
+              onCheckHealth(viewing);
+            })
+          }
         />
       )}
       <ConfirmDialog

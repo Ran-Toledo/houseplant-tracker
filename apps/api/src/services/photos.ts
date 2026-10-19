@@ -21,6 +21,17 @@ export function createPhotoService({ plants, photos, photoStore }: Deps) {
     return row;
   }
 
+  /** A photo's record and file. */
+  async function load(id: string): Promise<{ photo: Photo; data: Buffer }> {
+    const row = getRow(id);
+    try {
+      return { photo: toPhotoDto(row), data: await photoStore.read(row.storageKey) };
+    } catch (err) {
+      if (isMissingFile(err)) throw notFound('Photo file');
+      throw err;
+    }
+  }
+
   return {
     list(plantId: string): Photo[] {
       if (!plants.exists(plantId)) throw notFound('Plant');
@@ -56,14 +67,10 @@ export function createPhotoService({ plants, photos, photoStore }: Deps) {
     },
 
     async readFile(id: string): Promise<Buffer> {
-      const row = getRow(id);
-      try {
-        return await photoStore.read(row.storageKey);
-      } catch (err) {
-        if (isMissingFile(err)) throw notFound('Photo file');
-        throw err;
-      }
+      return (await load(id)).data;
     },
+
+    load,
 
     /**
      * Reads a photo's thumbnail. Photos uploaded before thumbnails existed (or

@@ -6,12 +6,14 @@ import { api } from '../api';
 import { ActivityTimeline } from '../components/ActivityTimeline';
 import { CareGuide, SectionHeading } from '../components/CareGuide';
 import { ConfirmDialog } from '../components/ConfirmDialog';
+import { HealthChecks } from '../components/HealthChecks';
 import { Icon } from '../components/Icon';
 import { PhotoGallery } from '../components/PhotoGallery';
 import { PlantImage } from '../components/PlantImage';
 import { ErrorState, LoadingState } from '../components/StatusViews';
 import { useToast } from '../components/Toast';
 import { WateringReminder } from '../components/WateringReminder';
+import { useAiAvailable } from '../hooks/useAiAvailable';
 import { useAsync } from '../hooks/useAsync';
 import { notifyCareChanged } from '../lib/care';
 import { errorMessage, isNotFound } from '../lib/errors';
@@ -90,6 +92,8 @@ export function PlantDetailPage() {
   const toast = useToast();
   const [confirmDelete, setConfirmDelete] = useState(false);
   const [deleting, setDeleting] = useState(false);
+  const [healthPhotoId, setHealthPhotoId] = useState<string | null>(null);
+  const aiAvailable = useAiAvailable();
 
   const plant = useAsync(() => api.getPlant(id), [id]);
   const speciesId = plant.data?.speciesId;
@@ -282,6 +286,17 @@ export function PlantDetailPage() {
 
       <Separator />
 
+      <HealthChecks
+        plant={p}
+        aiAvailable={aiAvailable}
+        requestedPhotoId={healthPhotoId}
+        onRequestHandled={() => setHealthPhotoId(null)}
+        onPlantChanged={(updated) => plant.setData(updated)}
+        onActivityAdded={refreshAfterActivity}
+        onPhotoAdded={refreshAfterPhoto}
+        after={<Separator />}
+      />
+
       <section aria-labelledby="activity-title">
         <div className="mb-3.5">
           <SectionHeading icon="calendar" id="activity-title">
@@ -310,7 +325,20 @@ export function PlantDetailPage() {
         ) : !photos.data ? (
           <LoadingState />
         ) : (
-          <PhotoGallery plantId={p.id} plantName={p.nickname} photos={photos.data} onChanged={refreshAfterPhoto} />
+          <PhotoGallery
+            plantId={p.id}
+            plantName={p.nickname}
+            photos={photos.data}
+            onChanged={refreshAfterPhoto}
+            onCheckHealth={
+              aiAvailable
+                ? (photo) => {
+                    setHealthPhotoId(photo.id);
+                    document.getElementById('health-title')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                  }
+                : undefined
+            }
+          />
         )}
       </section>
 

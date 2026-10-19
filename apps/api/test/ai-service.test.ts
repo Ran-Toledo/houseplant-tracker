@@ -41,7 +41,9 @@ async function apiError(promise: Promise<unknown>): Promise<ApiError> {
 describe('AI service', () => {
   it('returns the validated answer and logs the request', async () => {
     const t = setup({ output: { ok: true, note: 'fine' } });
-    expect(await t.ai.generate({ kind: 'check' }, request)).toEqual({ ok: true, note: 'fine' });
+    const { data, requestId } = await t.ai.generate({ kind: 'check' }, request);
+    expect(data).toEqual({ ok: true, note: 'fine' });
+    expect(t.db.$client.prepare('select id from ai_requests').get()).toEqual({ id: requestId });
     expect(t.logged()).toEqual([
       { kind: 'check', status: 'ok', error_code: null, result_json: '{"ok":true,"note":"fine"}', input_tokens: 100 },
     ]);

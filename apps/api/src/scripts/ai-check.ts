@@ -30,7 +30,7 @@ const ai = createAiService({
 
 const started = Date.now();
 try {
-  const answer = await ai.generate(
+  const { data: answer } = await ai.generate(
     { kind: 'check' },
     {
       instructions: 'You are a connectivity check for a houseplant app. Answer briefly.',

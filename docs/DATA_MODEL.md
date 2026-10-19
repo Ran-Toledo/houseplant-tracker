@@ -139,6 +139,23 @@ Only changed settings are stored. Missing keys, and stored values that no longer
 
 Every call counts toward the monthly limit, whatever its outcome, because every call costs money.
 
+### `health_checks` — AI health assessments
+
+| Column | Type | Notes |
+|---|---|---|
+| `id` | TEXT PK | |
+| `plant_id` | TEXT NOT NULL | FK → `plants.id`, `ON DELETE CASCADE` |
+| `photo_id` | TEXT NULL | FK → `photos.id`, `ON DELETE SET NULL`: the check stays when its photo is deleted |
+| `ai_request_id` | TEXT NOT NULL | FK → `ai_requests.id`: the call that produced it |
+| `condition` | TEXT NOT NULL | `healthy` / `needs-attention` / `unhealthy` |
+| `confidence` | TEXT NOT NULL | `high` / `medium` / `low` |
+| `assessment_json` | TEXT NOT NULL | The validated answer (`healthAssessmentSchema` in `packages/shared/src/ai.ts`) |
+| `applied_at` | TEXT NULL | When the owner applied the condition to the plant |
+| `created_at` | TEXT NOT NULL | Indexed with `plant_id`, for the newest-first history |
+
+A check never changes the plant by itself: `plants.condition` only changes when the owner taps
+**Apply condition**. Identification results aren't kept anywhere except `ai_requests.result_json`.
+
 ## Species JSON
 
 One file per species, `species-catalog/<id>.json`; the file name must equal `id`. The authoritative

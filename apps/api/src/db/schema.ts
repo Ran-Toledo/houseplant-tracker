@@ -2,6 +2,8 @@ import { sql } from 'drizzle-orm';
 import { index, integer, real, sqliteTable, text, uniqueIndex } from 'drizzle-orm/sqlite-core';
 import {
   ACTIVITY_TYPES,
+  AI_CONFIDENCES,
+  ASSESSED_CONDITIONS,
   CONDITIONS,
   LIGHT_EXPOSURES,
   POT_MATERIALS,
@@ -136,8 +138,32 @@ export const careSchedules = sqliteTable(
   (t) => [uniqueIndex('care_schedules_plant_type_idx').on(t.plantId, t.activityType)],
 );
 
+/** AI health assessments of a plant photo, kept as a history. */
+export const healthChecks = sqliteTable(
+  'health_checks',
+  {
+    id: text('id').primaryKey(),
+    plantId: text('plant_id')
+      .notNull()
+      .references(() => plants.id, { onDelete: 'cascade' }),
+    photoId: text('photo_id').references(() => photos.id, { onDelete: 'set null' }),
+    aiRequestId: text('ai_request_id')
+      .notNull()
+      .references(() => aiRequests.id),
+    condition: text('condition', { enum: ASSESSED_CONDITIONS }).notNull(),
+    confidence: text('confidence', { enum: AI_CONFIDENCES }).notNull(),
+    /** The validated `healthAssessmentSchema` answer, as JSON. */
+    assessmentJson: text('assessment_json').notNull(),
+    /** When the condition was applied to the plant; null until then. */
+    appliedAt: text('applied_at'),
+    ...timestamps,
+  },
+  (t) => [index('health_checks_plant_time_idx').on(t.plantId, t.createdAt)],
+);
+
 export type PlantRow = typeof plants.$inferSelect;
 export type ActivityRow = typeof activities.$inferSelect;
 export type PhotoRow = typeof photos.$inferSelect;
 export type AiRequestRow = typeof aiRequests.$inferSelect;
 export type CareScheduleRow = typeof careSchedules.$inferSelect;
+export type HealthCheckRow = typeof healthChecks.$inferSelect;

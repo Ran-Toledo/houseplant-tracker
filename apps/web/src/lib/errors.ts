@@ -8,6 +8,13 @@ const TRANSLATED_CODES = [
   'unknown_species',
   'unsupported_image_format',
   'payload_too_large',
+  'ai_not_configured',
+  'ai_disabled',
+  'ai_limit_reached',
+  'ai_timeout',
+  'ai_error',
+  'ai_refused',
+  'ai_invalid_output',
 ] as const;
 
 /** A localized, user-facing message for any error thrown by the API layer. */

@@ -8,14 +8,17 @@ import {
   WINDOW_ORIENTATIONS,
   type ActivityInput,
   type Condition,
+  type IdentificationCandidate,
   type Plant,
   type PlantCreateInput,
 } from '@houseplant/shared';
 import { api, ApiRequestError } from '../api';
 import { Icon } from '../components/Icon';
+import { IdentifyPanel } from '../components/IdentifyPanel';
 import { NOT_IN_CATALOG, SpeciesPicker } from '../components/SpeciesPicker';
 import { ErrorState, LoadingState } from '../components/StatusViews';
 import { useToast } from '../components/Toast';
+import { useAiAvailable } from '../hooks/useAiAvailable';
 import { useAsync } from '../hooks/useAsync';
 import { useSpeciesCatalog } from '../hooks/useSpecies';
 import { errorMessage, isNotFound } from '../lib/errors';
@@ -172,10 +175,11 @@ export function PlantFormPage() {
 }
 
 function PlantForm({ plant }: { plant: Plant | null }) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const navigate = useNavigate();
   const toast = useToast();
   const catalog = useSpeciesCatalog();
+  const aiAvailable = useAiAvailable();
   const uid = useId();
   const fid = (name: string) => `${uid}-${name}`;
 
@@ -202,6 +206,17 @@ function PlantForm({ plant }: { plant: Plant | null }) {
     setValues((v) => ({ ...v, [key]: value }));
     if (errors[key]) setErrors((e) => ({ ...e, [key]: undefined }));
   };
+
+  /** Fills the species from an AI suggestion: a catalog match, or a custom name. */
+  function chooseCandidate(c: IdentificationCandidate) {
+    if (c.catalogSpeciesId) {
+      set('species', c.catalogSpeciesId);
+      return;
+    }
+    const common = c.commonName[i18n.resolvedLanguage === 'he' ? 'he' : 'en'].trim();
+    const name = !common || common === c.scientificName ? c.scientificName : `${common} (${c.scientificName})`;
+    setValues((v) => ({ ...v, species: NOT_IN_CATALOG, customSpeciesName: name.slice(0, 100) }));
+  }
 
   const inputProps = (name: keyof FormValues) => ({
     id: fid(name),
@@ -309,6 +324,13 @@ function PlantForm({ plant }: { plant: Plant | null }) {
             />
           )}
           {errors.species && <p className="mt-1 text-xs font-bold text-clay-ink">{errors.species}</p>}
+          {aiAvailable && !catalog.error && (
+            <IdentifyPanel
+              source={photo ? { file: photo } : plant?.coverPhoto ? { photo: plant.coverPhoto } : null}
+              species={catalog.species}
+              onChoose={chooseCandidate}
+            />
+          )}
         </div>
         {values.species === NOT_IN_CATALOG && (
           <Field label={t('fields.customSpeciesName')} htmlFor={fid('customSpeciesName')} optional>

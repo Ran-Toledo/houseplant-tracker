@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/><meta name="color-scheme" content="light"/><title>AI identification and health checks — Houseplant Tracker</title>
+<!-- Self-contained, offline-ready UI mockup for project documentation. No backend, no AI calls, no external CSS or images. -->
+<style>
+:root { color-scheme: light; --forest:#234b35; --forest2:#356b4a; --ink:#253b2c; --muted:#7b897f; --subtle:#92a094; --panel:#fffdfa; --sage:#eaf0e6; --border:#e5ebe2; --mint:#e7f4e8; --ochre:#bf9b55; --clay:#c4644f; --clay-ink:#9a4636; --shadow:0 18px 65px rgba(29,63,38,.12); }
+* {box-sizing:border-box}
+html {background:#edf1e8}
+body {margin:0; font-family:Inter,"Segoe UI","Arial","Noto Sans Hebrew",sans-serif; color:var(--ink); line-height:1.45; -webkit-font-smoothing:antialiased}
+button {font:inherit; cursor:pointer}
+h1,h2,h3,p {margin:0}
+:focus-visible {outline:3px solid #68b885; outline-offset:3px}
+.icon {width:18px;height:18px;stroke:currentColor;stroke-width:1.75;fill:none;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+.icon.sm {width:14px;height:14px}
+.page-head {max-width:1500px;margin:28px auto 6px;padding:0 24px;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+.page-head h1 {font-size:22px;letter-spacing:-.03em}
+.page-head p {font-size:12px;color:var(--muted);margin-top:4px;max-width:640px}
+.locale {display:flex;padding:3px;gap:3px;background:#f0f2ec;border-radius:999px;border:1px solid #e7ece3}
+.locale button {border:0;background:transparent;color:#758378;font-size:12px;font-weight:800;border-radius:999px;padding:7px 11px}
+.locale button.active {background:white;color:var(--forest);box-shadow:0 1px 5px rgba(27,65,35,.13)}
+.stages {max-width:1500px;margin:0 auto 40px;padding:16px 24px;display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:24px;align-items:start}
+.stage-label {font-size:10px;font-weight:850;letter-spacing:.14em;text-transform:uppercase;color:var(--forest2);margin:0 0 8px 6px}
+html[dir=rtl] .stage-label {letter-spacing:0}
+.stage {background:var(--panel);box-shadow:var(--shadow);border:1px solid rgba(132,159,132,.25);border-radius:30px;padding:24px 20px 22px}
+.stage h2 {font-size:24px;line-height:1.1;font-weight:840;letter-spacing:-.03em;margin-bottom:16px}
+html[dir=rtl] h1, html[dir=rtl] h2 {letter-spacing:normal}
+.label {display:block;font-size:12px;font-weight:800;color:#55695b;margin-bottom:6px}
+.label .opt {font-weight:400;color:var(--subtle)}
+.picker {min-height:48px;border:1px solid var(--border);background:white;border-radius:12px;padding:0 12px;display:flex;align-items:center;justify-content:space-between;color:var(--subtle);font-size:15px}
+.ai-btn {margin-top:8px;display:inline-flex;align-items:center;gap:7px;min-height:42px;border-radius:12px;border:1px solid #d7e6d6;background:#f2f8ef;color:var(--forest2);font-size:13px;font-weight:800;padding:0 14px}
+.ai-hint {font-size:11px;color:var(--muted);margin-top:6px}
+.panel {margin-top:12px;border:1px solid #dbe8d6;border-radius:16px;background:white;padding:12px;box-shadow:0 3px 14px rgba(39,64,41,.045)}
+.panel-head {display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px}
+.ai-tag {display:inline-flex;align-items:center;gap:4px;border-radius:99px;background:#eef3fb;color:#3d5a87;border:1px solid #dbe4f3;font-size:9px;font-weight:850;padding:4px 7px;text-transform:uppercase;letter-spacing:.06em}
+html[dir=rtl] .ai-tag {text-transform:none;letter-spacing:0}
+.panel-title {font-size:13px;font-weight:850}
+.close {border:0;background:transparent;color:var(--muted);width:32px;height:32px;border-radius:10px;display:grid;place-items:center}
+.progress {display:flex;gap:10px;align-items:center;padding:10px;border-radius:12px;background:#f5f9f3;font-size:12px;color:#43584a}
+.spinner {width:20px;height:20px;border-radius:50%;border:2.5px solid #cfe2d2;border-top-color:var(--forest2);animation:spin 1s linear infinite;flex-shrink:0}
+@keyframes spin {to{transform:rotate(360deg)}}
+.cand {display:flex;gap:10px;padding:10px 4px;border-top:1px solid #eff1e9}
+.cand:first-of-type {border-top:0}
+.thumb {width:52px;height:52px;border-radius:12px;background:#c3d9c3;flex-shrink:0;overflow:hidden}
+.thumb svg {width:100%;height:100%;display:block}
+.cand-main {min-width:0;flex:1}
+.cand-name {font-weight:800;font-size:14px}
+.latin {display:block;font-style:italic;color:var(--subtle);font-size:12px}
+.chips {display:flex;flex-wrap:wrap;gap:5px;margin:5px 0}
+.chip {font-size:10px;font-weight:850;border-radius:99px;padding:3px 8px;border:1px solid}
+.chip.high {background:#e7f4e8;color:#2f6a45;border-color:#cfe6d4}
+.chip.medium {background:#fdf3e3;color:#8a5a14;border-color:#f0dcc0}
+.chip.low {background:#f4f3ee;color:#6d756c;border-color:var(--border)}
+.chip.catalog {background:#f2f7ee;color:#689174;border-color:#dbe8d6}
+.chip.custom {background:white;color:var(--muted);border-color:var(--border)}
+.reason {font-size:11.5px;color:#55695b}
+.use {margin-top:7px;min-height:36px;border-radius:10px;border:0;background:var(--forest2);color:white;font-size:12px;font-weight:800;padding:0 12px}
+.use.secondary {background:white;color:var(--forest);border:1px solid var(--border)}
+.note {font-size:10.5px;color:var(--muted);margin-top:8px;display:flex;gap:6px;align-items:flex-start}
+.section-h {display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}
+.section-h h3 {display:flex;align-items:center;gap:8px;font-size:17px;letter-spacing:-.02em}
+.small-btn {display:inline-flex;align-items:center;gap:6px;min-height:38px;border-radius:12px;border:1px solid #d7e6d6;background:#f2f8ef;color:var(--forest2);font-size:12px;font-weight:800;padding:0 12px}
+.result {border:1px solid #dbe8d6;border-radius:18px;background:linear-gradient(135deg,#fbfdf9,#f3f8f1);padding:14px}
+.result-top {display:flex;gap:12px;align-items:center}
+.result-photo {width:64px;height:64px;border-radius:14px;overflow:hidden;background:#c3d9c3;flex-shrink:0}
+.result-photo svg {width:100%;height:100%;display:block}
+.cond {display:inline-flex;align-items:center;gap:6px;border-radius:99px;background:white;border:1px solid var(--border);font-size:12px;font-weight:850;padding:5px 10px}
+.dot {width:8px;height:8px;border-radius:50%;background:#5da879}
+.dot.na {background:var(--ochre)} .dot.un {background:var(--clay)}
+.meta {font-size:11px;color:var(--muted);margin-top:4px}
+.summary {font-size:13px;color:#385340;margin:12px 0 4px}
+.warn {display:flex;gap:7px;align-items:flex-start;background:#fdf3e3;border:1px solid #f0dcc0;color:#8a5a14;border-radius:12px;padding:8px 10px;font-size:11.5px;margin-top:10px}
+.finding {background:white;border:1px solid var(--border);border-radius:14px;padding:11px;margin-top:9px}
+.finding-h {display:flex;justify-content:space-between;align-items:center;gap:8px}
+.finding-key {display:flex;align-items:center;gap:7px;font-size:13px;font-weight:850}
+.f-icon {width:28px;height:28px;border-radius:9px;display:grid;place-items:center;background:#e9f1fb;color:#3d6aa3}
+.f-icon.sun {background:#fdf3e3;color:#a26d1b}
+.likely {font-size:10px;font-weight:850;color:#8a5a14;background:#fdf3e3;border-radius:99px;padding:3px 8px}
+.likely.possible {color:#6d756c;background:#f4f3ee}
+.obs {font-size:12px;color:#43584a;margin-top:7px}
+.actions {margin:6px 0 0;padding-inline-start:18px;font-size:12px;color:#385340}
+.actions li {margin-top:3px}
+.log-btn {margin-top:8px;min-height:34px;border-radius:10px;border:1px solid var(--border);background:white;color:var(--forest);font-size:11.5px;font-weight:800;padding:0 10px;display:inline-flex;align-items:center;gap:6px}
+.apply {margin-top:12px;display:flex;gap:8px;flex-wrap:wrap}
+.apply .primary {flex:1;min-height:44px;border-radius:12px;border:0;background:var(--forest2);color:white;font-size:13px;font-weight:850}
+.apply .ghost {min-height:44px;border-radius:12px;border:1px solid #f0d3ca;background:white;color:var(--clay-ink);font-size:13px;font-weight:800;padding:0 12px}
+.disclaimer {font-size:10.5px;color:var(--muted);margin-top:10px;display:flex;gap:6px}
+.history {border:1px solid var(--border);border-radius:16px;background:white}
+.h-row {display:flex;gap:10px;align-items:center;padding:10px 12px;border-top:1px solid #eff1e9;width:100%;border-inline:0;border-bottom:0;background:transparent;text-align:start}
+.h-row:first-child {border-top:0}
+.h-thumb {width:44px;height:44px;border-radius:10px;overflow:hidden;background:#c3d9c3;flex-shrink:0}
+.h-thumb svg {width:100%;height:100%;display:block}
+.h-main {flex:1;min-width:0}
+.h-date {font-size:11px;color:var(--muted)}
+.h-sum {font-size:12px;color:#385340;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.applied {font-size:10px;font-weight:850;color:#2f6a45}
+.chev {color:var(--subtle)}
+html[dir=rtl] .chev {transform:rotate(180deg)}
+.viewer {border-radius:18px;overflow:hidden;background:#1d2a21}
+.viewer svg {display:block;width:100%;height:190px}
+.viewer-bar {background:var(--panel);display:flex;flex-wrap:wrap;gap:7px;padding:10px;justify-content:space-between}
+.viewer-bar .g {display:flex;gap:7px;flex-wrap:wrap}
+.vb {min-height:40px;border-radius:12px;border:1px solid var(--border);background:white;color:var(--forest);font-size:12px;font-weight:800;padding:0 11px;display:inline-flex;align-items:center;gap:6px}
+.vb.ai {border-color:#d7e6d6;background:#f2f8ef;color:var(--forest2)}
+.vb.close-b {background:var(--forest2);color:white;border:0}
+.caption {font-size:11px;color:var(--muted);margin-top:10px}
+.footnote {max-width:1500px;margin:0 auto 40px;padding:0 24px;font-size:11px;color:#91a094}
+</style></head>
+<body>
+<svg class="svg-defs" style="position:absolute;width:0;height:0" aria-hidden="true">
+  <symbol id="i-sparkle" viewBox="0 0 24 24"><path d="M12 3l1.8 4.7L18.5 9.5l-4.7 1.8L12 16l-1.8-4.7L5.5 9.5l4.7-1.8z"/><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z"/></symbol>
+  <symbol id="i-camera" viewBox="0 0 24 24"><path d="M4 8h3l2-2.5h6L17 8h3v11H4z"/><circle cx="12" cy="13.5" r="3.5"/></symbol>
+  <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 4l9 16H3z"/><path d="M12 10v4M12 17h.01"/></symbol>
+  <symbol id="i-droplet" viewBox="0 0 24 24"><path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.4 1.4M17.6 17.6L19 19M5 19l1.4-1.4M17.6 6.4L19 5"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-chevron" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></symbol>
+  <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"/></symbol>
+  <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/></symbol>
+  <symbol id="i-leaf" viewBox="0 0 24 24"><path d="M5 19c0-8 5-13 14-14 0 9-5 14-13 14z"/><path d="M5 19l7-7"/></symbol>
+  <symbol id="art" viewBox="0 0 100 100"><rect width="100" height="100" fill="#c3d9c3"/><rect x="34" y="66" width="32" height="26" rx="4" fill="#b98a66"/><path d="M50 68C46 50 30 42 22 30c14 0 26 10 28 26 2-18 12-30 28-34-6 14-18 26-28 46z" fill="#3f7d55"/><path d="M50 60c-6-10-16-12-24-12 6 8 14 12 24 14z" fill="#5c9c6f"/></symbol>
+  <symbol id="art2" viewBox="0 0 100 100"><rect width="100" height="100" fill="#d8e3c9"/><rect x="36" y="68" width="28" height="24" rx="4" fill="#e7e1d3"/><path d="M50 70V30M50 50c-10-6-18-6-24-2 6 6 14 6 24 4M50 40c10-6 18-6 24-2-6 6-14 6-24 4" stroke="#4d8a5c" stroke-width="6" fill="none" stroke-linecap="round"/></symbol>
+  <symbol id="art3" viewBox="0 0 100 100"><rect width="100" height="100" fill="#cfdcc4"/><rect x="33" y="66" width="34" height="26" rx="4" fill="#9c7b5c"/><path d="M50 68C44 52 30 46 24 36c12 0 22 8 26 22 2-16 10-26 26-30-4 12-16 24-26 40z" fill="#7f9a4c"/><circle cx="36" cy="44" r="3" fill="#b8a14a"/><circle cx="64" cy="40" r="3" fill="#b8a14a"/></symbol>
+</svg>
+
+<header class="page-head">
+  <div>
+    <h1 data-i18n="pageHeading">Screen C: AI identification and health checks</h1>
+    <p data-i18n="pageIntro">Design reference for phase 2. Four states: identifying a plant in the plant form, a health check result, the Health checks list on the plant page, and the photo viewer's new button.</p>
+  </div>
+  <div class="locale" role="group" aria-label="Language">
+    <button type="button" data-language="en" class="active" aria-pressed="true">English</button>
+    <button type="button" data-language="he" aria-pressed="false">עברית</button>
+  </div>
+</header>
+
+<main class="stages">
+  <!-- C1: identification in the plant form -->
+  <section>
+    <p class="stage-label" data-i18n="c1">C1 · Plant form: identify from photo</p>
+    <div class="stage">
+      <h2 data-i18n="addPlant">Add a plant</h2>
+      <span class="label"><span data-i18n="species">Species</span> <span class="opt" data-i18n="optional">(optional)</span></span>
+      <div class="picker"><span data-i18n="pickSpecies">Choose a species</span><svg class="icon sm chev"><use href="#i-chevron"/></svg></div>
+      <button type="button" class="ai-btn" data-demo-action><svg class="icon sm"><use href="#i-sparkle"/></svg><span data-i18n="identify">Identify from photo</span></button>
+      <p class="ai-hint" data-i18n="identifyHint">Uses the photo chosen below, or asks for one.</p>
+
+      <div class="panel">
+        <div class="panel-head">
+          <span class="panel-title" data-i18n="identifying">Identifying…</span>
+        </div>
+        <div class="progress"><span class="spinner" aria-hidden="true"></span><span data-i18n="identifyingBody">Looking at the photo and comparing it with the catalog. This usually takes 5 to 20 seconds.</span></div>
+      </div>
+
+      <div class="panel" aria-label="Candidates">
+        <div class="panel-head">
+          <span style="display:flex;gap:8px;align-items:center"><span class="panel-title" data-i18n="candidates">Possible matches</span><span class="ai-tag"><svg class="icon sm"><use href="#i-sparkle"/></svg><span data-i18n="aiTag">AI</span></span></span>
+          <button type="button" class="close" aria-label="Close" data-demo-action><svg class="icon sm"><use href="#i-close"/></svg></button>
+        </div>
+        <div class="cand">
+          <div class="thumb"><svg><use href="#art"/></svg></div>
+          <div class="cand-main">
+            <span class="cand-name" data-i18n="c1Name">Monstera</span>
+            <i class="latin">Monstera deliciosa</i>
+            <div class="chips"><span class="chip high" data-i18n="high">High confidence</span><span class="chip catalog" data-i18n="inCatalog">In the catalog</span></div>
+            <p class="reason" data-i18n="c1Reason">Large heart-shaped leaves with deep splits and holes.</p>
+            <button type="button" class="use" data-demo-action data-i18n="useThis">Use this species</button>
+          </div>
+        </div>
+        <div class="cand">
+          <div class="thumb"><svg><use href="#art3"/></svg></div>
+          <div class="cand-main">
+            <span class="cand-name" data-i18n="c2Name">Split-leaf philodendron</span>
+            <i class="latin">Thaumatophyllum bipinnatifidum</i>
+            <div class="chips"><span class="chip low" data-i18n="low">Low confidence</span><span class="chip custom" data-i18n="notInCatalog">Not in the catalog</span></div>
+            <p class="reason" data-i18n="c2Reason">Similar lobed leaves, but these have holes rather than only deep lobes.</p>
+            <button type="button" class="use secondary" data-demo-action data-i18n="useName">Use this name</button>
+          </div>
+        </div>
+        <p class="note"><svg class="icon sm"><use href="#i-info"/></svg><span data-i18n="identifyNote">AI suggestions can be wrong. Nothing is saved until you save the form.</span></p>
+      </div>
+      <p class="caption" data-i18n="c1Caption">Choosing a catalog match fills the species picker. A match outside the catalog picks "Not in the catalog" and fills the species name. If the photo shows no plant, the panel says so instead of listing matches.</p>
+    </div>
+  </section>
+
+  <!-- C2: health check result -->
+  <section>
+    <p class="stage-label" data-i18n="c2">C2 · Plant page: health check result</p>
+    <div class="stage">
+      <div class="section-h">
+        <h3><svg class="icon"><use href="#i-sparkle"/></svg><span data-i18n="healthChecks">Health checks</span></h3>
+        <button type="button" class="small-btn" data-demo-action><svg class="icon sm"><use href="#i-camera"/></svg><span data-i18n="checkHealth">Check health</span></button>
+      </div>
+      <div class="result">
+        <div class="result-top">
+          <div class="result-photo"><svg><use href="#art3"/></svg></div>
+          <div>
+            <span class="cond"><span class="dot na"></span><span data-i18n="needsAttention">Needs attention</span></span>
+            <p class="meta"><span data-i18n="justNow">Just now</span> · <span data-i18n="medConf">Medium confidence</span> · <span class="ai-tag"><span data-i18n="aiTag">AI</span></span></p>
+          </div>
+        </div>
+        <p class="summary" data-i18n="summary">Mostly healthy growth, but a few lower leaves are yellowing and the soil looks wet.</p>
+        <div class="finding">
+          <div class="finding-h">
+            <span class="finding-key"><span class="f-icon"><svg class="icon sm"><use href="#i-droplet"/></svg></span><span data-i18n="overwatering">Overwatering</span></span>
+            <span class="likely" data-i18n="likely">Likely</span>
+          </div>
+          <p class="obs" data-i18n="obs1">Two lower leaves are yellow with soft stems, and the topsoil looks dark and wet.</p>
+          <ul class="actions">
+            <li data-i18n="a1">Let the top half of the soil dry before watering again.</li>
+            <li data-i18n="a2">Check that the drainage hole isn't blocked.</li>
+          </ul>
+          <button type="button" class="log-btn" data-demo-action><svg class="icon sm"><use href="#i-plus"/></svg><span data-i18n="logTreatment">Log as treatment</span></button>
+        </div>
+        <div class="finding">
+          <div class="finding-h">
+            <span class="finding-key"><span class="f-icon sun"><svg class="icon sm"><use href="#i-sun"/></svg></span><span data-i18n="tooLittleLight">Too little light</span></span>
+            <span class="likely possible" data-i18n="possible">Possible</span>
+          </div>
+          <p class="obs" data-i18n="obs2">New leaves are smaller and the stems lean towards the window.</p>
+          <ul class="actions"><li data-i18n="a3">Move it closer to the window, out of direct midday sun.</li></ul>
+          <button type="button" class="log-btn" data-demo-action><svg class="icon sm"><use href="#i-plus"/></svg><span data-i18n="logTreatment">Log as treatment</span></button>
+        </div>
+        <div class="warn"><svg class="icon sm"><use href="#i-alert"/></svg><span data-i18n="photoWarn">The photo is a little dark, so the result may be less reliable.</span></div>
+        <div class="apply">
+          <button type="button" class="primary" data-demo-action data-i18n="applyCond">Set condition to "Needs attention"</button>
+          <button type="button" class="ghost" data-demo-action aria-label="Delete check"><svg class="icon sm"><use href="#i-trash"/></svg></button>
+        </div>
+        <p class="disclaimer"><svg class="icon sm"><use href="#i-info"/></svg><span data-i18n="disclaimer">AI assessment, not a diagnosis. Check the plant yourself before acting on it.</span></p>
+      </div>
+      <p class="caption" data-i18n="c2Caption">While it runs, the card shows the same progress state as C1 ("Checking the plant's health…"). "Check health" uses the cover photo; with no photo it asks for one and adds it to the plant's photos. The condition only changes when you tap the button, which then shows "Condition updated".</p>
+    </div>
+  </section>
+
+  <!-- C3: history and photo viewer -->
+  <section>
+    <p class="stage-label" data-i18n="c3">C3 · Plant page: past checks and photo viewer</p>
+    <div class="stage">
+      <div class="section-h">
+        <h3><svg class="icon"><use href="#i-sparkle"/></svg><span data-i18n="healthChecks">Health checks</span></h3>
+        <button type="button" class="small-btn" data-demo-action><svg class="icon sm"><use href="#i-camera"/></svg><span data-i18n="checkHealth">Check health</span></button>
+      </div>
+      <div class="history">
+        <button type="button" class="h-row" data-demo-action>
+          <span class="h-thumb"><svg><use href="#art3"/></svg></span>
+          <span class="h-main">
+            <span class="h-date" data-i18n="d1">19 Oct 2026</span>
+            <span style="display:flex;gap:6px;align-items:center"><span class="cond" style="padding:2px 8px;font-size:11px"><span class="dot na"></span><span data-i18n="needsAttention">Needs attention</span></span><span class="applied" data-i18n="applied">Applied</span></span>
+            <span class="h-sum" style="display:block" data-i18n="summary">Mostly healthy growth, but a few lower leaves are yellowing and the soil looks wet.</span>
+          </span>
+          <svg class="icon sm chev"><use href="#i-chevron"/></svg>
+        </button>
+        <button type="button" class="h-row" data-demo-action>
+          <span class="h-thumb"><svg><use href="#art"/></svg></span>
+          <span class="h-main">
+            <span class="h-date" data-i18n="d2">2 Sep 2026</span>
+            <span style="display:flex;gap:6px;align-items:center"><span class="cond" style="padding:2px 8px;font-size:11px"><span class="dot"></span><span data-i18n="healthy">Healthy</span></span></span>
+            <span class="h-sum" style="display:block" data-i18n="summary2">Firm, glossy leaves and steady new growth.</span>
+          </span>
+          <svg class="icon sm chev"><use href="#i-chevron"/></svg>
+        </button>
+      </div>
+      <p class="caption" data-i18n="c3Caption">Newest first. Tapping a row opens its full result card (C2) in place.</p>
+
+      <div style="margin-top:20px" class="viewer">
+        <svg viewBox="0 0 100 60" preserveAspectRatio="xMidYMid slice"><use href="#art3"/></svg>
+        <div class="viewer-bar">
+          <div class="g">
+            <button type="button" class="vb ai" data-demo-action><svg class="icon sm"><use href="#i-sparkle"/></svg><span data-i18n="checkHealth">Check health</span></button>
+            <button type="button" class="vb" data-demo-action><svg class="icon sm"><use href="#i-star"/></svg><span data-i18n="setCover">Set as cover</span></button>
+            <button type="button" class="vb" data-demo-action style="color:var(--clay-ink)"><svg class="icon sm"><use href="#i-trash"/></svg><span data-i18n="delete">Delete photo</span></button>
+          </div>
+          <button type="button" class="vb close-b" data-demo-action data-i18n="close">Close</button>
+        </div>
+      </div>
+      <p class="caption" data-i18n="viewerCaption">Photo viewer: "Check health" runs a check on this photo, closes the viewer and shows the result in the Health checks section.</p>
+    </div>
+  </section>
+</main>
+<p class="footnote" data-i18n="footnote">Screen C — design mockup only. AI buttons are hidden when AI features are off, not set up, or over the monthly limit. Sample results are illustrative.</p>
+<div class="toast" style="position:fixed;inset:auto 15px 25px;margin:auto;max-width:360px;text-align:center;padding:12px 17px;border-radius:12px;background:#214f38;color:white;font-size:13px;opacity:0;pointer-events:none;transition:opacity .2s"></div>
+
+<script>const TRANSLATIONS = {
+ "en": {"pageTitle":"AI identification and health checks — Houseplant Tracker","demoOnly":"Design preview only — no data was changed."},
+ "he": {"pageTitle":"זיהוי ובדיקות בריאות עם AI — מעקב עציצים","demoOnly":"זוהי הדמיית עיצוב — לא בוצע שינוי בנתונים.",
+  "pageHeading":"מסך C: זיהוי ובדיקות בריאות עם AI","pageIntro":"הדמיית עיצוב לשלב 2. ארבעה מצבים: זיהוי צמח בטופס הצמח, תוצאת בדיקת בריאות, רשימת בדיקות הבריאות בדף הצמח, והכפתור החדש במציג התמונות.",
+  "c1":"C1 · טופס צמח: זיהוי מתמונה","addPlant":"הוספת צמח","species":"מין","optional":"(רשות)","pickSpecies":"בחירת מין","identify":"זיהוי מתמונה","identifyHint":"משתמש בתמונה שנבחרה למטה, או מבקש תמונה.",
+  "identifying":"מזהה…","identifyingBody":"בודק את התמונה ומשווה אותה לקטלוג. זה לוקח בדרך כלל 5 עד 20 שניות.","candidates":"התאמות אפשריות","aiTag":"AI",
+  "c1Name":"מונסטרה","high":"ודאות גבוהה","inCatalog":"בקטלוג","c1Reason":"עלים גדולים בצורת לב עם חריצים עמוקים וחורים.","useThis":"בחירת המין הזה",
+  "c2Name":"פילודנדרון מחורץ","low":"ודאות נמוכה","notInCatalog":"לא בקטלוג","c2Reason":"עלים מחורצים דומים, אבל כאן יש חורים ולא רק חריצים עמוקים.","useName":"שימוש בשם הזה",
+  "identifyNote":"הצעות AI עלולות לטעות. שום דבר לא נשמר עד ששומרים את הטופס.",
+  "c1Caption":"בחירה בהתאמה מהקטלוג ממלאת את בורר המין. התאמה שאינה בקטלוג בוחרת \"לא בקטלוג\" וממלאת את שם המין. אם בתמונה אין צמח, החלונית אומרת זאת במקום להציג התאמות.",
+  "c2":"C2 · דף הצמח: תוצאת בדיקת בריאות","healthChecks":"בדיקות בריאות","checkHealth":"בדיקת בריאות","needsAttention":"דורש תשומת לב","justNow":"עכשיו","medConf":"ודאות בינונית",
+  "summary":"הצמיחה ברובה בריאה, אבל כמה עלים תחתונים מצהיבים והאדמה נראית רטובה.","overwatering":"השקיית יתר","likely":"סביר","obs1":"שני עלים תחתונים צהובים עם גבעולים רכים, והאדמה העליונה נראית כהה ורטובה.",
+  "a1":"לתת למחצית העליונה של האדמה להתייבש לפני ההשקיה הבאה.","a2":"לבדוק שחור הניקוז אינו חסום.","logTreatment":"תיעוד כטיפול","tooLittleLight":"מעט מדי אור","possible":"אפשרי",
+  "obs2":"העלים החדשים קטנים יותר והגבעולים נוטים לכיוון החלון.","a3":"לקרב אותו לחלון, הרחק משמש ישירה של הצהריים.","photoWarn":"התמונה מעט חשוכה, ולכן התוצאה עשויה להיות פחות אמינה.",
+  "applyCond":"עדכון המצב ל\"דורש תשומת לב\"","disclaimer":"הערכה של AI, לא אבחנה. כדאי לבדוק את הצמח בעצמך לפני שפועלים לפיה.",
+  "c2Caption":"בזמן הבדיקה, הכרטיס מציג את אותו מצב התקדמות כמו ב-C1 (\"בודק את בריאות הצמח…\"). \"בדיקת בריאות\" משתמשת בתמונת השער; אם אין תמונה, היא מבקשת אחת ומוסיפה אותה לתמונות הצמח. המצב משתנה רק בלחיצה על הכפתור, ואז מוצג \"המצב עודכן\".",
+  "c3":"C3 · דף הצמח: בדיקות קודמות ומציג התמונות","d1":"19 באוק׳ 2026","applied":"הוחל","d2":"2 בספט׳ 2026","healthy":"בריא","summary2":"עלים מוצקים ומבריקים וצמיחה חדשה יציבה.",
+  "c3Caption":"החדשות קודם. לחיצה על שורה פותחת את כרטיס התוצאה המלא (C2) במקום.","setCover":"קביעה כתמונת שער","delete":"מחיקת התמונה","close":"סגירה",
+  "viewerCaption":"מציג התמונות: \"בדיקת בריאות\" בודקת את התמונה הזו, סוגרת את המציג ומציגה את התוצאה באזור בדיקות הבריאות.",
+  "footnote":"מסך C — הדמיית עיצוב בלבד. כפתורי ה-AI מוסתרים כשתכונות ה-AI כבויות, לא הוגדרו, או כשהמכסה החודשית נוצלה. התוצאות לדוגמה בלבד."}
+};</script>
+<script>
+(() => {
+  const en = {};
+  document.querySelectorAll('[data-i18n]').forEach(el => { en[el.dataset.i18n] = el.textContent; });
+  const dict = { en: Object.assign(en, TRANSLATIONS.en), he: TRANSLATIONS.he };
+  const storageKey = 'houseplant-design-language';
+  let locale = 'en';
+  try { locale = localStorage.getItem(storageKey) === 'he' ? 'he' : 'en'; } catch (_) {}
+  function applyLang(lang) {
+    locale = lang;
+    document.documentElement.lang = lang;
+    document.documentElement.dir = lang === 'he' ? 'rtl' : 'ltr';
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const val = dict[lang][el.dataset.i18n];
+      if (val !== undefined) el.textContent = val;
+    });
+    document.querySelectorAll('[data-language]').forEach(el => {
+      const selected = el.dataset.language === lang;
+      el.classList.toggle('active', selected);
+      el.setAttribute('aria-pressed', String(selected));
+    });
+    document.title = dict[lang].pageTitle;
+    try { localStorage.setItem(storageKey, lang); } catch (_) {}
+  }
+  const toast = document.querySelector('.toast');
+  document.querySelectorAll('[data-demo-action]').forEach(b => b.addEventListener('click', () => {
+    toast.textContent = dict[locale].demoOnly;
+    toast.style.opacity = 1;
+    clearTimeout(window.__t);
+    window.__t = setTimeout(() => { toast.style.opacity = 0; }, 2700);
+  }));
+  document.querySelectorAll('[data-language]').forEach(b => b.addEventListener('click', () => applyLang(b.dataset.language)));
+  applyLang(locale);
+})();
+</script>
+</body></html>

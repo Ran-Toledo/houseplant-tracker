@@ -4,6 +4,7 @@ These are **standalone HTML mockups**, not the running application. Open either 
 
 - `screen-a-my-plants.html` — My Plants: search, filter chips, card gallery, location, condition, watering status, add-plant placeholder. The Monstera card links to Screen B.
 - `screen-b-plant-details.html` — Plant Details: cover image, plant identity, watering shortcut, static species care guide, personal growing conditions, recent activities. Back link returns to Screen A.
+- `screen-c-ai-identify-health.html` — AI features (phase 2): identifying a species from a photo in the plant form, a health check result card, the Health checks list on the plant page, and the photo viewer's "Check health" button.
 
 Both screens include responsive layouts and an interactive **English / עברית** toggle with RTL support. The language selection is remembered in localStorage where permitted. Some actions show a "design preview only" notification; no data is saved.
 

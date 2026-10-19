@@ -61,13 +61,20 @@ export function createAiService({ provider, settings, requests, now = () => new 
   return {
     status,
 
-    /** Sends a structured request and returns the validated answer, or throws an `ApiError`. */
-    async generate<S extends z.ZodType>(context: RequestContext, request: StructuredRequest<S>): Promise<z.output<S>> {
+    /**
+     * Sends a structured request and returns the validated answer with the id of
+     * its `ai_requests` row, or throws an `ApiError`.
+     */
+    async generate<S extends z.ZodType>(
+      context: RequestContext,
+      request: StructuredRequest<S>,
+    ): Promise<{ data: z.output<S>; requestId: string }> {
       const active = assertAvailable();
       const started = now().getTime();
+      const requestId = randomUUID();
       const log = (status: Status, usage: AiUsage | null, extra: { errorCode?: string; result?: unknown } = {}) =>
         requests.insert({
-          id: randomUUID(),
+          id: requestId,
           kind: context.kind,
           plantId: context.plantId ?? null,
           photoId: context.photoId ?? null,
@@ -109,7 +116,7 @@ export function createAiService({ provider, settings, requests, now = () => new 
         throw new ApiError(502, 'ai_invalid_output', 'The AI service returned an answer that could not be used. Try again.');
       }
       log('ok', reply.usage, { result: result.data });
-      return result.data;
+      return { data: result.data, requestId };
     },
   };
 }

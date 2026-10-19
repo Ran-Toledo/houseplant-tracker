@@ -84,7 +84,7 @@ binaries) are never shadowed by the host's Windows ones.
 
 | Folder | Contents |
 |---|---|
-| `routes/` | Hono routers: `species`, `plants` (+ activities), `photos`, `care` (schedules, snooze, due list), `settings` (+ `/api/config`). Parse input, call services, shape responses. |
+| `routes/` | Hono routers: `species`, `plants` (+ activities), `photos`, `care` (schedules, snooze, due list), `ai` (identification, health checks), `settings` (+ `/api/config`). Parse input, call services, shape responses. |
 | `services/` | `plants` (species checks, create with initial history, cascade delete), `photos` (upload/cover/delete), `images` (sharp pipeline), `settings` (defaults over stored values), `care` (schedules and due dates, added to plants as `wateringDue`). |
 | `repositories/` | Drizzle queries per table; plant list query derives last watering/repotting and joins the cover photo. |
 | `ai/` | AI provider interface, the OpenAI implementation and a fake for tests; `service` (owner switch, monthly limit, answer validation, request log); `images` (1024 px JPEG for the model). |
@@ -110,7 +110,10 @@ All model calls go through `ai/service.ts`:
 
 Only the api container receives `OPENAI_API_KEY`, and the browser never sees it.
 `docker compose exec api npm run ai:check` sends one tiny request to confirm the key and model work.
-Feature modules (identification, health checks, the assistant) build their prompts on top of this; see
+Feature services build their prompts on top of this: `services/identify.ts` (the photo plus the catalog's
+ids and names; answers are mapped back onto the catalog) and `services/health-checks.ts` (the photo plus
+the plant's details, its last 10 activities and the species care notes). Images are re-encoded to JPEG,
+1024 px on the longest edge, without metadata (`ai/images.ts`). The assistant comes next; see
 [NEXT_STAGE_DESIGN.md](NEXT_STAGE_DESIGN.md).
 
 ### Error format
@@ -122,7 +125,9 @@ Every error response is JSON:
 ```
 
 Codes: `validation_error`, `invalid_json`, `invalid_form`, `unknown_species`, `not_found`,
-`unsupported_image_format` (415), `payload_too_large` (413), `internal_error` (500).
+`unsupported_image_format` (415), `payload_too_large` (413), `internal_error` (500). AI requests add
+`ai_not_configured` and `ai_disabled` (503), `ai_limit_reached` (429), `ai_refused` (422),
+`ai_error` and `ai_invalid_output` (502), and `ai_timeout` (504).
 
 AI codes:
 - `ai_not_configured`, `ai_disabled` (503);
@@ -153,6 +158,10 @@ AI codes:
 | `PUT /api/plants/:id/schedules/watering` | `{ enabled, mode: "adaptive" or "fixed", intervalDays? }`: create or change the watering reminder |
 | `POST /api/schedules/:id/snooze` | `{ days }` (1–14): postpone the current reminder; logging watering clears it |
 | `GET /api/due?days=` | Plants whose next check is overdue or within `days` (default 0), most urgent first |
+| `POST /api/ai/identify` | Identify a species: a `multipart/form-data` `photo` (not stored) or `{ "photoId" }`. Returns up to 3 candidates mapped onto the catalog |
+| `GET/POST /api/plants/:id/health-checks` | The plant's health checks (newest first) / check one of its photos: `{ "photoId" }` → `201` |
+| `POST /api/health-checks/:id/apply` | Set the plant's condition to the assessed one; returns the check and the plant |
+| `DELETE /api/health-checks/:id` | Delete a check |
 | `GET/PATCH /api/settings` | App-wide settings (time zone, hemisphere, AI switch and monthly limit, reminder time); PATCH takes any subset |
 | `GET /api/config` | What the client may show: AI status and monthly usage, push availability, time zone |
 
@@ -178,6 +187,7 @@ Hebrew/English renders correctly.
 ## Next stage
 
 The design for AI identification and health checks, the read-only assistant and reminders is in
-[NEXT_STAGE_DESIGN.md](NEXT_STAGE_DESIGN.md). Its shared groundwork is built: settings, `GET /api/config`,
-the AI module and the species `careProfile`. Authentication would later be a Hono middleware in front of
+[NEXT_STAGE_DESIGN.md](NEXT_STAGE_DESIGN.md). Built so far: the shared groundwork (settings, `GET /api/config`,
+the AI module and the species `careProfile`), in-app watering reminders, and AI identification and health
+checks. Authentication would later be a Hono middleware in front of
 `/api`.

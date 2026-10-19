@@ -9,15 +9,19 @@ import { handleError, handleNotFound } from './middleware/errors';
 import { createActivityRepository } from './repositories/activities';
 import { createAiRequestRepository } from './repositories/ai-requests';
 import { createCareScheduleRepository } from './repositories/care-schedules';
+import { createHealthCheckRepository } from './repositories/health-checks';
 import { createPhotoRepository } from './repositories/photos';
 import { createPlantRepository } from './repositories/plants';
 import { createSettingsRepository } from './repositories/settings';
+import { aiRoutes, healthCheckRoutes, plantHealthCheckRoutes } from './routes/ai';
 import { dueRoutes, plantScheduleRoutes, scheduleRoutes } from './routes/care';
 import { photoRoutes, plantPhotoRoutes } from './routes/photos';
 import { plantRoutes } from './routes/plants';
 import { configRoutes, settingsRoutes } from './routes/settings';
 import { speciesRoutes } from './routes/species';
 import { createCareService } from './services/care';
+import { createHealthCheckService } from './services/health-checks';
+import { createIdentifyService } from './services/identify';
 import { createPhotoService } from './services/photos';
 import { createPlantService } from './services/plants';
 import { createSettingsService } from './services/settings';
@@ -65,6 +69,16 @@ export function createApp(deps: AppDeps) {
     requests: createAiRequestRepository(deps.db),
     now: deps.now,
   });
+  const identifyService = createIdentifyService({ ai: aiService, catalog: deps.catalog, photos: photoService });
+  const healthCheckService = createHealthCheckService({
+    ai: aiService,
+    catalog: deps.catalog,
+    checks: createHealthCheckRepository(deps.db),
+    plants: plantService,
+    photos: photoService,
+    settings: settingsService,
+    now: deps.now,
+  });
 
   const app = new Hono();
   if (!deps.quiet) app.use('/api/*', logger());
@@ -75,10 +89,13 @@ export function createApp(deps: AppDeps) {
   app.route('/api/species', speciesRoutes(deps.catalog));
   app.route('/api/plants', plantPhotoRoutes(photoService, deps.maxUploadBytes));
   app.route('/api/plants', plantScheduleRoutes(careService, plantService));
+  app.route('/api/plants', plantHealthCheckRoutes(healthCheckService));
   app.route('/api/plants', plantRoutes(plantService));
   app.route('/api/photos', photoRoutes(photoService));
   app.route('/api/schedules', scheduleRoutes(careService, plantService));
   app.route('/api/due', dueRoutes(careService, plantService));
+  app.route('/api/ai', aiRoutes(identifyService, deps.maxUploadBytes));
+  app.route('/api/health-checks', healthCheckRoutes(healthCheckService));
   app.route('/api/settings', settingsRoutes(settingsService));
   app.route('/api/config', configRoutes({ settings: settingsService, ai: aiService }));
 

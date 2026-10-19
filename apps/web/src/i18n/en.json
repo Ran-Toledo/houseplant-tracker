@@ -44,7 +44,14 @@
     "payload_too_large": "That photo is too large.",
     "pageNotFound": "Page not found",
     "pageNotFoundBody": "The page you're looking for doesn't exist.",
-    "goHome": "Back to my plants"
+    "goHome": "Back to my plants",
+    "ai_not_configured": "AI features aren't set up on this computer.",
+    "ai_disabled": "AI features are turned off in Settings.",
+    "ai_limit_reached": "This month's AI request limit has been reached. You can raise it in Settings.",
+    "ai_timeout": "The AI service took too long to answer. Please try again.",
+    "ai_error": "The AI service couldn't be reached. Please try again later.",
+    "ai_refused": "The AI service declined to answer. Try a different photo.",
+    "ai_invalid_output": "The AI service gave an answer the app couldn't use. Please try again."
   },
   "collection": {
     "eyebrow": "Your little jungle",
@@ -341,6 +348,73 @@
       "turnOn": "Turn AI features on",
       "turnOff": "Turn AI features off",
       "loadFailed": "Couldn't load the AI status."
+    }
+  },
+  "ai": {
+    "tag": "AI",
+    "confidence": {
+      "high": "High confidence",
+      "medium": "Medium confidence",
+      "low": "Low confidence"
+    },
+    "identify": {
+      "button": "Identify from photo",
+      "hintPhoto": "Uses the photo chosen below.",
+      "hintCover": "Uses this plant's cover photo.",
+      "hintNone": "Asks for a photo. It isn't saved.",
+      "otherPhoto": "Use a different photo",
+      "running": "Identifying…",
+      "runningBody": "Looking at the photo and comparing it with the catalog. This usually takes 5 to 20 seconds.",
+      "title": "Possible matches",
+      "close": "Close the matches",
+      "inCatalog": "In the catalog",
+      "notInCatalog": "Not in the catalog",
+      "useSpecies": "Use this species",
+      "useName": "Use this name",
+      "chosen": "Species filled in. Save the form to keep it.",
+      "notAPlant": "This photo doesn't seem to show a plant. Try another photo.",
+      "noMatches": "No matches found. Try a clearer photo of the leaves.",
+      "note": "AI suggestions can be wrong. Nothing is saved until you save the form."
+    },
+    "health": {
+      "title": "Health checks",
+      "check": "Check health",
+      "running": "Checking the plant's health…",
+      "runningBody": "Looking at the photo together with this plant's details and care history. This usually takes 5 to 20 seconds.",
+      "empty": "No health checks yet. A check looks at the cover photo and suggests what to do.",
+      "emptyNoAi": "No health checks yet.",
+      "photoAlt": "Photo used for the health check",
+      "photoDeleted": "Photo deleted",
+      "open": "Show the full result",
+      "likely": "Likely",
+      "possible": "Possible",
+      "logTreatment": "Log as treatment",
+      "treatmentLogged": "Treatment added to the care history",
+      "treatmentNote": "From an AI health check: {{finding}}. {{observation}}",
+      "apply": "Set condition to \"{{condition}}\"",
+      "applied": "Applied",
+      "conditionUpdated": "Condition updated",
+      "delete": "Delete this check",
+      "deleteConfirm": "Delete this health check?",
+      "deleted": "Health check deleted",
+      "disclaimer": "AI assessment, not a diagnosis. Check the plant yourself before acting on it.",
+      "quality": {
+        "blurry": "The photo is blurry, so the result may be less reliable.",
+        "too-dark": "The photo is dark, so the result may be less reliable.",
+        "plant-not-visible": "The plant isn't clearly visible in the photo, so the result may be less reliable."
+      },
+      "findings": {
+        "overwatering": "Overwatering",
+        "underwatering": "Underwatering",
+        "too-little-light": "Too little light",
+        "sun-scorch": "Sun scorch",
+        "pests": "Pests",
+        "nutrient-deficiency": "Nutrient deficiency",
+        "root-rot": "Root rot",
+        "disease": "Disease",
+        "normal-ageing": "Normal ageing",
+        "other": "Other"
+      }
     }
   }
 }

@@ -106,7 +106,13 @@ Design: [NEXT_STAGE_DESIGN.md](NEXT_STAGE_DESIGN.md) (approved 2026-10-19).
 - The care-signals module moved to phase 3: only the assistant reads it, so it's built with the assistant
 
 ### Phase 2 — AI identification and health analysis
-- [ ] Identify from photo in the plant form; health checks with history; `health_checks` table
+- [x] Screen C mockup (`docs/design/screen-c-ai-identify-health.html`): identify panel, health result card, Health checks list, photo viewer button
+- [x] Shared `ai.ts` schemas (identification, health assessment, DTOs); `health_checks` table (migration `0003`)
+- [x] `POST /api/ai/identify` (upload, not stored, or a stored photo); answers mapped onto the catalog (unknown ids dropped, matches by scientific name, catalog names used)
+- [x] Health checks: `GET/POST /api/plants/:id/health-checks`, `POST /api/health-checks/:id/apply`, `DELETE /api/health-checks/:id`; context is the plant's details, last 10 activities and species care notes
+- [x] UI: "Identify from photo" in the plant form; Health checks section on the plant page (run on the cover photo or a new one, history, apply condition, log a finding as a treatment); "Check health" in the photo viewer; AI buttons hidden when AI isn't available
+- [x] Tests: identify and health-check API with the fake provider (catalog mapping, context, limits, errors, cascades), schema conversion to OpenAI's strict format, UI flows
+- [x] Live check against the real API (`gpt-5.4-mini`, throwaway database, 2026-10-19): 14 catalog photos at 512 px plus 5 independently verified photos from iNaturalist and Wikimedia Commons — 19/19 identified correctly (17 high confidence, 2 medium); about 1,000–2,000 input and 100–400 output tokens per call, 2–4.5 s each. Health checks found healthy plants healthy; one miss: dried leaves at the base of a Monstera weren't mentioned
 
 ### Phase 3 — Read-only assistant
 - [ ] Mockups first; `conversations`/`messages`; read-only tools; SSE streaming; Assistant tab
