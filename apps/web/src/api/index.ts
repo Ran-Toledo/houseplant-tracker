@@ -5,6 +5,10 @@ import type {
   AppSettings,
   AppSettingsUpdate,
   CareSchedule,
+  ChatEvent,
+  ChatMessage,
+  ChatMessageInput,
+  Conversation,
   CareScheduleInput,
   DueItem,
   Condition,
@@ -17,7 +21,7 @@ import type {
   Species,
   SpeciesSummary,
 } from '@houseplant/shared';
-import { json, request } from './client';
+import { json, request, streamEvents } from './client';
 
 export { ApiRequestError } from './client';
 
@@ -87,6 +91,17 @@ export const api = {
   applyHealthCheck: (checkId: string) =>
     request<{ healthCheck: HealthCheck; plant: Plant }>(`/health-checks/${checkId}/apply`, { method: 'POST' }),
   deleteHealthCheck: (checkId: string) => request<void>(`/health-checks/${checkId}`, { method: 'DELETE' }),
+
+  listConversations: (plantId?: string) =>
+    request<{ conversations: Conversation[] }>(`/conversations${queryString({ plantId })}`).then((r) => r.conversations),
+  createConversation: (plantId: string | null) =>
+    request<{ conversation: Conversation }>('/conversations', json('POST', { plantId })).then((r) => r.conversation),
+  getConversation: (id: string) => request<{ conversation: Conversation }>(`/conversations/${id}`).then((r) => r.conversation),
+  listMessages: (id: string) => request<{ messages: ChatMessage[] }>(`/conversations/${id}/messages`).then((r) => r.messages),
+  deleteConversation: (id: string) => request<void>(`/conversations/${id}`, { method: 'DELETE' }),
+  /** Sends a message and calls `onEvent` for each streamed event until the answer is done. */
+  sendMessage: (id: string, input: ChatMessageInput, onEvent: (event: ChatEvent) => void) =>
+    streamEvents<ChatEvent>(`/conversations/${id}/messages`, json('POST', input), onEvent),
 
   getConfig: () => request<{ config: AppConfig }>('/config').then((r) => r.config),
   getSettings: () => request<{ settings: AppSettings }>('/settings').then((r) => r.settings),

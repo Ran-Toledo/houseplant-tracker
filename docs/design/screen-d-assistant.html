@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/><meta name="color-scheme" content="light"/><title>Assistant — Houseplant Tracker</title>
+<!-- Self-contained, offline-ready UI mockup for project documentation. No backend, no AI calls, no external CSS or images. -->
+<style>
+:root { color-scheme: light; --forest:#234b35; --forest2:#356b4a; --ink:#253b2c; --muted:#7b897f; --subtle:#92a094; --panel:#fffdfa; --sage:#eaf0e6; --border:#e5ebe2; --mint:#e7f4e8; --shadow:0 18px 65px rgba(29,63,38,.12); }
+* {box-sizing:border-box}
+html {background:#edf1e8}
+body {margin:0; font-family:Inter,"Segoe UI","Arial","Noto Sans Hebrew",sans-serif; color:var(--ink); line-height:1.45; -webkit-font-smoothing:antialiased}
+button,input,textarea {font:inherit}
+button {cursor:pointer}
+h1,h2,h3,p {margin:0}
+:focus-visible {outline:3px solid #68b885; outline-offset:3px}
+.icon {width:18px;height:18px;stroke:currentColor;stroke-width:1.75;fill:none;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+.icon.sm {width:14px;height:14px} .icon.lg {width:22px;height:22px}
+.page-head {max-width:1500px;margin:28px auto 6px;padding:0 24px;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+.page-head h1 {font-size:22px;letter-spacing:-.03em}
+.page-head p {font-size:12px;color:var(--muted);margin-top:4px;max-width:680px}
+.locale {display:flex;padding:3px;gap:3px;background:#f0f2ec;border-radius:999px;border:1px solid #e7ece3}
+.locale button {border:0;background:transparent;color:#758378;font-size:12px;font-weight:800;border-radius:999px;padding:7px 11px}
+.locale button.active {background:white;color:var(--forest);box-shadow:0 1px 5px rgba(27,65,35,.13)}
+.stages {max-width:1500px;margin:0 auto 30px;padding:16px 24px;display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:24px;align-items:start}
+.stage-label {font-size:10px;font-weight:850;letter-spacing:.14em;text-transform:uppercase;color:var(--forest2);margin:0 0 8px 6px}
+html[dir=rtl] .stage-label, html[dir=rtl] .ai-tag {letter-spacing:0;text-transform:none}
+.stage {background:var(--panel);box-shadow:var(--shadow);border:1px solid rgba(132,159,132,.25);border-radius:30px;overflow:hidden;display:flex;flex-direction:column;min-height:700px}
+.content {padding:22px 20px;flex:1}
+.stage h2 {font-size:30px;line-height:1.08;font-weight:840;letter-spacing:-.03em}
+html[dir=rtl] h1, html[dir=rtl] h2 {letter-spacing:normal}
+.sub {font-size:13px;color:var(--muted);margin-top:6px}
+.navbar {padding:11px 16px 13px;background:#ffffffee;border-top:1px solid var(--border);display:flex;justify-content:space-around}
+.nav-link {color:#89978c;display:flex;flex-direction:column;align-items:center;gap:3px;min-width:62px;border:0;background:transparent;font-size:12px;font-weight:800}
+.nav-link.active {color:var(--forest2)}
+.new-chat {margin:18px 0 14px;width:100%;min-height:48px;border:0;border-radius:14px;background:var(--forest2);color:white;font-weight:850;font-size:14px;display:flex;align-items:center;justify-content:center;gap:8px}
+.conv {display:flex;gap:11px;align-items:center;padding:12px;border:1px solid var(--border);border-radius:16px;background:white;margin-top:9px;width:100%;text-align:start}
+.conv-icon {width:44px;height:44px;border-radius:12px;display:grid;place-items:center;background:#eef3fb;color:#3d5a87;flex-shrink:0;overflow:hidden}
+.conv-icon svg.art {width:100%;height:100%}
+.conv-main {flex:1;min-width:0}
+.conv-title {font-size:14px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.conv-meta {font-size:11px;color:var(--muted);margin-top:2px;display:flex;gap:6px;align-items:center}
+.chip {display:inline-flex;align-items:center;gap:4px;border-radius:99px;background:#eff4eb;color:#52775b;font-size:10px;font-weight:850;padding:3px 8px}
+.chev {color:var(--subtle)} html[dir=rtl] .chev, html[dir=rtl] .dir {transform:rotate(180deg)}
+.note {font-size:11px;color:var(--muted);display:flex;gap:6px;align-items:flex-start;margin-top:14px}
+.chat-head {display:flex;align-items:center;gap:10px;padding:16px 16px 12px;border-bottom:1px solid var(--border)}
+.back {border:0;background:transparent;color:var(--forest);display:grid;place-items:center;width:36px;height:36px;border-radius:10px}
+.chat-title {font-weight:850;font-size:15px}
+.chat-plant {display:flex;align-items:center;gap:8px;font-size:11px;color:var(--muted)}
+.mini {width:22px;height:22px;border-radius:7px;overflow:hidden;display:inline-block}
+.mini svg {width:100%;height:100%;display:block}
+.messages {flex:1;padding:16px;display:flex;flex-direction:column;gap:12px;background:#fbfcf8}
+.bubble {max-width:86%;padding:10px 13px;border-radius:18px;font-size:13.5px}
+.user {align-self:flex-end;background:var(--forest2);color:white;border-end-end-radius:6px}
+.bot {align-self:flex-start;background:white;border:1px solid var(--border);border-end-start-radius:6px;color:#2f4636}
+.bot p + p, .bot p + ul, .bot ul + p {margin-top:7px}
+.bot ul {margin:6px 0 0;padding-inline-start:18px}
+.bot li {margin-top:3px}
+.bot-meta {display:flex;gap:6px;align-items:center;margin-bottom:5px}
+.ai-tag {display:inline-flex;align-items:center;gap:4px;border-radius:99px;border:1px solid #dbe4f3;background:#eef3fb;color:#3d5a87;font-size:9px;font-weight:850;padding:3px 7px;text-transform:uppercase;letter-spacing:.06em}
+.photo-msg {width:150px;height:110px;border-radius:14px;overflow:hidden;align-self:flex-end}
+.photo-msg svg {width:100%;height:100%;display:block}
+.working {align-self:flex-start;display:flex;gap:8px;align-items:center;font-size:12px;color:#43584a;background:#f5f9f3;border-radius:99px;padding:7px 12px}
+.dots {display:inline-flex;gap:3px}
+.dots i {width:5px;height:5px;border-radius:50%;background:var(--forest2);opacity:.35;animation:b 1.2s infinite}
+.dots i:nth-child(2){animation-delay:.2s}.dots i:nth-child(3){animation-delay:.4s}
+@keyframes b {50%{opacity:1}}
+.caret {display:inline-block;width:7px;height:14px;background:var(--forest2);vertical-align:-2px;margin-inline-start:2px;animation:blink 1s steps(1) infinite}
+@keyframes blink {50%{opacity:0}}
+.starters {display:flex;flex-wrap:wrap;gap:7px;margin-top:4px}
+.starter {border:1px solid #d7e6d6;background:#f2f8ef;color:var(--forest2);border-radius:99px;padding:8px 12px;font-size:12px;font-weight:800;text-align:start}
+.composer {padding:10px 12px 12px;border-top:1px solid var(--border);background:white}
+.composer-row {display:flex;gap:8px;align-items:flex-end}
+.attach {width:44px;height:44px;border-radius:12px;border:1px solid var(--border);background:white;color:var(--forest);display:grid;place-items:center;flex-shrink:0}
+.input {flex:1;min-height:44px;border:1px solid var(--border);border-radius:12px;padding:11px 12px;color:var(--subtle);font-size:14px}
+.send {width:44px;height:44px;border-radius:12px;border:0;background:var(--forest2);color:white;display:grid;place-items:center;flex-shrink:0}
+.composer-note {font-size:10.5px;color:var(--muted);margin-top:7px;text-align:center}
+.ask-btn {width:100%;min-height:46px;border-radius:14px;border:1px solid #d7e6d6;background:#f2f8ef;color:var(--forest2);font-weight:850;font-size:13px;display:flex;align-items:center;justify-content:center;gap:8px;margin-top:14px}
+.hero {height:170px;border-radius:20px;overflow:hidden}
+.hero svg {width:100%;height:100%;display:block}
+.water {margin-top:14px;padding:15px;border-radius:19px;border:1px solid #daeadb;background:linear-gradient(135deg,#f2f9f0,#e7f4ec);font-size:13px;font-weight:800}
+.caption {font-size:11px;color:var(--muted);margin-top:12px}
+.footnote {max-width:1500px;margin:0 auto 40px;padding:0 24px;font-size:11px;color:#91a094}
+.toast {position:fixed;inset:auto 15px 25px;margin:auto;max-width:360px;text-align:center;padding:12px 17px;border-radius:12px;background:#214f38;color:white;font-size:13px;opacity:0;pointer-events:none;transition:opacity .2s}
+</style></head>
+<body>
+<svg style="position:absolute;width:0;height:0" aria-hidden="true">
+  <symbol id="i-chat" viewBox="0 0 24 24"><path d="M5 5h14v10H9l-4 4z"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-chevron" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></symbol>
+  <symbol id="i-back" viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></symbol>
+  <symbol id="i-send" viewBox="0 0 24 24"><path d="M4 12l16-8-6 16-2-7z"/></symbol>
+  <symbol id="i-camera" viewBox="0 0 24 24"><path d="M4 8h3l2-2.5h6L17 8h3v11H4z"/><circle cx="12" cy="13.5" r="3.5"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></symbol>
+  <symbol id="i-sparkle" viewBox="0 0 24 24"><path d="M12 3l1.8 4.7L18.5 9.5l-4.7 1.8L12 16l-1.8-4.7L5.5 9.5l4.7-1.8z"/></symbol>
+  <symbol id="i-home" viewBox="0 0 24 24"><path d="M4 11l8-7 8 7v9H4z"/></symbol>
+  <symbol id="i-book" viewBox="0 0 24 24"><path d="M4 5h7v15H4zM13 5h7v15h-7z"/></symbol>
+  <symbol id="i-settings" viewBox="0 0 24 24"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></symbol>
+  <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/></symbol>
+  <symbol id="art" viewBox="0 0 100 100"><rect width="100" height="100" fill="#c3d9c3"/><rect x="34" y="66" width="32" height="26" rx="4" fill="#b98a66"/><path d="M50 68C46 50 30 42 22 30c14 0 26 10 28 26 2-18 12-30 28-34-6 14-18 26-28 46z" fill="#3f7d55"/></symbol>
+  <symbol id="art2" viewBox="0 0 100 100"><rect width="100" height="100" fill="#d8e3c9"/><rect x="36" y="68" width="28" height="24" rx="4" fill="#e7e1d3"/><path d="M50 70V30M50 50c-10-6-18-6-24-2 6 6 14 6 24 4M50 40c10-6 18-6 24-2-6 6-14 6-24 4" stroke="#4d8a5c" stroke-width="6" fill="none" stroke-linecap="round"/></symbol>
+  <symbol id="art3" viewBox="0 0 100 100"><rect width="100" height="100" fill="#cfdcc4"/><rect x="33" y="66" width="34" height="26" rx="4" fill="#9c7b5c"/><path d="M50 68C44 52 30 46 24 36c12 0 22 8 26 22 2-16 10-26 26-30-4 12-16 24-26 40z" fill="#7f9a4c"/><circle cx="36" cy="44" r="3" fill="#b8a14a"/></symbol>
+</svg>
+
+<header class="page-head">
+  <div>
+    <h1 data-i18n="pageHeading">Screen D: Assistant</h1>
+    <p data-i18n="pageIntro">Design reference for phase 3. The assistant reads your plants and the species catalog and answers in text; it never changes anything. Three states: the Assistant tab, a conversation about one plant, and the plant page's entry point.</p>
+  </div>
+  <div class="locale" role="group" aria-label="Language">
+    <button type="button" data-language="en" class="active" aria-pressed="true">English</button>
+    <button type="button" data-language="he" aria-pressed="false">עברית</button>
+  </div>
+</header>
+
+<main class="stages">
+  <!-- D1: Assistant tab -->
+  <section>
+    <p class="stage-label" data-i18n="d1">D1 · Assistant tab: conversations</p>
+    <div class="stage">
+      <div class="content">
+        <h2 data-i18n="assistant">Assistant</h2>
+        <p class="sub" data-i18n="assistantSub">Ask about your plants. Answers use your care history and the species guides.</p>
+        <button type="button" class="new-chat" data-demo-action><svg class="icon"><use href="#i-plus"/></svg><span data-i18n="newChat">New chat</span></button>
+        <button type="button" class="conv" data-demo-action>
+          <span class="conv-icon"><svg class="art"><use href="#art"/></svg></span>
+          <span class="conv-main">
+            <span class="conv-title" style="display:block" data-i18n="conv1">Why are Monty's lower leaves yellow?</span>
+            <span class="conv-meta"><span class="chip">Monty</span><span data-i18n="today">Today</span></span>
+          </span>
+          <svg class="icon sm chev"><use href="#i-chevron"/></svg>
+        </button>
+        <button type="button" class="conv" data-demo-action>
+          <span class="conv-icon"><svg class="icon lg"><use href="#i-chat"/></svg></span>
+          <span class="conv-main">
+            <span class="conv-title" style="display:block" data-i18n="conv2">Which of my plants are safe for cats?</span>
+            <span class="conv-meta"><span data-i18n="general">All plants</span> · <span data-i18n="yesterday">Yesterday</span></span>
+          </span>
+          <svg class="icon sm chev"><use href="#i-chevron"/></svg>
+        </button>
+        <button type="button" class="conv" data-demo-action>
+          <span class="conv-icon"><svg class="art"><use href="#art2"/></svg></span>
+          <span class="conv-main">
+            <span class="conv-title" style="display:block" data-i18n="conv3">When should I repot the hoya?</span>
+            <span class="conv-meta"><span class="chip">Hoya on the shelf</span><span data-i18n="date3">12 Oct</span></span>
+          </span>
+          <svg class="icon sm chev"><use href="#i-chevron"/></svg>
+        </button>
+        <p class="note"><svg class="icon sm"><use href="#i-info"/></svg><span data-i18n="listNote">The assistant gives suggestions only. To log care or change a plant, use the plant's page.</span></p>
+        <p class="caption" data-i18n="d1Caption">Newest first. Plant conversations show the plant; general ones cover the whole collection. With no conversations yet, the page shows the starter questions from D2 under "New chat". Hidden from the navigation when AI features are off and there are no conversations.</p>
+      </div>
+      <nav class="navbar">
+        <button class="nav-link" data-demo-action><svg class="icon lg"><use href="#i-home"/></svg><span data-i18n="navPlants">My plants</span></button>
+        <button class="nav-link" data-demo-action><svg class="icon lg"><use href="#i-book"/></svg><span data-i18n="navSpecies">Species</span></button>
+        <button class="nav-link active" data-demo-action><svg class="icon lg"><use href="#i-sparkle"/></svg><span data-i18n="navAssistant">Assistant</span></button>
+        <button class="nav-link" data-demo-action><svg class="icon lg"><use href="#i-settings"/></svg><span data-i18n="navSettings">Settings</span></button>
+      </nav>
+    </div>
+  </section>
+
+  <!-- D2: chat -->
+  <section>
+    <p class="stage-label" data-i18n="d2">D2 · Conversation about one plant</p>
+    <div class="stage">
+      <div class="chat-head">
+        <button type="button" class="back" aria-label="Back" data-demo-action><svg class="icon dir"><use href="#i-back"/></svg></button>
+        <div style="flex:1;min-width:0">
+          <div class="chat-title" data-i18n="conv1">Why are Monty's lower leaves yellow?</div>
+          <div class="chat-plant"><span class="mini"><svg><use href="#art"/></svg></span><span data-i18n="about">About Monty</span></div>
+        </div>
+        <button type="button" class="back" aria-label="Delete conversation" data-demo-action style="color:#9a4636"><svg class="icon"><use href="#i-trash"/></svg></button>
+      </div>
+      <div class="messages">
+        <div class="photo-msg"><svg><use href="#art3"/></svg></div>
+        <div class="bubble user" data-i18n="q1">Why are Monty's lower leaves turning yellow?</div>
+        <div class="bubble bot">
+          <div class="bot-meta"><span class="ai-tag"><svg class="icon sm"><use href="#i-sparkle"/></svg><span data-i18n="aiTag">AI</span></span></div>
+          <p data-i18n="a1p1">Most likely <b>too much water</b>. Monty was watered 4 times in the last 10 days, more often than the Monstera guide's 5 to 9 days, and it sits in a plastic pot without a drainage hole.</p>
+          <ul>
+            <li data-i18n="a1l1">Let the top quarter of the soil dry before the next watering.</li>
+            <li data-i18n="a1l2">Repot into a pot with drainage when you can.</li>
+            <li data-i18n="a1l3">Old lower leaves also yellow naturally, one at a time.</li>
+          </ul>
+          <p data-i18n="a1p2">You can log the repotting from Monty's page.</p>
+        </div>
+        <div class="bubble user" data-i18n="q2">Is it getting enough light?</div>
+        <div class="working"><span class="dots"><i></i><i></i><i></i></span><span data-i18n="working">Looking at Monty's details…</span></div>
+        <div class="bubble bot"><p><span data-i18n="a2">A west window with bright indirect light suits a Monstera well</span><span class="caret"></span></p></div>
+      </div>
+      <div class="composer">
+        <div class="starters" style="margin-bottom:9px">
+          <button type="button" class="starter" data-demo-action data-i18n="s1">What should I do this week?</button>
+          <button type="button" class="starter" data-demo-action data-i18n="s3">When should I repot?</button>
+        </div>
+        <div class="composer-row">
+          <button type="button" class="attach" aria-label="Attach a photo" data-demo-action><svg class="icon"><use href="#i-camera"/></svg></button>
+          <div class="input" data-i18n="placeholder">Ask about Monty…</div>
+          <button type="button" class="send" aria-label="Send" data-demo-action><svg class="icon dir"><use href="#i-send"/></svg></button>
+        </div>
+        <p class="composer-note" data-i18n="composerNote">AI suggestions can be wrong and never change your plants.</p>
+      </div>
+    </div>
+    <p class="caption" style="margin:10px 6px 0" data-i18n="d2Caption">Answers stream in as they're written; while the assistant reads your data, a status line says what it's looking at. A new conversation shows four starter questions: "What should I do this week?", "Why are the leaves yellow?", "Is it getting enough light?", "When should I repot?". An attached photo is added to the plant's photos and sent with that message only. General conversations work the same, without the plant line and the photo button.</p>
+  </section>
+
+  <!-- D3: plant page -->
+  <section>
+    <p class="stage-label" data-i18n="d3">D3 · Plant page: ask about this plant</p>
+    <div class="stage">
+      <div class="content">
+        <div class="hero"><svg viewBox="0 0 100 60" preserveAspectRatio="xMidYMid slice"><use href="#art"/></svg></div>
+        <h2 style="margin-top:16px">Monty</h2>
+        <p class="sub"><span data-i18n="monstera">Monstera</span> · <i>Monstera deliciosa</i></p>
+        <button type="button" class="ask-btn" data-demo-action><svg class="icon"><use href="#i-sparkle"/></svg><span data-i18n="ask">Ask about this plant</span></button>
+        <div class="water" data-i18n="watering">Watering</div>
+        <p class="caption" data-i18n="d3Caption">Below the plant's name, above the watering card. Opens Monty's latest conversation, or starts one with the starter questions. Hidden when AI features aren't available.</p>
+      </div>
+    </div>
+  </section>
+</main>
+<p class="footnote" data-i18n="footnote">Screen D — design mockup only. Sample answers are illustrative.</p>
+<div class="toast"></div>
+
+<script>const TRANSLATIONS = {
+ "en": {"pageTitle":"Assistant — Houseplant Tracker","demoOnly":"Design preview only — no data was changed."},
+ "he": {"pageTitle":"עוזר — מעקב עציצים","demoOnly":"זוהי הדמיית עיצוב — לא בוצע שינוי בנתונים.",
+  "pageHeading":"מסך D: עוזר","pageIntro":"הדמיית עיצוב לשלב 3. העוזר קורא את הצמחים שלך ואת קטלוג המינים ועונה בטקסט; הוא אף פעם לא משנה דבר. שלושה מצבים: לשונית העוזר, שיחה על צמח אחד, והכניסה מדף הצמח.",
+  "d1":"D1 · לשונית העוזר: שיחות","assistant":"עוזר","assistantSub":"אפשר לשאול על הצמחים שלך. התשובות מתבססות על היסטוריית הטיפול ועל מדריכי המינים.","newChat":"שיחה חדשה",
+  "conv1":"למה העלים התחתונים של מונטי מצהיבים?","today":"היום","conv2":"אילו מהצמחים שלי בטוחים לחתולים?","general":"כל הצמחים","yesterday":"אתמול","conv3":"מתי להעביר את ההויה לעציץ חדש?","date3":"12 באוק׳",
+  "listNote":"העוזר נותן הצעות בלבד. כדי לתעד טיפול או לשנות צמח, משתמשים בדף הצמח.",
+  "d1Caption":"החדשות קודם. שיחות על צמח מציגות את הצמח; שיחות כלליות עוסקות בכל האוסף. כשאין עדיין שיחות, הדף מציג את שאלות הפתיחה מ-D2 מתחת ל\"שיחה חדשה\". הלשונית מוסתרת כשתכונות ה-AI כבויות ואין שיחות.",
+  "navPlants":"הצמחים שלי","navSpecies":"מיני צמחים","navAssistant":"עוזר","navSettings":"הגדרות",
+  "d2":"D2 · שיחה על צמח אחד","about":"על מונטי","q1":"למה העלים התחתונים של מונטי מצהיבים?","aiTag":"AI",
+  "a1p1":"כנראה השקיית יתר. מונטי הושקה 4 פעמים ב-10 הימים האחרונים, לעומת כל 5 עד 9 ימים לפי מדריך המונסטרה, והיא בעציץ פלסטיק בלי חור ניקוז.",
+  "a1l1":"לתת לרבע העליון של האדמה להתייבש לפני ההשקיה הבאה.","a1l2":"להעביר לעציץ עם ניקוז כשאפשר.","a1l3":"גם עלים תחתונים ישנים מצהיבים באופן טבעי, אחד בכל פעם.","a1p2":"אפשר לתעד את ההעברה לעציץ מדף הצמח של מונטי.",
+  "q2":"האם היא מקבלת מספיק אור?","working":"בודק את הפרטים של מונטי…","a2":"חלון מערבי עם אור בהיר ועקיף מתאים למונסטרה",
+  "s1":"מה לעשות השבוע?","s3":"מתי להעביר לעציץ חדש?","placeholder":"שאלה על מונטי…","composerNote":"הצעות AI עלולות לטעות, והן אף פעם לא משנות את הצמחים שלך.",
+  "d2Caption":"התשובות מופיעות תוך כדי כתיבה; כשהעוזר קורא את הנתונים, שורת מצב אומרת מה הוא בודק. שיחה חדשה מציגה ארבע שאלות פתיחה: \"מה לעשות השבוע?\", \"למה העלים מצהיבים?\", \"האם הוא מקבל מספיק אור?\", \"מתי להעביר לעציץ חדש?\". תמונה מצורפת נוספת לתמונות הצמח ונשלחת רק עם ההודעה הזו. שיחות כלליות עובדות אותו דבר, בלי שורת הצמח וכפתור התמונה.",
+  "d3":"D3 · דף הצמח: שאלה על הצמח","monstera":"מונסטרה","ask":"שאלה על הצמח הזה","watering":"השקיה",
+  "d3Caption":"מתחת לשם הצמח, מעל כרטיס ההשקיה. פותח את השיחה האחרונה על מונטי, או מתחיל שיחה עם שאלות הפתיחה. מוסתר כשתכונות ה-AI אינן זמינות.",
+  "footnote":"מסך D — הדמיית עיצוב בלבד. התשובות לדוגמה בלבד."}
+};</script>
+<script>
+(() => {
+  const en = {};
+  document.querySelectorAll('[data-i18n]').forEach(el => { en[el.dataset.i18n] = el.innerHTML; });
+  const dict = { en: Object.assign(en, TRANSLATIONS.en), he: TRANSLATIONS.he };
+  let locale = 'en';
+  try { locale = localStorage.getItem('houseplant-design-language') === 'he' ? 'he' : 'en'; } catch (_) {}
+  function applyLang(lang) {
+    locale = lang;
+    document.documentElement.lang = lang;
+    document.documentElement.dir = lang === 'he' ? 'rtl' : 'ltr';
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const val = dict[lang][el.dataset.i18n];
+      if (val !== undefined) { if (lang === 'en') el.innerHTML = val; else el.textContent = val; }
+    });
+    document.querySelectorAll('[data-language]').forEach(el => {
+      const selected = el.dataset.language === lang;
+      el.classList.toggle('active', selected);
+      el.setAttribute('aria-pressed', String(selected));
+    });
+    document.title = dict[lang].pageTitle;
+    try { localStorage.setItem('houseplant-design-language', lang); } catch (_) {}
+  }
+  const toast = document.querySelector('.toast');
+  document.querySelectorAll('[data-demo-action]').forEach(b => b.addEventListener('click', () => {
+    toast.textContent = dict[locale].demoOnly;
+    toast.style.opacity = 1;
+    clearTimeout(window.__t);
+    window.__t = setTimeout(() => { toast.style.opacity = 0; }, 2700);
+  }));
+  document.querySelectorAll('[data-language]').forEach(b => b.addEventListener('click', () => applyLang(b.dataset.language)));
+  applyLang(locale);
+})();
+</script>
+</body></html>

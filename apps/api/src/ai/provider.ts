@@ -44,8 +44,51 @@ export class AiProviderError extends Error {
   }
 }
 
+/** A function the model may call during a chat. */
+export interface ChatToolDef {
+  name: string;
+  description: string;
+  parameters: z.ZodObject;
+}
+
+/** One item of chat input. */
+export type ChatInputItem =
+  | { type: 'message'; role: 'user'; content: AiInputPart[] }
+  | { type: 'message'; role: 'assistant'; text: string }
+  | { type: 'tool-result'; callId: string; output: string }
+  /** An item from an earlier step's output (reasoning, a tool call), sent back unchanged. */
+  | { type: 'provider'; item: unknown };
+
+export interface ChatRequest {
+  instructions: string;
+  input: ChatInputItem[];
+  /** Empty to make the model answer without calling tools. */
+  tools: ChatToolDef[];
+  maxOutputTokens?: number;
+}
+
+export interface ToolCall {
+  callId: string;
+  name: string;
+  /** JSON text. */
+  arguments: string;
+}
+
+/** One model call of a chat: streamed text, and tool calls to run before the next call. */
+export interface ChatStep {
+  text: string;
+  toolCalls: ToolCall[];
+  /** The step's output items, to append to the input of the next step. */
+  items: ChatInputItem[];
+  /** Set when the model declined to answer. */
+  refusal: string | null;
+  usage: AiUsage;
+}
+
 export interface AiProvider {
   /** Model identifier, recorded with every request. */
   readonly model: string;
   generateStructured(request: StructuredRequest): Promise<ProviderReply>;
+  /** Runs one chat step, calling `onText` with each piece of text as it streams in. */
+  streamChat(request: ChatRequest, onText: (delta: string) => void): Promise<ChatStep>;
 }

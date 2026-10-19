@@ -115,7 +115,15 @@ Design: [NEXT_STAGE_DESIGN.md](NEXT_STAGE_DESIGN.md) (approved 2026-10-19).
 - [x] Live check against the real API (`gpt-5.4-mini`, throwaway database, 2026-10-19): 14 catalog photos at 512 px plus 5 independently verified photos from iNaturalist and Wikimedia Commons — 19/19 identified correctly (17 high confidence, 2 medium); about 1,000–2,000 input and 100–400 output tokens per call, 2–4.5 s each. Health checks found healthy plants healthy; one miss: dried leaves at the base of a Monstera weren't mentioned
 
 ### Phase 3 — Read-only assistant
-- [ ] Mockups first; `conversations`/`messages`; read-only tools; SSE streaming; Assistant tab
+- [x] Screen D mockup (`docs/design/screen-d-assistant.html`): Assistant tab, a plant conversation, "Ask about this plant"
+- [x] Care-signals module (`care/signals.ts`) with table-driven tests: light mismatch, direct-sun risk, fast-drying pot, no drainage, dormant season, fertilizing overdue, repot check, watering pattern, recent health findings
+- [x] Read-only model (`assistant/read-model.ts`) and 7 tools (`list_plants`, `get_plant`, `get_care_history`, `get_health_checks`, `get_care_signals`, `search_species`, `get_species_guide`); the tools only get the read-only model
+- [x] `conversations`/`messages` tables (migration `0004`); conversation API; `POST /api/conversations/:id/messages` streams `message`/`status`/`delta`/`done`/`error` events over SSE (`X-Accel-Buffering: no` for nginx)
+- [x] Chat loop: up to 6 model calls per answer (the last without tools), each logged in `ai_requests` and counted toward the monthly limit; last 20 messages sent, older ones folded into a rolling summary; only the new message's photo is sent
+- [x] UI: Assistant tab (shown when AI is available or conversations exist), chat page with streaming, Markdown (no raw HTML, no links), starter questions, photo attach in plant chats; "Ask about this plant"; assistant pages load on demand
+- [x] Tests: tools are read-only (row counts unchanged after every tool runs), tool errors, step limit, errors before and during the stream, photos, history window and summary; UI flows; tool schemas convert to OpenAI's strict format
+- [x] Live check against the real API (`gpt-5.4-mini`, throwaway database, 2026-10-19): 6 questions in plant, general and Hebrew conversations, including an off-topic one and a request to change data. Answers used the right tools and data; off-topic and change requests were declined; no rows changed. 1–4 model calls per answer, about 1,200–6,500 input and 20–450 output tokens per answer, 1–9 s. The first run found three problems, now fixed and re-checked: a species guide fetched with a guessed id (the plant's species id is now in the instructions, and the tool also accepts species names), a contradictory toxicity answer for a plant without a catalog guide, and gendered Hebrew addressed to the owner
+- Differences from the design: the title is the first question (no extra model call); photos can be attached only in plant conversations; the care signals don't change reminder intervals yet
 
 ### Phase 4 — Push notifications
 - [ ] `tailscale serve` HTTPS address, `.ts.net` host allow-list, service worker, VAPID, daily digest

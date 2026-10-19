@@ -6,7 +6,8 @@
     "label": "App navigation",
     "plants": "My plants",
     "species": "Species",
-    "settings": "Settings"
+    "settings": "Settings",
+    "assistant": "Assistant"
   },
   "language": {
     "label": "Language",
@@ -416,5 +417,51 @@
         "other": "Other"
       }
     }
+  },
+  "assistant": {
+    "title": "Assistant",
+    "subtitle": "Ask about your plants. Answers use your care history and the species guides.",
+    "newChat": "New chat",
+    "general": "All plants",
+    "untitled": "New conversation",
+    "empty": "No conversations yet. Start with a question:",
+    "listNote": "The assistant gives suggestions only. To log care or change a plant, use the plant's page.",
+    "back": "Assistant",
+    "about": "About {{name}}",
+    "aboutAll": "About all your plants",
+    "starters": {
+      "week": "What should I do this week?",
+      "yellow": "Why are the leaves yellow?",
+      "light": "Is it getting enough light?",
+      "repot": "When should I repot?",
+      "generalWeek": "Which plants need attention this week?",
+      "generalPets": "Which of my plants are safe for cats?",
+      "generalLight": "Which plants would do better somewhere brighter?",
+      "generalWater": "Am I watering any plant too often?"
+    },
+    "placeholder": "Ask a question…",
+    "placeholderPlant": "Ask about {{name}}…",
+    "send": "Send",
+    "attach": "Attach a photo",
+    "removePhoto": "Remove the photo",
+    "uploading": "Adding the photo…",
+    "photoAlt": "Attached photo",
+    "composerNote": "AI suggestions can be wrong and never change your plants.",
+    "thinking": "Thinking…",
+    "tools": {
+      "list_plants": "Looking at your plants…",
+      "get_plant": "Looking at the plant's details…",
+      "get_care_history": "Reading the care history…",
+      "get_health_checks": "Reading past health checks…",
+      "get_care_signals": "Checking the plant's conditions…",
+      "search_species": "Searching the catalog…",
+      "get_species_guide": "Reading the species guide…"
+    },
+    "delete": "Delete conversation",
+    "deleteConfirm": "Delete this conversation?",
+    "deleted": "Conversation deleted",
+    "unavailable": "AI features are off or not set up, so you can't send messages. Past conversations stay here.",
+    "ask": "Ask about this plant",
+    "failed": "The answer couldn't be finished: {{reason}}"
   }
 }

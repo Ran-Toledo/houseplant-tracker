@@ -84,7 +84,7 @@ binaries) are never shadowed by the host's Windows ones.
 
 | Folder | Contents |
 |---|---|
-| `routes/` | Hono routers: `species`, `plants` (+ activities), `photos`, `care` (schedules, snooze, due list), `ai` (identification, health checks), `settings` (+ `/api/config`). Parse input, call services, shape responses. |
+| `routes/` | Hono routers: `species`, `plants` (+ activities), `photos`, `care` (schedules, snooze, due list), `ai` (identification, health checks), `conversations` (assistant), `settings` (+ `/api/config`). Parse input, call services, shape responses. |
 | `services/` | `plants` (species checks, create with initial history, cascade delete), `photos` (upload/cover/delete), `images` (sharp pipeline), `settings` (defaults over stored values), `care` (schedules and due dates, added to plants as `wateringDue`). |
 | `repositories/` | Drizzle queries per table; plant list query derives last watering/repotting and joins the cover photo. |
 | `ai/` | AI provider interface, the OpenAI implementation and a fake for tests; `service` (owner switch, monthly limit, answer validation, request log); `images` (1024 px JPEG for the model). |
@@ -113,8 +113,23 @@ Only the api container receives `OPENAI_API_KEY`, and the browser never sees it.
 Feature services build their prompts on top of this: `services/identify.ts` (the photo plus the catalog's
 ids and names; answers are mapped back onto the catalog) and `services/health-checks.ts` (the photo plus
 the plant's details, its last 10 activities and the species care notes). Images are re-encoded to JPEG,
-1024 px on the longest edge, without metadata (`ai/images.ts`). The assistant comes next; see
-[NEXT_STAGE_DESIGN.md](NEXT_STAGE_DESIGN.md).
+1024 px on the longest edge, without metadata (`ai/images.ts`).
+
+### Assistant
+
+`assistant/service.ts` answers chat messages. Each answer is a loop of streamed model calls
+(`AiProvider.streamChat`, at most 6):
+1. The model gets the instructions (date, language, the plant, guardrails, the rolling summary), the
+   last 20 messages and the tool definitions.
+2. When it asks for tools, they run against `assistant/read-model.ts`, a frozen object of read-only
+   functions built from the services' reading methods. The tools never see a repository or a write
+   method, so the assistant can't change data whatever the prompt says. Results go back to the model.
+3. Text deltas are forwarded to the browser as Server-Sent Events as they arrive.
+
+Reasoning items are passed back between tool rounds in encrypted form
+(`include: ["reasoning.encrypted_content"]`), since nothing is stored at OpenAI. Every model call is
+one `ai_requests` row. `care/signals.ts` computes rule-based care facts the assistant reads through
+`get_care_signals`. See [NEXT_STAGE_DESIGN.md](NEXT_STAGE_DESIGN.md).
 
 ### Error format
 
@@ -162,6 +177,10 @@ AI codes:
 | `GET/POST /api/plants/:id/health-checks` | The plant's health checks (newest first) / check one of its photos: `{ "photoId" }` → `201` |
 | `POST /api/health-checks/:id/apply` | Set the plant's condition to the assessed one; returns the check and the plant |
 | `DELETE /api/health-checks/:id` | Delete a check |
+| `GET/POST /api/conversations?plantId=` | Assistant conversations, newest first / start one: `{ "plantId"? }` |
+| `GET/DELETE /api/conversations/:id` | One conversation / delete it with its messages |
+| `GET /api/conversations/:id/messages` | Messages, oldest first |
+| `POST /api/conversations/:id/messages` | `{ text, photoId?, lang }` → Server-Sent Events: `message`, `status` (a tool is running), `delta` (answer text), then `done` or `error`. Checks run first, so a refused message is a normal JSON error |
 | `GET/PATCH /api/settings` | App-wide settings (time zone, hemisphere, AI switch and monthly limit, reminder time); PATCH takes any subset |
 | `GET /api/config` | What the client may show: AI status and monthly usage, push availability, time zone |
 
@@ -188,6 +207,5 @@ Hebrew/English renders correctly.
 
 The design for AI identification and health checks, the read-only assistant and reminders is in
 [NEXT_STAGE_DESIGN.md](NEXT_STAGE_DESIGN.md). Built so far: the shared groundwork (settings, `GET /api/config`,
-the AI module and the species `careProfile`), in-app watering reminders, and AI identification and health
-checks. Authentication would later be a Hono middleware in front of
+the AI module and the species `careProfile`), in-app watering reminders, AI identification and health checks, and the read-only assistant. Authentication would later be a Hono middleware in front of
 `/api`.

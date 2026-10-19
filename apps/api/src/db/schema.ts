@@ -161,9 +161,50 @@ export const healthChecks = sqliteTable(
   (t) => [index('health_checks_plant_time_idx').on(t.plantId, t.createdAt)],
 );
 
+/** Assistant conversations: about one plant, or general when `plant_id` is null. */
+export const conversations = sqliteTable(
+  'conversations',
+  {
+    id: text('id').primaryKey(),
+    plantId: text('plant_id').references(() => plants.id, { onDelete: 'cascade' }),
+    /** The first question, shortened. */
+    title: text('title'),
+    /** Rolling summary of the messages too old to send with each request. */
+    summary: text('summary'),
+    /** How many of the oldest messages the summary covers. */
+    summarizedCount: integer('summarized_count').notNull().default(0),
+    ...timestamps,
+    updatedAt: text('updated_at').notNull(),
+  },
+  (t) => [index('conversations_updated_idx').on(t.updatedAt), index('conversations_plant_idx').on(t.plantId)],
+);
+
+export const MESSAGE_ROLES = ['user', 'assistant'] as const;
+
+export const messages = sqliteTable(
+  'messages',
+  {
+    id: text('id').primaryKey(),
+    conversationId: text('conversation_id')
+      .notNull()
+      .references(() => conversations.id, { onDelete: 'cascade' }),
+    role: text('role', { enum: MESSAGE_ROLES }).notNull(),
+    content: text('content').notNull(),
+    photoId: text('photo_id').references(() => photos.id, { onDelete: 'set null' }),
+    /** Which read-only tools the answer used, for debugging; not shown. */
+    toolTraceJson: text('tool_trace_json'),
+    /** The last model call of the answer. */
+    aiRequestId: text('ai_request_id').references(() => aiRequests.id),
+    ...timestamps,
+  },
+  (t) => [index('messages_conversation_time_idx').on(t.conversationId, t.createdAt)],
+);
+
 export type PlantRow = typeof plants.$inferSelect;
 export type ActivityRow = typeof activities.$inferSelect;
 export type PhotoRow = typeof photos.$inferSelect;
 export type AiRequestRow = typeof aiRequests.$inferSelect;
 export type CareScheduleRow = typeof careSchedules.$inferSelect;
 export type HealthCheckRow = typeof healthChecks.$inferSelect;
+export type ConversationRow = typeof conversations.$inferSelect;
+export type MessageRow = typeof messages.$inferSelect;

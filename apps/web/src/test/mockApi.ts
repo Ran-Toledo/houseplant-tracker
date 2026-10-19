@@ -43,6 +43,12 @@ export function makePlant(overrides: Partial<Plant> = {}): Plant {
 
 type Handler = (url: URL, init: RequestInit) => unknown;
 
+/** A `text/event-stream` response carrying `events` as JSON data lines. */
+export function sseResponse(events: unknown[]): Response {
+  const text = events.map((e) => `event: ${(e as { type: string }).type}\ndata: ${JSON.stringify(e)}\n\n`).join('');
+  return new Response(text, { status: 200, headers: { 'Content-Type': 'text/event-stream' } });
+}
+
 /**
  * Replaces `fetch` with a router of `"METHOD /path"` handlers. Returns the
  * spy so tests can inspect request bodies.
@@ -56,6 +62,8 @@ export function mockApi(routes: Record<string, Handler>) {
       return new Response(JSON.stringify({ error: { code: 'not_found', message: key } }), { status: 404 });
     }
     const body = handler(url, init);
+    // Handlers may build their own response, e.g. an event stream.
+    if (body instanceof Response) return body;
     return body === undefined
       ? new Response(null, { status: 204 })
       : new Response(JSON.stringify(body), { status: 200, headers: { 'Content-Type': 'application/json' } });

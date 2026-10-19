@@ -156,6 +156,32 @@ Every call counts toward the monthly limit, whatever its outcome, because every 
 A check never changes the plant by itself: `plants.condition` only changes when the owner taps
 **Apply condition**. Identification results aren't kept anywhere except `ai_requests.result_json`.
 
+### `conversations` — assistant chats
+
+| Column | Type | Notes |
+|---|---|---|
+| `id` | TEXT PK | |
+| `plant_id` | TEXT NULL | FK → `plants.id`, `ON DELETE CASCADE`; null for a general conversation |
+| `title` | TEXT NULL | The first question, shortened to 60 characters |
+| `summary` | TEXT NULL | Rolling summary of messages too old to send with each request |
+| `summarized_count` | INTEGER NOT NULL | How many of the oldest messages the summary covers |
+| `created_at`, `updated_at` | TEXT NOT NULL | `updated_at` is indexed: the list is newest first |
+
+### `messages`
+
+| Column | Type | Notes |
+|---|---|---|
+| `id` | TEXT PK | |
+| `conversation_id` | TEXT NOT NULL | FK → `conversations.id`, `ON DELETE CASCADE` |
+| `role` | TEXT NOT NULL | `user` / `assistant` |
+| `content` | TEXT NOT NULL | Plain text for the owner's messages, Markdown for answers |
+| `photo_id` | TEXT NULL | FK → `photos.id`, `ON DELETE SET NULL` |
+| `tool_trace_json` | TEXT NULL | Which read-only tools the answer used, for debugging; not shown |
+| `ai_request_id` | TEXT NULL | FK → `ai_requests.id`: the answer's last model call |
+| `created_at` | TEXT NOT NULL | Indexed with `conversation_id` |
+
+The history lives only here: requests to OpenAI use `store: false`.
+
 ## Species JSON
 
 One file per species, `species-catalog/<id>.json`; the file name must equal `id`. The authoritative

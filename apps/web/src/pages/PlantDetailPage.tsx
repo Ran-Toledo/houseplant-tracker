@@ -15,6 +15,7 @@ import { useToast } from '../components/Toast';
 import { WateringReminder } from '../components/WateringReminder';
 import { useAiAvailable } from '../hooks/useAiAvailable';
 import { useAsync } from '../hooks/useAsync';
+import { openPlantConversation } from '../lib/assistant';
 import { notifyCareChanged } from '../lib/care';
 import { errorMessage, isNotFound } from '../lib/errors';
 import { formatDate, formatNumber, formatRelativeDay } from '../lib/format';
@@ -204,6 +205,17 @@ export function PlantDetailPage() {
           </span>
         </div>
       </section>
+
+      {aiAvailable && (
+        <button
+          type="button"
+          onClick={() => void openPlantConversation(p.id, navigate).catch((err: unknown) => toast(errorMessage(t, err)))}
+          className="-mt-2 mb-[18px] flex min-h-[46px] w-full items-center justify-center gap-2 rounded-[14px] border border-[#d7e6d6] bg-[#f2f8ef] text-[13px] font-extrabold text-forest-2 hover:bg-[#e8f2e4]"
+        >
+          <Icon name="sparkle" className="size-[18px]" />
+          {t('assistant.ask')}
+        </button>
+      )}
 
       <WateringCard plant={p} onWatered={refreshAfterActivity} />
 

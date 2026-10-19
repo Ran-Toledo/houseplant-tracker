@@ -2,6 +2,8 @@ import path from 'node:path';
 import { Hono } from 'hono';
 import type { AiProvider } from './ai/provider';
 import { createAiService } from './ai/service';
+import { createReadModel } from './assistant/read-model';
+import { createAssistantService } from './assistant/service';
 import { logger } from 'hono/logger';
 import type { SpeciesCatalog } from './catalog/loader';
 import type { Db } from './db/client';
@@ -9,11 +11,13 @@ import { handleError, handleNotFound } from './middleware/errors';
 import { createActivityRepository } from './repositories/activities';
 import { createAiRequestRepository } from './repositories/ai-requests';
 import { createCareScheduleRepository } from './repositories/care-schedules';
+import { createConversationRepository } from './repositories/conversations';
 import { createHealthCheckRepository } from './repositories/health-checks';
 import { createPhotoRepository } from './repositories/photos';
 import { createPlantRepository } from './repositories/plants';
 import { createSettingsRepository } from './repositories/settings';
 import { aiRoutes, healthCheckRoutes, plantHealthCheckRoutes } from './routes/ai';
+import { conversationRoutes } from './routes/conversations';
 import { dueRoutes, plantScheduleRoutes, scheduleRoutes } from './routes/care';
 import { photoRoutes, plantPhotoRoutes } from './routes/photos';
 import { plantRoutes } from './routes/plants';
@@ -70,13 +74,29 @@ export function createApp(deps: AppDeps) {
     now: deps.now,
   });
   const identifyService = createIdentifyService({ ai: aiService, catalog: deps.catalog, photos: photoService });
+  const healthCheckRepository = createHealthCheckRepository(deps.db);
   const healthCheckService = createHealthCheckService({
     ai: aiService,
     catalog: deps.catalog,
-    checks: createHealthCheckRepository(deps.db),
+    checks: healthCheckRepository,
     plants: plantService,
     photos: photoService,
     settings: settingsService,
+    now: deps.now,
+  });
+
+  const assistantService = createAssistantService({
+    ai: aiService,
+    conversations: createConversationRepository(deps.db),
+    // The assistant's tools see only this read-only view of the data.
+    data: createReadModel({
+      plants: plantService,
+      healthChecks: healthCheckRepository,
+      catalog: deps.catalog,
+      settings: settingsService,
+      now: deps.now,
+    }),
+    photos: photoService,
     now: deps.now,
   });
 
@@ -96,6 +116,7 @@ export function createApp(deps: AppDeps) {
   app.route('/api/due', dueRoutes(careService, plantService));
   app.route('/api/ai', aiRoutes(identifyService, deps.maxUploadBytes));
   app.route('/api/health-checks', healthCheckRoutes(healthCheckService));
+  app.route('/api/conversations', conversationRoutes(assistantService));
   app.route('/api/settings', settingsRoutes(settingsService));
   app.route('/api/config', configRoutes({ settings: settingsService, ai: aiService }));
 

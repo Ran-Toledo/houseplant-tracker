@@ -6,7 +6,7 @@ import { startOfLocalMonth } from '../lib/zoned-time';
 import { ApiError } from '../middleware/errors';
 import type { AiRequestRepository } from '../repositories/ai-requests';
 import type { SettingsService } from '../services/settings';
-import { AiProviderError, type AiProvider, type AiUsage, type StructuredRequest } from './provider';
+import { AiProviderError, type AiProvider, type AiUsage, type ChatRequest, type ChatStep, type StructuredRequest } from './provider';
 
 type Kind = (typeof AI_REQUEST_KINDS)[number];
 type Status = (typeof AI_REQUEST_STATUSES)[number];
@@ -58,8 +58,64 @@ export function createAiService({ provider, settings, requests, now = () => new 
     return provider;
   }
 
+  /** Inserts the `ai_requests` row for one call. */
+  function logger(context: RequestContext, model: string, started: number, requestId: string) {
+    return (status: Status, usage: AiUsage | null, extra: { errorCode?: string; result?: unknown } = {}) =>
+      requests.insert({
+        id: requestId,
+        kind: context.kind,
+        plantId: context.plantId ?? null,
+        photoId: context.photoId ?? null,
+        model,
+        status,
+        inputTokens: usage?.inputTokens ?? null,
+        outputTokens: usage?.outputTokens ?? null,
+        latencyMs: now().getTime() - started,
+        errorCode: extra.errorCode ?? null,
+        resultJson: extra.result === undefined ? null : JSON.stringify(extra.result),
+        createdAt: new Date(started).toISOString(),
+      });
+  }
+
+  /** Logs a failed call and turns it into the matching `ApiError`. */
+  function failure(err: unknown, context: RequestContext, log: ReturnType<typeof logger>): never {
+    if (!(err instanceof AiProviderError)) throw err;
+    log(err.code === 'timeout' ? 'timeout' : 'error', null, { errorCode: err.code });
+    console.error(`[api] AI ${context.kind} request failed: ${err.message}`);
+    if (err.code === 'timeout') throw new ApiError(504, 'ai_timeout', 'The AI service took too long to answer. Try again.');
+    throw new ApiError(502, 'ai_error', 'The AI service could not be reached. Try again later.');
+  }
+
   return {
     status,
+
+    /** Throws the `ApiError` a request would get right now, if AI can't be used. */
+    ensureAvailable(): void {
+      assertAvailable();
+    },
+
+    /**
+     * One streamed chat step (a single model call, logged like any other).
+     * Returns the step with its request id, or throws an `ApiError`.
+     */
+    async chatStep(context: RequestContext, request: ChatRequest, onText: (delta: string) => void): Promise<ChatStep & { requestId: string }> {
+      const active = assertAvailable();
+      const started = now().getTime();
+      const requestId = randomUUID();
+      const log = logger(context, active.model, started, requestId);
+      let step: ChatStep;
+      try {
+        step = await active.streamChat(request, onText);
+      } catch (err) {
+        failure(err, context, log);
+      }
+      if (step.refusal) {
+        log('refused', step.usage, { errorCode: 'refusal' });
+        throw new ApiError(422, 'ai_refused', 'The AI service declined to answer this request.');
+      }
+      log('ok', step.usage);
+      return { ...step, requestId };
+    },
 
     /**
      * Sends a structured request and returns the validated answer with the id of
@@ -72,31 +128,13 @@ export function createAiService({ provider, settings, requests, now = () => new 
       const active = assertAvailable();
       const started = now().getTime();
       const requestId = randomUUID();
-      const log = (status: Status, usage: AiUsage | null, extra: { errorCode?: string; result?: unknown } = {}) =>
-        requests.insert({
-          id: requestId,
-          kind: context.kind,
-          plantId: context.plantId ?? null,
-          photoId: context.photoId ?? null,
-          model: active.model,
-          status,
-          inputTokens: usage?.inputTokens ?? null,
-          outputTokens: usage?.outputTokens ?? null,
-          latencyMs: now().getTime() - started,
-          errorCode: extra.errorCode ?? null,
-          resultJson: extra.result === undefined ? null : JSON.stringify(extra.result),
-          createdAt: new Date(started).toISOString(),
-        });
+      const log = logger(context, active.model, started, requestId);
 
       let reply;
       try {
         reply = await active.generateStructured(request);
       } catch (err) {
-        if (!(err instanceof AiProviderError)) throw err;
-        log(err.code === 'timeout' ? 'timeout' : 'error', null, { errorCode: err.code });
-        console.error(`[api] AI ${context.kind} request failed: ${err.message}`);
-        if (err.code === 'timeout') throw new ApiError(504, 'ai_timeout', 'The AI service took too long to answer. Try again.');
-        throw new ApiError(502, 'ai_error', 'The AI service could not be reached. Try again later.');
+        failure(err, context, log);
       }
 
       if (reply.kind === 'refusal') {
