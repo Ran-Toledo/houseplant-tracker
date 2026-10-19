@@ -42,7 +42,7 @@ name is fine.
   sources. Only then set `status: "reviewed"`, `reviewedAt`, and update `method`. The validator refuses
   `reviewed` without a date and at least one source.
 
-## Current catalog (all drafts)
+## Current catalog (all reviewed 2026-10-19)
 
 | id | English | Hebrew | Sources |
 |---|---|---|---|
@@ -63,7 +63,7 @@ name is fine.
 
 The first 12 entries were drafted with AI assistance on 2026-10-11, and the last two on 2026-10-19. Their
 light, watering, temperature, propagation and toxicity statements were cross-checked against the listed
-pages. Notes on specific entries:
+pages, and the owner reviewed and approved all 14 on 2026-10-19. Notes on specific entries:
 
 - Some temperature ranges are general guidance where a source gave none; each file's `method` says which.
 - No ASPCA entry was found for ZZ plant, *Tradescantia zebrina*, *Pilea peperomioides*,

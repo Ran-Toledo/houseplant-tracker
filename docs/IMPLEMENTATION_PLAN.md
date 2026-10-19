@@ -48,7 +48,7 @@ proxy, and the app answers on the Wi-Fi address. Source edits reload without reb
 - [x] Sources: NC State Extension Plant Toolbox (11 species + Spathiphyllum genus page), ASPCA plant pages
 - [x] Research status honestly `draft`; per-file `method` explains what was checked; `unknown` where sources were silent
 - [x] Workflow documented in `docs/SPECIES_CATALOG.md`
-- [ ] Human review of the drafts (out of scope for automated work — the owner's call)
+- [x] Human review of the drafts: approved by the owner on 2026-10-19, all entries now `reviewed`
 
 ## Stage 5 — Core frontend and localization
 
@@ -86,6 +86,5 @@ proxy, and the app answers on the Wi-Fi address. Source edits reload without reb
 
 ## Known follow-ups
 
-- Human review of species drafts, then mark them `reviewed`.
 - `drizzle-kit` (dev-only) pulls a deprecated esbuild with a moderate advisory about its dev server, which
   drizzle-kit doesn't run. Upgrade when drizzle-kit drops it.

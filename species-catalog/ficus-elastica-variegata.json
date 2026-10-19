@@ -195,9 +195,9 @@
     }
   },
   "researchMetadata": {
-    "status": "draft",
-    "reviewedAt": null,
-    "method": "AI-assisted draft (Claude, 2026-10-19), based on the ficus-elastica entry (drafted 2026-10-11), whose care, pest and toxicity statements were cross-checked against the sources below; NC State notes that variegated cultivars keep their colour best in good light. Not from those sources (general guidance): that variegated forms need more light and grow more slowly than the green form, that the cream parts scorch first, reverting green shoots, and that seedlings don't keep the variegation. Not yet reviewed by a person.",
+    "status": "reviewed",
+    "reviewedAt": "2026-10-19",
+    "method": "AI-assisted draft (Claude, 2026-10-19), based on the ficus-elastica entry (drafted 2026-10-11), whose care, pest and toxicity statements were cross-checked against the sources below; NC State notes that variegated cultivars keep their colour best in good light. Not from those sources (general guidance): that variegated forms need more light and grow more slowly than the green form, that the cream parts scorch first, reverting green shoots, and that seedlings don't keep the variegation. Reviewed and approved by the owner on 2026-10-19.",
     "sources": [
       {
         "title": "Ficus elastica",

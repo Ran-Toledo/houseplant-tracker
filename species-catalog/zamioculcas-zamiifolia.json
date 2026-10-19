@@ -195,9 +195,9 @@
     }
   },
   "researchMetadata": {
-    "status": "draft",
-    "reviewedAt": null,
-    "method": "AI-assisted draft (Claude, 2026-10-11). Light, watering, temperature, propagation and toxicity statements were cross-checked against the source listed; no ASPCA entry was found for this species. Not yet reviewed by a person.",
+    "status": "reviewed",
+    "reviewedAt": "2026-10-19",
+    "method": "AI-assisted draft (Claude, 2026-10-11). Light, watering, temperature, propagation and toxicity statements were cross-checked against the source listed; no ASPCA entry was found for this species. Reviewed and approved by the owner on 2026-10-19.",
     "sources": [
       {
         "title": "Zamioculcas zamiifolia",

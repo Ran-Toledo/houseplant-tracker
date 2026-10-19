@@ -152,9 +152,8 @@ The validator lists every problem with the file and field. You can also run it i
 prints the same list — fix it and restart. The full workflow, field reference and research rules are in
 [docs/SPECIES_CATALOG.md](docs/SPECIES_CATALOG.md).
 
-All 12 included species are **drafts**: written with AI assistance and cross-checked against the cited
-sources (NC State Extension, ASPCA), but not yet reviewed by a person. Each guide shows its status and
-sources.
+All 14 included species were written with AI assistance, cross-checked against the cited sources (NC
+State Extension, ASPCA), and reviewed by the owner. Each guide shows its status and sources.
 
 ## Backup and restore
 
@@ -222,7 +221,6 @@ Wi-Fi who knows the address can view and change your plants.
 - Species catalog changes need an API restart; there's no in-app species editor (by design).
 - HEIC uploads are rejected (iOS usually converts to JPEG automatically).
 - No reminders or notifications.
-- The 12 species guides are drafts pending human review.
 
 ## Roadmap (not in the MVP)
 

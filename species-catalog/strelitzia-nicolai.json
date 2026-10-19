@@ -201,9 +201,9 @@
     }
   },
   "researchMetadata": {
-    "status": "draft",
-    "reviewedAt": null,
-    "method": "AI-assisted draft (Claude, 2026-10-19). Light, watering, temperature range and minimum, humidity, soil, fertilizing, leaf tearing, pests, propagation by division and seed, flowering age and toxicity were cross-checked against the NC State page below. No ASPCA entry for Strelitzia nicolai was found; the ASPCA entry for the related Strelitzia reginae is cited for comparison. Not from those sources (general guidance): reduced winter watering, repotting frequency and pot sizing, the step-by-step division and seed instructions, and that indoor plants rarely flower. Not yet reviewed by a person.",
+    "status": "reviewed",
+    "reviewedAt": "2026-10-19",
+    "method": "AI-assisted draft (Claude, 2026-10-19). Light, watering, temperature range and minimum, humidity, soil, fertilizing, leaf tearing, pests, propagation by division and seed, flowering age and toxicity were cross-checked against the NC State page below. No ASPCA entry for Strelitzia nicolai was found; the ASPCA entry for the related Strelitzia reginae is cited for comparison. Not from those sources (general guidance): reduced winter watering, repotting frequency and pot sizing, the step-by-step division and seed instructions, and that indoor plants rarely flower. Reviewed and approved by the owner on 2026-10-19.",
     "sources": [
       {
         "title": "Strelitzia nicolai",
