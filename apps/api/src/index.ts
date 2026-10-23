@@ -1,11 +1,18 @@
 import path from 'node:path';
 import { serve } from '@hono/node-server';
+import sharp from 'sharp';
 import { createOpenAiProvider } from './ai/openai-provider';
 import { createApp } from './app';
 import { CatalogValidationError, loadCatalog, type SpeciesCatalog } from './catalog/loader';
 import { loadConfig } from './config';
 import { openDatabase } from './db/client';
 import { createWebPushSender } from './push/sender';
+
+// Decoding a 12 MP phone photo takes tens of MB. Without libvips' cache and with one
+// thread per image, memory after a burst of uploads settles near 140 MB instead of 270 MB
+// (measured with MALLOC_ARENA_MAX=2 from compose.yaml), with no slower uploads.
+sharp.cache(false);
+sharp.concurrency(1);
 
 const config = loadConfig();
 

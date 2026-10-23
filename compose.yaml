@@ -16,6 +16,8 @@ services:
       STORAGE_DIR: /app/storage
       CATALOG_DIR: /app/species-catalog
       MAX_UPLOAD_MB: ${MAX_UPLOAD_MB:-15}
+      # Fewer glibc malloc arenas, so memory freed after image processing goes back to the system.
+      MALLOC_ARENA_MAX: "2"
       # AI features. Only this service gets the key; the web container and browser never do.
       OPENAI_API_KEY: ${OPENAI_API_KEY:-}
       OPENAI_MODEL: ${OPENAI_MODEL:-}

@@ -13,7 +13,10 @@ Windows 11, 8 cores) with the release containers from `compose.yaml`.
 | First page load | 8 requests, ~212 KB transferred | 53 requests, ~8.3 MB of JS |
 
 Already done: photo thumbnails for cards and tiles, release builds by default (nginx + bundled API on
-plain Node).
+plain Node), assistant pages loaded on demand, and lower API memory after photo uploads. For the last
+one, sharp's cache is off, it uses one thread per image, and `MALLOC_ARENA_MAX=2` is set for the api
+container. Processing ten 12 MP photos, memory afterwards went from about 270 MB to about 145 MB
+(peak about 330 MB to 175 MB), at the same speed (about 1.5 s per photo).
 
 ## Ideas
 
