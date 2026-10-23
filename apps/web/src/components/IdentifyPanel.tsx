@@ -11,16 +11,20 @@ export type IdentifySource = { file: File } | { photo: Photo } | null;
 
 /**
  * "Identify from photo" in the plant form (Screen C1). Shows up to three
- * candidates; choosing one only fills the form, nothing is saved here.
+ * candidates; choosing one only fills the form, nothing is saved here. An
+ * identified file becomes the form's photo and is saved with the plant.
  */
 export function IdentifyPanel({
   source,
   species,
   onChoose,
+  onFileIdentified,
 }: {
   source: IdentifySource;
   species: SpeciesSummary[];
   onChoose: (candidate: IdentificationCandidate) => void;
+  /** Called with a file once it has been identified, so the form keeps it as the plant photo. */
+  onFileIdentified?: (file: File) => void;
 }) {
   const { t, i18n } = useTranslation();
   const lang: Language = i18n.resolvedLanguage === 'he' ? 'he' : 'en';
@@ -42,6 +46,7 @@ export function IdentifyPanel({
     try {
       const res = 'file' in next ? await api.identifyUpload(next.file) : await api.identifyPhoto(next.photo.id);
       setResult(res.identification);
+      if ('file' in next) onFileIdentified?.(next.file);
     } catch (err) {
       setError(errorMessage(t, err));
     } finally {

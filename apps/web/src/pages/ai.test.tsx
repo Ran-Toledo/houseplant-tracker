@@ -130,6 +130,9 @@ describe('identify from photo', () => {
     fireEvent.change(ownInput, { target: { files: [new File(['x'], 'x.jpg', { type: 'image/jpeg' })] } });
     fireEvent.click(await screen.findByRole('button', { name: 'Use this name' }));
     expect(((await screen.findByLabelText(/Species name/)) as HTMLInputElement).value).toBe('Mini monstera (Rhaphidophora tetrasperma)');
+    // The identified photo becomes the plant's photo.
+    expect(screen.getByRole('button', { name: 'Remove photo' })).toBeTruthy();
+    expect(screen.getByText('Uses the photo chosen below.')).toBeTruthy();
   });
 
   it('shows a readable error when the AI request fails', async () => {

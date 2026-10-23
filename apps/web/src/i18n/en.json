@@ -193,7 +193,11 @@
     "invalidValue": "Check this value",
     "created": "Plant added",
     "saved": "Changes saved",
-    "photoFailed": "The plant was saved, but the photo couldn't be uploaded: {{reason}}"
+    "photoFailed": "The plant was saved, but the photo couldn't be uploaded: {{reason}}",
+    "clearDate": "Clear date",
+    "keepPhoto": "Keep current photo",
+    "photoHintEdit": "A new photo becomes the plant's cover; earlier photos stay in its gallery.",
+    "historyHintEdit": "Changing a date corrects the latest entry in its care history; clearing a date removes that entry."
   },
   "speciesPicker": {
     "placeholder": "Choose a species",

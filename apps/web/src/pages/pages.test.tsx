@@ -4,6 +4,7 @@ import { describe, expect, it } from 'vitest';
 import { AppRoutes } from '../App';
 import { ToastProvider } from '../components/Toast';
 import { changeLanguage } from '../i18n';
+import { toDateInputValue } from '../lib/format';
 import { makePlant, mockApi, species } from '../test/mockApi';
 
 function renderAt(path: string) {
@@ -82,6 +83,19 @@ describe('add plant form', () => {
     });
   });
 
+  it('clears a date with its Clear button', async () => {
+    mockApi({ 'GET /api/species': () => ({ species }) });
+    renderAt('/plants/new');
+    const owned = (await screen.findByLabelText(/Owned since/)) as HTMLInputElement;
+    fireEvent.change(owned, { target: { value: '2026-01-05' } });
+    expect(owned.value).toBe('2026-01-05');
+    // The default value stays empty, so the native iOS Clear (a reset to the default) works too.
+    expect(owned.defaultValue).toBe('');
+    fireEvent.click(screen.getAllByRole('button', { name: 'Clear date' })[0]!);
+    expect(owned.value).toBe('');
+    expect(screen.queryByRole('button', { name: 'Clear date' })).toBeNull();
+  });
+
   it('rejects an invalid pot diameter without calling the API', async () => {
     mockApi({ 'GET /api/species': () => ({ species }) });
     renderAt('/plants/new');
@@ -89,6 +103,55 @@ describe('add plant form', () => {
     fireEvent.change(screen.getByLabelText(/Pot diameter/), { target: { value: '-4' } });
     fireEvent.click(screen.getByRole('button', { name: 'Save' }));
     expect(await screen.findByText('Enter a number greater than 0')).toBeTruthy();
+  });
+});
+
+describe('edit plant form', () => {
+  it('edits care dates through the care history and replaces the photo', async () => {
+    const plant = makePlant({
+      lastWateredAt: '2026-10-10T09:00:00.000Z',
+      lastRepottedAt: '2026-06-03T09:00:00.000Z',
+    });
+    const calls: string[] = [];
+    const posted: unknown[] = [];
+    mockApi({
+      'GET /api/species': () => ({ species }),
+      [`GET /api/plants/${plant.id}`]: () => ({ plant }),
+      [`PATCH /api/plants/${plant.id}`]: () => {
+        calls.push('patch');
+        return { plant };
+      },
+      [`GET /api/plants/${plant.id}/activities`]: () => ({
+        activities: [
+          { id: 'w-old', plantId: plant.id, activityType: 'watering', performedAt: '2026-10-01T09:00:00.000Z', notes: null, createdAt: '' },
+          { id: 'w-new', plantId: plant.id, activityType: 'watering', performedAt: '2026-10-10T09:00:00.000Z', notes: 'deep soak', createdAt: '' },
+          { id: 'r-1', plantId: plant.id, activityType: 'repotting', performedAt: '2026-06-03T09:00:00.000Z', notes: null, createdAt: '' },
+        ],
+      }),
+      [`POST /api/plants/${plant.id}/activities`]: (_url, init) => {
+        posted.push(JSON.parse(String(init.body)));
+        return { activity: {} };
+      },
+      [`DELETE /api/plants/${plant.id}/activities/w-new`]: () => calls.push('delete w-new'),
+      [`DELETE /api/plants/${plant.id}/activities/r-1`]: () => calls.push('delete r-1'),
+      [`POST /api/plants/${plant.id}/photos`]: () => {
+        calls.push('photo');
+        return { photo: {} };
+      },
+    });
+    const view = renderAt(`/plants/${plant.id}/edit`);
+
+    const watered = (await screen.findByLabelText(/Last watered/)) as HTMLInputElement;
+    expect(watered.value).toBe(toDateInputValue(new Date(plant.lastWateredAt!)));
+    fireEvent.change(watered, { target: { value: '2026-10-12' } });
+    const repotted = screen.getByLabelText(/Last repotted/) as HTMLInputElement;
+    fireEvent.click(within(repotted.parentElement!).getByRole('button', { name: 'Clear date' }));
+    const file = new File(['x'], 'new.jpg', { type: 'image/jpeg' });
+    fireEvent.change(view.container.querySelector('input[type=file]')!, { target: { files: [file] } });
+    fireEvent.click(screen.getByRole('button', { name: 'Save' }));
+
+    await waitFor(() => expect(calls).toEqual(['patch', 'delete w-new', 'delete r-1', 'photo']));
+    expect(posted).toEqual([{ activityType: 'watering', performedAt: expect.any(String), notes: 'deep soak' }]);
   });
 });
 

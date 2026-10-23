@@ -1,4 +1,13 @@
-import { useEffect, useId, useState, type FormEvent, type ReactNode } from 'react';
+import {
+  useEffect,
+  useId,
+  useLayoutEffect,
+  useRef,
+  useState,
+  type ComponentProps,
+  type FormEvent,
+  type ReactNode,
+} from 'react';
 import { Link, useNavigate, useParams } from 'react-router';
 import { useTranslation } from 'react-i18next';
 import {
@@ -7,6 +16,7 @@ import {
   POT_MATERIALS,
   WINDOW_ORIENTATIONS,
   type ActivityInput,
+  type ActivityType,
   type Condition,
   type IdentificationCandidate,
   type Plant,
@@ -80,7 +90,29 @@ function fromPlant(p: Plant): FormValues {
     soilDescription: p.soilDescription ?? '',
     condition: p.condition,
     notes: p.notes ?? '',
+    lastWateredOn: p.lastWateredAt ? toDateInputValue(new Date(p.lastWateredAt)) : '',
+    lastRepottedOn: p.lastRepottedAt ? toDateInputValue(new Date(p.lastRepottedAt)) : '',
   };
+}
+
+/**
+ * Applies an edited "last watered/repotted" date to the care history: the
+ * most recent entry of that type is replaced by one on the new date (keeping
+ * its notes), or removed when the date is cleared.
+ */
+async function syncLatestActivity(plantId: string, type: ActivityType, before: string, after: string) {
+  if (before === after) return;
+  const latest = (await api.listActivities(plantId))
+    .filter((a) => a.activityType === type)
+    .sort((a, b) => b.performedAt.localeCompare(a.performedAt))[0];
+  if (after) {
+    await api.addActivity(plantId, {
+      activityType: type,
+      performedAt: dateInputToTimestamp(after),
+      notes: latest?.notes ?? null,
+    });
+  }
+  if (latest) await api.deleteActivity(plantId, latest.id);
 }
 
 /** Accepts "22", "22.5" and "22,5". */
@@ -118,6 +150,42 @@ function toPayload(v: FormValues) {
 
 const inputClass =
   'block min-h-12 w-full rounded-xl border border-line bg-white px-3 text-ink outline-none placeholder:text-[#a3afa6] focus:border-[#83b998] aria-invalid:border-clay';
+
+/**
+ * A date input with its own Clear button. It is uncontrolled on purpose: React
+ * keeps a controlled input's default value in sync with its value, and the
+ * native iOS "Clear" resets to the default value, so it changed nothing. Here
+ * the default stays empty and the value is copied in from props.
+ */
+function DateInput({
+  value,
+  onChange,
+  ...props
+}: Omit<ComponentProps<'input'>, 'value' | 'onChange' | 'type'> & {
+  value: string;
+  onChange: (e: { target: { value: string } }) => void;
+}) {
+  const { t } = useTranslation();
+  const ref = useRef<HTMLInputElement>(null);
+  useLayoutEffect(() => {
+    if (ref.current && ref.current.value !== value) ref.current.value = value;
+  }, [value]);
+  return (
+    <div className="flex items-center gap-2">
+      <input {...props} ref={ref} type="date" onChange={onChange} />
+      {value && (
+        <button
+          type="button"
+          onClick={() => onChange({ target: { value: '' } })}
+          aria-label={t('form.clearDate')}
+          className="grid size-11 shrink-0 place-items-center rounded-xl text-muted hover:bg-sage"
+        >
+          <Icon name="close" className="size-4" />
+        </button>
+      )}
+    </div>
+  );
+}
 
 function Field({
   label,
@@ -244,6 +312,16 @@ function PlantForm({ plant }: { plant: Plant | null }) {
       let saved: Plant;
       if (plant) {
         saved = await api.updatePlant(plant.id, payload);
+        const initial = fromPlant(plant);
+        await syncLatestActivity(plant.id, 'watering', initial.lastWateredOn, values.lastWateredOn);
+        await syncLatestActivity(plant.id, 'repotting', initial.lastRepottedOn, values.lastRepottedOn);
+        if (photo) {
+          try {
+            await api.uploadPhoto(plant.id, photo, { isCover: true });
+          } catch (err) {
+            toast(t('form.photoFailed', { reason: errorMessage(t, err) }));
+          }
+        }
         toast(t('form.saved'));
       } else {
         const initialActivities: ActivityInput[] = [];
@@ -329,6 +407,7 @@ function PlantForm({ plant }: { plant: Plant | null }) {
               source={photo ? { file: photo } : plant?.coverPhoto ? { photo: plant.coverPhoto } : null}
               species={catalog.species}
               onChoose={chooseCandidate}
+              onFileIdentified={setPhoto}
             />
           )}
         </div>
@@ -352,42 +431,47 @@ function PlantForm({ plant }: { plant: Plant | null }) {
           </select>
         </Field>
         <Field label={t('fields.acquiredAt')} htmlFor={fid('acquiredAt')} optional>
-          <input {...inputProps('acquiredAt')} type="date" max={today} />
+          <DateInput {...inputProps('acquiredAt')} max={today} />
         </Field>
-        {!plant && (
-          <div>
-            <div className="mb-1.5 text-xs font-extrabold text-[#55695b]">
-              {t('form.photo')} <span className="font-normal text-subtle">({t('common.optional')})</span>
-            </div>
-            <div className="flex items-center gap-3">
-              {photoPreview && (
-                <img src={photoPreview} alt="" className="size-20 shrink-0 rounded-xl object-cover" />
-              )}
-              <div className="flex flex-wrap gap-2">
-                <label className="flex min-h-11 cursor-pointer items-center gap-2 rounded-xl border border-line bg-white px-4 text-sm font-extrabold text-forest hover:bg-sage">
-                  <Icon name="camera" className="size-4" />
-                  {photo ? t('form.changePhoto') : t('form.choosePhoto')}
-                  <input
-                    type="file"
-                    accept="image/*"
-                    className="sr-only"
-                    onChange={(e) => setPhoto(e.target.files?.[0] ?? null)}
-                  />
-                </label>
-                {photo && (
-                  <button
-                    type="button"
-                    onClick={() => setPhoto(null)}
-                    className="min-h-11 rounded-xl px-3 text-sm font-bold text-clay-ink hover:bg-[#fbebe6]"
-                  >
-                    {t('form.removePhoto')}
-                  </button>
-                )}
-              </div>
-            </div>
-            <p className="mt-1.5 text-xs text-muted">{t('form.photoHint')}</p>
+        <div>
+          <div className="mb-1.5 text-xs font-extrabold text-[#55695b]">
+            {t('form.photo')} <span className="font-normal text-subtle">({t('common.optional')})</span>
           </div>
-        )}
+          <div className="flex items-center gap-3">
+            {(photoPreview ?? plant?.coverPhoto) && (
+              <img
+                src={photoPreview ?? plant?.coverPhoto?.thumbnailUrl}
+                alt=""
+                className="size-20 shrink-0 rounded-xl object-cover"
+              />
+            )}
+            <div className="flex flex-wrap gap-2">
+              <label className="flex min-h-11 cursor-pointer items-center gap-2 rounded-xl border border-line bg-white px-4 text-sm font-extrabold text-forest hover:bg-sage">
+                <Icon name="camera" className="size-4" />
+                {photo || plant?.coverPhoto ? t('form.changePhoto') : t('form.choosePhoto')}
+                <input
+                  type="file"
+                  accept="image/*"
+                  className="sr-only"
+                  onChange={(e) => {
+                    setPhoto(e.target.files?.[0] ?? null);
+                    e.target.value = '';
+                  }}
+                />
+              </label>
+              {photo && (
+                <button
+                  type="button"
+                  onClick={() => setPhoto(null)}
+                  className="min-h-11 rounded-xl px-3 text-sm font-bold text-clay-ink hover:bg-[#fbebe6]"
+                >
+                  {plant?.coverPhoto ? t('form.keepPhoto') : t('form.removePhoto')}
+                </button>
+              )}
+            </div>
+          </div>
+          <p className="mt-1.5 text-xs text-muted">{plant ? t('form.photoHintEdit') : t('form.photoHint')}</p>
+        </div>
       </FormSection>
 
       <FormSection title={t('form.sectionConditions')}>
@@ -456,16 +540,16 @@ function PlantForm({ plant }: { plant: Plant | null }) {
         </Field>
       </FormSection>
 
-      {!plant && (
-        <FormSection title={t('form.sectionHistory')} hint={t('form.historyHint')}>
-          <div className="grid gap-4 min-[480px]:grid-cols-2">
-            <Field label={t('fields.lastWatered')} htmlFor={fid('lastWateredOn')} optional>
-              <input {...inputProps('lastWateredOn')} type="date" max={today} />
-            </Field>
-            <Field label={t('fields.lastRepotted')} htmlFor={fid('lastRepottedOn')} optional>
-              <input {...inputProps('lastRepottedOn')} type="date" max={today} />
-            </Field>
-          </div>
+      <FormSection title={t('form.sectionHistory')} hint={plant ? t('form.historyHintEdit') : t('form.historyHint')}>
+        <div className="grid gap-4 min-[480px]:grid-cols-2">
+          <Field label={t('fields.lastWatered')} htmlFor={fid('lastWateredOn')} optional>
+            <DateInput {...inputProps('lastWateredOn')} max={today} />
+          </Field>
+          <Field label={t('fields.lastRepotted')} htmlFor={fid('lastRepottedOn')} optional>
+            <DateInput {...inputProps('lastRepottedOn')} max={today} />
+          </Field>
+        </div>
+        {!plant && (
           <label className="mt-4 flex items-start gap-2.5 text-sm">
             <input
               type="checkbox"
@@ -478,8 +562,8 @@ function PlantForm({ plant }: { plant: Plant | null }) {
               <span className="block text-xs text-muted">{t('reminders.formHint')}</span>
             </span>
           </label>
-        </FormSection>
-      )}
+        )}
+      </FormSection>
 
       {formError && (
         <p role="alert" className="mb-4 rounded-xl bg-[#fdf6f3] px-4 py-3 text-sm text-clay-ink">
