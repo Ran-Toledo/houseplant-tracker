@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/><meta name="color-scheme" content="light"/><title>Notifications settings — Houseplant Tracker</title>
+<!-- Self-contained, offline-ready UI mockup for project documentation. No backend, no external CSS or images. -->
+<style>
+:root { color-scheme: light; --forest:#234b35; --forest2:#356b4a; --ink:#253b2c; --muted:#7b897f; --subtle:#92a094; --panel:#fffdfa; --border:#e5ebe2; --shadow:0 18px 65px rgba(29,63,38,.12); }
+* {box-sizing:border-box}
+html {background:#edf1e8}
+body {margin:0; font-family:Inter,"Segoe UI","Arial","Noto Sans Hebrew",sans-serif; color:var(--ink); line-height:1.45}
+button,input {font:inherit} button {cursor:pointer}
+h1,h2,h3,p {margin:0}
+.icon {width:18px;height:18px;stroke:currentColor;stroke-width:1.75;fill:none;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+.icon.sm {width:14px;height:14px}
+.page-head {max-width:1500px;margin:28px auto 6px;padding:0 24px;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+.page-head h1 {font-size:22px;letter-spacing:-.03em}
+.page-head p {font-size:12px;color:var(--muted);margin-top:4px;max-width:680px}
+.locale {display:flex;padding:3px;gap:3px;background:#f0f2ec;border-radius:999px;border:1px solid #e7ece3}
+.locale button {border:0;background:transparent;color:#758378;font-size:12px;font-weight:800;border-radius:999px;padding:7px 11px}
+.locale button.active {background:white;color:var(--forest);box-shadow:0 1px 5px rgba(27,65,35,.13)}
+.stages {max-width:1500px;margin:0 auto 30px;padding:16px 24px;display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:24px;align-items:start}
+.stage-label {font-size:10px;font-weight:850;letter-spacing:.14em;text-transform:uppercase;color:var(--forest2);margin:0 0 8px 6px}
+html[dir=rtl] .stage-label {letter-spacing:0}
+.stage {background:var(--panel);box-shadow:var(--shadow);border:1px solid rgba(132,159,132,.25);border-radius:30px;padding:22px 20px}
+.card {border:1px solid var(--border);border-radius:16px;background:white;padding:16px}
+.card-head {display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}
+.card-head h3 {display:flex;align-items:center;gap:8px;font-size:17px;letter-spacing:-.02em}
+.hicon {width:34px;height:34px;border-radius:11px;background:#eaf4e7;color:var(--forest2);display:grid;place-items:center}
+.pill {border-radius:99px;border:1px solid;padding:4px 10px;font-size:11px;font-weight:850}
+.pill.on {background:#eaf4e7;border-color:#dde8dc;color:var(--forest2)}
+.pill.off {background:#f4f3ee;border-color:var(--border);color:var(--muted)}
+.text {font-size:13px;color:#43584a}
+.steps {margin:10px 0 0;padding-inline-start:20px;font-size:13px;color:#385340}
+.steps li {margin-top:5px}
+.code {font-family:ui-monospace,Consolas,monospace;font-size:12px;background:#f5f7f2;border-radius:8px;padding:2px 6px;direction:ltr;unicode-bidi:embed}
+.primary {margin-top:12px;width:100%;min-height:46px;border:0;border-radius:12px;background:var(--forest2);color:white;font-weight:850;font-size:14px}
+.row {display:flex;justify-content:space-between;align-items:center;gap:12px;padding:11px 0;border-top:1px solid #eff1e9;font-size:13px}
+.row:first-of-type {border-top:0}
+.row label {color:#55695b;font-weight:800;font-size:12px}
+.field {min-height:40px;border:1px solid var(--border);border-radius:10px;padding:0 10px;display:flex;align-items:center;font-size:14px;min-width:110px;justify-content:center}
+.ghost {min-height:40px;border-radius:12px;border:1px solid var(--border);background:white;color:var(--forest);font-weight:800;font-size:12.5px;padding:0 12px;display:inline-flex;align-items:center;gap:6px}
+.device {display:flex;align-items:center;gap:10px;padding:10px 0;border-top:1px solid #eff1e9;font-size:13px}
+.device .meta {font-size:11px;color:var(--muted)}
+.device .x {margin-inline-start:auto;border:0;background:transparent;color:#9a4636;font-size:12px;font-weight:800}
+.sub {font-size:11px;font-weight:850;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin:14px 0 2px}
+html[dir=rtl] .sub {letter-spacing:0;text-transform:none}
+.note {font-size:11px;color:var(--muted);display:flex;gap:6px;margin-top:12px}
+.notif {margin-top:18px;border-radius:18px;background:rgba(245,245,247,.95);box-shadow:0 8px 30px #1d2a2133;padding:12px 14px;display:flex;gap:10px}
+.notif-icon {width:38px;height:38px;border-radius:9px;background:var(--forest);display:grid;place-items:center;color:white;flex-shrink:0}
+.notif b {font-size:13px} .notif p {font-size:13px;color:#333}
+.caption {font-size:11px;color:var(--muted);margin-top:12px}
+.footnote {max-width:1500px;margin:0 auto 40px;padding:0 24px;font-size:11px;color:#91a094}
+.toast {position:fixed;inset:auto 15px 25px;margin:auto;max-width:360px;text-align:center;padding:12px 17px;border-radius:12px;background:#214f38;color:white;font-size:13px;opacity:0;pointer-events:none;transition:opacity .2s}
+</style></head>
+<body>
+<svg style="position:absolute;width:0;height:0" aria-hidden="true">
+  <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 9a6 6 0 0 1 12 0c0 6 2.5 7.5 2.5 7.5h-17S6 15 6 9Z"/><path d="M10.3 20a1.9 1.9 0 0 0 3.4 0"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></symbol>
+  <symbol id="i-send" viewBox="0 0 24 24"><path d="M4 12 20 4l-6 16-2.5-6.5L4 12Z"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><rect x="7" y="3" width="10" height="18" rx="2"/><path d="M11 18h2"/></symbol>
+  <symbol id="i-leaf" viewBox="0 0 24 24"><path d="M20 4c-9-.2-15 3.7-15 11a5 5 0 0 0 5 5c7.3 0 11.2-6 10-16Z"/><path d="M5 20c1.7-5.7 5.8-9.9 11.8-12.5"/></symbol>
+</svg>
+
+<header class="page-head">
+  <div>
+    <h1 data-i18n="pageHeading">Screen E: Settings → Notifications</h1>
+    <p data-i18n="pageIntro">Design reference for phase 4. A daily push notification on the iPhone lists the plants whose soil check is due. The section adapts to where the app is opened: three states.</p>
+  </div>
+  <div class="locale" role="group" aria-label="Language">
+    <button type="button" data-language="en" class="active" aria-pressed="true">English</button>
+    <button type="button" data-language="he" aria-pressed="false">עברית</button>
+  </div>
+</header>
+
+<main class="stages">
+  <section>
+    <p class="stage-label" data-i18n="e1">E1 · Opened over the local network (http)</p>
+    <div class="stage">
+      <div class="card">
+        <div class="card-head"><h3><span class="hicon"><svg class="icon"><use href="#i-bell"/></svg></span><span data-i18n="title">Notifications</span></h3><span class="pill off" data-i18n="off">Off</span></div>
+        <p class="text" data-i18n="e1Body">Notifications need the secure address of the app, installed on the Home Screen:</p>
+        <ol class="steps">
+          <li><span data-i18n="e1s1">On the iPhone, open the Tailscale app and connect.</span></li>
+          <li><span data-i18n="e1s2">In Safari, open</span> <span class="code">https://laptop-….ts.net</span></li>
+          <li><span data-i18n="e1s3">Tap Share → Add to Home Screen, then open the app from the Home Screen and come back here.</span></li>
+        </ol>
+        <p class="note"><svg class="icon sm"><use href="#i-info"/></svg><span data-i18n="e1Note">In-app reminders (the bell on My plants) work everywhere without this.</span></p>
+      </div>
+      <p class="caption" data-i18n="e1Caption">Shown when the page isn't a secure context. On iPhone Safari over https but not installed, step 3 alone is shown. If the server has no push keys, the card says notifications aren't set up on this computer.</p>
+    </div>
+  </section>
+
+  <section>
+    <p class="stage-label" data-i18n="e2">E2 · Installed app, not enabled yet</p>
+    <div class="stage">
+      <div class="card">
+        <div class="card-head"><h3><span class="hicon"><svg class="icon"><use href="#i-bell"/></svg></span><span data-i18n="title">Notifications</span></h3><span class="pill off" data-i18n="off">Off</span></div>
+        <p class="text" data-i18n="e2Body">Get one notification a day listing the plants whose soil is due for a check. Nothing is sent on days when no plant needs care.</p>
+        <button type="button" class="primary" data-demo-action data-i18n="enable">Enable notifications on this device</button>
+        <p class="note"><svg class="icon sm"><use href="#i-info"/></svg><span data-i18n="e2Note">The iPhone asks for permission. Notifications travel through Apple's push service; the computer has to be on at notification time.</span></p>
+      </div>
+      <p class="caption" data-i18n="e2Caption">If permission was refused earlier, the button is replaced by a note explaining how to allow it in iPhone Settings → Notifications.</p>
+    </div>
+  </section>
+
+  <section>
+    <p class="stage-label" data-i18n="e3">E3 · Enabled</p>
+    <div class="stage">
+      <div class="card">
+        <div class="card-head"><h3><span class="hicon"><svg class="icon"><use href="#i-bell"/></svg></span><span data-i18n="title">Notifications</span></h3><span class="pill on" data-i18n="on">On</span></div>
+        <div class="row"><label data-i18n="time">Daily time</label><span class="field">08:30</span></div>
+        <div class="row"><label data-i18n="pause">Pause until (vacation)</label><span class="field" data-i18n="notPaused">Not paused</span></div>
+        <div class="row"><span class="text" data-i18n="lastSent">Last sent: today at 08:30 · 2 plants</span><button type="button" class="ghost" data-demo-action><svg class="icon sm"><use href="#i-send"/></svg><span data-i18n="test">Send a test</span></button></div>
+        <p class="sub" data-i18n="devices">Devices</p>
+        <div class="device"><svg class="icon"><use href="#i-phone"/></svg><span><span data-i18n="iphone">iPhone (this device)</span><span class="meta" style="display:block" data-i18n="added">Added 20 Oct 2026</span></span><button type="button" class="x" data-demo-action data-i18n="remove">Remove</button></div>
+        <p class="note"><svg class="icon sm"><use href="#i-info"/></svg><span data-i18n="e3Note">The notification is written in the language this device used when it was enabled.</span></p>
+      </div>
+      <div class="notif">
+        <span class="notif-icon"><svg class="icon"><use href="#i-leaf"/></svg></span>
+        <span><b data-i18n="nTitle">Houseplant Tracker</b><p data-i18n="nBody">2 plants to check today: Monty, ציפורה</p></span>
+      </div>
+      <p class="caption" data-i18n="e3Caption">The daily notification. Tapping it opens the Notifications page (or the plant page when only one plant is due). The Home Screen icon shows the due count where the iPhone supports app badges.</p>
+    </div>
+  </section>
+</main>
+<p class="footnote" data-i18n="footnote">Screen E — design mockup only.</p>
+<div class="toast"></div>
+
+<script>const TRANSLATIONS = {
+ "en": {"pageTitle":"Notifications settings — Houseplant Tracker","demoOnly":"Design preview only — no data was changed."},
+ "he": {"pageTitle":"הגדרות התראות — מעקב עציצים","demoOnly":"זוהי הדמיית עיצוב — לא בוצע שינוי בנתונים.",
+  "pageHeading":"מסך E: הגדרות ← התראות","pageIntro":"הדמיית עיצוב לשלב 4. התראת Push יומית באייפון מציגה את הצמחים שהגיע הזמן לבדוק את האדמה שלהם. האזור משתנה לפי האופן שבו האפליקציה נפתחה: שלושה מצבים.",
+  "e1":"E1 · נפתח ברשת המקומית (http)","title":"התראות","off":"כבוי","on":"פעיל",
+  "e1Body":"התראות דורשות את הכתובת המאובטחת של האפליקציה, כשהיא מותקנת במסך הבית:",
+  "e1s1":"באייפון, לפתוח את אפליקציית Tailscale ולהתחבר.","e1s2":"ב-Safari, לפתוח את","e1s3":"להקיש שיתוף ← הוספה למסך הבית, ואז לפתוח את האפליקציה ממסך הבית ולחזור לכאן.",
+  "e1Note":"תזכורות בתוך האפליקציה (הפעמון בדף הצמחים שלי) עובדות בכל מקום גם בלי זה.",
+  "e1Caption":"מוצג כשהדף אינו בהקשר מאובטח. ב-Safari באייפון דרך https בלי התקנה, מוצג רק שלב 3. אם בשרת אין מפתחות Push, הכרטיס אומר שההתראות לא הוגדרו במחשב הזה.",
+  "e2":"E2 · אפליקציה מותקנת, עוד לא הופעל","e2Body":"התראה אחת ביום עם הצמחים שהגיע הזמן לבדוק את האדמה שלהם. בימים שבהם אף צמח לא צריך טיפול, לא נשלח דבר.",
+  "enable":"הפעלת התראות במכשיר הזה","e2Note":"האייפון יבקש הרשאה. ההתראות עוברות דרך שירות ה-Push של Apple; המחשב צריך להיות פועל בשעת ההתראה.",
+  "e2Caption":"אם ההרשאה נדחתה בעבר, במקום הכפתור מופיעה הסבר איך לאשר אותה בהגדרות האייפון ← עדכונים.",
+  "e3":"E3 · פעיל","time":"שעה יומית","pause":"השהיה עד (חופשה)","notPaused":"לא מושהה","lastSent":"נשלח לאחרונה: היום ב-08:30 · 2 צמחים","test":"שליחת התראת ניסיון",
+  "devices":"מכשירים","iphone":"אייפון (המכשיר הזה)","added":"נוסף ב-20 באוק׳ 2026","remove":"הסרה","e3Note":"ההתראה נכתבת בשפה שבה השתמש המכשיר כשההתראות הופעלו.",
+  "nTitle":"מעקב עציצים","nBody":"2 צמחים לבדיקה היום: Monty, ציפורה",
+  "e3Caption":"ההתראה היומית. הקשה עליה פותחת את דף ההתראות (או את דף הצמח כשרק צמח אחד צריך בדיקה). סמל האפליקציה במסך הבית מציג את מספר הצמחים, היכן שהאייפון תומך בתגי אפליקציה.",
+  "footnote":"מסך E — הדמיית עיצוב בלבד."}
+};</script>
+<script>
+(() => {
+  const en = {};
+  document.querySelectorAll('[data-i18n]').forEach(el => { en[el.dataset.i18n] = el.textContent; });
+  const dict = { en: Object.assign(en, TRANSLATIONS.en), he: TRANSLATIONS.he };
+  let locale = 'en';
+  try { locale = localStorage.getItem('houseplant-design-language') === 'he' ? 'he' : 'en'; } catch (_) {}
+  function applyLang(lang) {
+    locale = lang;
+    document.documentElement.lang = lang;
+    document.documentElement.dir = lang === 'he' ? 'rtl' : 'ltr';
+    document.querySelectorAll('[data-i18n]').forEach(el => { const v = dict[lang][el.dataset.i18n]; if (v !== undefined) el.textContent = v; });
+    document.querySelectorAll('[data-language]').forEach(el => { const s = el.dataset.language === lang; el.classList.toggle('active', s); el.setAttribute('aria-pressed', String(s)); });
+    document.title = dict[lang].pageTitle;
+    try { localStorage.setItem('houseplant-design-language', lang); } catch (_) {}
+  }
+  const toast = document.querySelector('.toast');
+  document.querySelectorAll('[data-demo-action]').forEach(b => b.addEventListener('click', () => {
+    toast.textContent = dict[locale].demoOnly; toast.style.opacity = 1;
+    clearTimeout(window.__t); window.__t = setTimeout(() => { toast.style.opacity = 0; }, 2700);
+  }));
+  document.querySelectorAll('[data-language]').forEach(b => b.addEventListener('click', () => applyLang(b.dataset.language)));
+  applyLang(locale);
+})();
+</script>
+</body></html>

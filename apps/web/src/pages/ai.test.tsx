@@ -22,7 +22,7 @@ function renderAt(path: string) {
 const config = (available: boolean) => ({
   config: {
     ai: { configured: true, enabled: available, available, model: 'gpt-test', usedThisMonth: 1, monthlyLimit: 300 },
-    push: { available: false, vapidPublicKey: null },
+    push: { available: false, vapidPublicKey: null, appUrl: null },
     timezone: 'Asia/Jerusalem',
   },
 });

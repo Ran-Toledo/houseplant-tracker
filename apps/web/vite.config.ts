@@ -13,9 +13,10 @@ export default defineConfig({
     host: '0.0.0.0',
     port: 5173,
     strictPort: true,
-    // IP addresses and localhost are always allowed; also accept mDNS names like my-pc.local.
+    // IP addresses and localhost are always allowed; also accept mDNS names like my-pc.local
+    // and the Tailscale HTTPS address (*.ts.net).
     // Keeping a host allow-list protects the dev server against DNS-rebinding attacks.
-    allowedHosts: ['.local'],
+    allowedHosts: ['.local', '.ts.net'],
     watch: usePolling ? { usePolling: true, interval: 300 } : undefined,
     proxy: {
       '/api': { target: apiTarget, changeOrigin: true },

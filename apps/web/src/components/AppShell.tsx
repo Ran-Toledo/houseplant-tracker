@@ -1,9 +1,10 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Link, NavLink, Outlet, useLocation } from 'react-router';
 import { useTranslation } from 'react-i18next';
 import { api } from '../api';
 import { useAsync } from '../hooks/useAsync';
 import { useCareChanged } from '../lib/care';
+import { setAppBadge } from '../lib/push';
 import { Icon, type IconName } from './Icon';
 
 interface NavItem {
@@ -38,7 +39,12 @@ function useDueNowCount(): number {
   const bump = useCallback(() => setVersion((v) => v + 1), []);
   useCareChanged(bump);
   const due = useAsync(() => api.listDue(0), [location.pathname, version]);
-  return due.data?.length ?? 0;
+  const count = due.data?.length;
+  // Keep the Home Screen icon's badge in step with the bell.
+  useEffect(() => {
+    if (count !== undefined) setAppBadge(count);
+  }, [count]);
+  return count ?? 0;
 }
 
 /** Bell at the end of the My plants header; opens the Notifications page and shows how many plants are due. */

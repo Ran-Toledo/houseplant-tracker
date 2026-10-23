@@ -15,6 +15,8 @@ const TRANSLATED_CODES = [
   'ai_error',
   'ai_refused',
   'ai_invalid_output',
+  'push_not_configured',
+  'no_push_devices',
 ] as const;
 
 /** A localized, user-facing message for any error thrown by the API layer. */

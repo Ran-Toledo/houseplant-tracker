@@ -84,7 +84,7 @@ binaries) are never shadowed by the host's Windows ones.
 
 | Folder | Contents |
 |---|---|
-| `routes/` | Hono routers: `species`, `plants` (+ activities), `photos`, `care` (schedules, snooze, due list), `ai` (identification, health checks), `conversations` (assistant), `settings` (+ `/api/config`). Parse input, call services, shape responses. |
+| `routes/` | Hono routers: `species`, `plants` (+ activities), `photos`, `care` (schedules, snooze, due list), `ai` (identification, health checks), `conversations` (assistant), `push`, `settings` (+ `/api/config`). Parse input, call services, shape responses. |
 | `services/` | `plants` (species checks, create with initial history, cascade delete), `photos` (upload/cover/delete), `images` (sharp pipeline), `settings` (defaults over stored values), `care` (schedules and due dates, added to plants as `wateringDue`). |
 | `repositories/` | Drizzle queries per table; plant list query derives last watering/repotting and joins the cover photo. |
 | `ai/` | AI provider interface, the OpenAI implementation and a fake for tests; `service` (owner switch, monthly limit, answer validation, request log); `images` (1024 px JPEG for the model). |
@@ -130,6 +130,16 @@ Reasoning items are passed back between tool rounds in encrypted form
 (`include: ["reasoning.encrypted_content"]`), since nothing is stored at OpenAI. Every model call is
 one `ai_requests` row. `care/signals.ts` computes rule-based care facts the assistant reads through
 `get_care_signals`. See [NEXT_STAGE_DESIGN.md](NEXT_STAGE_DESIGN.md).
+
+### Push notifications
+
+`push/service.ts` runs inside the API process (`start()` in `index.ts`): every minute it checks the
+owner's local time against `notificationTime`. The first check past that time claims the day with a row in
+`notifications` (unique per channel and date), then sends one digest of the plants due today or overdue
+to every device, in each device's language. Claiming first means a restart or a slow send never sends
+twice, and a server that was off at 08:30 still sends later that day. `push/sender.ts` wraps `web-push`
+with the VAPID keys from `.env`. The iPhone needs HTTPS with a trusted certificate, which
+`tailscale serve` provides at the PC's `*.ts.net` address; nginx accepts that host.
 
 ### Error format
 
@@ -181,6 +191,10 @@ AI codes:
 | `GET/DELETE /api/conversations/:id` | One conversation / delete it with its messages |
 | `GET /api/conversations/:id/messages` | Messages, oldest first |
 | `POST /api/conversations/:id/messages` | `{ text, photoId?, lang }` → Server-Sent Events: `message`, `status` (a tool is running), `delta` (answer text), then `done` or `error`. Checks run first, so a refused message is a normal JSON error |
+| `GET/POST /api/push/subscriptions` | Devices with notifications on / add or refresh this browser's subscription |
+| `DELETE /api/push/subscriptions/:id` | Remove a device |
+| `POST /api/push/test` | Send a test notification to every device: `{ sent, failed }` |
+| `GET /api/push/status` | The latest daily digest (date, status, plant count) |
 | `GET/PATCH /api/settings` | App-wide settings (time zone, hemisphere, AI switch and monthly limit, reminder time); PATCH takes any subset |
 | `GET /api/config` | What the client may show: AI status and monthly usage, push availability, time zone |
 
@@ -207,5 +221,6 @@ Hebrew/English renders correctly.
 
 The design for AI identification and health checks, the read-only assistant and reminders is in
 [NEXT_STAGE_DESIGN.md](NEXT_STAGE_DESIGN.md). Built so far: the shared groundwork (settings, `GET /api/config`,
-the AI module and the species `careProfile`), in-app watering reminders, AI identification and health checks, and the read-only assistant. Authentication would later be a Hono middleware in front of
+the AI module and the species `careProfile`), in-app watering reminders, AI identification and health checks, the read-only assistant, and daily
+push notifications. Authentication would later be a Hono middleware in front of
 `/api`.

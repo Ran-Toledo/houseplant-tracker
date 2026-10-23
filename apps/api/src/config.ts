@@ -20,6 +20,10 @@ export interface AppConfig {
   maxUploadBytes: number;
   /** OpenAI settings; `apiKey` is null when AI features aren't set up. */
   openai: { apiKey: string | null; model: string; timeoutMs: number };
+  /** Web Push keys; null when push isn't set up (`npm run push:keys` creates them). */
+  vapid: { publicKey: string; privateKey: string; subject: string } | null;
+  /** The app's HTTPS address for phones, e.g. `https://my-pc.tailnet.ts.net`; shown in Settings. */
+  appUrl: string | null;
 }
 
 /** Default model for AI features; override with OPENAI_MODEL. */
@@ -27,6 +31,14 @@ const DEFAULT_OPENAI_MODEL = 'gpt-5.4-mini';
 
 /** Repository root, used for sensible defaults when running outside Docker. */
 const repoRoot = path.resolve(import.meta.dirname, '../../..');
+
+function vapidFromEnv(): AppConfig['vapid'] {
+  const publicKey = process.env.VAPID_PUBLIC_KEY?.trim();
+  const privateKey = process.env.VAPID_PRIVATE_KEY?.trim();
+  const subject = process.env.VAPID_SUBJECT?.trim();
+  if (!publicKey || !privateKey || !subject) return null;
+  return { publicKey, privateKey, subject };
+}
 
 export function loadConfig(): AppConfig {
   return {
@@ -39,5 +51,7 @@ export function loadConfig(): AppConfig {
       model: process.env.OPENAI_MODEL?.trim() || DEFAULT_OPENAI_MODEL,
       timeoutMs: intFromEnv('AI_TIMEOUT_MS', 60_000),
     },
+    vapid: vapidFromEnv(),
+    appUrl: process.env.APP_URL?.trim() || null,
   };
 }

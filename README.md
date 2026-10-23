@@ -147,14 +147,48 @@ The bell at the top of My plants shows how many plants are due. It opens the *No
 the *Needs care* list has a one-tap *Watered* button for each plant. Due plants' cards also get a
 *Check soil* badge. Logging a watering
 answers the reminder. You can also snooze it until tomorrow or for three days. Dates use the time zone
-from Settings (default Asia/Jerusalem). For now reminders appear in the app; notifications to the
-phone come in a later phase.
+from Settings (default Asia/Jerusalem). Reminders appear in the app, and can also arrive on the phone as
+one daily notification (see below).
+
+## Phone notifications (Web Push)
+
+Optional: one notification a day, at the time set in *Settings → Notifications* (default 08:30), listing
+the plants whose soil check is due. Nothing is sent on days when nothing is due, or during a vacation
+pause. iPhones only allow Web Push for a web app added to the Home Screen and opened over HTTPS with a
+trusted certificate, so the app is published on your tailnet with Tailscale. One-time setup:
+
+1. **Tailscale HTTPS:** in the Tailscale admin console (DNS page), keep MagicDNS on and enable
+   *HTTPS Certificates*. Tailscale must be installed and signed in on the PC and the iPhone.
+2. **Publish the app on the tailnet** (on the PC; it keeps running in the background):
+
+   ```bash
+   tailscale serve --bg 5173
+   ```
+
+   `tailscale serve status` shows the address, `https://<pc>.<tailnet>.ts.net`. It's reachable only from
+   devices in your tailnet. `tailscale serve reset` removes it.
+3. **Push keys:** create them once; this appends `VAPID_*` lines to `.env` (the private key is never
+   printed):
+
+   ```bash
+   npm run push:keys -w apps/api -- --subject mailto:you@example.com
+   ```
+
+   Optionally add `APP_URL=https://<pc>.<tailnet>.ts.net` to `.env`, so Settings shows the address. Then
+   run `docker compose up -d` to recreate the containers.
+4. **On the iPhone:** connect Tailscale, open the `https://…ts.net` address in Safari, tap
+   *Share → Add to Home Screen*, open the app from the Home Screen, and in *Settings → Notifications* tap
+   *Enable notifications on this device*, then *Send a test*.
+
+Notifications go through Apple's push service, so they arrive away from home too, but the PC has to be on
+(and awake) at notification time. If it's off, the day's notification is sent when the API next runs that
+day. Don't create new keys later: every device would have to turn notifications on again.
 
 ## AI features
 
-AI features use the OpenAI API and are optional: without a key the app works as before. The groundwork
-is in place (settings, usage tracking, the AI service); identification, health checks and the assistant
-are being built on it (see [docs/NEXT_STAGE_DESIGN.md](docs/NEXT_STAGE_DESIGN.md)).
+AI features use the OpenAI API and are optional: without a key the app works as before. They are
+identification from a photo, health checks, and a read-only assistant (see
+[docs/NEXT_STAGE_DESIGN.md](docs/NEXT_STAGE_DESIGN.md)).
 
 To turn AI features on:
 1. Add your key to `.env` next to `compose.yaml` (`OPENAI_API_KEY=…`). Don't put it in `apps/api/`.

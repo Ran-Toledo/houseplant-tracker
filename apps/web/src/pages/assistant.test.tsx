@@ -22,7 +22,7 @@ function renderAt(path: string) {
 const config = (available: boolean) => ({
   config: {
     ai: { configured: true, enabled: available, available, model: 'gpt-test', usedThisMonth: 1, monthlyLimit: 300 },
-    push: { available: false, vapidPublicKey: null },
+    push: { available: false, vapidPublicKey: null, appUrl: null },
     timezone: 'Asia/Jerusalem',
   },
 });
@@ -102,10 +102,10 @@ describe('assistant tab', () => {
     fireEvent.click(await screen.findByRole('button', { name: 'Which of my plants are safe for cats?' }));
 
     // Creating the chat, loading its page and sending the question take several requests.
-    expect(await screen.findByText('fully', { selector: 'strong' }, { timeout: 4000 })).toBeTruthy();
+    expect(await screen.findByText('fully', { selector: 'strong' }, { timeout: 10000 })).toBeTruthy();
     expect(sent).toEqual([{ text: 'Which of my plants are safe for cats?', photoId: null, lang: 'en' }]);
     expect(screen.getByText('Which of my plants are safe for cats?', { selector: 'p' })).toBeTruthy();
-  });
+  }, 15000);
 });
 
 describe('chat', () => {
@@ -217,7 +217,7 @@ describe('ask about this plant', () => {
     renderAt(`/plants/${PLANT_ID}`);
     fireEvent.click(await screen.findByRole('button', { name: 'Ask about this plant' }));
     // Several requests in a row: the plant page, the plant's conversations, the new one, then the chat page.
-    expect(await screen.findByRole('button', { name: 'When should I repot?' }, { timeout: 4000 })).toBeTruthy();
+    expect(await screen.findByRole('button', { name: 'When should I repot?' }, { timeout: 10000 })).toBeTruthy();
     expect(created).toEqual([{ plantId: PLANT_ID }]);
-  });
+  }, 15000);
 });

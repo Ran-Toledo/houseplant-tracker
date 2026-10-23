@@ -182,6 +182,30 @@ A check never changes the plant by itself: `plants.condition` only changes when 
 
 The history lives only here: requests to OpenAI use `store: false`.
 
+### `push_subscriptions` — devices for Web Push
+
+| Column | Type | Notes |
+|---|---|---|
+| `id` | TEXT PK | |
+| `endpoint` | TEXT NOT NULL UNIQUE | The push service URL; subscribing again updates the row |
+| `p256dh`, `auth` | TEXT NOT NULL | The browser's encryption keys |
+| `lang` | TEXT NOT NULL | `en` / `he`: the language of this device's notifications |
+| `user_agent` | TEXT NULL | For the device list |
+| `created_at` | TEXT NOT NULL | |
+| `last_success_at` | TEXT NULL | |
+| `failure_count` | INTEGER NOT NULL | Reset on success; a 404/410 from the push service deletes the row |
+
+### `notifications` — daily digests
+
+| Column | Type | Notes |
+|---|---|---|
+| `id` | TEXT PK | |
+| `channel` | TEXT NOT NULL | `push` |
+| `digest_date` | TEXT NOT NULL | Local date; unique with `channel`, so a day is sent at most once |
+| `plant_ids_json` | TEXT NOT NULL | The plants that were due |
+| `status` | TEXT NOT NULL | `sent` / `failed` (no device received it) / `skipped` (nothing was due) |
+| `sent_at` | TEXT NOT NULL | |
+
 ## Species JSON
 
 One file per species, `species-catalog/<id>.json`; the file name must equal `id`. The authoritative

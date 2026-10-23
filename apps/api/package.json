@@ -11,6 +11,7 @@
     "test": "vitest run",
     "validate:catalog": "tsx src/scripts/validate-catalog.ts",
     "ai:check": "tsx src/scripts/ai-check.ts",
+    "push:keys": "tsx src/scripts/push-keys.ts",
     "db:generate": "drizzle-kit generate",
     "backup": "tsx src/scripts/backup.ts",
     "restore": "tsx src/scripts/restore.ts"
@@ -22,11 +23,13 @@
     "hono": "^4.13.13",
     "openai": "^7.39.0",
     "sharp": "^0.35.5",
+    "web-push": "^3.6.7",
     "zod": "^4.6.5"
   },
   "devDependencies": {
     "@types/better-sqlite3": "^9.6.0",
     "@types/node": "^22.20.5",
+    "@types/web-push": "^3.6.4",
     "drizzle-kit": "^0.31.11",
     "esbuild": "^0.28.2",
     "tsx": "^4.23.15",

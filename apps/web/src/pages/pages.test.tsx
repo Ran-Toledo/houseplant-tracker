@@ -1,4 +1,4 @@
-import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { act, fireEvent, render, screen, waitFor, within } from '@testing-library/react';
 import { MemoryRouter } from 'react-router';
 import { describe, expect, it } from 'vitest';
 import { AppRoutes } from '../App';
@@ -96,7 +96,7 @@ describe('settings: AI features', () => {
   const config = (ai: Record<string, unknown>) => ({
     config: {
       ai: { configured: true, enabled: true, available: true, model: 'gpt-test', usedThisMonth: 12, monthlyLimit: 300, ...ai },
-      push: { available: false, vapidPublicKey: null },
+      push: { available: false, vapidPublicKey: null, appUrl: null },
       timezone: 'Asia/Jerusalem',
     },
   });
@@ -116,13 +116,15 @@ describe('settings: AI features', () => {
     renderAt('/settings');
 
     expect(await screen.findByText('12 of 300')).toBeTruthy();
-    expect(screen.getByText('gpt-test')).toBeTruthy();
-    expect(screen.getByText('On')).toBeTruthy();
+    // The Notifications section has its own On/Off pill, so look inside the AI section only.
+    const ai = within(screen.getByRole('region', { name: 'AI features' }));
+    expect(ai.getByText('gpt-test')).toBeTruthy();
+    expect(ai.getByText('On')).toBeTruthy();
 
-    fireEvent.click(screen.getByRole('button', { name: 'Turn AI features off' }));
-    expect(await screen.findByText('Off')).toBeTruthy();
+    fireEvent.click(ai.getByRole('button', { name: 'Turn AI features off' }));
+    expect(await ai.findByText('Off')).toBeTruthy();
     expect(patches).toEqual([{ aiEnabled: false }]);
-    expect(screen.getByRole('button', { name: 'Turn AI features on' })).toBeTruthy();
+    expect(ai.getByRole('button', { name: 'Turn AI features on' })).toBeTruthy();
   });
 
   it('explains how to set up AI when no key is configured', async () => {

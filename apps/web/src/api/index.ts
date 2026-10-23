@@ -9,6 +9,9 @@ import type {
   ChatMessage,
   ChatMessageInput,
   Conversation,
+  DigestInfo,
+  PushDevice,
+  PushSubscriptionInput,
   CareScheduleInput,
   DueItem,
   Condition,
@@ -102,6 +105,13 @@ export const api = {
   /** Sends a message and calls `onEvent` for each streamed event until the answer is done. */
   sendMessage: (id: string, input: ChatMessageInput, onEvent: (event: ChatEvent) => void) =>
     streamEvents<ChatEvent>(`/conversations/${id}/messages`, json('POST', input), onEvent),
+
+  listPushDevices: () => request<{ devices: PushDevice[] }>('/push/subscriptions').then((r) => r.devices),
+  addPushDevice: (input: PushSubscriptionInput) =>
+    request<{ device: PushDevice }>('/push/subscriptions', json('POST', input)).then((r) => r.device),
+  removePushDevice: (id: string) => request<void>(`/push/subscriptions/${id}`, { method: 'DELETE' }),
+  sendTestPush: () => request<{ sent: number; failed: number }>('/push/test', { method: 'POST' }),
+  getPushStatus: () => request<{ lastDigest: DigestInfo | null }>('/push/status').then((r) => r.lastDigest),
 
   getConfig: () => request<{ config: AppConfig }>('/config').then((r) => r.config),
   getSettings: () => request<{ settings: AppSettings }>('/settings').then((r) => r.settings),

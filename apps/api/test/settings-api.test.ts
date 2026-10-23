@@ -43,7 +43,7 @@ describe('config API', () => {
     expect(res.status).toBe(200);
     expect(res.body.config).toEqual({
       ai: { configured: false, enabled: true, available: false, model: null, usedThisMonth: 0, monthlyLimit: 300 },
-      push: { available: false, vapidPublicKey: null },
+      push: { available: false, vapidPublicKey: null, appUrl: null },
       timezone: 'Asia/Jerusalem',
     });
   });

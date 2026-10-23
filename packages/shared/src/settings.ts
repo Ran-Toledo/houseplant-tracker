@@ -69,6 +69,8 @@ export interface AppConfig {
   push: {
     available: boolean;
     vapidPublicKey: string | null;
+    /** The app's HTTPS address (e.g. the Tailscale one) to open on the phone, when configured. */
+    appUrl: string | null;
   };
   timezone: string;
 }

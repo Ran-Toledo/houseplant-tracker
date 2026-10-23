@@ -1,5 +1,8 @@
 import { useTranslation } from 'react-i18next';
+import { api } from '../api';
 import { AiSettings } from '../components/AiSettings';
+import { PushSettings } from '../components/PushSettings';
+import { useAsync } from '../hooks/useAsync';
 import { SectionHeading } from '../components/CareGuide';
 import { LanguageSwitcher } from '../components/LanguageSwitcher';
 import { useSpeciesCatalog } from '../hooks/useSpecies';
@@ -7,6 +10,7 @@ import { useSpeciesCatalog } from '../hooks/useSpecies';
 export function SettingsPage() {
   const { t } = useTranslation();
   const catalog = useSpeciesCatalog();
+  const config = useAsync(() => api.getConfig(), []);
   return (
     <>
       <h1 className="mb-6 text-[37px] leading-[1.08] font-extrabold tracking-[-.02em]">{t('settings.title')}</h1>
@@ -20,6 +24,8 @@ export function SettingsPage() {
       </section>
 
       <AiSettings />
+
+      {config.data && <PushSettings push={config.data.push} />}
 
       <section className="rounded-2xl border border-line bg-white p-4">
         <div className="mb-3">

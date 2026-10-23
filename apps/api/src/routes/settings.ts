@@ -15,12 +15,11 @@ export function settingsRoutes(service: SettingsService) {
 }
 
 /** What the client needs to know to show or hide features, mounted at `/api/config`. */
-export function configRoutes(deps: { settings: SettingsService; ai: AiService }) {
+export function configRoutes(deps: { settings: SettingsService; ai: AiService; pushPublicKey: string | null; appUrl: string | null }) {
   return new Hono().get('/', (c) => {
     const config: AppConfig = {
       ai: deps.ai.status(),
-      // Web Push arrives with the reminders phase.
-      push: { available: false, vapidPublicKey: null },
+      push: { available: deps.pushPublicKey !== null, vapidPublicKey: deps.pushPublicKey, appUrl: deps.appUrl },
       timezone: deps.settings.get().timezone,
     };
     return c.json({ config });

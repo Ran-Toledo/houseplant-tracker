@@ -126,7 +126,15 @@ Design: [NEXT_STAGE_DESIGN.md](NEXT_STAGE_DESIGN.md) (approved 2026-10-19).
 - Differences from the design: the title is the first question (no extra model call); photos can be attached only in plant conversations; the care signals don't change reminder intervals yet
 
 ### Phase 4 — Push notifications
-- [ ] `tailscale serve` HTTPS address, `.ts.net` host allow-list, service worker, VAPID, daily digest
+- [x] Screen E mockup (`docs/design/screen-e-notifications.html`): Settings → Notifications over http, installed but off, and on
+- [x] `push_subscriptions` and `notifications` tables (migration `0005`); `web-push` sender behind a `PushSender` interface (stubbed in tests)
+- [x] Daily digest in the API process: a one-minute tick sends once the local notification time has passed, claims the day in `notifications` first (no duplicates across restarts), catches up later the same day, skips quiet days and the vacation pause, writes each device's language, and deletes subscriptions the push service reports gone (404/410)
+- [x] `GET/POST /api/push/subscriptions`, `DELETE /api/push/subscriptions/:id`, `POST /api/push/test`, `GET /api/push/status`; `/api/config` reports push availability, the public key and `APP_URL`
+- [x] `npm run push:keys` appends VAPID keys to `.env` (never overwrites, never prints the private key); compose passes `VAPID_*` and `APP_URL` to the api service
+- [x] nginx and Vite accept `*.ts.net`; `sw.js` is served with `no-cache`
+- [x] Service worker (notification, tap opens the plant or the Notifications page, app badge); Settings → Notifications (setup steps, enable, daily time, vacation pause, last digest, test, devices); Home Screen badge follows the due count
+- [x] Tests: digest timing, DST, restart, catch-up, pause, quiet day, gone and failing devices, device API; settings UI states
+- [ ] On the PC and iPhone: Tailscale HTTPS certificates, `tailscale serve`, push keys, Add to Home Screen, test notification
 
 ## Known follow-ups
 

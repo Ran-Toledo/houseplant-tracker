@@ -5,6 +5,8 @@ import {
   AI_CONFIDENCES,
   ASSESSED_CONDITIONS,
   CONDITIONS,
+  DIGEST_STATUSES,
+  LANGUAGES,
   LIGHT_EXPOSURES,
   POT_MATERIALS,
   SCHEDULE_MODES,
@@ -200,6 +202,35 @@ export const messages = sqliteTable(
   (t) => [index('messages_conversation_time_idx').on(t.conversationId, t.createdAt)],
 );
 
+/** Browsers that receive Web Push notifications. */
+export const pushSubscriptions = sqliteTable('push_subscriptions', {
+  id: text('id').primaryKey(),
+  endpoint: text('endpoint').notNull().unique(),
+  p256dh: text('p256dh').notNull(),
+  auth: text('auth').notNull(),
+  /** Language the device's notifications are written in. */
+  lang: text('lang', { enum: LANGUAGES }).notNull(),
+  userAgent: text('user_agent'),
+  ...timestamps,
+  lastSuccessAt: text('last_success_at'),
+  failureCount: integer('failure_count').notNull().default(0),
+});
+
+/** Daily digests, one per channel and local date, so restarts never send twice. */
+export const notifications = sqliteTable(
+  'notifications',
+  {
+    id: text('id').primaryKey(),
+    channel: text('channel', { enum: ['push'] }).notNull(),
+    /** Local date of the digest, `YYYY-MM-DD`. */
+    digestDate: text('digest_date').notNull(),
+    plantIdsJson: text('plant_ids_json').notNull(),
+    status: text('status', { enum: DIGEST_STATUSES }).notNull(),
+    sentAt: text('sent_at').notNull(),
+  },
+  (t) => [uniqueIndex('notifications_channel_date_idx').on(t.channel, t.digestDate)],
+);
+
 export type PlantRow = typeof plants.$inferSelect;
 export type ActivityRow = typeof activities.$inferSelect;
 export type PhotoRow = typeof photos.$inferSelect;
@@ -208,3 +239,5 @@ export type CareScheduleRow = typeof careSchedules.$inferSelect;
 export type HealthCheckRow = typeof healthChecks.$inferSelect;
 export type ConversationRow = typeof conversations.$inferSelect;
 export type MessageRow = typeof messages.$inferSelect;
+export type PushSubscriptionRow = typeof pushSubscriptions.$inferSelect;
+export type NotificationRow = typeof notifications.$inferSelect;

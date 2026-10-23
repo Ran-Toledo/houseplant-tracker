@@ -20,6 +20,12 @@ services:
       OPENAI_API_KEY: ${OPENAI_API_KEY:-}
       OPENAI_MODEL: ${OPENAI_MODEL:-}
       AI_TIMEOUT_MS: ${AI_TIMEOUT_MS:-60000}
+      # Web Push keys, created once with `npm run push:keys -w apps/api -- --subject mailto:you@example.com`.
+      VAPID_PUBLIC_KEY: ${VAPID_PUBLIC_KEY:-}
+      VAPID_PRIVATE_KEY: ${VAPID_PRIVATE_KEY:-}
+      VAPID_SUBJECT: ${VAPID_SUBJECT:-}
+      # The app's HTTPS address for phones (from `tailscale serve`), shown in Settings.
+      APP_URL: ${APP_URL:-}
     volumes:
       # Persistent user data: SQLite database + uploaded photos.
       - ./storage:/app/storage

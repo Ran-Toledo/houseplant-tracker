@@ -6,6 +6,7 @@ These are **standalone HTML mockups**, not the running application. Open either 
 - `screen-b-plant-details.html` — Plant Details: cover image, plant identity, watering shortcut, static species care guide, personal growing conditions, recent activities. Back link returns to Screen A.
 - `screen-c-ai-identify-health.html` — AI features (phase 2): identifying a species from a photo in the plant form, a health check result card, the Health checks list on the plant page, and the photo viewer's "Check health" button.
 - `screen-d-assistant.html` — Assistant (phase 3): the Assistant tab with conversations, a conversation about one plant with a streamed answer, and the plant page's "Ask about this plant" button.
+- `screen-e-notifications.html` — Notifications (phase 4): Settings → Notifications when opened over plain http, in the installed app before enabling, and enabled, plus the daily notification.
 
 Both screens include responsive layouts and an interactive **English / עברית** toggle with RTL support. The language selection is remembered in localStorage where permitted. Some actions show a "design preview only" notification; no data is saved.
 

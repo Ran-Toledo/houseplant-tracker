@@ -5,6 +5,7 @@ import { createApp } from './app';
 import { CatalogValidationError, loadCatalog, type SpeciesCatalog } from './catalog/loader';
 import { loadConfig } from './config';
 import { openDatabase } from './db/client';
+import { createWebPushSender } from './push/sender';
 
 const config = loadConfig();
 
@@ -37,7 +38,11 @@ const app = createApp({
   photosDir: path.join(config.storageDir, 'photos'),
   maxUploadBytes: config.maxUploadBytes,
   aiProvider,
+  pushSender: config.vapid ? createWebPushSender(config.vapid) : null,
+  appUrl: config.appUrl,
 });
+console.log(config.vapid ? '[api] push notifications: on' : '[api] push notifications: off (VAPID keys not set)');
+const stopDigest = app.push.start();
 
 const server = serve({ fetch: app.fetch, port: config.port, hostname: '0.0.0.0' }, (info) => {
   console.log(`[api] listening on http://0.0.0.0:${info.port}`);
@@ -45,6 +50,7 @@ const server = serve({ fetch: app.fetch, port: config.port, hostname: '0.0.0.0' 
 
 function shutdown(signal: string) {
   console.log(`[api] ${signal} received, shutting down`);
+  stopDigest();
   server.close(() => {
     db.$client.close();
     process.exit(0);
