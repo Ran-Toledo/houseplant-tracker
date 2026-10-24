@@ -23,7 +23,7 @@ if (!config.openai.apiKey) {
 const db = openDatabase(path.join(config.storageDir, 'plants.sqlite'));
 const settings = createSettingsService(createSettingsRepository(db));
 const ai = createAiService({
-  provider: createOpenAiProvider({ apiKey: config.openai.apiKey, model: config.openai.model, timeoutMs: config.openai.timeoutMs }),
+  provider: createOpenAiProvider({ apiKey: config.openai.apiKey, model: config.openai.model, embeddingModel: config.openai.embeddingModel, timeoutMs: config.openai.timeoutMs }),
   settings,
   requests: createAiRequestRepository(db),
 });

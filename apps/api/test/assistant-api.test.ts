@@ -139,6 +139,7 @@ describe('conversations API', () => {
       get_care_signals: { plantId },
       search_species: { query: 'mon' },
       get_species_guide: { speciesId: 'monstera-deliciosa' },
+      search_care_guides: { query: 'yellow leaves', speciesId: null },
     };
     chat = (r) =>
       r.input.some((i) => i.type === 'tool-result')
@@ -151,6 +152,8 @@ describe('conversations API', () => {
     expect(outputs.every((o) => !('error' in o))).toBe(true);
     expect(outputs[5].species[0].id).toBe('monstera-deliciosa');
     expect(outputs[6]).toMatchObject({ commonName: 'Monstera', toxicity: { cats: 'toxic' } });
+    expect(outputs[7].results[0]).toMatchObject({ speciesId: 'monstera-deliciosa', commonName: 'Monstera' });
+    // The search fills care_guide_sections, derived from the catalog; the owner's data is untouched.
     expect(counts()).toEqual(before);
   });
 
@@ -184,6 +187,43 @@ describe('conversations API', () => {
     const [byScientific, byCommon, missing] = toolOutputs(provider.chatRequests[1]!);
     expect([byScientific.id, byCommon.id]).toEqual(['monstera-deliciosa', 'monstera-deliciosa']);
     expect(missing.error).toContain('No species with that id');
+  });
+
+  it('searches the care guides in English and answers in the conversation’s language, logging the embedding calls', async () => {
+    chat = (r) =>
+      r.input.some((i) => i.type === 'tool-result')
+        ? { text: 'Done.' }
+        : {
+            toolCalls: [
+              { name: 'search_care_guides', arguments: { query: 'underwatering signs: crispy leaves', speciesId: 'Monstera' } },
+              { name: 'search_care_guides', arguments: { query: 'crispy leaves', speciesId: 'hoya-carnosa' } },
+            ],
+          };
+    const res = await send((await newConversation()).id, { text: 'Crispy leaves?', lang: 'he' });
+    expect(res.events.filter((e) => e.type === 'status').map((e) => (e as { tool: string }).tool)).toEqual(['search_care_guides', 'search_care_guides']);
+    const [found, missing] = toolOutputs(provider.chatRequests[1]!);
+    expect(found.results).toHaveLength(5);
+    expect(found.results[0]).toMatchObject({
+      speciesId: 'monstera-deliciosa',
+      commonName: 'צמח Monstera',
+      section: 'watering-signs',
+      title: 'סימנים להשקיית יתר ולחוסר מים',
+    });
+    expect(found.results[0].text).toContain('סימני חוסר מים: crispy leaves.');
+    expect(missing.error).toContain('No species with that id');
+    expect(provider.embedRequests.map((r) => r.length)).toEqual([14, 1]);
+    const kinds = t.db.$client.prepare('select kind from ai_requests order by created_at').all();
+    expect(kinds.map((k: any) => k.kind).sort()).toEqual(['chat', 'chat', 'embed', 'embed']);
+  });
+
+  it('tells the model when the care-guide search is unavailable, and still answers', async () => {
+    provider = createFakeProvider(() => ({ output: {} }), 'fake-model', (r) => chat(r), () => ({ error: 'unavailable' }));
+    t = createTestApp({ aiProvider: provider, now: () => NOW, catalog: createCatalog([monstera]) });
+    chat = (r) =>
+      r.input.some((i) => i.type === 'tool-result') ? { text: 'Check the guide.' } : { toolCalls: [{ name: 'search_care_guides', arguments: { query: 'brown tips', speciesId: null } }] };
+    const res = await send((await newConversation({})).id, { text: 'Brown tips?' });
+    expect(res.events.at(-1)).toMatchObject({ type: 'done', message: { content: 'Check the guide.' } });
+    expect(toolOutputs(provider.chatRequests[1]!)[0].error).toContain('Care-guide search is unavailable');
   });
 
   it('asks for gender-neutral Hebrew only in Hebrew conversations', async () => {

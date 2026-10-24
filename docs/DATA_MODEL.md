@@ -127,7 +127,7 @@ Only changed settings are stored. Missing keys, and stored values that no longer
 | Column | Type | Notes |
 |---|---|---|
 | `id` | TEXT PK | |
-| `kind` | TEXT NOT NULL | `identify` / `health` / `chat` / `check` |
+| `kind` | TEXT NOT NULL | `identify` / `health` / `chat` / `check` / `embed` |
 | `plant_id` | TEXT NULL | FK → `plants.id`, `ON DELETE SET NULL` |
 | `photo_id` | TEXT NULL | FK → `photos.id`, `ON DELETE SET NULL` |
 | `model` | TEXT NOT NULL | |
@@ -205,6 +205,24 @@ The history lives only here: requests to OpenAI use `store: false`.
 | `plant_ids_json` | TEXT NOT NULL | The plants that were due |
 | `status` | TEXT NOT NULL | `sent` / `failed` (no device received it) / `skipped` (nothing was due) |
 | `sent_at` | TEXT NOT NULL | |
+
+### `care_guide_sections` — care-guide embeddings for the assistant's search
+
+Derived from the species catalog, so it can be deleted at any time: the api rebuilds it (one `embed`
+request) on the next start or search. Only English sections are stored, since searches rank in English;
+other languages' text comes from the catalog.
+
+| Column | Type | Notes |
+|---|---|---|
+| `id` | TEXT PK | `<speciesId>:<lang>:<sectionKey>` |
+| `species_id` | TEXT NOT NULL | Catalog id; not a foreign key |
+| `lang` | TEXT NOT NULL | The embedded language: `en` for now; indexed |
+| `section_key` | TEXT NOT NULL | `overview`, `light`, `watering`, `watering-signs`, …, `problem-<n>`, `toxicity` |
+| `title`, `content` | TEXT NOT NULL | Localized section title and text, returned to the model |
+| `content_hash` | TEXT NOT NULL | SHA-256 of the embedded text (names, title, content); a change re-embeds the section |
+| `model` | TEXT NOT NULL | Embedding model; a different configured model re-embeds everything |
+| `vector` | BLOB NOT NULL | Float32 array (1,536 values for `text-embedding-3-small`) |
+| `created_at` | TEXT NOT NULL | When it was embedded |
 
 ## Species JSON
 

@@ -11,6 +11,7 @@
     "test": "vitest run",
     "validate:catalog": "tsx src/scripts/validate-catalog.ts",
     "ai:check": "tsx src/scripts/ai-check.ts",
+    "eval:guides": "tsx src/scripts/eval-care-guides.ts",
     "push:keys": "tsx src/scripts/push-keys.ts",
     "db:generate": "drizzle-kit generate",
     "backup": "tsx src/scripts/backup.ts",

@@ -2,6 +2,7 @@ import path from 'node:path';
 import { Hono } from 'hono';
 import type { AiProvider } from './ai/provider';
 import { createAiService } from './ai/service';
+import { createCareGuideIndex } from './assistant/care-guides';
 import { createReadModel } from './assistant/read-model';
 import { createAssistantService } from './assistant/service';
 import { logger } from 'hono/logger';
@@ -10,6 +11,7 @@ import type { Db } from './db/client';
 import { handleError, handleNotFound } from './middleware/errors';
 import { createActivityRepository } from './repositories/activities';
 import { createAiRequestRepository } from './repositories/ai-requests';
+import { createCareGuideSectionRepository } from './repositories/care-guide-sections';
 import { createCareScheduleRepository } from './repositories/care-schedules';
 import { createConversationRepository } from './repositories/conversations';
 import { createPushRepository } from './repositories/push';
@@ -93,6 +95,12 @@ export function createApp(deps: AppDeps) {
     now: deps.now,
   });
 
+  const careGuides = createCareGuideIndex({
+    catalog: deps.catalog,
+    sections: createCareGuideSectionRepository(deps.db),
+    ai: aiService,
+    now: deps.now,
+  });
   const assistantService = createAssistantService({
     ai: aiService,
     conversations: createConversationRepository(deps.db),
@@ -104,6 +112,7 @@ export function createApp(deps: AppDeps) {
       settings: settingsService,
       now: deps.now,
     }),
+    guides: careGuides,
     photos: photoService,
     now: deps.now,
   });
@@ -140,6 +149,7 @@ export function createApp(deps: AppDeps) {
 
   app.notFound(handleNotFound);
   app.onError(handleError);
-  // The daily digest runs alongside the server; index.ts starts it (tests call `tick()` themselves).
-  return Object.assign(app, { push: pushService });
+  // The daily digest runs alongside the server and index.ts starts it (tests call `tick()` themselves);
+  // index.ts also brings the care-guide embeddings up to date (searches do it on first use otherwise).
+  return Object.assign(app, { push: pushService, careGuides });
 }

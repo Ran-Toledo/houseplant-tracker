@@ -136,6 +136,13 @@ Design: [NEXT_STAGE_DESIGN.md](NEXT_STAGE_DESIGN.md) (approved 2026-10-19).
 - [x] Tests: digest timing, DST, restart, catch-up, pause, quiet day, gone and failing devices, device API; settings UI states
 - [ ] On the PC and iPhone: Tailscale HTTPS certificates, `tailscale serve`, push keys, Add to Home Screen, test notification
 
+### Semantic search over the care guides
+- [x] Care guides split into sections per language; the English ones embedded (`text-embedding-3-small`, `OPENAI_EMBEDDING_MODEL`) and stored in `care_guide_sections` (migration `0006`); rebuilt on startup only where text or model changed
+- [x] `AiProvider.embed` and `AiService.embed`: kind `embed`, logged in `ai_requests`, counted toward the monthly limit
+- [x] Read-only `search_care_guides(query, speciesId)` tool: the model writes the query in English, ranking is against the English sections, results come back in the conversation's language; failures go back to the model as `{ error }`; tool runs are now async
+- [x] Tests: section splitting, incremental rebuilds (changed text, removed species, model change, restart), concurrent syncs, ranking and filters with deterministic fake embeddings, monthly limit, provider errors, the tool in a chat
+- [x] `npm run eval:guides` against the real API (`text-embedding-3-small`, `gpt-5.4-mini` for the English queries, throwaway database, 2026-10-24): 17 symptom questions (10 English, 7 Hebrew) — hit@5 17/17, hit@1 16/17 in two runs; every Hebrew question first, one English one second. The first version ranked Hebrew questions against Hebrew sections: right section 2nd, 3rd and 5th out of 3, and untranslated Hebrew queries still rank badly against English sections (1/7 first), hence English queries. Asking for the symptom alone, without words like "houseplant", kept generic overview sections out of the results. Building the index takes one request (223 sections)
+
 ## Known follow-ups
 
 - `drizzle-kit` (dev-only) pulls a deprecated esbuild with a moderate advisory about its dev server, which

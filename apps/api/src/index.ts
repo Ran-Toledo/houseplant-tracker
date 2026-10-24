@@ -35,7 +35,7 @@ const db = openDatabase(dbFile);
 console.log(`[api] database ready: ${dbFile}`);
 
 const aiProvider = config.openai.apiKey
-  ? createOpenAiProvider({ apiKey: config.openai.apiKey, model: config.openai.model, timeoutMs: config.openai.timeoutMs })
+  ? createOpenAiProvider({ apiKey: config.openai.apiKey, model: config.openai.model, embeddingModel: config.openai.embeddingModel, timeoutMs: config.openai.timeoutMs })
   : null;
 console.log(aiProvider ? `[api] AI features: OpenAI ${aiProvider.model}` : '[api] AI features: off (OPENAI_API_KEY not set)');
 
@@ -50,6 +50,17 @@ const app = createApp({
 });
 console.log(config.vapid ? '[api] push notifications: on' : '[api] push notifications: off (VAPID keys not set)');
 const stopDigest = app.push.start();
+
+// In the background: embeds new or changed care-guide sections, usually none.
+app.careGuides.sync().then(
+  (r) =>
+    console.log(
+      r.status === 'skipped'
+        ? '[api] care-guide search: off (no AI provider)'
+        : `[api] care-guide search: ${r.total} sections, ${r.embedded} embedded, ${r.removed} removed`,
+    ),
+  (err: unknown) => console.error(`[api] care-guide search: not ready (${err instanceof Error ? err.message : err}); will retry on first search`),
+);
 
 const server = serve({ fetch: app.fetch, port: config.port, hostname: '0.0.0.0' }, (info) => {
   console.log(`[api] listening on http://0.0.0.0:${info.port}`);

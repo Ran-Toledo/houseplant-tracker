@@ -506,7 +506,8 @@
       "get_health_checks": "קורא בדיקות בריאות קודמות…",
       "get_care_signals": "בודק את תנאי הצמח…",
       "search_species": "מחפש בקטלוג…",
-      "get_species_guide": "קורא את מדריך המין…"
+      "get_species_guide": "קורא את מדריך המין…",
+      "search_care_guides": "מחפש במדריכי הטיפול…"
     },
     "delete": "מחיקת השיחה",
     "deleteConfirm": "למחוק את השיחה הזו?",

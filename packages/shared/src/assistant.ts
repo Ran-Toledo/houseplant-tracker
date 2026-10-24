@@ -17,6 +17,7 @@ export const ASSISTANT_TOOL_NAMES = [
   'get_care_signals',
   'search_species',
   'get_species_guide',
+  'search_care_guides',
 ] as const;
 export type AssistantToolName = (typeof ASSISTANT_TOOL_NAMES)[number];
 

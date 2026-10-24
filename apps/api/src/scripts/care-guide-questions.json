@@ -1,0 +1,173 @@
+[
+  {
+    "lang": "en",
+    "query": "brown crispy edges on the leaves",
+    "speciesId": null,
+    "accept": [
+      "*:watering-signs",
+      "strelitzia-nicolai:problem-2",
+      "spathiphyllum-wallisii:problem-1",
+      "chlorophytum-comosum:problem-1",
+      "strelitzia-nicolai:warning-signs",
+      "scindapsus-pictus:warning-signs"
+    ]
+  },
+  {
+    "lang": "en",
+    "query": "leaves curling inward",
+    "speciesId": "scindapsus-pictus",
+    "accept": [
+      "scindapsus-pictus:problem-1",
+      "scindapsus-pictus:watering-signs",
+      "scindapsus-pictus:warning-signs"
+    ]
+  },
+  {
+    "lang": "en",
+    "query": "the lower leaves are turning yellow and the soil stays wet for days",
+    "speciesId": "monstera-deliciosa",
+    "accept": [
+      "monstera-deliciosa:problem-1",
+      "monstera-deliciosa:watering-signs"
+    ]
+  },
+  {
+    "lang": "en",
+    "query": "white cottony fluff where the leaves meet the stems",
+    "speciesId": null,
+    "accept": [
+      "spathiphyllum-wallisii:problem-3",
+      "spathiphyllum-wallisii:warning-signs",
+      "dracaena-trifasciata:problem-3",
+      "dracaena-trifasciata:warning-signs",
+      "epipremnum-aureum:problem-3",
+      "epipremnum-aureum:warning-signs"
+    ]
+  },
+  {
+    "lang": "en",
+    "query": "is it safe to keep near my cat?",
+    "speciesId": "pilea-peperomioides",
+    "accept": [
+      "pilea-peperomioides:toxicity"
+    ]
+  },
+  {
+    "lang": "en",
+    "query": "long stems with big gaps between small leaves",
+    "speciesId": "philodendron-hederaceum",
+    "accept": [
+      "philodendron-hederaceum:problem-2",
+      "philodendron-hederaceum:light",
+      "philodendron-hederaceum:warning-signs"
+    ]
+  },
+  {
+    "lang": "en",
+    "query": "roots are coming out of the holes at the bottom of the pot",
+    "speciesId": "monstera-deliciosa",
+    "accept": [
+      "monstera-deliciosa:repotting"
+    ]
+  },
+  {
+    "lang": "en",
+    "query": "the new leaves have no splits or holes",
+    "speciesId": null,
+    "accept": [
+      "monstera-deliciosa:problem-2",
+      "monstera-deliciosa:light"
+    ]
+  },
+  {
+    "lang": "en",
+    "query": "the base of the leaves feels soft and mushy",
+    "speciesId": "dracaena-trifasciata",
+    "accept": [
+      "dracaena-trifasciata:problem-1",
+      "dracaena-trifasciata:watering-signs",
+      "dracaena-trifasciata:warning-signs"
+    ]
+  },
+  {
+    "lang": "en",
+    "query": "dropped a lot of leaves suddenly after I moved it to another room",
+    "speciesId": null,
+    "accept": [
+      "ficus-elastica:problem-1",
+      "ficus-elastica-variegata:problem-1",
+      "ficus-elastica:warning-signs",
+      "ficus-elastica-variegata:warning-signs"
+    ]
+  },
+  {
+    "lang": "he",
+    "query": "קצוות חומים ופריכים בעלים",
+    "speciesId": null,
+    "accept": [
+      "*:watering-signs",
+      "strelitzia-nicolai:problem-2",
+      "spathiphyllum-wallisii:problem-1",
+      "chlorophytum-comosum:problem-1",
+      "strelitzia-nicolai:warning-signs",
+      "scindapsus-pictus:warning-signs"
+    ]
+  },
+  {
+    "lang": "he",
+    "query": "האם הצמח מסוכן לכלב?",
+    "speciesId": "zamioculcas-zamiifolia",
+    "accept": [
+      "zamioculcas-zamiifolia:toxicity"
+    ]
+  },
+  {
+    "lang": "he",
+    "query": "העלים מצהיבים והאדמה נשארת רטובה הרבה זמן",
+    "speciesId": "epipremnum-aureum",
+    "accept": [
+      "epipremnum-aureum:problem-1",
+      "epipremnum-aureum:watering-signs"
+    ]
+  },
+  {
+    "lang": "he",
+    "query": "העלים מתגלגלים פנימה",
+    "speciesId": "scindapsus-pictus",
+    "accept": [
+      "scindapsus-pictus:problem-1",
+      "scindapsus-pictus:watering-signs",
+      "scindapsus-pictus:warning-signs"
+    ]
+  },
+  {
+    "lang": "he",
+    "query": "מוך לבן כמו צמר גפן במקום שבו העלים מתחברים לגבעולים",
+    "speciesId": null,
+    "accept": [
+      "spathiphyllum-wallisii:problem-3",
+      "spathiphyllum-wallisii:warning-signs",
+      "dracaena-trifasciata:problem-3",
+      "dracaena-trifasciata:warning-signs",
+      "epipremnum-aureum:problem-3",
+      "epipremnum-aureum:warning-signs"
+    ]
+  },
+  {
+    "lang": "he",
+    "query": "שורשים יוצאים מהחורים בתחתית העציץ",
+    "speciesId": "monstera-deliciosa",
+    "accept": [
+      "monstera-deliciosa:repotting"
+    ]
+  },
+  {
+    "lang": "he",
+    "query": "לעלים החדשים אין חריצים או חורים",
+    "speciesId": null,
+    "accept": [
+      "monstera-deliciosa:problem-2",
+      "monstera-deliciosa:light"
+    ]
+  }
+]

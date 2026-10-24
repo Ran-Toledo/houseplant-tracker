@@ -9,6 +9,7 @@ import {
   type ChatInputItem,
   type ChatRequest,
   type ChatStep,
+  type EmbedReply,
   type ProviderReply,
   type StructuredRequest,
 } from './provider';
@@ -16,6 +17,7 @@ import {
 export interface OpenAiProviderOptions {
   apiKey: string;
   model: string;
+  embeddingModel: string;
   timeoutMs: number;
 }
 
@@ -66,11 +68,24 @@ function refusalOf(response: OpenAI.Responses.Response): string | null {
 }
 
 /** OpenAI Responses API with structured output. Requests are never stored at OpenAI (`store: false`). */
-export function createOpenAiProvider({ apiKey, model, timeoutMs }: OpenAiProviderOptions): AiProvider {
+export function createOpenAiProvider({ apiKey, model, embeddingModel, timeoutMs }: OpenAiProviderOptions): AiProvider {
   const client = new OpenAI({ apiKey, timeout: timeoutMs, maxRetries: 1 });
 
   return {
     model,
+    embeddingModel,
+
+    async embed(inputs: string[]): Promise<EmbedReply> {
+      let response: OpenAI.Embeddings.CreateEmbeddingResponse;
+      try {
+        response = await client.embeddings.create({ model: embeddingModel, input: inputs, encoding_format: 'float' });
+      } catch (err) {
+        throw toProviderError(err);
+      }
+      const vectors = [...response.data].sort((a, b) => a.index - b.index).map((d) => d.embedding);
+      if (vectors.length !== inputs.length) throw new AiProviderError('unavailable', 'OpenAI returned the wrong number of embeddings');
+      return { vectors, usage: { inputTokens: response.usage.prompt_tokens, outputTokens: null } };
+    },
 
     async generateStructured(request: StructuredRequest): Promise<ProviderReply> {
       const content = toContent(request.input);

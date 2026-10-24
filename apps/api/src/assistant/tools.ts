@@ -1,5 +1,7 @@
 import { z } from 'zod';
 import type { HealthCheck, Language, Plant, Species } from '@houseplant/shared';
+import { ApiError } from '../middleware/errors';
+import type { CareGuideIndex } from './care-guides';
 import type { ReadModel } from './read-model';
 
 /**
@@ -17,6 +19,7 @@ export interface AssistantTool {
 
 export interface ToolContext {
   data: ReadModel;
+  guides: Pick<CareGuideIndex, 'search'>;
   lang: Language;
 }
 
@@ -108,6 +111,9 @@ function findSpecies(data: ReadModel, idOrName: string): Species | undefined {
 }
 
 const notFound = { error: 'No plant with that id. Call list_plants to find the right id.' };
+const speciesNotFound = {
+  error: "No species with that id in the catalog. Use the plant record's speciesId, or search_species. Plants without a speciesId have no catalog guide.",
+};
 
 function tool<S extends z.ZodObject>(def: { name: string; description: string; parameters: S; run(args: z.output<S>, ctx: ToolContext): unknown }) {
   return def as unknown as AssistantTool;
@@ -207,15 +213,43 @@ export const ASSISTANT_TOOLS: AssistantTool[] = [
     parameters: z.strictObject({ speciesId: z.string().describe("A species id (a plant record's speciesId, or from search_species)") }),
     run: ({ speciesId }, { data, lang }) => {
       const s = findSpecies(data, speciesId);
-      return s
-        ? speciesGuide(s, lang)
-        : { error: "No species with that id in the catalog. Use the plant record's speciesId, or search_species. Plants without a speciesId have no catalog guide." };
+      return s ? speciesGuide(s, lang) : speciesNotFound;
+    },
+  }),
+  tool({
+    name: 'search_care_guides',
+    description:
+      "Searches all catalog care guides by meaning: describe only the symptom, problem or care question in plain English words (for example 'brown crispy leaf edges'), even in a Hebrew conversation; leave out generic words like 'houseplant' or 'care'. Returns the closest guide sections with their species, in the conversation's language. Use it whenever the question describes what a plant looks like or what went wrong, especially when it names no species.",
+    parameters: z.strictObject({
+      query: z.string().min(1).describe('The symptom or question in plain English, translated if the owner wrote in another language'),
+      speciesId: z.string().nullable().describe("Limit the search to one species' guide (a plant record's speciesId), or null to search every guide"),
+    }),
+    run: async ({ query, speciesId }, { data, guides, lang }) => {
+      const species = speciesId ? findSpecies(data, speciesId) : undefined;
+      if (speciesId && !species) return speciesNotFound;
+      try {
+        const matches = await guides.search(query, { lang, speciesId: species?.id ?? null });
+        return {
+          results: matches.map((m) => ({
+            speciesId: m.speciesId,
+            commonName: data.species(m.speciesId)?.localizations[lang].commonName ?? m.speciesId,
+            section: m.sectionKey,
+            title: m.title,
+            text: m.content,
+            score: Math.round(m.score * 100) / 100,
+          })),
+        };
+      } catch (err) {
+        // AI turned off or the monthly limit reached: the model can still use get_species_guide.
+        if (err instanceof ApiError) return { error: `Care-guide search is unavailable: ${err.message}. Use get_species_guide instead.` };
+        throw err;
+      }
     },
   }),
 ];
 
 /** Runs a tool call from the model; never throws. */
-export function runTool(name: string, rawArguments: string, ctx: ToolContext): unknown {
+export async function runTool(name: string, rawArguments: string, ctx: ToolContext): Promise<unknown> {
   const tool = ASSISTANT_TOOLS.find((t) => t.name === name);
   if (!tool) return { error: `Unknown tool ${name}` };
   let args: unknown;
@@ -227,7 +261,7 @@ export function runTool(name: string, rawArguments: string, ctx: ToolContext): u
   const parsed = tool.parameters.safeParse(args);
   if (!parsed.success) return { error: `Invalid arguments: ${parsed.error.issues.map((i) => i.message).join('; ')}` };
   try {
-    return tool.run(parsed.data as never, ctx);
+    return await tool.run(parsed.data as never, ctx);
   } catch (err) {
     console.error(`[api] assistant tool ${name} failed`, err);
     return { error: 'The tool failed' };

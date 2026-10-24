@@ -43,6 +43,13 @@
       "when": 1792488184344,
       "tag": "0005_push",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "6",
+      "when": 1792830109733,
+      "tag": "0006_care_guide_sections",
+      "breakpoints": true
     }
   ]
 }

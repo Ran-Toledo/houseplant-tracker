@@ -85,10 +85,20 @@ export interface ChatStep {
   usage: AiUsage;
 }
 
+/** Embedding vectors, one per input and in the same order. */
+export interface EmbedReply {
+  vectors: number[][];
+  usage: AiUsage;
+}
+
 export interface AiProvider {
   /** Model identifier, recorded with every request. */
   readonly model: string;
+  /** Embedding model identifier, recorded with embedding requests. */
+  readonly embeddingModel: string;
   generateStructured(request: StructuredRequest): Promise<ProviderReply>;
   /** Runs one chat step, calling `onText` with each piece of text as it streams in. */
   streamChat(request: ChatRequest, onText: (delta: string) => void): Promise<ChatStep>;
+  /** Embeds texts in one request. */
+  embed(inputs: string[]): Promise<EmbedReply>;
 }

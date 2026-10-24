@@ -15,6 +15,7 @@ import type { MessageRow } from '../db/schema';
 import { ApiError, notFound } from '../middleware/errors';
 import type { ConversationRepository } from '../repositories/conversations';
 import type { PhotoService } from '../services/photos';
+import type { CareGuideIndex } from './care-guides';
 import type { ReadModel } from './read-model';
 import { ASSISTANT_TOOLS, runTool } from './tools';
 
@@ -22,6 +23,7 @@ interface Deps {
   ai: AiService;
   conversations: ConversationRepository;
   data: ReadModel;
+  guides: Pick<CareGuideIndex, 'search'>;
   photos: Pick<PhotoService, 'load'>;
   now?: () => Date;
 }
@@ -55,6 +57,7 @@ function instructions(opts: {
     '',
     'Rules:',
     "- Base answers on the owner's data and the catalog guides from your tools, not guesses. Use get_care_signals for advice about a plant's care.",
+    "- For a symptom or problem (what the leaves look like, what went wrong), call search_care_guides with the symptom in plain English words (translate it if needed), passing the plant's speciesId when it has one.",
     '- When advice comes from the species guide, say so (for example, "the Monstera guide says…").',
     "- Say when you're unsure or the data doesn't say, and suggest what the owner could check.",
     '- Mention toxicity for pets and children when it matters. Toxicity comes only from catalog guides: for a plant without one, say it is unknown and suggest checking a reliable source, never call it safe.',
@@ -79,7 +82,7 @@ export interface PreparedMessage {
 const summarySchema = z.strictObject({ summary: z.string() });
 
 /** The read-only assistant: conversations stored in SQLite, answers streamed from the model. */
-export function createAssistantService({ ai, conversations, data, photos, now = () => new Date() }: Deps) {
+export function createAssistantService({ ai, conversations, data, guides, photos, now = () => new Date() }: Deps) {
   function getRow(id: string) {
     const row = conversations.get(id);
     if (!row) throw notFound('Conversation');
@@ -217,7 +220,7 @@ export function createAssistantService({ ai, conversations, data, photos, now = 
       const input0 = await historyItems(recent, { row: question, image });
       const speciesId = conversation.plantId ? (data.plant(conversation.plantId)?.speciesId ?? null) : null;
       const system = instructions({ lang: input.lang, today: data.today(), plant: conversation.plant, speciesId, summary: row.summary });
-      const ctx = { data, lang: input.lang };
+      const ctx = { data, guides, lang: input.lang };
       const trace: { tool: string; arguments: string }[] = [];
 
       let answer = '';
@@ -245,7 +248,7 @@ export function createAssistantService({ ai, conversations, data, photos, now = 
             if ((ASSISTANT_TOOL_NAMES as readonly string[]).includes(call.name)) {
               await emit({ type: 'status', tool: call.name as AssistantToolName });
             }
-            items.push({ type: 'tool-result', callId: call.callId, output: JSON.stringify(runTool(call.name, call.arguments, ctx)) });
+            items.push({ type: 'tool-result', callId: call.callId, output: JSON.stringify(await runTool(call.name, call.arguments, ctx)) });
           }
         }
       } catch (err) {

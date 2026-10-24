@@ -131,6 +131,22 @@ Reasoning items are passed back between tool rounds in encrypted form
 one `ai_requests` row. `care/signals.ts` computes rule-based care facts the assistant reads through
 `get_care_signals`. See [NEXT_STAGE_DESIGN.md](NEXT_STAGE_DESIGN.md).
 
+### Care-guide search
+
+`search_care_guides` finds guide sections by meaning ("brown crispy edges"), not by plant name.
+`assistant/care-guides.ts` splits each species' guide into sections per language (overview, each care
+topic, over/underwatering signs, warning signs, each common problem, toxicity) and embeds the English
+ones with `OPENAI_EMBEDDING_MODEL` (default `text-embedding-3-small`). The vectors live in the
+`care_guide_sections` table, since the catalog directory is read-only in Docker. On startup the api
+embeds only sections whose text or embedding model changed and deletes removed ones, usually making no
+request at all; if AI is unavailable then, the first search does it. Ranking is always in English: the
+tool asks the model for an English query, even in a Hebrew conversation, because Hebrew queries against
+Hebrew sections ranked poorly. A search embeds the query (one request), compares it in memory with the
+English sections (about 220), and returns the top 5 in the conversation's language. Embedding calls go through the AI service like any other call: kind `embed`, logged,
+counted toward the monthly limit. When search is unavailable the tool tells the model, which can fall
+back to `get_species_guide`. `npm run eval:guides` checks retrieval against real embeddings with
+symptom questions that have known answers (`scripts/care-guide-questions.json`).
+
 ### Push notifications
 
 `push/service.ts` runs inside the API process (`start()` in `index.ts`): every minute it checks the

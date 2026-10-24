@@ -498,7 +498,8 @@
       "get_health_checks": "Reading past health checks…",
       "get_care_signals": "Checking the plant's conditions…",
       "search_species": "Searching the catalog…",
-      "get_species_guide": "Reading the species guide…"
+      "get_species_guide": "Reading the species guide…",
+      "search_care_guides": "Searching the care guides…"
     },
     "delete": "Delete conversation",
     "deleteConfirm": "Delete this conversation?",

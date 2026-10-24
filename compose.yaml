@@ -21,6 +21,7 @@ services:
       # AI features. Only this service gets the key; the web container and browser never do.
       OPENAI_API_KEY: ${OPENAI_API_KEY:-}
       OPENAI_MODEL: ${OPENAI_MODEL:-}
+      OPENAI_EMBEDDING_MODEL: ${OPENAI_EMBEDDING_MODEL:-}
       AI_TIMEOUT_MS: ${AI_TIMEOUT_MS:-60000}
       # Web Push keys, created once with `npm run push:keys -w apps/api -- --subject mailto:you@example.com`.
       VAPID_PUBLIC_KEY: ${VAPID_PUBLIC_KEY:-}

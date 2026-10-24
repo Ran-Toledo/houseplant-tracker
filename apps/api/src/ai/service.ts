@@ -117,6 +117,26 @@ export function createAiService({ provider, settings, requests, now = () => new 
       return { ...step, requestId };
     },
 
+    /** Embeds texts in one model call (logged and counted like any other). Throws an `ApiError`. */
+    async embed(context: RequestContext, inputs: string[]): Promise<number[][]> {
+      const active = assertAvailable();
+      const started = now().getTime();
+      const log = logger(context, active.embeddingModel, started, randomUUID());
+      let reply;
+      try {
+        reply = await active.embed(inputs);
+      } catch (err) {
+        failure(err, context, log);
+      }
+      log('ok', reply.usage);
+      return reply.vectors;
+    },
+
+    /** The embedding model vectors are made with; null when no provider is configured. */
+    embeddingModel(): string | null {
+      return provider?.embeddingModel ?? null;
+    },
+
     /**
      * Sends a structured request and returns the validated answer with the id of
      * its `ai_requests` row, or throws an `ApiError`.

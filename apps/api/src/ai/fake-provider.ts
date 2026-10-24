@@ -3,6 +3,7 @@ import {
   type AiProvider,
   type ChatRequest,
   type ChatStep,
+  type EmbedReply,
   type ProviderErrorCode,
   type ProviderReply,
   type StructuredRequest,
@@ -22,24 +23,57 @@ export type FakeChatBehaviour =
   | { refusal: string }
   | { error: ProviderErrorCode };
 
+/** What the fake should do for one embedding request. */
+export type FakeEmbedBehaviour = { vectors: number[][] } | { error: ProviderErrorCode };
+
+const FAKE_DIMENSIONS = 256;
+
+/**
+ * A deterministic stand-in for a real embedding: words hashed into buckets,
+ * normalized. Texts sharing words score higher, which is enough to test ranking.
+ */
+export function fakeEmbedding(text: string): number[] {
+  const vector = new Array<number>(FAKE_DIMENSIONS).fill(0);
+  for (const word of text.toLocaleLowerCase().match(/[\p{L}\p{N}]+/gu) ?? []) {
+    let hash = 0;
+    for (const char of word) hash = (hash * 31 + char.codePointAt(0)!) >>> 0;
+    vector[hash % FAKE_DIMENSIONS]! += 1;
+  }
+  const norm = Math.hypot(...vector) || 1;
+  return vector.map((v) => v / norm);
+}
+
 /**
  * In-memory provider for tests: never touches the network. `respond` decides
- * the reply per request and `chat` per chat step; every request is recorded.
+ * the reply per request, `chat` per chat step and `embedding` per embedding
+ * request; every request is recorded.
  */
 export function createFakeProvider(
   respond: (request: StructuredRequest) => FakeBehaviour,
   model = 'fake-model',
   chat: (request: ChatRequest) => FakeChatBehaviour = () => ({ text: 'Fake answer.' }),
+  embedding: (inputs: string[]) => FakeEmbedBehaviour = (inputs) => ({ vectors: inputs.map(fakeEmbedding) }),
 ) {
   const requests: StructuredRequest[] = [];
   const chatRequests: ChatRequest[] = [];
+  const embedRequests: string[][] = [];
   const usage = { inputTokens: 100, outputTokens: 20 };
   let calls = 0;
 
-  const provider: AiProvider & { requests: StructuredRequest[]; chatRequests: ChatRequest[] } = {
+  const provider: AiProvider & { requests: StructuredRequest[]; chatRequests: ChatRequest[]; embedRequests: string[][] } = {
     model,
+    embeddingModel: 'fake-embedding',
     requests,
     chatRequests,
+    embedRequests,
+
+    async embed(inputs): Promise<EmbedReply> {
+      embedRequests.push([...inputs]);
+      const behaviour = embedding(inputs);
+      if ('error' in behaviour) throw new AiProviderError(behaviour.error, `fake ${behaviour.error}`);
+      return { vectors: behaviour.vectors, usage: { inputTokens: inputs.length * 10, outputTokens: null } };
+    },
+
     async generateStructured(request): Promise<ProviderReply> {
       requests.push(request);
       const behaviour = respond(request);

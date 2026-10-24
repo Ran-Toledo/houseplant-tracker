@@ -1,5 +1,5 @@
 import { sql } from 'drizzle-orm';
-import { index, integer, real, sqliteTable, text, uniqueIndex } from 'drizzle-orm/sqlite-core';
+import { blob, index, integer, real, sqliteTable, text, uniqueIndex } from 'drizzle-orm/sqlite-core';
 import {
   ACTIVITY_TYPES,
   AI_CONFIDENCES,
@@ -92,7 +92,7 @@ export const settings = sqliteTable('settings', {
   updatedAt: text('updated_at').notNull(),
 });
 
-export const AI_REQUEST_KINDS = ['identify', 'health', 'chat', 'check'] as const;
+export const AI_REQUEST_KINDS = ['identify', 'health', 'chat', 'check', 'embed'] as const;
 export const AI_REQUEST_STATUSES = ['ok', 'invalid-output', 'refused', 'error', 'timeout'] as const;
 
 /** One row per model call, for usage stats, the monthly limit and debugging. */
@@ -231,6 +231,33 @@ export const notifications = sqliteTable(
   (t) => [uniqueIndex('notifications_channel_date_idx').on(t.channel, t.digestDate)],
 );
 
+/**
+ * Care-guide sections from the species catalog with their embeddings, for the
+ * assistant's semantic search. Derived data: rebuilt from the catalog when its
+ * text or the embedding model changes.
+ */
+export const careGuideSections = sqliteTable(
+  'care_guide_sections',
+  {
+    /** `<speciesId>:<lang>:<sectionKey>`. */
+    id: text('id').primaryKey(),
+    /** Not a foreign key: the catalog lives outside SQLite. */
+    speciesId: text('species_id').notNull(),
+    lang: text('lang', { enum: LANGUAGES }).notNull(),
+    sectionKey: text('section_key').notNull(),
+    title: text('title').notNull(),
+    content: text('content').notNull(),
+    /** SHA-256 of the embedded text, to find sections whose text changed. */
+    contentHash: text('content_hash').notNull(),
+    /** Embedding model the vector was made with. */
+    model: text('model').notNull(),
+    /** Float32 vector, little-endian. */
+    vector: blob('vector', { mode: 'buffer' }).notNull(),
+    ...timestamps,
+  },
+  (t) => [index('care_guide_sections_lang_idx').on(t.lang)],
+);
+
 export type PlantRow = typeof plants.$inferSelect;
 export type ActivityRow = typeof activities.$inferSelect;
 export type PhotoRow = typeof photos.$inferSelect;
@@ -241,3 +268,4 @@ export type ConversationRow = typeof conversations.$inferSelect;
 export type MessageRow = typeof messages.$inferSelect;
 export type PushSubscriptionRow = typeof pushSubscriptions.$inferSelect;
 export type NotificationRow = typeof notifications.$inferSelect;
+export type CareGuideSectionRow = typeof careGuideSections.$inferSelect;
