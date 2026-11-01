@@ -4,8 +4,9 @@ A personal, mobile-first web app for keeping track of your houseplants: photos, 
 its pot and soil, its health, and a history of watering, feeding, repotting and other care. Every plant can
 be linked to a species from a bilingual (English/Hebrew) care-guide catalog.
 
-It runs on your own Windows PC with Docker and is used from desktop browsers and from an iPhone on the same
-Wi-Fi. It is built for one person; there are no accounts. It makes **no AI or other external service calls**.
+It runs on your own Windows PC with Docker and is used from a browser on that PC and from an iPhone over
+Tailscale HTTPS (see [Phone notifications](#phone-notifications-web-push)); it isn't reachable from the
+Wi-Fi or other networks. It is built for one person; there are no accounts. It makes **no AI or other external service calls**.
 
 - English and Hebrew UI, with full right-to-left layout in Hebrew
 - Plant collection with search, condition and location filters
@@ -155,7 +156,9 @@ one daily notification (see below).
 Optional: one notification a day, at the time set in *Settings → Notifications* (default 08:30), listing
 the plants whose soil check is due. Nothing is sent on days when nothing is due, or during a vacation
 pause. iPhones only allow Web Push for a web app added to the Home Screen and opened over HTTPS with a
-trusted certificate, so the app is published on your tailnet with Tailscale. One-time setup:
+trusted certificate, so the app is published on your tailnet with Tailscale. This is also the only way
+to open the app from a phone: the web port is bound to `127.0.0.1`, so it isn't reachable on the Wi-Fi
+address, and the phone needs the Tailscale app connected even at home. One-time setup:
 
 1. **Tailscale HTTPS:** in the Tailscale admin console (DNS page), keep MagicDNS on and enable
    *HTTPS Certificates*. Tailscale must be installed and signed in on the PC and the iPhone.
@@ -274,9 +277,12 @@ folders; they never touch `storage/`.
 
 ## Security notes
 
-This is a single-user app for a trusted home network. There is **no authentication**: anyone on your
-Wi-Fi who knows the address can view and change your plants.
+This is a single-user app. There is **no authentication**, so access is limited by the network instead:
+the web port is published on `127.0.0.1` only, and other devices reach the app only through
+`tailscale serve` at the `https://<pc>.<tailnet>.ts.net` address. Anyone in your tailnet can view and
+change your plants; devices on your Wi-Fi or other networks can't reach it at all.
 
+- Phones need the Tailscale app connected to open the app, even at home on the same Wi-Fi.
 - The API port is published on `127.0.0.1` only; other devices reach it only through the web app's
   `/api` proxy.
 - All input is validated with Zod; SQL goes through Drizzle's parameterized queries.

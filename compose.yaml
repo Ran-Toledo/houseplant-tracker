@@ -51,8 +51,8 @@ services:
     init: true
     restart: unless-stopped
     ports:
-      # All interfaces, so phones on the local network can reach it.
-      - "${WEB_PORT:-5173}:5173"
+      # Localhost only. Phones use the Tailscale HTTPS address (`tailscale serve` proxies to this port).
+      - "127.0.0.1:${WEB_PORT:-5173}:5173"
     depends_on:
       api:
         condition: service_started

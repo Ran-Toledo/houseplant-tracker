@@ -13,14 +13,15 @@ browser at phone size, in English and Hebrew.
 - [x] Node.js + TypeScript + Hono backend, `GET /api/health`
 - [x] Shared strict TypeScript config (`tsconfig.base.json`)
 - [x] Dockerfiles (repo-root build context, cached `npm ci`, non-root `node` user)
-- [x] `compose.yaml`: `web` (all interfaces) and `api` (localhost only); host ports configurable in `.env`
+- [x] `compose.yaml`: `web` and `api` both published on localhost only (`web` was first on all interfaces; phones now use the Tailscale HTTPS address); host ports configurable in `.env`
 - [x] Bind mounts: `./storage` (rw), `./species-catalog` (ro), source dirs for hot reload
 - [x] Vite proxies `/api` to the `api` service over the Compose network
 - [x] Hot reload for API (`tsx watch`) and web (Vite HMR), using polling because Windows host file events don't reach Linux containers
 - [x] `.env.example`, `.gitignore`, `.dockerignore`
 
 Verified: `docker compose up --build` starts both services. `/api/health` answers directly and through the
-proxy, and the app answers on the Wi-Fi address. Source edits reload without rebuilds. Data in
+proxy, and the app answered on the Wi-Fi address (later restricted to localhost; phones now use the
+Tailscale HTTPS address; see the README). Source edits reload without rebuilds. Data in
 `./storage` survives `down`/`up` and `--build`.
 [~] Access from a real iPhone must be confirmed on the device.
 
