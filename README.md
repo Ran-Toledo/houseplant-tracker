@@ -84,7 +84,7 @@ From the repository folder:
 docker compose up --build
 ```
 
-Open `http://localhost:<WEB_PORT>` (the port is set in `.env`; see `.env.example`). Add `-d` to run in
+Open `http://localhost:<WEB_HOST_PORT>` (the port is set in `.env`; see `.env.example`). Add `-d` to run in
 the background, and view logs with
 `docker compose logs -f`. The first build takes a few minutes, mostly compiling the SQLite driver.
 
@@ -115,8 +115,8 @@ even when idle, so switch back to the release setup when you're done.
 scratch and never touches `./storage`. To start over with an empty collection, first make a backup (below),
 stop the app, then move the `storage` folder somewhere else — do not delete it unless you are sure.
 
-Configuration (optional): copy `.env.example` to `.env` to change the web port (`WEB_PORT`), the
-localhost-only API port (`API_PORT`) or the upload limit (`MAX_UPLOAD_MB`). The only secret is the
+Configuration (optional): copy `.env.example` to `.env` to change the web port (`WEB_HOST_PORT`), the
+localhost-only API port (`API_HOST_PORT`) or the upload limit (`MAX_UPLOAD_MB`). The only secret is the
 optional OpenAI key (see [AI features](#ai-features)).
 
 ## How data is stored
@@ -165,7 +165,7 @@ address, and the phone needs the Tailscale app connected even at home. One-time 
 2. **Publish the app on the tailnet** (on the PC; it keeps running in the background):
 
    ```bash
-   tailscale serve --bg 5173
+   tailscale serve --bg <WEB_HOST_PORT>
    ```
 
    `tailscale serve status` shows the address, `https://<pc>.<tailnet>.ts.net`. It's reachable only from

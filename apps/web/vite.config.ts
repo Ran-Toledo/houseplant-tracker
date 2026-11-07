@@ -11,7 +11,8 @@ export default defineConfig({
   plugins: [react(), tailwindcss()],
   server: {
     host: '0.0.0.0',
-    port: 5173,
+    // Inside Docker (compose.dev.yaml) WEB_PORT is 3000; run natively it stays on Vite's 5173.
+    port: Number(process.env.WEB_PORT ?? 5173),
     strictPort: true,
     // IP addresses and localhost are always allowed; also accept mDNS names like my-pc.local
     // and the Tailscale HTTPS address (*.ts.net).
