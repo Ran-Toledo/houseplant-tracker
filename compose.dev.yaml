@@ -17,8 +17,10 @@ services:
     build:
       target: dev
     environment:
-      API_PROXY_TARGET: http://api:3000
+      API_PROXY_TARGET: http://api:8000
       VITE_USE_POLLING: "true"
+      # Vite listens on the same container port as the release nginx, so compose.yaml's port mapping fits both.
+      WEB_PORT: "3000"
     volumes:
       - ./apps/web/src:/app/apps/web/src
       - ./apps/web/public:/app/apps/web/public

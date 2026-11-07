@@ -20,7 +20,7 @@ ENV NODE_ENV=development
 # Vite writes a bundled config next to vite.config.ts and caches in node_modules/.vite.
 RUN mkdir -p node_modules/.vite && chown -R node:node apps/web node_modules/.vite
 USER node
-EXPOSE 5173
+EXPOSE 3000
 WORKDIR /app/apps/web
 CMD ["npm", "run", "dev"]
 
@@ -30,4 +30,4 @@ RUN npm run build --workspace apps/web
 FROM nginx:1.28-alpine AS release
 COPY apps/web/nginx.conf /etc/nginx/conf.d/default.conf
 COPY --from=build /app/apps/web/dist /usr/share/nginx/html
-EXPOSE 5173
+EXPOSE 3000

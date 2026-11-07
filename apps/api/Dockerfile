@@ -30,7 +30,7 @@ ENV NODE_ENV=development
 # Run as the unprivileged user that ships with the Node image.
 RUN mkdir -p /app/storage && chown -R node:node /app/storage
 USER node
-EXPOSE 3000
+EXPOSE 8000
 WORKDIR /app/apps/api
 CMD ["npm", "run", "dev"]
 
@@ -55,6 +55,6 @@ COPY apps/api/drizzle apps/api/drizzle
 COPY --from=build /app/apps/api/dist apps/api/dist
 RUN mkdir -p /app/storage && chown -R node:node /app/storage
 USER node
-EXPOSE 3000
+EXPOSE 8000
 WORKDIR /app/apps/api/dist
 CMD ["node", "index.js"]

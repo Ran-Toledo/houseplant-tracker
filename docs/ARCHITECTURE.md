@@ -18,7 +18,7 @@ it's bundled into the release builds of both apps, and compiled on the fly by Vi
 network; both are published on `127.0.0.1` only. Phones and other devices reach the app through
 `tailscale serve`, which proxies `https://<pc>.<tailnet>.ts.net` to the local web port, so it isn't
 reachable from the Wi-Fi or other networks, and phones need the Tailscale app connected even at home.
-Host ports are set in `.env` (`WEB_PORT`, `API_PORT`; see `.env.example`). SQLite runs inside the API process; there's no database
+Host ports are set in `.env` (`WEB_HOST_PORT`, `API_HOST_PORT`; see `.env.example`). Inside the containers `web` listens on 3000 and `api` on 8000. SQLite runs inside the API process; there's no database
 container.
 
 **Release builds by default, dev servers on request.** Each Dockerfile has a `release` and a `dev` target.
